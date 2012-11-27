@@ -10151,6 +10151,13 @@ public final class Settings {
         private static final Validator LOCKSCREEN_VISUALIZER_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+        /**
+         * Whether to display the ADB notification.
+         * @hide
+         */
+        public static final String ADB_NOTIFY = "adb_notify";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
