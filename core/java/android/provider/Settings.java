@@ -9505,6 +9505,12 @@ public final class Settings {
         public static final String VOLUME_LINK_NOTIFICATION = "volume_link_notification";
 
         /**
+         * Whether to display the ADB notification.
+         * @hide
+         */
+        public static final String ADB_NOTIFY = "adb_notify";
+
+        /**
          * Wheter to have transparent background on lockscreen notifications
          *
          * @hide
