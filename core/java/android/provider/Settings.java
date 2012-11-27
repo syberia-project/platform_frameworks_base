@@ -9885,6 +9885,12 @@ public final class Settings {
         public static final String EDGE_GESTURES_BACK_SHOW_UI_FEEDBACK = "edge_gestures_back_show_ui_feedback";
 
         /**
+         * Whether to display the ADB notification.
+         * @hide
+         */
+        public static final String ADB_NOTIFY = "adb_notify";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
