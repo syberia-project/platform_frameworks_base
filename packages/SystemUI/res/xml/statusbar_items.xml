@@ -99,11 +99,6 @@
         android:key="microphone"
         android:title="@string/status_bar_microphone" />
 
-    <com.android.systemui.tuner.ClockPreference
-        android:title="@string/tuner_time"
-        android:summary="%s"
-        android:entries="@array/clock_options" />
-
     <com.android.systemui.tuner.BatteryPreference
         android:title="@string/battery"
         android:summary="%s"
