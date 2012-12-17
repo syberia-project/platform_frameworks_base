@@ -5763,6 +5763,64 @@ public final class Settings {
         public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
 
         /**
+         * Show or hide clock
+         * 0 - hide
+         * 1 - show (default)
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK = "status_bar_clock";
+
+        /**
+         * Style of clock
+         * 0 - Left Clock (default)
+         * 1 - Center Clock
+         * 2 - Right Clock
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_STYLE = "statusbar_clock_style";
+
+        /**
+         * Whether to show seconds next to clock in status bar
+         * 0 - hide (default)
+         * 1 - show
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SECONDS = "status_bar_clock_seconds";
+
+        /**
+         * AM/PM Style for clock options
+         * 0 - Normal AM/PM
+         * 1 - Small AM/PM
+         * 2 - No AM/PM  (default)
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_AM_PM_STYLE = "statusbar_clock_am_pm_style";
+
+        /**
+         * Shows custom date before clock time
+         * 0 - No Date
+         * 1 - Small Date
+         * 2 - Normal Date
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_DISPLAY = "statusbar_clock_date_display";
+
+        /**
+         * Sets the date string style
+         * 0 - Regular style
+         * 1 - Lowercase
+         * 2 - Uppercase
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_STYLE = "statusbar_clock_date_style";
+
+        /**
+         * Stores the java DateFormat string for the date
+         * @hide
+         */
+        public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -5947,6 +6005,13 @@ public final class Settings {
             PRIVATE_SETTINGS.add(ANIM_TILE_INTERPOLATOR);
             PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
             PRIVATE_SETTINGS.add(CALL_CONNECTED_TONE_ENABLED);
+            PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_STYLE);
+            PRIVATE_SETTINGS.add(STATUS_BAR_CLOCK_SECONDS);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_AM_PM_STYLE);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_DISPLAY);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
+            PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
         }
 
         /**
