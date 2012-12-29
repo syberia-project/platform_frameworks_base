@@ -4603,6 +4603,12 @@ public final class Settings {
         public static final String ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER = "call_volume_answer";
 
         /**
+         * home answer
+         * @hide
+         */
+        public static final String ANSWER_HOME_BUTTON_BEHAVIOR_ANSWER = "call_home_answer";
+
+        /**
          * Select various accents to go along with system themes
          *
          * @hide

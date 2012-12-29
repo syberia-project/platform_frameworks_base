@@ -780,6 +780,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // The volume key answer
     boolean mVolumeAnswer;
 
+    // Behavior of HOME button during an incoming call.
+    boolean mHomeAnswer;
+
     Display mDisplay;
 
     int mLandscapeRotation = 0;  // default landscape rotation
@@ -1125,6 +1128,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ANSWER_HOME_BUTTON_BEHAVIOR_ANSWER), false, this,
                     UserHandle.USER_ALL);
 	    resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PROXIMITY_ON_WAKE), false, this,
@@ -2789,6 +2795,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mVolumeAnswer = (Settings.System.getIntForUser(resolver,
                     Settings.System.ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER, 0, UserHandle.USER_CURRENT) == 1);
 
+            mHomeAnswer = (Settings.System.getIntForUser(resolver,
+                    Settings.System.ANSWER_HOME_BUTTON_BEHAVIOR_ANSWER, 0,
+                    UserHandle.USER_CURRENT) == 1);
+
             mUseGestureButton = Settings.System.getIntForUser(resolver,
                     Settings.System.OMNI_USE_BOTTOM_GESTURE_NAVIGATION, 0,
                     UserHandle.USER_CURRENT) != 0;
@@ -4041,6 +4051,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (canceled) {
                     Log.i(TAG, "Ignoring HOME; event canceled.");
                     return -1;
+                }
+
+                if (mHomeAnswer) {
+                    final TelecomManager telecomManager = getTelecommService();
+                    if (telecomManager != null && telecomManager.isRinging()) {
+                        telecomManager.acceptRingingCall();
+                        return -1;
+                    }
                 }
 
                 // Delay handling home if a double-tap is possible.
