@@ -45,4 +45,9 @@
     <java-symbol name="reboot_system_title" type="string" />
     <java-symbol name="reboot_system_message" type="string" />
     <java-symbol type="array" name="config_rebootActionsList" />
+
+    <!-- Button backlight -->
+    <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
+    <java-symbol type="bool" name="config_deviceHasVariableButtonBrightness" />
+
 </resources>
