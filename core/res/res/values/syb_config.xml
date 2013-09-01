@@ -43,4 +43,8 @@
     <!-- Whether to handle audio direction changes between major call states -->
     <bool name="config_handleAudioDirectionChangesBetweenCallStateChanges">true</bool>
 
+    <!-- The list of components which should be automatically disabled. -->
+    <string-array name="config_disabledComponents" translatable="false">
+    </string-array>
+
 </resources>
