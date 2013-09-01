@@ -2082,6 +2082,23 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
                 }
             }
 
+            // Disable components marked for disabling at build-time
+            for (String name : mContext.getResources().getStringArray(
+                    com.android.internal.R.array.config_disabledComponents)) {
+                ComponentName component = ComponentName.unflattenFromString(name);
+                Slog.v(TAG, "Disabling " + name);
+                String packageName = component.getPackageName();
+                String className = component.getClassName();
+                AndroidPackage pkg = packageName != null ? mPackages.get(packageName) : null;
+                PackageSetting pkgSetting = mSettings.getPackageLPr(packageName);
+                if (pkgSetting == null || pkg == null
+                        || !AndroidPackageUtils.hasComponentClassName(pkg, className)) {
+                    Slog.w(TAG, "Unable to disable " + name);
+                    continue;
+                }
+                pkgSetting.disableComponentLPw(className, UserHandle.USER_OWNER);
+            }
+
             // If this is first boot after an OTA, and a normal boot, then
             // we need to clear code cache directories.
             // Note that we do *not* clear the application profiles. These remain valid
