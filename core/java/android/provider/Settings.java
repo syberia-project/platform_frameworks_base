@@ -5541,6 +5541,12 @@ public final class Settings {
          */
         public static final String GAMING_MODE_DYNAMIC_STATE = "gaming_mode_dynamic_state";
 
+	/**
+         * Allow users to pull down the status bar quickly
+         * @hide
+         */
+        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
+
         /**
          * Whether to enable Ambient edge light
          * @hide
