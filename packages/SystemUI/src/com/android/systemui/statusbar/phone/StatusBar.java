@@ -3949,6 +3949,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS),
                     false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -3964,6 +3967,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             setGamingMode();
             updateDoubleTapGestures();
             setPulseOnNewTracks();
+	    if (mNotificationPanel != null) {
+                mNotificationPanel.updateSettings();
+            }
         }
     }
 
