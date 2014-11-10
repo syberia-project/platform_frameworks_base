@@ -1806,7 +1806,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         return mPresenter;
     }
 
-
     /**
      * All changes to the status bar and notifications funnel through here and are batched.
      */
@@ -3948,6 +3947,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.PULSE_ON_NEW_TRACKS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN),
                     false, this, UserHandle.USER_ALL);
         }
          @Override
