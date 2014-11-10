@@ -451,6 +451,8 @@ public class NotificationPanelView extends PanelView implements
     private boolean mAllowExpandForSmallExpansion;
     private Runnable mExpandAfterLayoutRunnable;
 
+    private int mOneFingerQuickSettingsIntercept;
+
     /**
      * If face auth with bypass is running for the first time after you turn on the screen.
      * (From aod or screen off)
@@ -1413,7 +1415,25 @@ public class NotificationPanelView extends PanelView implements
                 && (event.isButtonPressed(MotionEvent.BUTTON_SECONDARY)
                 || event.isButtonPressed(MotionEvent.BUTTON_TERTIARY));
 
-        return twoFingerDrag || stylusButtonClickDrag || mouseButtonClickDrag;
+        final float w = getMeasuredWidth();
+        final float x = event.getX();
+        float region = w * 1.f / 3.f; // TODO overlay region fraction?
+        boolean showQsOverride = false;
+
+        switch (mOneFingerQuickSettingsIntercept) {
+            case 1: // Right side pulldown
+                showQsOverride = isLayoutRtl() ? x < region : w - region < x;
+                break;
+            case 2: // Left side pulldowngit cherry-pick --continue"
+                showQsOverride = isLayoutRtl() ? w - region < x : x < region;
+                break;
+            case 3: // Always
+                showQsOverride = true;
+                break;
+        }
+        showQsOverride &= mBarState == StatusBarState.SHADE;
+
+        return showQsOverride || twoFingerDrag || stylusButtonClickDrag || mouseButtonClickDrag;
     }
 
     private void handleQsDown(MotionEvent event) {
@@ -3626,4 +3646,9 @@ public class NotificationPanelView extends PanelView implements
         mOnReinflationListener = onReinflationListener;
     }
 
+    public void updateSettings() {
+        mOneFingerQuickSettingsIntercept = Settings.System.getIntForUser(
+                mContext.getContentResolver(), Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
+                0, UserHandle.USER_CURRENT);
+    }
 }
