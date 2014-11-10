@@ -915,7 +915,6 @@ public class StatusBarWindowView extends FrameLayout {
         }
         if (mDragDownHelper != null) {
             mDragDownHelper.updateDoubleTapToSleep(doubleTapToSleepEnabled);
-        }
+	}
     }
 }
-
