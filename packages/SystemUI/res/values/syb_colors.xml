@@ -19,5 +19,12 @@
 
     <!-- Color of the FOD view -->
     <color name="config_fodColor">#00ff00</color>
+    
+    <!-- OnTheSpot: OTS snackbar background color. -->
+    <color name="on_the_spot_background">#FF263238</color>
+    <!-- OnTheSpot: OTS snackbar background shadow color. -->
+    <color name="on_the_spot_shadow">#33000000</color>
+    <!-- OnTheSpot: OTS snackbar action denial button text color. -->
+    <color name="on_the_spot_deny_text">#FF9B9B9B</color>
 
 </resources>

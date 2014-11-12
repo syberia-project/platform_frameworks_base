@@ -73,5 +73,10 @@
     <string name="status_bar_volte">VoLTE</string>
     <string name="status_bar_roaming">Roaming</string>
     <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+    
+    <!-- OnTheSpot: Action denial button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_deny">NO THANKS</string>
+    <!-- OnTheSpot: Action confirmation button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_confirm">OKAY</string>
 
 </resources>

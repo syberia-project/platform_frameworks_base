@@ -7419,5 +7419,8 @@ message MetricsEvent {
     // END OF AOSP CONSTANTS
 
     SYBERIA = 4200;
+
+    // Settings -> Backup & Reset -> Feature Preferences
+    FEATURE_PREFERENCES = 9001;
   }
 }
