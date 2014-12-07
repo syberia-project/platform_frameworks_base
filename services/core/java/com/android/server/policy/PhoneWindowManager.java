@@ -666,6 +666,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private Sensor mProximitySensor;
     private boolean mProxiWakeupCheckEnabled;
     private boolean mProxiListenerEnabled;
+    private boolean mHasPermanentMenuKey;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -762,11 +763,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 case HardkeyActionHandler.MSG_FIRE_HOME:
                     launchHomeFromHotKey(DEFAULT_DISPLAY);
                     break;
-//                case HardkeyActionHandler.MSG_UPDATE_MENU_KEY:
-//                    synchronized (mLock) {
-//                        mHasPermanentMenuKey = msg.arg1 == 1;
-//                    }
-//                    break;
+                case HardkeyActionHandler.MSG_UPDATE_MENU_KEY:
+                    synchronized (mLock) {
+                        mHasPermanentMenuKey = msg.arg1 == 1;
+                    }
+                    break;
                 case HardkeyActionHandler.MSG_DO_HAPTIC_FB:
                     performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false, "Hardkey Long-Press");
                     break;
@@ -5577,6 +5578,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHandler.post(mScreenshotRunnable);
             }
         }
+    }
+
+    @Override
+    public boolean hasPermanentMenuKey() {
+        return !hasNavigationBar() && mHasPermanentMenuKey;
     }
 
     @Override
