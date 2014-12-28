@@ -87,4 +87,7 @@
     <java-symbol type="bool" name="config_filterDisplayModes" />
     <java-symbol type="array" name="config_displayModeMappings" />
 
+    <!-- Screenrecord -->
+    <java-symbol type="bool" name="config_enableScreenrecordChord" />
+
 </resources>

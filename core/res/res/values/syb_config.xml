@@ -89,6 +89,8 @@
     <!-- Should we filter any display modes which are unampped? -->
     <bool name="config_filterDisplayModes">false</bool>
 
+    <!-- If this is true, key chords can be used to take a screen record on the device. -->
+    <bool name="config_enableScreenrecordChord">true</bool>
 
 </resources>
 

@@ -55,4 +55,17 @@
     <string name="qs_menu_item_reset">Reset</string>
     <string name="qs_menu_item_titles">Show labels</string>
 
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Screen is being recorded</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Recording screen</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Stop</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Show pointer</string>
+    <string name="screenrecord_notif_pointer_off">Hide pointer</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Unable to record screen</string>
+    <string name="notification_channel_screenrecord">Screenrecords</string>
+
 </resources>
