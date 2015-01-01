@@ -269,5 +269,6 @@ public class SecureSettings {
         Settings.Secure.CAMERA_EXTENSIONS_FALLBACK,
         Settings.Secure.VISUAL_QUERY_ACCESSIBILITY_DETECTION_ENABLED,
         Settings.Secure.ADVANCED_REBOOT,
+        Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
     };
 }
