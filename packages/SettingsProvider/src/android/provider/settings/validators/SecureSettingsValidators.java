@@ -338,5 +338,6 @@ public class SecureSettingsValidators {
         });
         VALIDATORS.put(Secure.ODI_CAPTIONS_VOLUME_UI_ENABLED, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.ADVANCED_REBOOT, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.QUICK_SETTINGS_TILES_VIBRATE, BOOLEAN_VALIDATOR);
     }
 }
