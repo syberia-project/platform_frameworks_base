@@ -259,5 +259,6 @@ public class SecureSettings {
         Settings.Secure.EVEN_DIMMER_ACTIVATED,
         Settings.Secure.EVEN_DIMMER_MIN_NITS,
         Settings.Secure.ADVANCED_REBOOT,
+        Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
     };
 }
