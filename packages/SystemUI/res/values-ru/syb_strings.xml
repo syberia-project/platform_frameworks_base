@@ -151,4 +151,10 @@
     <!-- OneHand mode QS tile -->
     <string name="qs_onehand_label">Управление одной рукой</string>
 
+    <!-- Sync QS Tile -->
+    <string name="quick_settings_sync_label">Синхронизация</string>
+    <string name="accessibility_quick_settings_sync_off">Синхронизация выкл.</string>
+    <string name="accessibility_quick_settings_sync_on">Синхронизация вкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизация откл.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизация вкл.</string>
 </resources>
