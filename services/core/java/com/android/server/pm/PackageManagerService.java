@@ -858,6 +858,9 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
 
     private final PackageProperty mPackageProperty = new PackageProperty();
 
+    // Build-time disabled components
+    ArrayList<ComponentName> mDisabledComponentsList;
+
     final PendingPackageBroadcasts mPendingBroadcasts;
 
     static final int SEND_PENDING_BROADCAST = 1;
@@ -2083,9 +2086,11 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
             }
 
             // Disable components marked for disabling at build-time
+            mDisabledComponentsList = new ArrayList<ComponentName>();
             for (String name : mContext.getResources().getStringArray(
                     com.android.internal.R.array.config_disabledComponents)) {
                 ComponentName component = ComponentName.unflattenFromString(name);
+                mDisabledComponentsList.add(component);
                 Slog.v(TAG, "Disabling " + name);
                 String packageName = component.getPackageName();
                 String className = component.getClassName();
@@ -2097,6 +2102,23 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
                     continue;
                 }
                 pkgSetting.disableComponentLPw(className, UserHandle.USER_OWNER);
+            }
+
+            // Enable components marked for forced-enable at build-time
+            for (String name : mContext.getResources().getStringArray(
+                    com.android.internal.R.array.config_forceEnabledComponents)) {
+                ComponentName component = ComponentName.unflattenFromString(name);
+                Slog.v(TAG, "Enabling " + name);
+                String packageName = component.getPackageName();
+                String className = component.getClassName();
+                AndroidPackage pkg = packageName != null ? mPackages.get(packageName) : null;
+                PackageSetting pkgSetting = mSettings.getPackageLPr(packageName);
+                if (pkgSetting == null || pkg == null
+                        || !AndroidPackageUtils.hasComponentClassName(pkg, className)) {
+                    Slog.w(TAG, "Unable to enable " + name);
+                    continue;
+                }
+                pkgSetting.enableComponentLPw(className, UserHandle.USER_OWNER);
             }
 
             // If this is first boot after an OTA, and a normal boot, then
@@ -5582,7 +5604,12 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
         public void setComponentEnabledSetting(ComponentName componentName,
                 int newState, int flags, int userId) {
             if (!mUserManager.exists(userId)) return;
-
+            // Don't allow to enable components marked for disabling at build-time
+            if (mDisabledComponentsList.contains(componentName)) {
+                Slog.d(TAG, "Ignoring attempt to set enabled state of disabled component "
+                        + componentName.flattenToString());
+                return;
+            }
             setEnabledSettings(List.of(new PackageManager.ComponentEnabledSetting(componentName, newState, flags)),
                     userId, null /* callingPackage */);
         }
