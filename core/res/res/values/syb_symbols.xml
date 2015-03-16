@@ -40,5 +40,6 @@
 
   <!-- Package Manager -->
   <java-symbol type="array" name="config_disabledComponents" />
+  <java-symbol type="array" name="config_forceEnabledComponents" />
 
 </resources>
