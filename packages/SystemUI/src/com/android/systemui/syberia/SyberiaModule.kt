@@ -21,6 +21,7 @@ import com.android.systemui.qs.tiles.LiveDisplayTile
 import com.android.systemui.qs.tiles.ReadingModeTile
 import com.android.systemui.qs.tiles.DataSwitchTile
 import com.android.systemui.qs.tiles.CaffeineTile
+import com.android.systemui.qs.tiles.HeadsUpTile
 
 import dagger.Binds
 import dagger.Module
@@ -29,6 +30,12 @@ import dagger.multibindings.StringKey
 
 @Module
 interface SyberiaModule {
+    /** Inject HeadsUpTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(HeadsUpTile.TILE_SPEC)
+    fun bindHeadsUpTile(headsUpTile: HeadsUpTile): QSTileImpl<*>
+
     /** Inject CaffeineTile into tileMap in QSModule */
     @Binds
     @IntoMap
