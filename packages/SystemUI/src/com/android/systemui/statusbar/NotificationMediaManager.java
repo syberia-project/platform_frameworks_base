@@ -31,6 +31,7 @@ import android.view.KeyEvent;
 import com.android.systemui.Dumpable;
 import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.statusbar.phone.StatusBar;
+import com.android.systemui.SysUiServiceProvider;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -79,6 +80,10 @@ public class NotificationMediaManager implements Dumpable {
                     clearCurrentMediaNotification();
                     mPresenter.updateMediaMetaData(true, true);
                 }
+                if (mStatusBar != null) {
+                    mStatusBar.getVisualizer().setPlaying(state.getState()
+                            == PlaybackState.STATE_PLAYING);
+                }
 		if (mListener != null) {
 		    setMediaPlaying();
 		}
@@ -122,6 +127,10 @@ public class NotificationMediaManager implements Dumpable {
 
     public MediaMetadata getMediaMetadata() {
         return mMediaMetadata;
+    }
+
+    public MediaController getMediaController() {
+        return mMediaController;
     }
 
     public void findAndUpdateMediaNotifications() {
