@@ -22,4 +22,11 @@
     <string name="keyguard_plugged_in_dash_charging">Dash зарядка</string>
 
     <string name="statusbar_items_title">Редактирование иконок</string>
+
+    <string name="global_action_reboot">Перезагрузка</string>
+    <string name="global_action_reboot_more">Перезагрузка\u2026</string>
+    <string name="global_action_reboot_sub">Система</string>
+    <string name="global_action_reboot_recovery">Рекавери</string>
+    <string name="global_action_reboot_bootloader">Загрузчик</string>
+
 </resources>
