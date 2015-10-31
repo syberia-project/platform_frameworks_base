@@ -391,7 +391,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
     private boolean advancedRebootEnabled(Context context) {
         boolean advancedRebootEnabled = Settings.System.getIntForUser(context.getContentResolver(),
-                Settings.System.OMNI_ADVANCED_REBOOT, 1, UserHandle.USER_CURRENT) == 1;
+                Settings.System.ADVANCED_REBOOT, 1, UserHandle.USER_CURRENT) == 1;
         return advancedRebootEnabled;
     }
 
@@ -642,6 +642,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 buildMenuList();
                 mDialog.updateList();
             } else {
+                mDialog.dismiss();
                 doReboot();
             }
         }
