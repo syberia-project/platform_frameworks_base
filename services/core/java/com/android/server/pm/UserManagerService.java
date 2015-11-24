@@ -3455,7 +3455,7 @@ public class UserManagerService extends IUserManager.Stub {
                     userInfo.creationTime = getCreationTime();
                     userInfo.partial = true;
                     userInfo.preCreated = preCreate;
-                    userInfo.lastLoggedInFingerprint = Build.FINGERPRINT;
+                    userInfo.lastLoggedInFingerprint = Build.DATE;
                     if (userTypeDetails.hasBadge() && parentId != UserHandle.USER_NULL) {
                         userInfo.profileBadge = getFreeProfileBadgeLU(parentId, userType);
                     }
