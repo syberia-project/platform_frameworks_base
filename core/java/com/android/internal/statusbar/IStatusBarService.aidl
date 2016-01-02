@@ -108,6 +108,7 @@ interface IStatusBarService
     void toggleCameraFlash();
     void toggleCameraFlashOn();
     void toggleCameraFlashOff();
+    void setAutoRotate(boolean enabled);
 
     // Start DU methods
     void toggleRecentApps();
