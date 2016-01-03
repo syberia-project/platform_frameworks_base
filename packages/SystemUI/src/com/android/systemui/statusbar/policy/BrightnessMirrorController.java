@@ -17,7 +17,11 @@
 package com.android.systemui.statusbar.policy;
 
 import android.annotation.NonNull;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.res.Resources;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.content.ContentResolver;
@@ -27,6 +31,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.android.internal.util.Preconditions;
 import com.android.systemui.R;
