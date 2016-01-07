@@ -2221,7 +2221,7 @@ public class CarrierConfigManager {
         // Marking it as metered for now can workaround the issue.
         // Todo: This will be fixed in Q when IWLAN full refactoring is completed.
         sDefaults.putStringArray(KEY_CARRIER_METERED_IWLAN_APN_TYPES_STRINGS,
-                new String[]{"default"});
+                new String[]{});
         sDefaults.putBoolean(KEY_CDMA_CW_CF_ENABLED_BOOL, false);
 
         sDefaults.putIntArray(KEY_ONLY_SINGLE_DC_ALLOWED_INT_ARRAY,
