@@ -4660,6 +4660,19 @@ public final class Settings {
          */
         public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
 
+        /**
+         * whether to enable or disable vibration on succesful fingerprint auth
+         *
+         * @hide
+         */
+        public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
+
+        /**
+         * whether to enable or disable vibration on error fingerprint auth
+         *
+         * @hide
+         */
+        public static final String FINGERPRINT_ERROR_VIB = "fingerprint_error_vib";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
