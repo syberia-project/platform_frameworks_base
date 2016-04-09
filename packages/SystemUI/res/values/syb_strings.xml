@@ -47,4 +47,9 @@
     <string name="screenrecord_notif_final_ticker">Screen recorded successfully</string>
     <string name="screenrecord_notif_completed">Screen recorded successfully</string>
     <string name="screenrecord_notif_description">Tap to view your screen recording</string>
+
+    <!-- Heads up snooze toast -->
+    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notification are snoozing for 1 minute.</string>
+    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
+
 </resources>
