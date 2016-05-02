@@ -5883,6 +5883,15 @@ public final class Settings {
          */
         public static final String SENSOR_BLOCK = "sensor_block";
 
+       /**
+         * Should we listen for fingerprints when the screen is off?  Devices
+         * with a rear-mounted sensor want this, but certain devices have
+         * the sensor embedded in the power key and listening all the time
+         * causes a poor experience.
+         * @hide
+         */
+        public static final String FP_WAKE_UNLOCK = "fp_wake_unlock";
+
         /**
          * Wheter to play notification sound and vibration if screen is ON
          * 0 - never
@@ -6147,6 +6156,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PULSE_BRIGHTNESS);
             PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS);
             PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS_FORCE);
+            PRIVATE_SETTINGS.add(FP_WAKE_UNLOCK);
         }
 
         /**
