@@ -4594,6 +4594,18 @@ public final class Settings {
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
 
         /**
+         * Change quick settings tiles animation style
+         * @hide
+         */
+        public static final String ANIM_TILE_STYLE = "anim_tile_style";
+
+         /**
+         * Change quick settings tiles animation duration
+         * @hide
+         */
+        public static final String ANIM_TILE_DURATION = "anim_tile_duration";
+
+        /**
          * Shows custom date before clock time
          * 0 - No Date
          * 1 - Small Date
@@ -14980,3 +14992,4 @@ public final class Settings {
         return packages[0];
     }
 }
+
