@@ -4606,7 +4606,13 @@ public final class Settings {
         public static final String ANIM_TILE_DURATION = "anim_tile_duration";
 
         /**
-         * Shows custom date before clock time
+         * Change quick settings tiles interpolator
+         * @hide
+         */
+        public static final String ANIM_TILE_INTERPOLATOR = "anim_tile_interpolator";
+
+        /**
+	 * Shows custom date before clock time
          * 0 - No Date
          * 1 - Small Date
          * 2 - Normal Date
