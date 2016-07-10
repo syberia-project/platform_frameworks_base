@@ -27,6 +27,7 @@ import static android.os.BatteryManager.EXTRA_TEMPERATURE;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
 import static android.os.BatteryManager.EXTRA_PRESENT;
 import static android.os.BatteryManager.EXTRA_STATUS;
+import static android.os.BatteryManager.EXTRA_DASH_CHARGER;
 import static android.os.OsProtoEnums.BATTERY_PLUGGED_NONE;
 
 import android.content.Context;
@@ -52,6 +53,7 @@ public class BatteryStatus {
     public static final int LOW_BATTERY_THRESHOLD = 20;
     public static final int SEVERE_LOW_BATTERY_THRESHOLD = 10;
     public static final int EXTREME_LOW_BATTERY_THRESHOLD = 3;
+    public static final int CHARGING_DASH = 4;
 
     public final int status;
     public final int level;
@@ -63,6 +65,7 @@ public class BatteryStatus {
     public final boolean present;
     public final Optional<Boolean> incompatibleCharger;
     public final float temperature;
+    public final boolean dashChargeStatus;
 
     public static BatteryStatus create(Context context, boolean incompatibleCharger) {
         final Intent batteryChangedIntent = BatteryUtils.getBatteryIntent(context);
@@ -72,7 +75,7 @@ public class BatteryStatus {
 
     public BatteryStatus(int status, int level, int plugged, int chargingStatus,
             int maxChargingWattage, boolean present, int maxChargingCurrent, int maxChargingVoltage,
-            float temperature) {
+            float temperature, boolean dashChargeStatus) {
         this.status = status;
         this.level = level;
         this.plugged = plugged;
@@ -83,6 +86,7 @@ public class BatteryStatus {
         this.present = present;
         this.incompatibleCharger = Optional.empty();
         this.temperature = temperature;
+        this.dashChargeStatus = dashChargeStatus;
     }
 
 
@@ -102,6 +106,7 @@ public class BatteryStatus {
                 CHARGING_POLICY_DEFAULT);
         present = batteryChangedIntent.getBooleanExtra(EXTRA_PRESENT, true);
         temperature = batteryChangedIntent.getIntExtra(EXTRA_TEMPERATURE, -1);
+        dashChargeStatus = batteryChangedIntent.getBooleanExtra(EXTRA_DASH_CHARGER, false);
 
 
         this.incompatibleCharger = incompatibleCharger;
@@ -166,7 +171,8 @@ public class BatteryStatus {
                 R.integer.config_chargingSlowlyThreshold);
         final int fastThreshold = context.getResources().getInteger(
                 R.integer.config_chargingFastThreshold);
-        return maxChargingWattage <= 0 ? CHARGING_UNKNOWN :
+        return dashChargeStatus ? CHARGING_DASH :
+                maxChargingWattage <= 0 ? CHARGING_UNKNOWN :
                 maxChargingWattage < slowThreshold ? CHARGING_SLOWLY :
                         maxChargingWattage > fastThreshold ? CHARGING_FAST :
                                 CHARGING_REGULAR;
