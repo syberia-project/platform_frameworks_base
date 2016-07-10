@@ -199,10 +199,13 @@
   <java-symbol type="string" name="config_rat_3g" />
   <java-symbol type="string" name="config_rat_4g" />
 
-    <!-- System fonts -->
-    <java-symbol type="array" name="config_fontPackages" />
+  <!-- System fonts -->
+  <java-symbol type="array" name="config_fontPackages" />
 
-    <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
-    <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
+  <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
+  <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
+
+  <!-- Whether device has dash charging support -->
+  <java-symbol type="bool" name="config_hasDashCharger" />
 
 </resources>

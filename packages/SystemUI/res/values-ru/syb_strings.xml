@@ -119,4 +119,8 @@
     <string name="syberia_logo_title">Логотип Syberia</string>
     <string name="syberia_logo_summary">Пусть все знают, что вы используете Syberia, когда они видят ваш экран</string>
 
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полной)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash зарядка</string>
+
 </resources>

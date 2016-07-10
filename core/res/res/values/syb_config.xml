@@ -118,5 +118,7 @@
     <!-- signification move threshold - if stays below will trigger action -->
     <integer name="nav_gesture_move_threshold">4</integer>
 
+    <!-- Whether device has dash charging support -->
+    <bool name="config_hasDashCharger">false</bool>
 </resources>
 
