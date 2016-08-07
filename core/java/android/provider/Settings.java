@@ -5786,13 +5786,6 @@ public final class Settings {
         /** @hide */
         public static final String BACK_GESTURE_HAPTIC = "back_gesture_haptic";
 
-        /**
-         * IMPORTANT: If you add a new public settings you also have to add it to
-         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
-         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
-         * the setting value. See an example above.
-         */
-
         /** @hide */
         public static final String BACK_GESTURE_HEIGHT = "back_gesture_height";
 
@@ -5911,6 +5904,19 @@ public final class Settings {
          * @hide
          */
         public static final String RIGHT_VERTICAL_BACK_SWIPE_APP_ACTIVITY_ACTION = "right_vertical_back_swipe_app_activity_action";
+
+        /**
+         * Disable hw buttons - actions, brightness, haptic feedback, overflow menu
+         * @hide
+         */
+        public static final String HARDWARE_KEYS_DISABLE = "hardware_keys_disable";
+
+        /**
+         * IMPORTANT: If you add a new public settings you also have to add it to
+         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
+         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
+         * the setting value. See an example above.
+         */
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
