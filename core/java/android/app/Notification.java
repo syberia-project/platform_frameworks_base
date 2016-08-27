@@ -5469,6 +5469,9 @@ public class Notification implements Parcelable
         }
 
         int resolveContrastColor() {
+            if (!mContext.getResources().getBoolean(R.bool.config_allowNotificationIconTinting)) {
+                return mContext.getColor(R.color.notification_icon_default_color);
+            }
             if (mCachedContrastColorIsFor == mN.color && mCachedContrastColor != COLOR_INVALID) {
                 return mCachedContrastColor;
             }
@@ -5506,6 +5509,9 @@ public class Notification implements Parcelable
         }
 
         int resolveAmbientColor() {
+            if (!mContext.getResources().getBoolean(R.bool.config_allowNotificationIconTinting)) {
+                return mContext.getColor(R.color.notification_ambient_icon_default_color);
+            }
             if (mCachedAmbientColorIsFor == mN.color && mCachedAmbientColorIsFor != COLOR_INVALID) {
                 return mCachedAmbientColor;
             }
