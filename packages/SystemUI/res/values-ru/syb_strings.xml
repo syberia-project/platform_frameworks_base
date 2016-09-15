@@ -61,10 +61,16 @@
     <!-- StatusBar tuner icons -->
     <string name="status_bar_roaming">Роуминг</string>
     <string name="status_bar_data_disabled">Крестик при отключенных данных</string>
-    
+
     <!-- OnTheSpot: Action denial button text. [CHAR LIMIT=NONE] -->
     <string name="on_the_spot_deny">Нет, спасибо</string>
     <!-- OnTheSpot: Action confirmation button text. [CHAR LIMIT=NONE] -->
     <string name="on_the_spot_confirm">Да</string>
+
+    <!-- OnTheSpot: Quick Settings quick pull-down feature description message. [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_quick_pull_down">Вы хотите чтобы правая часть строки состояния открывала панель быстрых настроек?</string>
+    <!-- OnTheSpot: Title of the Quick Settings quick pull-down feature for the reset dialog. [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_quick_pull_down_name">Быстрый доступ</string>
+    <string name="quick_settings_quick_pull_down_summary">Автоматически открывать быстрые настройки при вытягивании сбоку экрана</string>
 
 </resources>
