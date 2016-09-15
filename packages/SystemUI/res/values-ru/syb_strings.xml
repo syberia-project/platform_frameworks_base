@@ -62,4 +62,10 @@
     <string name="status_bar_roaming">Роуминг</string>
     <string name="status_bar_data_disabled">Крестик при отключенных данных</string>
 
+    <!-- Quick Settings quick pull-down feature -->
+    <string name="quick_settings_quick_pull_down">Вы хотите чтобы правая часть строки состояния открывала панель быстрых настроек?</string>
+    <!-- Title of the Quick Settings quick pull-down feature -->
+    <string name="quick_settings_quick_pull_down_name">Быстрый доступ</string>
+    <string name="quick_settings_quick_pull_down_summary">Автоматически открывать быстрые настройки при вытягивании сбоку экрана</string>
+
 </resources>
