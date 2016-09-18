@@ -57,4 +57,10 @@
     <string name="status_bar_data_saver">Экономия трафика</string>
     <string name="status_bar_roaming">Роуминг</string>
 
+    <!-- QuickSettings: Sound [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Звонок</string>
+    <string name="quick_settings_sound_vibrate">Вибрация</string>
+    <string name="quick_settings_sound_dnd">Не беспокоить</string>
+
 </resources>
