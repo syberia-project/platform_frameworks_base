@@ -140,4 +140,11 @@
     <string name="qs_data_switch_changed_1">Используется SIM 1 для передачи данных</string>
     <string name="qs_data_switch_changed_2">Используется SIM 2 для передачи данных</string>
 
+    <!-- Sync QS Tile -->
+    <string name="quick_settings_sync_label">Синхронизация</string>
+    <string name="accessibility_quick_settings_sync_off">Синхронизация выкл.</string>
+    <string name="accessibility_quick_settings_sync_on">Синхронизация вкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизация выкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизация вкл.</string>
+
 </resources>
