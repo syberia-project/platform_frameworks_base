@@ -45,4 +45,9 @@
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Всплывающее уведомление отложено на 1 минуту.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Всплывающее уведомление отложено на <xliff:g id="number">%d</xliff:g> минут.</string>
 
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Столбцы</string>
+    <string name="qs_menu_item_columns_landscape">Столбцы в ландш.</string>
+    <string name="qs_menu_item_reset">Сброс</string>
+    <string name="qs_menu_item_titles">Отображать подписи</string>
 </resources>

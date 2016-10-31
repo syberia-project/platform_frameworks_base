@@ -4505,7 +4505,34 @@ public final class Settings {
          * 3 - force black
          * @hide
          */
+
         public static final String SYSTEM_UI_THEME = "system_ui_theme";
+
+        /**
+         * Number of qs columns on landscape orientation
+         * @hide
+         */
+        public static final String OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE = "qs_layout_columns_landscape";
+         /** @hide */
+        private static final Validator OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR =
+                ANY_STRING_VALIDATOR;
+         /**
+         * @hide
+         */
+        public static final String OMNI_QS_LAYOUT_COLUMNS = "qs_layout_columns";
+         /** @hide */
+        private static final Validator OMNI_QS_LAYOUT_COLUMNS_VALIDATOR =
+                ANY_STRING_VALIDATOR;
+
+        /**
+         * Whether to display qs tile titles in the qs panel
+         * @hide
+         */
+        public static final String OMNI_QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
+
+        /** @hide */
+        private static final Validator OMNI_QS_TILE_TITLE_VISIBILITY_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -4568,7 +4595,10 @@ public final class Settings {
             DISPLAY_COLOR_MODE,
             INCREASING_RING,
             INCREASING_RING_START_VOLUME,
-            INCREASING_RING_RAMP_UP_TIME
+            INCREASING_RING_RAMP_UP_TIME,
+            OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE,
+            OMNI_QS_LAYOUT_COLUMNS,
+            OMNI_QS_TILE_TITLE_VISIBILITY,
         };
 
         /**
@@ -4684,6 +4714,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(STATUS_BAR_BRIGHTNESS_CONTROL);
+            PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE);
+            PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_COLUMNS);
+            PRIVATE_SETTINGS.add(OMNI_QS_TILE_TITLE_VISIBILITY);
         }
 
 
@@ -4783,6 +4816,10 @@ public final class Settings {
             VALIDATORS.put(INCREASING_RING, INCREASING_RING_VALIDATOR);
             VALIDATORS.put(INCREASING_RING_START_VOLUME	, INCREASING_RING_START_VOLUME_VALIDATOR);
             VALIDATORS.put(INCREASING_RING_RAMP_UP_TIME, INCREASING_RING_RAMP_UP_TIME_VALIDATOR);
+            VALIDATORS.put(OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE,
+                    OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE_VALIDATOR);
+            VALIDATORS.put(OMNI_QS_LAYOUT_COLUMNS, OMNI_QS_LAYOUT_COLUMNS_VALIDATOR);
+            VALIDATORS.put(OMNI_QS_TILE_TITLE_VISIBILITY, OMNI_QS_TILE_TITLE_VISIBILITY_VALIDATOR);
         }
 
         /**
