@@ -4430,6 +4430,19 @@ public final class Settings {
          */
         public static final String DEVICE_PROXI_CHECK_ENABLED = "device_proxi_check_enabled";
 
+	/**
+         * Enable Gesture Haptic feedback
+         * KeyHandler
+         * @hide
+         */
+        public static final String DEVICE_GESTURE_FEEDBACK_ENABLED =
+                "device_gesture_feedback_enabled";
+
+	/**
+         * @hide
+         */
+        public static final String DEVICE_FEATURE_SETTINGS = "device_feature_settings";
+
         /**
          * Whether to control brightness from status bar
          * @hide

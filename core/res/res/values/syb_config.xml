@@ -47,6 +47,10 @@
          config to 7. -->
     <integer name="config_deviceHardwareKeys">64</integer>
 
+    <!-- make sure you enable this only if your device supports deep slepp
+    with active proximity sensor event listener -->
+    <bool name="config_proxiSensorWakupCheck">false</bool>
+
     <!-- The second metric to be used for antenna bar display for LTE
          The metrics to be used for Antenna display is based on RSRP and either one of the
            0. RSSNR

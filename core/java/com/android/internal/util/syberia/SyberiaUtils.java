@@ -25,6 +25,7 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.view.IWindowManager;
@@ -43,6 +44,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.android.internal.statusbar.IStatusBarService;
+
+import static android.hardware.Sensor.TYPE_LIGHT;
+import static android.hardware.Sensor.TYPE_PROXIMITY;
 
 /**
  * Some custom utilities
@@ -297,5 +301,28 @@ public class SyberiaUtils {
             }
             return null;
         }
+    }
+
+    public static boolean isAvailableApp(String packageName, Context context) {
+       Context mContext = context;
+       final PackageManager pm = mContext.getPackageManager();
+       try {
+           pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+           int enabled = pm.getApplicationEnabledSetting(packageName);
+           return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
+               enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+       } catch (NameNotFoundException e) {
+           return false;
+       }
+    }
+
+    public static boolean deviceSupportsProximitySensor(Context context) {
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        return sm.getDefaultSensor(TYPE_PROXIMITY) != null;
+    }
+
+    public static boolean deviceSupportsLightSensor(Context context) {
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        return sm.getDefaultSensor(TYPE_LIGHT) != null;
     }
 }

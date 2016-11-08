@@ -32,6 +32,7 @@
 
   <java-symbol type="string" name="config_deviceKeyHandlerLib" />
   <java-symbol type="string" name="config_deviceKeyHandlerClass" />
+  <java-symbol type="bool" name="config_proxiSensorWakupCheck" />
 
   <!-- HW keys binding -->
   <java-symbol type="anim" name="custom_app_in" />

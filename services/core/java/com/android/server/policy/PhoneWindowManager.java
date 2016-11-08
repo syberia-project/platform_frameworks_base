@@ -2674,6 +2674,19 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+	boolean supportPowerButtonProxyCheck = mContext.getResources().getBoolean(R.bool.config_proxiSensorWakupCheck);
+        if (supportPowerButtonProxyCheck) {
+            mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+            if (mDeviceKeyHandler != null && mDeviceKeyHandler.getCustomProxiSensor() != null) {
+                String proxySensor = mDeviceKeyHandler.getCustomProxiSensor();
+                for (Sensor sensor : mSensorManager.getSensorList(Sensor.TYPE_ALL)) {
+                    if (proxySensor.equals(sensor.getStringType())) {
+                        mProximitySensor = sensor;
+                        if (DEBUG_PROXI_SENSOR) Log.i(TAG, "mProximitySensor = " + proxySensor);
+                    }
+                }
+            }
+	}
 	    mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mProximitySensor == null) {
                 mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
