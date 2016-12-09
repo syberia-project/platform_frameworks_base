@@ -13,9 +13,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-     <!-- Resolver -->
-    <color name="resolver_list_bg">@android:color/white</color>
-
     <!-- Settings icon tint color -->
     <color name="settings_icon_tint_color">#737373</color>
 
