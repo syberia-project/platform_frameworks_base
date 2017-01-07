@@ -89,11 +89,14 @@
     <!-- Should we filter any display modes which are unampped? -->
     <bool name="config_filterDisplayModes">false</bool>
 
-
     <!-- Whether device supports internal audio recording -->
     <bool name="config_hasInternalAudioRecordingSupport">true</bool>
 
     <!-- Whether to show a custom view for FOD -->
     <bool name="config_needCustomFODView">false</bool>
+
+    <!-- Whether to show emergency button in power menu -->
+    <bool name="config_showEmergencyButtonInPowerMenu">false</bool>
+
 </resources>
 
