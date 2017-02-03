@@ -156,4 +156,7 @@
     <string name="quick_settings_locale_label">Язык</string>
     <string name="quick_settings_locale_more_locales_toast">Пожалуйста, настройте несколько языков чтобы активировать функционал плитки</string>
 
+    <!-- Running service button -->
+    <string name="accessibility_quick_settings_running_services">Открыть меню запущенных процессов</string>
+
 </resources>
