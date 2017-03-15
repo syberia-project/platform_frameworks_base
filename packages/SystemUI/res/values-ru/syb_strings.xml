@@ -58,4 +58,7 @@
     <string name="omnijaws_package_not_available">OmniJaws осутствует</string>
     <string name="omnijaws_service_last_update">Последнее обновление:</string>
 
+    <!-- StatusBar tuner icons -->
+    <string name="status_bar_roaming">Роуминг</string>
+
 </resources>
