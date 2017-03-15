@@ -93,6 +93,7 @@ public class MobileSignalController extends SignalController<
     private ImsManager mImsManager;
     private ImsManager.Connector mImsManagerConnector;
     private boolean mVolteIcon;
+    private boolean mRoamingIconAllowed;
 
     // TODO: Reduce number of vars passed in, if we have the NetworkController, probably don't
     // need listener lists anymore.
@@ -113,7 +114,6 @@ public class MobileSignalController extends SignalController<
         mNetworkNameDefault = getStringIfExists(
                 com.android.internal.R.string.lockscreen_carrier_default);
 
-        Dependency.get(TunerService.class).addTunable(this, "volte");
         mapIconSets();
 
         String networkName = info.getCarrierName() != null ? info.getCarrierName().toString()
@@ -148,6 +148,8 @@ public class MobileSignalController extends SignalController<
                 updateTelephony();
             }
         };
+        Dependency.get(TunerService.class).addTunable(this, "volte");
+        Dependency.get(TunerService.class).addTunable(this, "roaming");
     }
 
     @Override
@@ -157,6 +159,12 @@ public class MobileSignalController extends SignalController<
                      mVolteIcon =
                         TunerService.parseIntegerSwitch(newValue, true);
                         notifyListenersIfNecessary();
+                break;
+            case "roaming":
+                     mRoamingIconAllowed =
+                        TunerService.parseIntegerSwitch(newValue, true);
+                     updateTelephony();
+                break;
             default:
                 break;
         }
@@ -590,7 +598,7 @@ public class MobileSignalController extends SignalController<
         mCurrentState.dataConnected = mCurrentState.connected
                 && mDataState == TelephonyManager.DATA_CONNECTED;
 
-        mCurrentState.roaming = isRoaming();
+        mCurrentState.roaming = isRoaming() && mRoamingIconAllowed;
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
         } else if (isDataDisabled() && !mConfig.alwaysShowDataRatIcon) {

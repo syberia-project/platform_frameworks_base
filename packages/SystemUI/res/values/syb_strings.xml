@@ -65,6 +65,8 @@
     <string name="omnijaws_package_not_available">OmniJaws not available</string>
     <string name="omnijaws_service_last_update">Last update:</string>
 
-    <!-- Name of the volte status bar icon. -->
+    <!-- StatusBar tuner icons -->
     <string name="status_bar_volte">VoLTE</string>
+    <string name="status_bar_roaming">Roaming</string>
+
 </resources>
