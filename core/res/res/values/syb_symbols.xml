@@ -201,4 +201,9 @@
      <java-symbol type="style" name="GlobalActionsAnimationCard" />
 
      <java-symbol type="string" name="config_fodAnimationPackage" />
+
+    <!-- Any package that has one of the package names defined below will be prevented
+         from using specific sensors in order to stop battery drain -->
+    <java-symbol type="array" name="config_blockPackagesSensorDrain" />
+
 </resources>
