@@ -317,5 +317,6 @@ public class SecureSettingsValidators {
             }
             return true;
         });
+        VALIDATORS.put(Secure.ADVANCED_REBOOT, BOOLEAN_VALIDATOR);
     }
 }
