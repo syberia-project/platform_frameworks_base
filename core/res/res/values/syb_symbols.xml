@@ -32,7 +32,10 @@
   <!-- The location of the devices physical tri state switch -->
   <java-symbol type="integer" name="config_alertSliderLocation" />
 
-    <!-- Whether key handler sends intent when changing slider position -->
-    <java-symbol type="string" name="config_alertSliderIntent" />
+  <!-- Whether key handler sends intent when changing slider position -->
+  <java-symbol type="string" name="config_alertSliderIntent" />
+
+  <!-- Power menu -->
+  <java-symbol type="array" name="config_rebootActionsList" />
 
 </resources>
