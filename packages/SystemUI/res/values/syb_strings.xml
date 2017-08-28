@@ -18,4 +18,23 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="statusbar_items_title">Statusbar icon</string>
+
+    <!-- Advanced restart -->
+    <string name="global_action_reboot">Перезагрузка</string>
+    <string name="global_action_reboot_system">Система</string>
+    <string name="global_action_reboot_progress">Перезагрузка\u2026</string>
+    <string name="global_action_reboot_recovery">Recovery</string>
+    <string name="global_action_reboot_recovery_progress">Перезагрузка в recovery\u2026</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_reboot_bootloader_progress">Перезагрузка в bootloader\u2026</string>
+    <string name="global_action_reboot_fastboot">Fastboot</string>
+    <string name="global_action_reboot_fastboot_progress">Перезагрузка в fastboot\u2026</string>
+    <string name="global_action_settings">Настройки</string>
+    <string name="global_action_screenshot">Снимок экрана</string>
+    <string name="global_action_screenrecord">Запись экрана</string>
+    <string name="global_action_flashlight">Фонарик</string>
+
+    <!-- Label for current user in power menu options dialog -->
+    <string name="global_action_current_user">Текущий пользователь</string>
+
 </resources>
