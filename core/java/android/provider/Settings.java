@@ -5327,13 +5327,6 @@ public final class Settings {
         public static final String POCKET_JUDGE = "pocket_judge";
 
         /**
-         * IMPORTANT: If you add a new public settings you also have to add it to
-         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
-         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
-         * the setting value. See an example above.
-         */
-
-        /**
          * @hide
          */
         public static final String GLOBAL_ACTIONS_LIST = "global_actions_list";
@@ -6223,16 +6216,25 @@ public final class Settings {
         public static final String CUSTOM_RINGTONE_VIBRATION_PATTERN = "custom_ringtone_vibration_pattern";
 
         /**
-         * Keys we no longer back up under the current schema, but want to continue to
-         * process when restoring historical backup datasets.
-         *
-         * All settings in {@link LEGACY_RESTORE_SETTINGS} array *must* have a non-null validator,
-         * otherwise they won't be restored.
-         *
+         * Whether the phone vibrates on call connect
          * @hide
          */
-        public static final String[] LEGACY_RESTORE_SETTINGS = {
-        };
+        @Readable
+        public static final String VIBRATE_ON_CONNECT = "vibrate_on_connect";
+
+        /**
+         * Whether the phone vibrates on call waiting
+         * @hide
+         */
+        @Readable
+        public static final String VIBRATE_ON_CALLWAITING = "vibrate_on_callwaiting";
+
+        /**
+         * Whether the phone vibrates on disconnect
+         * @hide
+         */
+        @Readable
+        public static final String VIBRATE_ON_DISCONNECT = "vibrate_on_disconnect";
 
         /**
          * Whether to force small clock on keyguard
@@ -6245,6 +6247,26 @@ public final class Settings {
          * @hide
          */
         public static final String UDFPS_HAPTIC_FEEDBACK = "udfps_haptic_feedback";
+
+        /**
+         * IMPORTANT: If you add a new public settings you also have to add it to
+         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
+         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
+         * the setting value. See an example above.
+         */
+
+        /**
+         * Keys we no longer back up under the current schema, but want to continue to
+         * process when restoring historical backup datasets.
+         *
+         * All settings in {@link LEGACY_RESTORE_SETTINGS} array *must* have a non-null validator,
+         * otherwise they won't be restored.
+         *
+         * @hide
+         */
+        public static final String[] LEGACY_RESTORE_SETTINGS = {
+        };
+
 
         /**
          * These are all public system settings
@@ -6399,6 +6421,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_ADJUSTMENT);
             PRIVATE_SETTINGS.add(DISPLAY_PICTURE_ADJUSTMENT);
             PRIVATE_SETTINGS.add(LIVE_DISPLAY_HINTED);
+            PRIVATE_SETTINGS.add(VIBRATE_ON_CONNECT);
+            PRIVATE_SETTINGS.add(VIBRATE_ON_CALLWAITING);
+            PRIVATE_SETTINGS.add(VIBRATE_ON_DISCONNECT);
         }
 
         /**
