@@ -392,6 +392,8 @@ applications that come with the platform
         <permission name="android.permission.PACKAGE_USAGE_STATS"/>
         <permission name="android.permission.FORCE_STOP_PACKAGES"/>
         <permission name="android.permission.SHUTDOWN"/>
+        <permission name="android.permission.REBOOT"/>
+        <permission name="android.permission.RECOVERY"/>
     </privapp-permissions>
 
     <privapp-permissions package="com.android.tv">

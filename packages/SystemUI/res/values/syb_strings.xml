@@ -30,6 +30,10 @@
     <string name="lte_on">LTE ON </string>
     <string name="lte_off">LTE OFF</string>
 
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Reboot</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
+
     <string name="statusbar_items_title">Statusbar icon</string>
 
     <string name="lockscreen_default">Default</string>
