@@ -62,4 +62,8 @@
     <string name="status_bar_roaming">Роуминг</string>
     <string name="status_bar_data_disabled">Крестик при отключенных данных</string>
 
+    <!-- Screenshot -->
+    <string name="quick_settings_screenshot_label">Скриншот</string>
+    <string name="quick_settings_region_screenshot_label">Частичный скриншот</string>
+
 </resources>
