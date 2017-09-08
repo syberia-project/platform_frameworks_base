@@ -2307,6 +2307,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             return false;
         }
 
+        if (mEntryManager.shouldSkipHeadsUp(sbn)) {
+            return false;
+        }
+
         if (sbn.getNotification().fullScreenIntent != null) {
             if (mAccessibilityManager.isTouchExplorationEnabled()) {
                 if (DEBUG) Log.d(TAG, "No peeking: accessible fullscreen: " + sbn.getKey());
@@ -5540,6 +5544,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.LOCKSCREEN_ALBUM_ART_FILTER),
                   false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP),
+                    false, this, UserHandle.USER_ALL);
 	    }
 
         @Override
@@ -5571,6 +5578,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 updateTickerTickDuration();
             } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.PULSE_APPS_BLACKLIST))) {
                 setPulseBlacklist();
+	    } else if (uri.equals(Settings.System.getUriFor(Settings.System.LESS_BORING_HEADS_UP))) {
+                setUseLessBoringHeadsUp();
 	    } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
                 updateCorners();
 	    } else if (uri.equals(Settings.System.getUriFor(
@@ -5606,6 +5615,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     	    setLockscreenMediaMetadata();
             updateTickerAnimation();
             updateTickerTickDuration();
+	    setUseLessBoringHeadsUp();
 	    setPulseBlacklist();
 	    updateCorners();
             setForceAmbient();
@@ -5641,6 +5651,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             Settings.Secure.PULSE_APPS_BLACKLIST, UserHandle.USER_CURRENT);
         getMediaManager().setPulseBlacklist(blacklist);
     }
+    
+    private void setUseLessBoringHeadsUp() {
+        boolean lessBoringHeadsUp = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LESS_BORING_HEADS_UP, 0,
+                UserHandle.USER_CURRENT) == 1;
+        mEntryManager.setUseLessBoringHeadsUp(lessBoringHeadsUp);
 
     private void setLockscreenMediaMetadata() {
         mLockscreenMediaMetadata = Settings.System.getIntForUser(mContext.getContentResolver(),
