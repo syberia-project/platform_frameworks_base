@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2018-2020 Syberia Project
+<!--  Copyright (C) 2018-2021 Syberia Project
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,4 +25,5 @@
     <string name="volume_ringer_dnd">Не беспокоить</string>
     <string name="tristate_flashlight">Фонарик</string>
 
+    <string name="statusbar_items_title">Редактирование иконок</string>
 </resources>
