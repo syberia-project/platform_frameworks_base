@@ -23,4 +23,5 @@
     <string name="volume_ringer_dnd">DnD</string>
     <string name="tristate_flashlight">Torch</string>
 
+    <string name="statusbar_items_title">Statusbar icon</string>
 </resources>
