@@ -23,4 +23,5 @@
     <string name="volume_ringer_dnd">Не беспокоить</string>
     <string name="tristate_flashlight">Фонарик</string>
 
+    <string name="statusbar_items_title">Редактирование иконок</string>
 </resources>
