@@ -481,6 +481,7 @@ public class Toast {
                 if (context == null) {
                     context = mView.getContext();
                 }
+
                 mWM = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
                 // We can resolve the Gravity here by using the Locale for getting
                 // the layout direction
