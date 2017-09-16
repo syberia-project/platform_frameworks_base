@@ -34,6 +34,15 @@
         android:src="@drawable/stat_sys_vpn_ic"
         android:contentDescription="@string/accessibility_vpn_on"
         />
+    <ImageView
+	android:id="@+id/ims_hd"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginStart="2dp"
+	android:layout_marginEnd="6dp"
+	android:src="@drawable/volte"
+	android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/ethernet_combo"
         android:layout_height="wrap_content"
