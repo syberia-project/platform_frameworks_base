@@ -233,4 +233,8 @@ interface IStatusBarService
     void toggleCameraFlash();
 
     void killForegroundApp();
+    void toggleRecentApps();
+    void toggleSplitScreen();
+    void preloadRecentApps();
+    void cancelPreloadRecentApps();
 }
