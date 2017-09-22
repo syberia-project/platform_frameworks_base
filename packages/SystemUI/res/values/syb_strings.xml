@@ -25,4 +25,7 @@
     <string name="lte_off">LTE OFF</string>
 
     <string name="statusbar_items_title">Statusbar icon</string>
+
+    <string name="lockscreen_default">Default</string>
+    <string name="lockscreen_hidden">None</string>
 </resources>

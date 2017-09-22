@@ -25,4 +25,7 @@
     <string name="lte_off">LTE ВЫКЛ.</string>
 
     <string name="statusbar_items_title">Редактирование иконок</string>
+
+    <string name="lockscreen_default">По умолчанию</string>
+    <string name="lockscreen_hidden">Нет</string>
 </resources>
