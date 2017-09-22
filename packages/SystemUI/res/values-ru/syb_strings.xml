@@ -29,4 +29,6 @@
     <string name="global_action_reboot_recovery">Рекавери</string>
     <string name="global_action_reboot_bootloader">Загрузчик</string>
 
+    <string name="lockscreen_default">По умолчанию</string>
+    <string name="lockscreen_hidden">Нет</string>
 </resources>
