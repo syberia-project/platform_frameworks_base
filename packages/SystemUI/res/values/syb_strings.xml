@@ -165,10 +165,14 @@
     <string name="accessibility_quick_settings_sync_on">Sync on</string>
     <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
- 
+
     <!-- LTE QS Tile -->
     <string name="qs_lte_label">LTE</string>
     <string name="lte_on">LTE ON </string>
     <string name="lte_off">LTE OFF</string>
+
+    <!-- Language toggle tile -->
+    <string name="quick_settings_locale_label">Language</string>
+    <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
 
 </resources>
