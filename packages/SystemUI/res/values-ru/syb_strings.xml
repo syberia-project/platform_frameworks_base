@@ -152,4 +152,8 @@
     <string name="lte_on">LTE вкл.</string>
     <string name="lte_off">LTE выкл.</string>
 
+    <!-- Language toggle tile -->
+    <string name="quick_settings_locale_label">Язык</string>
+    <string name="quick_settings_locale_more_locales_toast">Пожалуйста, настройте несколько языков чтобы активировать функционал плитки</string>
+
 </resources>
