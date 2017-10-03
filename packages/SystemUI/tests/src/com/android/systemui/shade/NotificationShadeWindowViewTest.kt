@@ -151,6 +151,7 @@ class NotificationShadeWindowViewTest : SysuiTestCase() {
     @Mock
     private lateinit var primaryBouncerToGoneTransitionViewModel:
         PrimaryBouncerToGoneTransitionViewModel
+    @Mock private lateinit var qqsGestureListener: QQSGestureListener
     @Captor
     private lateinit var interactionEventHandlerCaptor: ArgumentCaptor<InteractionEventHandler>
 
@@ -259,6 +260,7 @@ class NotificationShadeWindowViewTest : SysuiTestCase() {
                     faceAuthRepository = FakeDeviceEntryFaceAuthRepository(),
                     securityModel = Mockito.mock(KeyguardSecurityModel::class.java),
                 ),
+                qqsGestureListener,
                 BouncerLogger(logcatLogBuffer("BouncerLog")),
                 Mockito.mock(SysUIKeyEventHandler::class.java),
                 quickSettingsController,
