@@ -9515,6 +9515,18 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String QS_SHOW_AUTO_BRIGHTNESS =
+                "qs_show_auto_brightness";
+
+        /**
+         * @hide
+         */
+        public static final String QS_SHOW_BRIGHTNESS_SLIDER =
+                "qs_show_brightness_slider";
+
+        /**
+         * @hide
+         */
         public static final String ADVANCED_REBOOT = "advanced_reboot";
 
         /**
