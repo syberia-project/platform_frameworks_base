@@ -56,6 +56,7 @@ public class BrightnessMirrorController
         mContext = context;
         mStatusBarWindow = statusBarWindow;
         mBrightnessMirror = statusBarWindow.findViewById(R.id.brightness_mirror);
+        setPadding();
         mNotificationPanel = statusBarWindow.findViewById(R.id.notification_panel);
         mNotificationPanel.setPanelAlphaEndAction(() -> {
             mBrightnessMirror.setVisibility(View.INVISIBLE);
@@ -123,6 +124,7 @@ public class BrightnessMirrorController
         mStatusBarWindow.removeView(mBrightnessMirror);
         mBrightnessMirror = LayoutInflater.from(qsThemeContext).inflate(
                 R.layout.brightness_mirror, mStatusBarWindow, false);
+        setPadding();         
         mStatusBarWindow.addView(mBrightnessMirror, index);
 
         for (int i = 0; i < mBrightnessMirrorListeners.size(); i++) {
@@ -130,6 +132,27 @@ public class BrightnessMirrorController
         }
     }
 
+    private void setPadding(){
+        mBrightnessMirror.setPadding(mBrightnessMirror.getPaddingLeft(),
+                    mBrightnessMirror.getPaddingTop(), mBrightnessMirror.getPaddingRight(),
+                    mContext.getResources().getDimensionPixelSize(R.dimen.qs_brightness_footer_padding));
+    }
+
+    private void updateIcon() {
+        if (mIcon == null) {
+            return;
+        }
+        mIcon = (ImageView) mBrightnessMirror.findViewById(R.id.brightness_icon);
+        mIcon.setVisibility(View.VISIBLE);
+        boolean automatic = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS_MODE,
+                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL,
+                UserHandle.USER_CURRENT) != Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
+        mIcon.setImageResource(automatic ?
+                com.android.systemui.R.drawable.ic_qs_brightness_auto_on_new :
+                com.android.systemui.R.drawable.ic_qs_brightness_auto_off_new);
+    }
+    
     @Override
     public void addCallback(BrightnessMirrorListener listener) {
         Preconditions.checkNotNull(listener);
