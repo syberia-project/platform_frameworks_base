@@ -40,6 +40,7 @@ import com.android.systemui.qs.tiles.GamingModeTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.HWKeysTile;
 import com.android.systemui.qs.tiles.IntentTile;
+import com.android.systemui.qs.tiles.LiveDisplayTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.LteTile;
 import com.android.systemui.qs.tiles.OneHandTile;
@@ -142,6 +143,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new CompassTile(mHost);
             case "onehand":
                 return new OneHandTile(mHost);
+            case "livedisplay":
+                return new LiveDisplayTile(mHost);
             case "sync":
                 return new SyncTile(mHost);
             case "hwkeys":
