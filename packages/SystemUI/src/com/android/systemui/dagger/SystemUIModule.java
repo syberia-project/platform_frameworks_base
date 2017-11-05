@@ -59,6 +59,7 @@ import com.android.systemui.people.PeopleModule;
 import com.android.systemui.plugins.BcSmartspaceConfigPlugin;
 import com.android.systemui.plugins.BcSmartspaceDataPlugin;
 import com.android.systemui.privacy.PrivacyModule;
+import com.android.systemui.syberia.SyberiaModule;
 import com.android.systemui.qrcodescanner.dagger.QRCodeScannerModule;
 import com.android.systemui.qs.FgsManagerController;
 import com.android.systemui.qs.FgsManagerControllerImpl;
@@ -170,6 +171,7 @@ import dagger.Provides;
             SecurityRepositoryModule.class,
             ScreenRecordModule.class,
             SettingsUtilModule.class,
+            SyberiaModule.class,
             SmartRepliesInflationModule.class,
             SmartspaceModule.class,
             StatusBarPipelineModule.class,
