@@ -78,6 +78,7 @@ import com.android.server.coverage.CoverageService;
 import com.android.server.devicepolicy.DevicePolicyManagerService;
 import com.android.server.display.ColorDisplayService;
 import com.android.server.display.DisplayManagerService;
+import com.android.server.display.ScreenStabilization;
 import com.android.server.dreams.DreamManagerService;
 import com.android.server.emergency.EmergencyAffordanceService;
 import com.android.server.fingerprint.FingerprintService;
@@ -1634,6 +1635,10 @@ public final class SystemServer {
             } catch (Throwable e) {
                 Slog.e(TAG, "Failure starting EdgeGesture service", e);
             }
+
+            traceBeginAndSlog("Starting ScreenStabilization Service");
+            mSystemServiceManager.startService(ScreenStabilization.class);
+            traceEnd();
         }
 
         if (!isWatch) {

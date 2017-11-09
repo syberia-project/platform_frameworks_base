@@ -120,6 +120,16 @@ public final class Settings {
     public static final String ACTION_SETTINGS = "android.settings.SETTINGS";
 
     /**
+     * Activity Action: Show screen satbilization settings.
+     * <p>
+     * Input: Nothing.
+     * <p>
+     * Output: Nothing.
+     */
+    @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
+    public static final String SCREEN_STABILIZATION_SETTINGS = "android.settings.SCREEN_STABILIZATION";
+
+    /**
      * Activity Action: Show settings to allow configuration of APNs.
      * <p>
      * Input: Nothing.
@@ -5412,6 +5422,20 @@ public final class Settings {
          * @hide
          */
         public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
+
+        /** 
+         * Screen stabilization parameters
+         * @hide
+         */
+        public static final String STABILIZATION_ENABLE = "stabilization_enable";
+
+        public static final String STABILIZATION_VELOCITY_FRICTION = "stabilization_velocity_friction";
+
+        public static final String STABILIZATION_POSITION_FRICTION = "stabilization_position_friction";
+
+        public static final String STABILIZATION_LOWPASS_ALPHA = "stabilization_lowpass_alpha";
+
+        public static final String STABILIZATION_VELOCITY_AMPLITUDE = "stabilization_velocity_amplitude";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
