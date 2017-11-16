@@ -55,4 +55,8 @@
     <string name="qs_menu_item_qs_columns">Кол-во мал. плиток</string>
     <string name="qs_menu_item_columns_auto">Авто</string>
 
+    <!-- Caffeine Tile -->
+    <string name="quick_settings_caffeine_label">Кофеин</string>
+    <string name="accessibility_quick_settings_caffeine_off">Кофеин выкл</string>
+    <string name="accessibility_quick_settings_caffeine_on">Кофеин вкл</string>
 </resources>
