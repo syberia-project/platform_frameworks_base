@@ -4523,6 +4523,12 @@ public final class Settings {
          * the setting value. See an example above.
          */
 
+	 /**
+         * Whether the haptic feedback on action instead of touch
+         * @hide
+         */
+        public static final String HAPTIC_ON_ACTION_KEY = "haptic_on_action_key";
+
         /**
          * Whether to show the battery info on the lockscreen while charging
          * @hide

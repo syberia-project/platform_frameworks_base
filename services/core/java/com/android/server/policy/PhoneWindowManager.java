@@ -542,6 +542,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // Behavior of Back button while in-call and screen on
     int mIncallBackBehavior;
 
+<<<<<<< HEAD
+=======
+    // Behavior of rotation suggestions. (See Settings.Secure.SHOW_ROTATION_SUGGESTION)
+    int mShowRotationSuggestions;
+
+    // Haptic on action
+    boolean mHapticOnAction;
+
+>>>>>>> f609950c7ac... Add haptic on action handle
     // Whether system navigation keys are enabled
     boolean mSystemNavigationKeysEnabled;
 
@@ -825,6 +834,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED), false, this,
+                    UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HAPTIC_ON_ACTION_KEY), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2104,6 +2116,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPowerButtonSuppressionDelayMillis = Settings.Global.getInt(resolver,
                     Settings.Global.POWER_BUTTON_SUPPRESSION_DELAY_AFTER_GESTURE_WAKE,
                     POWER_BUTTON_SUPPRESSION_DELAY_DEFAULT_MILLIS);
+            mHapticOnAction = (Settings.System.getIntForUser(resolver,
+                    Settings.System.HAPTIC_ON_ACTION_KEY, 0,
+                    UserHandle.USER_CURRENT) == 1);
+
             if (!mContext.getResources()
                     .getBoolean(com.android.internal.R.bool.config_volumeHushGestureEnabled)) {
                 mRingerToggleChord = Settings.Secure.VOLUME_HUSH_OFF;
@@ -3852,6 +3868,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // virtual key such as a navigation bar button, only vibrate if flag is enabled.
         final boolean isNavBarVirtKey = ((event.getFlags() & KeyEvent.FLAG_VIRTUAL_HARD_KEY) != 0);
         boolean useHapticFeedback = down
+		&& (!mHapticOnAction)
                 && (policyFlags & WindowManagerPolicy.FLAG_VIRTUAL) != 0
                 && (!isNavBarVirtKey || mNavBarVirtualKeyHapticFeedbackEnabled)
                 && event.getRepeatCount() == 0
