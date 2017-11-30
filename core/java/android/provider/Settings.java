@@ -4222,6 +4222,12 @@ public final class Settings {
          */
         public static final String POWERMENU_USERS = "powermenu_users";
 
+	 /**
+         * Whether the haptic feedback on action instead of touch
+         * @hide
+         */
+        public static final String HAPTIC_ON_ACTION_KEY = "haptic_on_action_key";
+
         /**
          * Whether to display the users option in the power menu
          *
