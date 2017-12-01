@@ -44,10 +44,6 @@
          config to 7. -->
     <integer name="config_deviceHardwareKeys">0</integer>
 
-    <!-- make sure you enable this only if your device supports deep slepp
-    with active proximity sensor event listener -->
-    <bool name="config_proxiSensorWakupCheck">false</bool>
-
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">false</bool>
 
@@ -132,5 +128,13 @@
          platform signatures, specifically for use on devices with a vendor partition. -->
     <string-array name="config_vendorPlatformSignatures">
     </string-array>
+
+    <!-- Default value for proximity check on screen wake
+         NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)
+    -->
+    <bool name="config_proximityCheckOnWake">false</bool>
+    <integer name="config_proximityCheckTimeout">250</integer>
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
+
 </resources>
 

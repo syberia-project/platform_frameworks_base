@@ -872,7 +872,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.POWER_BUTTON_SUPPRESSION_DELAY_AFTER_GESTURE_WAKE), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DEVICE_PROXI_CHECK_ENABLED), false, this,
+                    Settings.System.PROXIMITY_ON_WAKE), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HAPTIC_ON_ACTION_KEY), false, this,
@@ -2148,7 +2148,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         + deviceKeyHandlerLib, e);
             }
         }
-        boolean supportPowerButtonProxyCheck = mContext.getResources().getBoolean(R.bool.config_proxiSensorWakupCheck);
+        boolean supportPowerButtonProxyCheck = mContext.getResources().getBoolean(R.bool.config_proximityCheckOnWake);
         if (supportPowerButtonProxyCheck) {
             mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mDeviceKeyHandler != null && mDeviceKeyHandler.getCustomProxiSensor() != null) {
@@ -2310,7 +2310,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mContext.getResources().getInteger(
                             com.android.internal.R.integer.config_veryLongPressOnPowerBehavior));
             mProxiWakeupCheckEnabled = Settings.System.getIntForUser(resolver,
-                    Settings.System.DEVICE_PROXI_CHECK_ENABLED, 0,
+                    Settings.System.PROXIMITY_ON_WAKE, 0,
 		    UserHandle.USER_CURRENT) != 0;
             mGlobalActionsOnLockDisable = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.LOCK_POWER_MENU_DISABLED, 1,
@@ -4034,7 +4034,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && mGlobalKeyManager.shouldHandleGlobalKey(keyCode, event)) {
             if (isWakeKey) {
                 wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey,
-                        PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY");
+                        PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY", true);
             }
             return result;
         }
@@ -4493,7 +4493,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         if (isWakeKey) {
             wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey,
-                    PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY");
+                    PowerManager.WAKE_REASON_WAKE_KEY, "android.policy:KEY",
+                    event.getKeyCode() == KeyEvent.KEYCODE_WAKEUP);
         }
 
         return result;
@@ -4963,6 +4964,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, @WakeReason int reason,
             String details) {
+        return wakeUp(wakeTime, wakeInTheaterMode, reason, details, false);
+    }
+
+    private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, @WakeReason int reason,
+            String details, final boolean withProximityCheck) {
         final boolean theaterModeEnabled = isTheaterModeEnabled();
         if (!wakeInTheaterMode && theaterModeEnabled) {
             return false;
@@ -4973,7 +4979,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.THEATER_MODE_ON, 0);
         }
 
-        mPowerManager.wakeUp(wakeTime, reason, details);
+        if (withProximityCheck) {
+            mPowerManager.wakeUpWithProximityCheck(wakeTime, reason, details);
+        } else {
+            mPowerManager.wakeUp(wakeTime, reason, details);
+        }
         return true;
     }
 

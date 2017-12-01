@@ -4523,11 +4523,6 @@ public final class Settings {
         /**
          * @hide
          */
-        public static final String DEVICE_PROXI_CHECK_ENABLED = "device_proxi_check_enabled";
-
-        /**
-         * @hide
-         */
         public static final String FLASH_ON_CALL_WAITING = "flash_on_call_waiting";
 
         /**
@@ -4544,10 +4539,6 @@ public final class Settings {
          * @hide
          */
         public static final String BUTTON_EXTRA_KEY_MAPPING = "button_extra_keymapping";
-
-        /** @hide */
-        private static final Validator DEVICE_PROXI_CHECK_ENABLED_VALIDATOR =
-                BOOLEAN_VALIDATOR;
 
         /**
          * @hide
@@ -5591,7 +5582,7 @@ public final class Settings {
         /** Whether to pulse ambient on new music tracks
          *
          * @hide
-         */
+	 */
         public static final String PULSE_ON_NEW_TRACKS = "pulse_on_new_tracks";
 
         /**
@@ -5611,6 +5602,16 @@ public final class Settings {
          * @hide
          */
         public static final String FOD_ICON = "fod_icon";
+
+         /**
+         * Check the proximity sensor during wakeup
+         * @hide
+         */
+        public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
+
+        /** @hide */
+        public static final Validator PROXIMITY_ON_WAKE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -5677,7 +5678,6 @@ public final class Settings {
             DISPLAY_COLOR_MODE,
             ALARM_ALERT,
             NOTIFICATION_LIGHT_PULSE,
-            DEVICE_PROXI_CHECK_ENABLED,
             ENABLE_CONDITIONS,
             ENABLE_SUGGESTIONS,
             ALLOW_INCALL_HOME,
@@ -5863,7 +5863,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCK_TO_APP_ENABLED);
             PRIVATE_SETTINGS.add(EGG_MODE);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
-            PRIVATE_SETTINGS.add(DEVICE_PROXI_CHECK_ENABLED);
             PRIVATE_SETTINGS.add(ENABLE_CONDITIONS);
             PRIVATE_SETTINGS.add(ENABLE_SUGGESTIONS);
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
@@ -5948,6 +5947,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(TOAST_ICON);
+            PRIVATE_SETTINGS.add(PROXIMITY_ON_WAKE);
         }
 
         /**
@@ -6041,8 +6041,6 @@ public final class Settings {
             VALIDATORS.put(WIFI_STATIC_DNS1, WIFI_STATIC_DNS1_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_DNS2, WIFI_STATIC_DNS2_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
-            VALIDATORS.put(DEVICE_PROXI_CHECK_ENABLED,
-                    DEVICE_PROXI_CHECK_ENABLED_VALIDATOR);
             VALIDATORS.put(ENABLE_CONDITIONS, ENABLE_CONDITIONS_VALIDATOR);
             VALIDATORS.put(ENABLE_SUGGESTIONS, ENABLE_SUGGESTIONS_VALIDATOR);
             VALIDATORS.put(BUTTON_BACKLIGHT_TIMEOUT, BUTTON_BACKLIGHT_TIMEOUT_VALIDATOR);
@@ -6128,6 +6126,7 @@ public final class Settings {
             VALIDATORS.put(PULSE_AMBIENT_AUTO_COLOR, PULSE_AMBIENT_AUTO_COLOR_VALIDATOR);
             VALIDATORS.put(DISPLAY_CUTOUT_HIDDEN, DISPLAY_CUTOUT_HIDDEN_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
+            VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
         }
 
         /**
