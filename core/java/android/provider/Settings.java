@@ -5591,8 +5591,18 @@ public final class Settings {
         /** Whether to pulse ambient on new music tracks
          *
          * @hide
-         */
+	 */
         public static final String PULSE_ON_NEW_TRACKS = "pulse_on_new_tracks";
+
+        /**
+         * Check the proximity sensor during wakeup
+         * @hide
+         */
+        public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
+
+        /** @hide */
+        public static final Validator PROXIMITY_ON_WAKE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -5928,6 +5938,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_AUTO_COLOR);
             PRIVATE_SETTINGS.add(DISPLAY_CUTOUT_HIDDEN);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
+            PRIVATE_SETTINGS.add(PROXIMITY_ON_WAKE);
         }
 
         /**
@@ -6108,6 +6119,7 @@ public final class Settings {
             VALIDATORS.put(PULSE_AMBIENT_AUTO_COLOR, PULSE_AMBIENT_AUTO_COLOR_VALIDATOR);
             VALIDATORS.put(DISPLAY_CUTOUT_HIDDEN, DISPLAY_CUTOUT_HIDDEN_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
+            VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
         }
 
         /**
