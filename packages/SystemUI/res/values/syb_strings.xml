@@ -24,6 +24,7 @@
     <string name="tristate_flashlight">Torch</string>
 
     <string name="statusbar_items_title">Statusbar icon</string>
+    <string name="status_bar_vpn">VPN</string>
 
     <!-- Status bar network traffic monitor strings -->
     <string name="kilobitspersecond_short">kb/s</string>
