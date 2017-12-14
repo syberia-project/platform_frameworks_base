@@ -6358,6 +6358,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
+		case KeyEvent.KEYCODE_HOME:
+                if (down && !interactive) {
+                    isWakeKey = true;
+                }
+                break;
 
             case KeyEvent.KEYCODE_ENDCALL: {
                 result &= ~ACTION_PASS_TO_USER;
