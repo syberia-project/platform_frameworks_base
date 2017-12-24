@@ -33,6 +33,7 @@ import com.android.systemui.qs.tiles.BluetoothTile;
 import com.android.systemui.qs.tiles.CastTile;
 import com.android.systemui.qs.tiles.CellularTile;
 import com.android.systemui.qs.tiles.ColorInversionTile;
+import com.android.systemui.qs.tiles.CPUInfoTile;
 import com.android.systemui.qs.tiles.DataSaverTile;
 import com.android.systemui.qs.tiles.DataSwitchTile;
 import com.android.systemui.qs.tiles.DndTile;
@@ -88,11 +89,19 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<ReadingModeTile> mReadingModeTileProvider;
     private final Provider<WeatherTile> mWeatherTileProvider;
     private final Provider<CaffeineTile> mCaffeineTileProvider;
+<<<<<<< HEAD
     private final Provider<GamingModeTile> mGamingModeTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
 
     // Additions
     private final Provider<AODTile> mAODTileProvider;
+=======
+    private final Provider<AmbientDisplayTile> mAmbientDisplayTileProvider;
+    private final Provider<HeadsUpTile> mHeadsUpTileProvider;
+    private final Provider<SyncTile> mSyncTileProvider;
+    private final Provider<LteTile> mLteTileProvider;
+    private final Provider<CPUInfoTile> mCPUInfoTileProvider;
+>>>>>>> 59177080ecf... SystemUI: QS: Add CPUInfo toggle tile
 
     private QSTileHost mHost;
 
@@ -120,9 +129,16 @@ public class QSFactoryImpl implements QSFactory {
             Provider<ReadingModeTile> readingModeTileProvider,
             Provider<WeatherTile> weatherTileProvider,
             Provider<CaffeineTile> caffeineTileProvider,
+<<<<<<< HEAD
             Provider<GamingModeTile> gamingModeTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<AODTile> aodTileProvider) {
+=======
+            Provider<HeadsUpTile> headsUpTileProvider,
+            Provider<SyncTile> syncTileProvider,
+            Provider<LteTile> lteTileProvider,
+            Provider<CPUInfoTile> cpuInfoTileProvider) {
+>>>>>>> 59177080ecf... SystemUI: QS: Add CPUInfo toggle tile
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -146,10 +162,18 @@ public class QSFactoryImpl implements QSFactory {
         mReadingModeTileProvider = readingModeTileProvider;
         mWeatherTileProvider = weatherTileProvider;
         mCaffeineTileProvider = caffeineTileProvider;
+<<<<<<< HEAD
         mGamingModeTileProvider = gamingModeTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
         //Additions
         mAODTileProvider = aodTileProvider;
+=======
+        mAmbientDisplayTileProvider = ambientDisplayTileProvider;
+        mHeadsUpTileProvider = headsUpTileProvider;
+        mSyncTileProvider = syncTileProvider;
+        mLteTileProvider = lteTileProvider;
+        mCPUInfoTileProvider = cpuInfoTileProvider;
+>>>>>>> 59177080ecf... SystemUI: QS: Add CPUInfo toggle tile
     }
 
     public void setHost(QSTileHost host) {
@@ -211,6 +235,7 @@ public class QSFactoryImpl implements QSFactory {
                 return mWeatherTileProvider.get();
             case "caffeine":
                 return mCaffeineTileProvider.get();
+<<<<<<< HEAD
             case "sound":
                 return new SoundTile(mHost);
             case "reboot":
@@ -221,6 +246,18 @@ public class QSFactoryImpl implements QSFactory {
                 return mDataSwitchTileProvider.get();
             case "aod":
                 return mAODTileProvider.get();
+=======
+            case "ambient_display":
+                return mAmbientDisplayTileProvider.get();
+            case "heads_up":
+                return mHeadsUpTileProvider.get();
+            case "sync":
+                return mSyncTileProvider.get();
+            case "lte":
+                return mLteTileProvider.get();
+            case "cpuinfo":
+                return mCPUInfoTileProvider.get();
+>>>>>>> 59177080ecf... SystemUI: QS: Add CPUInfo toggle tile
         }
 
         // Intent tiles.
