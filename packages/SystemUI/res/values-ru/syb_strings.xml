@@ -73,4 +73,10 @@
     <string name="quick_settings_sound_vibrate">Вибрация</string>
     <string name="quick_settings_sound_dnd">Не беспокоить</string>
 
+    <string name="quick_settings_cpuinfo_label">Информация о ЦП</string>
+    <string name="accessibility_quick_settings_cpuinfo_changed_off">Информация о процессоре отключена</string>
+    <string name="accessibility_quick_settings_cpuinfo_changed_on">Информация о процессоре включена</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Информация о процессоре откл.</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Информация о процессоре вкл.</string>
+
 </resources>
