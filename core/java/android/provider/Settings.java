@@ -4250,7 +4250,13 @@ public final class Settings {
          */
         public static final String POWERMENU_USERS = "powermenu_users";
 
-	 /**
+        /**
+         * Whether to display the power menu dialog while on the lockscreen
+         * @hide
+         */
+        public static final String POWERMENU_LOCKSCREEN = "powermenu_lockscreen";
+
+    	 /**
          * Whether the haptic feedback on action instead of touch
          * @hide
          */
