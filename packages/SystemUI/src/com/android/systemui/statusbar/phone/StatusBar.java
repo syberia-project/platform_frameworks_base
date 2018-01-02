@@ -80,6 +80,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
@@ -506,6 +507,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private final MetricsLogger mMetricsLogger;
 
+    private boolean mSysuiRoundedFwvals;
+
     Runnable mLongPressBrightnessChange = new Runnable() {
         @Override
         public void run() {
@@ -773,6 +776,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BERRY_ROUNDED_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.Secure.SYSUI_ROUNDED_FWVALS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -785,6 +791,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mScrimController.updateScrimAlpha();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.BERRY_ROUNDED_STYLE))) {
                 updateCorners();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
+                updateRoundedFwvals();
             }
             update();
         }
@@ -3891,6 +3899,30 @@ public class StatusBar extends SystemUI implements DemoMode,
         mScrimController.setExpansionAffectsAlpha(true);
     }
 
+    public boolean isCurrentRoundedSameAsFw() {
+        float density = Resources.getSystem().getDisplayMetrics().density;
+        // Resource IDs for framework properties
+        int resourceIdRadius = (int) mContext.getResources().getDimension(com.android.internal.R.dimen.rounded_corner_radius);
+
+        // Values on framework resources
+        int cornerRadiusRes = (int) (resourceIdRadius / density);
+
+        // Values in Settings DBs
+        int cornerRadius = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.SYSUI_ROUNDED_SIZE, cornerRadiusRes, UserHandle.USER_CURRENT);
+
+        return (cornerRadiusRes == cornerRadius);
+    }
+
+    private void updateRoundedFwvals() {
+        if (mSysuiRoundedFwvals && !isCurrentRoundedSameAsFw()) {
+            float density = Resources.getSystem().getDisplayMetrics().density;
+            int resourceIdRadius = (int) mContext.getResources().getDimension(com.android.internal.R.dimen.rounded_corner_radius);
+            Settings.Secure.putIntForUser(mContext.getContentResolver(),
+                Settings.Secure.SYSUI_ROUNDED_SIZE, (int) (resourceIdRadius / density), UserHandle.USER_CURRENT);
+        }
+    }
+
     /**
      * Switches theme from light to dark and vice-versa.
      */
@@ -3904,6 +3936,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             mContext.setTheme(themeResId);
             mConfigurationController.notifyThemeChanged();
         }
+
+        updateCorners();
     }
 
     private void updateRoundedStyle() {
