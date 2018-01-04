@@ -5848,7 +5848,15 @@ public final class Settings {
         public static final String SENSOR_BLOCK = "sensor_block";
 
         /**
-         * Sensor blocked packages
+         * Wheter to play notification sound and vibration if screen is ON
+         * 0 - never
+         * 1 - always
+         * @hide
+         */
+        public static final String NOTIFICATION_SOUND_VIB_SCREEN_ON = "notification_sound_vib_screen_on";
+
+        /**
+         * Whether to show the battery info on the lockscreen while charging
          * @hide
          */
         public static final String SENSOR_BLOCKED_APP = "sensor_blocked_app";
