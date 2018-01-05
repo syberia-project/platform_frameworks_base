@@ -2138,8 +2138,11 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (DEBUG) {
             Log.d(TAG, "Toggling camera flashlight");
         }
-        if (mFlashlightController.isAvailable()) {
-            mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
+        if (mFlashlightController != null) {
+            mFlashlightController.initFlashLight();
+            if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
+                mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
+            }
         }
     }
 
@@ -2150,6 +2153,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             Log.d(TAG, "Disabling camera flashlight");
         }
         if (mFlashlightController != null) {
+            mFlashlightController.initFlashLight();
             if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
                 mFlashlightController.setFlashlight(enable);
             }
@@ -2161,10 +2165,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (DEBUG) {
             Log.d(TAG, "Toggling camera flashlight ON");
         }
-        if (mFlashlightController.isAvailable() && !mFlashlightController.isEnabled()) {
-            mFlashlightController.setFlashlight(true);
-            int delay = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.FLASH_ON_CALLWAITING_DELAY, 200, UserHandle.USER_CURRENT);
-            mHandler.sendEmptyMessageDelayed(MSG_TOGGLE_FLASH_OFF, delay);
+        if (mFlashlightController != null) {
+            mFlashlightController.initFlashLight();
+            if (mFlashlightController.isAvailable() && !mFlashlightController.isEnabled()) {
+                mFlashlightController.setFlashlight(true);
+                int delay = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.FLASH_ON_CALLWAITING_DELAY, 200, UserHandle.USER_CURRENT);
+                mHandler.sendEmptyMessageDelayed(MSG_TOGGLE_FLASH_OFF, delay);
+            }
         }
     }
 
@@ -2177,9 +2184,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         mHandler.removeMessages(MSG_TOGGLE_FLASH_ON);
         mHandler.removeMessages(MSG_TOGGLE_FLASH_OFF);
 
-        if (mFlashlightController.isAvailable()) {
-            mFlashlightController.setFlashlight(false);
+        if (mFlashlightController != null) {
+            mFlashlightController.initFlashLight();
+            if (mFlashlightController.isAvailable()) {
+                mFlashlightController.setFlashlight(false);
 
+            }
         }
     }
 
