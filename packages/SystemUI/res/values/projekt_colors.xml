@@ -28,4 +28,9 @@
     <!-- Keyguard affordance circle background -->
     <color name="keyguard_affordance_circle_background">@android:color/white</color>
 
+    <!-- Screen pinning colors -->
+    <color name="screen_pinning_background_color">@*android:color/accent_device_default_light</color>
+    <color name="screen_pinning_positive_text_color">?android:attr/textColorPrimary</color>
+    <color name="screen_pinning_negative_text_color">?android:attr/textColorPrimary</color>
+
 </resources>
