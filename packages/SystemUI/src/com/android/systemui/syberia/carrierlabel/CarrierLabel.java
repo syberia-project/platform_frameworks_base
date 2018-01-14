@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.provider.Settings;
@@ -38,11 +39,15 @@ import com.android.internal.util.syberia.SyberiaUtils;
 import com.android.systemui.R;
 import com.android.systemui.syberia.carrierlabel.SpnOverride;
 
+import com.android.systemui.Dependency;
+import com.android.systemui.plugins.DarkIconDispatcher;
+import com.android.systemui.plugins.DarkIconDispatcher.DarkReceiver;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class CarrierLabel extends TextView {
+public class CarrierLabel extends TextView implements DarkReceiver {
 
     private Context mContext;
     private boolean mAttached;
@@ -65,7 +70,7 @@ public class CarrierLabel extends TextView {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-
+        Dependency.get(DarkIconDispatcher.class).addDarkReceiver(this);
         if (!mAttached) {
             mAttached = true;
             IntentFilter filter = new IntentFilter();
@@ -78,10 +83,16 @@ public class CarrierLabel extends TextView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        Dependency.get(DarkIconDispatcher.class).removeDarkReceiver(this);
         if (mAttached) {
             mContext.unregisterReceiver(mIntentReceiver);
             mAttached = false;
         }
+    }
+
+    @Override
+    public void onDarkChanged(Rect area, float darkIntensity, int tint) {
+        setTextColor(DarkIconDispatcher.getTint(area, this, tint));
     }
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
@@ -136,6 +147,6 @@ public class CarrierLabel extends TextView {
         if (TextUtils.isEmpty(operatorName)) {
             operatorName = telephonyManager.getSimOperatorName();
         }
-        return operatorName.toUpperCase();
+        return operatorName;
     }
 }
