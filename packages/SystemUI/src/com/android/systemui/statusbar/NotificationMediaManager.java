@@ -369,6 +369,7 @@ public class NotificationMediaManager implements Dumpable {
             }
         } else {
             mEntryManager.setEntryToRefresh(null);
+            mPresenter.setAmbientMusicInfo(null, null);
             if (mListener != null) {
                 mListener.onMediaUpdated(false);
             }
@@ -388,5 +389,9 @@ public class NotificationMediaManager implements Dumpable {
                 mBlacklist.add(app);
             }
         }
+    }
+
+    public void setMediaNotificationText(String notificationText) {
+        mPresenter.setAmbientMusicInfo(mMediaMetadata, notificationText);
     }
 }

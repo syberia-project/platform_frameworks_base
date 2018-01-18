@@ -124,5 +124,8 @@
 
     <!-- Whether device has dash charging support -->
     <bool name="config_hasDashCharger">false</bool>
+
+    <!-- Whether or not ambient media display opt-in setting is available on this device -->
+    <bool name="config_canForceDozeNotifications">true</bool>
 </resources>
 
