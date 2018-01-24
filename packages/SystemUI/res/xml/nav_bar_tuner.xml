@@ -18,7 +18,13 @@
     xmlns:sysui="http://schemas.android.com/apk/res-auto"
     android:title="@string/nav_bar">
 
-    <com.android.systemui.tuner.RadioListPreference
+    <Preference
+        android:key="navbar_editor"
+        android:title="@string/navbar_editor_title"
+        android:summary="@string/navbar_editor_summary"
+        android:fragment="com.android.systemui.tuner.NavBarEditor" />
+
+    <!--<com.android.systemui.tuner.RadioListPreference
         android:key="layout"
         android:title="@string/nav_bar_layout"
         android:summary="%s"
@@ -62,6 +68,6 @@
         android:key="icon_right"
         android:persistent="false"
         android:summary="%s"
-        android:title="@string/right_icon" />
+        android:title="@string/right_icon" />-->
 
 </PreferenceScreen>

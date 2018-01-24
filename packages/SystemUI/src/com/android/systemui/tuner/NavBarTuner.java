@@ -53,7 +53,7 @@ import java.util.ArrayList;
 
 public class NavBarTuner extends TunerPreferenceFragment {
 
-    private static final String LAYOUT = "layout";
+    //private static final String LAYOUT = "layout";
     private static final String LEFT = "left";
     private static final String RIGHT = "right";
 
@@ -88,9 +88,9 @@ public class NavBarTuner extends TunerPreferenceFragment {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.nav_bar_tuner);
-        bindLayout((ListPreference) findPreference(LAYOUT));
-        bindButton(NAV_BAR_LEFT, NAVSPACE, LEFT);
-        bindButton(NAV_BAR_RIGHT, MENU_IME_ROTATE, RIGHT);
+        //bindLayout((ListPreference) findPreference(LAYOUT));
+        //bindButton(NAV_BAR_LEFT, NAVSPACE, LEFT);
+        //bindButton(NAV_BAR_RIGHT, MENU_IME_ROTATE, RIGHT);
     }
 
     @Override
