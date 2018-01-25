@@ -4675,6 +4675,11 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
+
+        /**
          * Three Finger Gesture from Oppo
          * @hide
          */
