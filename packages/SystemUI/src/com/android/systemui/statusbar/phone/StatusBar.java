@@ -425,6 +425,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // viewgroup containing the normal contents of the statusbar
     LinearLayout mStatusBarContent;
+    // Other views that need hiding for the notification ticker
+    View mCenterClockLayout;
 
     // expanded notifications
     protected NotificationPanelView mNotificationPanel; // the sliding/resizing panel within the notification window
@@ -1013,7 +1015,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                     mStatusBarWindow.setStatusBarView(mStatusBarView);
                     setAreThereNotifications();
                     checkBarModes();
-                    mStatusBarContent = (LinearLayout) mStatusBarView.findViewById(R.id.status_bar_contents);
+ 		            mStatusBarContent = (LinearLayout) mStatusBarView.findViewById(R.id.status_bar_contents);
+                    mCenterClockLayout = mStatusBarView.findViewById(R.id.center_clock_layout);
                 }).getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.status_bar_container, new CollapsedStatusBarFragment(),
@@ -3310,6 +3313,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             }
             mStatusBarContent.setVisibility(View.GONE);
             mStatusBarContent.startAnimation(outAnim);
+            mCenterClockLayout.setVisibility(View.GONE);
+            mCenterClockLayout.startAnimation(outAnim);
             if (mTickerView != null) {
                 mTickerView.setVisibility(View.VISIBLE);
                 mTickerView.startAnimation(inAnim);
@@ -3328,6 +3333,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             }
             mStatusBarContent.setVisibility(View.VISIBLE);
             mStatusBarContent.startAnimation(inAnim);
+            mCenterClockLayout.setVisibility(View.VISIBLE);
+            mCenterClockLayout.startAnimation(inAnim);
             if (mTickerView != null) {
                 mTickerView.setVisibility(View.GONE);
                 mTickerView.startAnimation(outAnim);
@@ -3338,8 +3345,9 @@ public class StatusBar extends SystemUI implements DemoMode,
         public void tickerHalting() {
             if (mStatusBarContent.getVisibility() != View.VISIBLE) {
                 mStatusBarContent.setVisibility(View.VISIBLE);
-                mStatusBarContent
-                        .startAnimation(loadAnim(false, null));
+                mStatusBarContent.startAnimation(loadAnim(false, null));
+                mCenterClockLayout.setVisibility(View.VISIBLE);
+                mCenterClockLayout.startAnimation(loadAnim(false, null));
             }
             if (mTickerView != null) {
                 mTickerView.setVisibility(View.GONE);
