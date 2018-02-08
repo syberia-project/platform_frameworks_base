@@ -115,6 +115,10 @@ cc_library_shared {
 
         "libutils",  // Have to use shared lib to make libandroid_runtime behave correctly.
                      // Otherwise, AndroidRuntime::getJNIEnv() will return NULL.
+        "libmedia",
+        "libmedia_omx",
+        "libstagefright",
+        "libmediaplayerservice",
     ],
 
     header_libs: ["libhardware_headers"],
