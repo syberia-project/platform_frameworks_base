@@ -254,5 +254,8 @@
     <!-- CustomText clock -->
     <string name="high_noon_first_row">High</string>
     <string name="high_noon_second_row">Noon</string>
+    
+    <!--Google sound search tile -->
+    <string name="quick_settings_sound_search">Sound search</string>
 
 </resources>
