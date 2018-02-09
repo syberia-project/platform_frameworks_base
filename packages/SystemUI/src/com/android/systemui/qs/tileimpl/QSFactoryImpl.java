@@ -54,6 +54,7 @@ import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.ThemeTile;
+import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.UserTile;
 import com.android.systemui.qs.tiles.WeatherTile;
 import com.android.systemui.qs.tiles.WifiTile;
@@ -147,6 +148,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new HWKeysTile(mHost);
             case "gaming":
                 return new GamingModeTile(mHost);
+            case "soundsearch":
+                return new SoundSearchTile(mHost);
         }
 
         // Intent tiles.
