@@ -205,6 +205,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import android.util.BoostFramework;
 
 /**
  * An entry in the history stack, representing an activity.
@@ -363,6 +364,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
 
     private boolean mShowWhenLocked;
     private boolean mTurnScreenOn;
+    public static BoostFramework mPerfFirstDraw = null;
 
     /**
      * Temp configs used in {@link #ensureActivityConfiguration(int, boolean)}
@@ -2090,6 +2092,12 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
             Log.i(TAG, sb.toString());
         }
         mStackSupervisor.reportActivityLaunchedLocked(false, this, thisTime, totalTime);
+        if (mPerfFirstDraw == null) {
+            mPerfFirstDraw = new BoostFramework();
+        }
+        if (mPerfFirstDraw != null) {
+            mPerfFirstDraw.perfHint(BoostFramework.VENDOR_HINT_FIRST_DRAW, info.packageName, (int)thisTime, BoostFramework.Draw.EVENT_TYPE_V1);
+        }
         if (totalTime > 0) {
             //service.mUsageStatsService.noteLaunchTime(realActivity, (int)totalTime);
         }
