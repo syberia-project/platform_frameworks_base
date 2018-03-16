@@ -45,6 +45,7 @@ import com.android.systemui.qs.tiles.RebootTile;
 import com.android.systemui.qs.tiles.PieTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenrecordTile;
+import com.android.systemui.qs.tiles.ScreenStabilizationTile;
 import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.ThemeTile;
@@ -129,6 +130,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new PieTile(mHost);
             case "adb_network":
                 return new AdbOverNetworkTile(mHost);
+            case "screenstabilization":
+                return new ScreenStabilizationTile(mHost);
         }
 
         // Intent tiles.
