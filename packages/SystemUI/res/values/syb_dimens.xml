@@ -70,4 +70,7 @@
     <dimen name="status_bar_battery_icon_height_landscape_ios16">12.0dip</dimen>
     <dimen name="status_bar_battery_icon_width_landscape_ios16">24.0dip</dimen>
 
+    <!-- QQS Brightness slider -->
+    <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
+
 </resources>
