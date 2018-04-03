@@ -51,4 +51,6 @@
     <!-- Power Menu Lite: drawable padding -->
     <dimen name="global_actions_light_icon_padding">32dp</dimen>
 
+    <!-- QQS Brightness slider -->
+    <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
 </resources>
