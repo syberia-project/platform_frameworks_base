@@ -52,6 +52,7 @@
     <string name="animation_grow_shrink_right">Увеличение (вправо)</string>
     <string name="animation_random">Произвольно</string>
     <string name="action_null">Пусто</string>
+    <string name="animation_ethans">Ethans</string>
 
 </resources>
 
