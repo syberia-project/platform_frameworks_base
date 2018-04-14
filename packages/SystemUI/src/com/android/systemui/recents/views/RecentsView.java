@@ -26,6 +26,9 @@ import android.annotation.Nullable;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.ContentResolver;
+import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -33,8 +36,11 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.UserHandle;
 import android.os.Handler;
 import android.os.IRemoteCallback;
+import android.provider.Settings;
 import android.util.ArraySet;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -126,6 +132,7 @@ public class RecentsView extends FrameLayout {
     private final float mStackButtonShadowRadius;
     private final PointF mStackButtonShadowDistance;
     private final int mStackButtonShadowColor;
+    private SettingsObserver mSettingsObserver;
 
     private boolean mAwaitingFirstLayout = true;
 
@@ -178,6 +185,7 @@ public class RecentsView extends FrameLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         mEmptyView = (TextView) inflater.inflate(R.layout.recents_empty, this, false);
         addView(mEmptyView);
+        mSettingsObserver = new SettingsObserver(new Handler());
 
         if (mStackActionButton != null) {
             removeView(mStackActionButton);
@@ -406,6 +414,7 @@ public class RecentsView extends FrameLayout {
         EventBus.getDefault().register(this, RecentsActivity.EVENT_BUS_PRIORITY + 1);
         EventBus.getDefault().register(mTouchHandler, RecentsActivity.EVENT_BUS_PRIORITY + 2);
         super.onAttachedToWindow();
+        mSettingsObserver.observe();
     }
 
     @Override
@@ -413,6 +422,7 @@ public class RecentsView extends FrameLayout {
         super.onDetachedFromWindow();
         EventBus.getDefault().unregister(this);
         EventBus.getDefault().unregister(mTouchHandler);
+        mSettingsObserver.unobserve();
     }
 
     /**
@@ -1075,4 +1085,36 @@ public class RecentsView extends FrameLayout {
             mTaskStackView.dump(innerPrefix, writer);
         }
     }
+
+    class SettingsObserver extends ContentObserver {
+         SettingsObserver(Handler handler) {
+             super(handler);
+         }
+
+         void observe() {
+             ContentResolver resolver = mContext.getContentResolver();
+             resolver.registerContentObserver(Settings.System.getUriFor(
+                     Settings.System.RECENTS_LAYOUT_STYLE), false, this, UserHandle.USER_ALL);
+             update();
+         }
+
+         void unobserve() {
+             ContentResolver resolver = mContext.getContentResolver();
+             resolver.unregisterContentObserver(this);
+         }
+
+         @Override
+         public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                     Settings.System.RECENTS_LAYOUT_STYLE))) {
+                try {
+                mTaskStackView.reloadOnConfigurationChange();
+                } catch (Exception e) {}
+             }
+             update();
+         }
+
+         public void update() {
+               }
+     }
 }
