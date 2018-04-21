@@ -31,11 +31,14 @@ public final class BluetoothAudioConfig implements Parcelable {
     private final int mSampleRate;
     private final int mChannelConfig;
     private final int mAudioFormat;
+    private final int mCodecIndex;
 
-    public BluetoothAudioConfig(int sampleRate, int channelConfig, int audioFormat) {
+    public BluetoothAudioConfig(int sampleRate, int channelConfig, int audioFormat,
+                                int codecIndex) {
         mSampleRate = sampleRate;
         mChannelConfig = channelConfig;
         mAudioFormat = audioFormat;
+        mCodecIndex = codecIndex;
     }
 
     @Override
@@ -43,20 +46,21 @@ public final class BluetoothAudioConfig implements Parcelable {
         if (o instanceof BluetoothAudioConfig) {
             BluetoothAudioConfig bac = (BluetoothAudioConfig) o;
             return (bac.mSampleRate == mSampleRate && bac.mChannelConfig == mChannelConfig
-                    && bac.mAudioFormat == mAudioFormat);
+                    && bac.mAudioFormat == mAudioFormat && bac.mCodecIndex == mCodecIndex);
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return mSampleRate | (mChannelConfig << 24) | (mAudioFormat << 28);
+        return mSampleRate | (mCodecIndex << 20) |
+              (mChannelConfig << 24) | (mAudioFormat << 28);
     }
 
     @Override
     public String toString() {
         return "{mSampleRate:" + mSampleRate + ",mChannelConfig:" + mChannelConfig
-                + ",mAudioFormat:" + mAudioFormat + "}";
+                + ",mAudioFormat:" + mAudioFormat + ",mCodecIndex:" + mCodecIndex + "}";
     }
 
     @Override
@@ -70,7 +74,8 @@ public final class BluetoothAudioConfig implements Parcelable {
                     int sampleRate = in.readInt();
                     int channelConfig = in.readInt();
                     int audioFormat = in.readInt();
-                    return new BluetoothAudioConfig(sampleRate, channelConfig, audioFormat);
+                    int codecIndex = in.readInt();
+                    return new BluetoothAudioConfig(sampleRate, channelConfig, audioFormat, codecIndex);
                 }
 
                 public BluetoothAudioConfig[] newArray(int size) {
@@ -83,6 +88,7 @@ public final class BluetoothAudioConfig implements Parcelable {
         out.writeInt(mSampleRate);
         out.writeInt(mChannelConfig);
         out.writeInt(mAudioFormat);
+        out.writeInt(mCodecIndex);
     }
 
     /**
@@ -112,5 +118,19 @@ public final class BluetoothAudioConfig implements Parcelable {
      */
     public int getAudioFormat() {
         return mAudioFormat;
+    }
+
+    /**
+      * Returns the channel audio codec, (either {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_SBC}
+      * or {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_AAC}
+      * or {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_APTX}
+      * or {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_APTX_HD})
+      * or {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_LDAC})
+      * or {@link android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_INVALID})
+      *
+      * @return audio codec
+      */
+    public int getCodecIndex() {
+        return mCodecIndex;
     }
 }
