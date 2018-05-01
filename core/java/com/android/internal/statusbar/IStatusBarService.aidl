@@ -106,6 +106,10 @@ interface IStatusBarService
      * Syberia
      */
     void toggleCameraFlash();
+    void toggleCameraFlashOn();
+    void toggleCameraFlashOff();
+
+    // Start DU methods
     void toggleRecentApps();
     void toggleSplitScreen();
     void preloadRecentApps();
