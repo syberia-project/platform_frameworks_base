@@ -117,7 +117,9 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
     private static final int MSG_SHOW_PINNING_TOAST_ESCAPE     = 46 << MSG_SHIFT;
     private static final int MSG_RECENTS_ANIMATION_STATE_CHANGED = 47 << MSG_SHIFT;
     private static final int MSG_TOGGLE_CAMERA_FLASH           = 48 << MSG_SHIFT;
-    private static final int MSG_TOGGLE_CAMERA_FLASH_STATE     = 59 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_CAMERA_FLASH_STATE     = 49 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_CAMERA_FLASH_ON        = 50 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_CAMERA_FLASH_OFF       = 51 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -296,6 +298,8 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
         default void onRecentsAnimationStateChanged(boolean running) { }
         default void toggleCameraFlash() { }
         default void toggleCameraFlashState(boolean enable) { }
+        default void toggleCameraFlashOn() { }
+        default void toggleCameraFlashOff() { }
     }
 
     @VisibleForTesting
@@ -830,6 +834,21 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
         }
     }
 
+    public void toggleCameraFlashOn() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH_ON);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_CAMERA_FLASH_ON);
+        }
+    }
+
+    @Override
+    public void toggleCameraFlashOff() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH_OFF);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_CAMERA_FLASH_OFF);
+        }
+    }
+
     public void toggleCameraFlash() {
         synchronized (mLock) {
             mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH);
@@ -1118,6 +1137,16 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
                 case MSG_TOGGLE_CAMERA_FLASH_STATE:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).toggleCameraFlashState(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_TOGGLE_CAMERA_FLASH_ON:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleCameraFlashOn();
+                    }
+                    break;
+                case MSG_TOGGLE_CAMERA_FLASH_OFF:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleCameraFlashOff();
                     }
                     break;
             }
