@@ -293,4 +293,6 @@ oneway interface IStatusBar
     void toggleCameraFlashState(boolean enable);
 
     void killForegroundApp();
+    void toggleCameraFlashOn();
+    void toggleCameraFlashOff();
 }
