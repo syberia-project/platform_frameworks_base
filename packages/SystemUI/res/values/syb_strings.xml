@@ -59,6 +59,7 @@
     <string name="active_edge_activity_select_title">Select activity</string>
 
     <!-- Reboot/Recovery QS tile -->
+    <string name="quick_settings_poweroff_label">Power off</string>
     <string name="quick_settings_reboot_label">Reboot</string>
     <string name="quick_settings_reboot_recovery_label">Recovery</string>
 
