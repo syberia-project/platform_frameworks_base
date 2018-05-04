@@ -192,6 +192,10 @@ import android.hardware.hdmi.HdmiPlaybackClient.OneTouchPlayCallback;
 import android.hardware.input.InputManager;
 import android.hardware.input.InputManagerInternal;
 import android.hardware.power.V1_0.PowerHint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.AudioManagerInternal;
@@ -327,7 +331,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final boolean DEBUG_LAYOUT = false;
     static final boolean DEBUG_SPLASH_SCREEN = false;
     static final boolean DEBUG_WAKEUP = false;
+    static final boolean DEBUG_PROXI_SENSOR = false;
     static final boolean SHOW_SPLASH_SCREENS = true;
+
+    private boolean mProxyIsNear;
+    private SensorManager mSensorManager;
+    private Sensor mProximitySensor;
+    private boolean mProxiWakeupCheckEnabled;
+    private boolean mProxiListenerEnabled;
 
     // Whether to allow dock apps with METADATA_DOCK_HOME to temporarily take over the Home key.
     // No longer recommended for desk docks;
@@ -1109,6 +1120,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER), false, this,
+                    UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.PROXIMITY_ON_WAKE), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2509,6 +2523,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+	    mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+            if (mProximitySensor == null) {
+                mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+                if (mProximitySensor != null) {
+                    if (DEBUG_PROXI_SENSOR) Log.i(TAG, "mProximitySensor = Sensor.TYPE_PROXIMITY");
+                }
+            }
     }
 
     /**
@@ -2734,6 +2755,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (mImmersiveModeConfirmation != null) {
                 mImmersiveModeConfirmation.loadSetting(mCurrentUserId);
             }
+
+	    mProxiWakeupCheckEnabled = Settings.System.getIntForUser(resolver,
+                    Settings.System.PROXIMITY_ON_WAKE, 0,
+                    UserHandle.USER_CURRENT) != 0;
 
             boolean doShowNavbar = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.NAVIGATION_BAR_VISIBLE,
@@ -6729,7 +6754,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             }
 		case KeyEvent.KEYCODE_HOME:
-                if (down && !interactive) {
+		if (mProxiListenerEnabled && mProxyIsNear) {
+                    if (DEBUG_PROXI_SENSOR) Log.i(TAG, "KeyEvent.KEYCODE_HOME blocked because of mProxyIsNear");
+                    break;
+                }
+	        if (down && !interactive) {
                     isWakeKey = true;
                 }
                 break;
@@ -6776,6 +6805,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 cancelPendingAccessibilityShortcutAction();
                 result &= ~ACTION_PASS_TO_USER;
                 isWakeKey = false; // wake-up will be handled separately
+		if (mProxiListenerEnabled && mProxyIsNear) {
+                    if (DEBUG_PROXI_SENSOR) Log.i(TAG, "KeyEvent.KEYCODE_POWER blocked because of mProxyIsNear");
+                    break;
+                }
                 if (down) {
                     interceptPowerKeyDown(event, interactive);
                 } else {
@@ -7000,6 +7033,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
      * is always considered a wake key.
      */
     private boolean isWakeKeyWhenScreenOff(int keyCode) {
+	if (mProxiListenerEnabled && mProxyIsNear) {
+            if (DEBUG_PROXI_SENSOR) Log.i(TAG, "isWakeKeyWhenScreenOff blocked because of mProxyIsNear - keyCode = " + keyCode);
+            return false;
+        }
         switch (keyCode) {
             // ignore volume keys unless docked
             case KeyEvent.KEYCODE_VOLUME_UP:
@@ -7380,6 +7417,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         if (mKeyguardDelegate != null) {
             mKeyguardDelegate.onFinishedWakingUp();
+	}
+	if (mProxiWakeupCheckEnabled && mProximitySensor != null) {
+            if (DEBUG_PROXI_SENSOR) Log.i(TAG, "unregisterListener");
+            mSensorManager.unregisterListener(mProximitySensorListener, mProximitySensor);
+            mProxyIsNear = false;
+            mProxiListenerEnabled = false;
         }
     }
 
@@ -7449,6 +7492,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
         reportScreenStateToVrManager(false);
+
+	if (mProxiWakeupCheckEnabled && mProximitySensor != null && !mProxiListenerEnabled) {
+            mProxyIsNear = false;
+            if (DEBUG_PROXI_SENSOR) Log.i(TAG, "registerListener");
+            mSensorManager.registerListener(mProximitySensorListener, mProximitySensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mProxiListenerEnabled = true;
+        }
     }
 
     private long getKeyguardDrawnTimeout() {
@@ -9583,4 +9634,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         msg.setAsynchronous(true);
         mHandler.sendMessageDelayed(msg, ViewConfiguration.getLongPressTimeout());
     }
+
+    private SensorEventListener mProximitySensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+                mProxyIsNear = event.values[0] < mProximitySensor.getMaximumRange();
+            if (DEBUG_PROXI_SENSOR) Log.i(TAG, "mProxyIsNear = " + mProxyIsNear);
+        }
+         @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
 }
