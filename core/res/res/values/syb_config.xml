@@ -146,6 +146,12 @@
      <!-- Whether to use base rounded corner radius for window animations instead
           of min between top and bottom radius-->
     <bool name="config_useDefaultRoundedCornerRadius">false</bool>
-    
+
+    <!-- Whether device has screen with higher aspect ratio -->
+    <bool name="config_haveHigherAspectRatioScreen">false</bool>
+
+    <!-- Aspect ratio of screen -->
+    <item name="config_screenAspectRatio" format="float" type="dimen">2.1</item>
+
 </resources>
 
