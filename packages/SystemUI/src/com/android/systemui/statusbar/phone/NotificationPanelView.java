@@ -31,14 +31,18 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.FloatProperty;
 import android.util.Log;
@@ -306,6 +310,11 @@ public class NotificationPanelView extends PanelView implements
                 PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
                 if(pm != null)
                     pm.goToSleep(e.getEventTime());
+                // quick pulldown can trigger those values
+                // on double tap - so reset them
+                mQsExpandImmediate = false;
+                requestPanelHeightUpdate();
+                setListening(false);
                 return true;
             }
         });
