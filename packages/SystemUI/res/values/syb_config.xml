@@ -34,4 +34,7 @@
     <!-- CPUInfoService temperature sysfs path -->
     <string name="config_cpuinfoSysTemp" translatable="false"></string>
 
+    <!-- The CPU temperature divider, if needed -->
+    <integer name="config_cpuTempDivider" translatable="false">1</integer>
+
 </resources>
