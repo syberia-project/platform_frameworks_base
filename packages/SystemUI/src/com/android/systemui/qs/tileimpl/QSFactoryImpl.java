@@ -40,6 +40,7 @@ import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
 import com.android.systemui.qs.tiles.GamingModeTile;
 import com.android.systemui.qs.tiles.HotspotTile;
+import com.android.systemui.qs.tiles.ImmersiveTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LiveDisplayTile;
 import com.android.systemui.qs.tiles.LocaleTile;
@@ -100,6 +101,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<LteTile> mLteTileProvider;
     private final Provider<LocaleTile> mLocaleTileProvider;
     private final Provider<ScreenStabilizationTile> mScreenStabilizationTileProvider;
+    private final Provider<ImmersiveTile> mImmersiveTileProvider;
 
     private QSTileHost mHost;
 
@@ -133,7 +135,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<CPUInfoTile> cpuInfoTileProvider,
             Provider<LteTile> lteTileProvider,
             Provider<LocaleTile> localeTileProvider,
-            Provider<ScreenStabilizationTile> screenStabilizationTileProvider) {
+            Provider<ScreenStabilizationTile> screenStabilizationTileProvider,
+            Provider<ImmersiveTile> immersiveTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
         mCellularTileProvider = cellularTileProvider;
@@ -164,6 +167,7 @@ public class QSFactoryImpl implements QSFactory {
         mLteTileProvider = lteTileProvider;
         mLocaleTileProvider = localeTileProvider;
         mScreenStabilizationTileProvider = screenStabilizationTileProvider;
+        mImmersiveTileProvider = immersiveTileProvider;
     }
 
     public void setHost(QSTileHost host) {
@@ -245,6 +249,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mLocaleTileProvider.get();
 	    case "screenstabilization":
 		return mScreenStabilizationTileProvider.get();
+            case "immersive":
+                return mImmersiveTileProvider.get();
         }
 
         // Intent tiles.

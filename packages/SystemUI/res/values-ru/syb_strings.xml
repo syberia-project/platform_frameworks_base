@@ -168,4 +168,11 @@
     <string name="stabilization_velocity_amplitude">Амплитуда скорости</string>
     <string name="stabilization_position_friction">Фрикционная позиция</string>
 
+    <!--Immersive mode tile -->
+    <string name="quick_settings_immersive_tile">Полноэкранный режим</string>
+    <string name="quick_settings_immersive_tile_off">Выключен</string>
+    <string name="quick_settings_immersive_tile_statusbar">Без строки состояния</string>
+    <string name="quick_settings_immersive_tile_navbar">Без панели навигации</string>
+    <string name="quick_settings_immersive_tile_full">Во весь экран</string>
+
 </resources>
