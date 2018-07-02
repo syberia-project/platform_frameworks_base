@@ -716,9 +716,12 @@ Navigator.OnVerticalChangedListener, KeyguardMonitor.Callback, NotificationMedia
     // Injected from StatusBar at creation.
     public void setCurrentSysuiVisibility(int systemUiVisibility) {
         mSystemUiVisibility = systemUiVisibility;
-        mNavigationBarMode = mStatusBar.computeBarMode(0, mSystemUiVisibility,
+        int nbMode = mStatusBar.computeBarMode(0, mSystemUiVisibility,
                 View.NAVIGATION_BAR_TRANSIENT, View.NAVIGATION_BAR_TRANSLUCENT,
                 View.NAVIGATION_BAR_TRANSPARENT);
+        if ( nbMode != -1 ) {
+            mNavigationBarMode = nbMode;
+        }
         checkNavBarModes();
         mStatusBar.touchAutoHide();
         mLightBarController.onNavigationVisibilityChanged(mSystemUiVisibility, 0 /* mask */,
