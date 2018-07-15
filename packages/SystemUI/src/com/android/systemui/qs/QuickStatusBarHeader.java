@@ -50,6 +50,7 @@ import com.android.systemui.battery.BatteryMeterView;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.statusbar.NetworkTraffic;
 import com.android.systemui.statusbar.phone.StatusBarContentInsetsProvider;
+import com.android.systemui.statusbar.phone.StatusBarIconController;
 import com.android.systemui.statusbar.phone.StatusBarIconController.TintedIconManager;
 import com.android.systemui.statusbar.phone.StatusIconContainer;
 import com.android.systemui.statusbar.policy.Clock;
@@ -196,7 +197,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
         updateResources();
 
         Dependency.get(TunerService.class).addTunable(this,
-                NETWORK_TRAFFIC_LOCATION);
+                NETWORK_TRAFFIC_LOCATION,
+                StatusBarIconController.ICON_HIDE_LIST);
     }
 
     void onAttach(TintedIconManager iconManager,
@@ -666,5 +668,7 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
             default:
                 break;
         }
+        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconHideList(
+                mContext, newValue).contains("clock"));
     }
 }
