@@ -70,8 +70,10 @@
         android:key="zen"
         android:title="@string/quick_settings_dnd_label" />
 
-    <com.android.systemui.tuner.ClockPreference
-        android:title="@string/tuner_time"
-        android:summary="%s"
-        android:entries="@array/clock_options" />
+    <!-- secure -->
+
+    <com.android.systemui.tuner.StatusBarSwitch
+        android:key="clock"
+        android:title="@string/clock" />
+
 </PreferenceScreen>
