@@ -37,6 +37,8 @@ import android.os.UserHandle;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.cdma.EriInfo;
+import com.android.internal.telephony.PhoneConstants;
+import com.android.internal.telephony.PhoneConstants.DataState;
 import com.android.settingslib.graph.SignalDrawable;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.policy.NetworkController.IconState;
@@ -69,6 +71,7 @@ public class MobileSignalController extends SignalController<
     // of code.
     private int mDataNetType = TelephonyManager.NETWORK_TYPE_UNKNOWN;
     private int mDataState = TelephonyManager.DATA_DISCONNECTED;
+    private DataState mMMSDataState = DataState.DISCONNECTED;
     private ServiceState mServiceState;
     private SignalStrength mSignalStrength;
     private MobileIconGroup mDefaultIcons;
@@ -397,6 +400,16 @@ public class MobileSignalController extends SignalController<
         } else if (action.equals(TelephonyIntents.ACTION_DEFAULT_DATA_SUBSCRIPTION_CHANGED)) {
             updateDataSim();
             notifyListenersIfNecessary();
+        }else if (action.equals(TelephonyIntents.ACTION_ANY_DATA_CONNECTION_STATE_CHANGED)) {
+            String apnType = intent.getStringExtra(PhoneConstants.DATA_APN_TYPE_KEY);
+            String state = intent.getStringExtra(PhoneConstants.STATE_KEY);
+            if ("mms".equals(apnType)) {
+                if (DEBUG) {
+                    Log.d(mTag, "handleBroadcast MMS connection state=" + state);
+                }
+                mMMSDataState = DataState.valueOf(state);
+                updateTelephony();
+            }
         }
     }
 
@@ -480,7 +493,8 @@ public class MobileSignalController extends SignalController<
             mCurrentState.iconGroup = mDefaultIcons;
         }
         mCurrentState.dataConnected = mCurrentState.connected
-                && mDataState == TelephonyManager.DATA_CONNECTED;
+                && (mDataState == TelephonyManager.DATA_CONNECTED
+                    || mMMSDataState == DataState.CONNECTED);
 
         mCurrentState.roaming = isRoaming();
         if (isCarrierNetworkChangeActive()) {
