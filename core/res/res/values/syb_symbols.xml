@@ -21,4 +21,9 @@
 
     <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
     <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
+
+    <java-symbol type="integer" name="config_deviceHardwareKeys" />
+    <java-symbol type="string" name="config_deviceKeyHandlerLib" />
+    <java-symbol type="string" name="config_deviceKeyHandlerClass" />
+    <java-symbol type="bool" name="config_proxiSensorWakupCheck" />
 </resources>
