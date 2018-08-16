@@ -4643,6 +4643,15 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String FORCE_SHOW_NAVBAR = "navigation_bar_show_new";
+
+        /** @hide */
+        private static final Validator FORCE_SHOW_NAVBAR_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
          * Whether the Home button works during call
          * @hide
          */
@@ -6088,6 +6097,7 @@ public final class Settings {
             SENSOR_BLOCK,
             DOZE_ON_CHARGE,
             TINT_QS_TILES,
+            FORCE_SHOW_NAVBAR,
         };
 
         /**
@@ -6305,6 +6315,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NAVIGATION_HANDLE_WIDTH);
             PRIVATE_SETTINGS.add(SENSOR_BLOCK);
             PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
+            PRIVATE_SETTINGS.add(FORCE_SHOW_NAVBAR);
         }
 
         /**
@@ -6495,6 +6506,7 @@ public final class Settings {
             VALIDATORS.put(SENSOR_BLOCK, SENSOR_BLOCK_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(TINT_QS_TILES, TINT_QS_TILES_VALIDATOR);
+            VALIDATORS.put(FORCE_SHOW_NAVBAR, FORCE_SHOW_NAVBAR_VALIDATOR);
         }
 
         /**
