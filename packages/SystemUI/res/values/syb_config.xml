@@ -15,7 +15,4 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources>
-    <!-- Max visible notification icons -->
-    <integer name="config_maxVisibleNotificationIcons">4</integer>
-    <integer name="config_maxVisibleNotificationIconsOnLock">5</integer>
 </resources>

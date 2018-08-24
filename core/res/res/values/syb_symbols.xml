@@ -51,4 +51,8 @@
     <!-- Whether device has dash charging support -->
     <java-symbol type="bool" name="config_hasDashCharger" />
 
+    <!-- Max visible notification icons -->
+    <java-symbol type="integer" name="config_maxVisibleNotificationIcons" />
+    <java-symbol type="integer" name="config_maxVisibleNotificationIconsWhenDark" />
+
 </resources>
