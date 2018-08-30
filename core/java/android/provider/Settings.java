@@ -4851,14 +4851,21 @@ public final class Settings {
         private static final Validator OMNI_QS_TILE_TITLE_VISIBILITY_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
-        /**
-         * @hide
-         */
+        /** @hide */
         public static final String OMNI_QS_LAYOUT_ROWS = "qs_layout_rows";
 
         /** @hide */
         private static final Validator OMNI_QS_LAYOUT_ROWS_VALIDATOR =
                 ANY_INTEGER_VALIDATOR;
+        /**
+         * @hide
+
+         */
+        public static final String OMNIJAWS_WEATHER_ICON_PACK = "omnijaws_weather_icon_pack";
+
+        /** @hide */
+        private static final Validator OMNIJAWS_WEATHER_ICON_PACK_VALIDATOR =
+                ANY_STRING_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -4944,6 +4951,7 @@ public final class Settings {
             OMNI_QS_LAYOUT_COLUMNS,
             OMNI_QS_TILE_TITLE_VISIBILITY,
             OMNI_QS_LAYOUT_ROWS,
+            OMNIJAWS_WEATHER_ICON_PACK,
         };
 
         /**
@@ -5096,6 +5104,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_COLUMNS);
             PRIVATE_SETTINGS.add(OMNI_QS_TILE_TITLE_VISIBILITY);
             PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_ROWS);
+            PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
         }
 
         /**
@@ -5224,6 +5233,7 @@ public final class Settings {
             VALIDATORS.put(OMNI_QS_LAYOUT_COLUMNS, OMNI_QS_LAYOUT_COLUMNS_VALIDATOR);
             VALIDATORS.put(OMNI_QS_TILE_TITLE_VISIBILITY, OMNI_QS_TILE_TITLE_VISIBILITY_VALIDATOR);
             VALIDATORS.put(OMNI_QS_LAYOUT_ROWS, OMNI_QS_LAYOUT_ROWS_VALIDATOR);
+            VALIDATORS.put(OMNIJAWS_WEATHER_ICON_PACK, OMNIJAWS_WEATHER_ICON_PACK_VALIDATOR);
         }
 
         /**
