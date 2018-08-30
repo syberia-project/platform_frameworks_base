@@ -27,4 +27,8 @@
 
     <!-- QS detail view scrolling -->
    <dimen name="qs_detail_item_height_twoline">72dp</dimen>
+
+    <!-- Weather -->
+    <dimen name="current_weather_image_size">42dp</dimen>
+
 </resources>
