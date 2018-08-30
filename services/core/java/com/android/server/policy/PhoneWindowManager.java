@@ -644,6 +644,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private boolean mHandleVolumeKeysInWM;
 
+    boolean mVolumeRockerWake;
+
     int mPointerLocationMode = 0; // guarded by mLock
 
     // The last window we were told about in focusChanged.
@@ -838,6 +840,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // Maps global key codes to the components that will handle them.
     private GlobalKeyManager mGlobalKeyManager;
 
+    private boolean mVolumeMusicControlActive;
+    private boolean mVolumeMusicControl;
+    private boolean mVolumeWakeActive;
+
     // Fallback actions by key code.
     private final SparseArray<KeyCharacterMap.FallbackAction> mFallbackActions =
             new SparseArray<KeyCharacterMap.FallbackAction>();
@@ -879,6 +885,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_NOTIFY_USER_ACTIVITY = 29;
     private static final int MSG_RINGER_TOGGLE_CHORD = 30;
     private static final int MSG_TOGGLE_TORCH = 31;
+    private static final int MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK = 32;
 
     private boolean mClearedBecauseOfForceShow;
     private boolean mTopWindowIsKeyguard;
@@ -1008,6 +1015,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     performHapticFeedbackLw(null,
                             HapticFeedbackConstants.LONG_PRESS, false);
                     break;
+                case MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK: {
+                    KeyEvent event = (KeyEvent) msg.obj;
+                    dispatchMediaKeyWithWakeLockToAudioService(event);
+                    dispatchMediaKeyWithWakeLockToAudioService(
+                            KeyEvent.changeAction(event, KeyEvent.ACTION_UP));
+                    mVolumeMusicControlActive = true;
+                    break;
+                }
             }
         }
     }
@@ -1077,6 +1092,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.NAVIGATION_BAR_VISIBLE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.VOLUME_ROCKER_WAKE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.VOLUME_BUTTON_MUSIC_CONTROL), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2624,6 +2645,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 updateOrientationListenerLp(); // Enable, disable the orientation listener
             }
 
+            // volume rocker wake
+            mVolumeRockerWake = Settings.System.getIntForUser(resolver,
+                    Settings.System.VOLUME_ROCKER_WAKE, 0, UserHandle.USER_CURRENT) != 0;
+
             // Configure wake gesture.
             boolean wakeGestureEnabledSetting = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.WAKE_GESTURE_ENABLED, 0,
@@ -2682,6 +2707,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mNavbarVisible = doShowNavbar;
             }
 
+            mVolumeMusicControl = Settings.System.getIntForUser(resolver,
+                    Settings.System.VOLUME_BUTTON_MUSIC_CONTROL, 0,
+                    UserHandle.USER_CURRENT) != 0;
         }
         synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
             PolicyControl.reloadFromSetting(mContext);
@@ -6319,9 +6347,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         // Basic policy based on interactive state.
+        final boolean isVolumeRockerWake = !isScreenOn()
+                && mVolumeRockerWake
+                && (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN);
         int result;
         boolean isWakeKey = (policyFlags & WindowManagerPolicy.FLAG_WAKE) != 0
-                || event.isWakeKey();
+                || event.isWakeKey() || isVolumeRockerWake;
         if (interactive || (isInjected && !isWakeKey)) {
             // When the device is interactive or the key is injected pass the
             // key to the application.
@@ -6445,6 +6476,28 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_MUTE: {
+                if (mUseTvRouting) {
+                    // On TVs volume keys never go to the foreground app
+                    result &= ~ACTION_PASS_TO_USER;
+                }
+                if (!interactive && isWakeKey && down) {
+                    mVolumeWakeActive = true;
+                    break;
+                }
+                if (!down && mVolumeWakeActive) {
+                    isWakeKey = false;
+                    result &= ~ACTION_PASS_TO_USER;
+                    mVolumeWakeActive = false;
+                    break;
+                }
+                // we come back from a handled music control event - ignore the up event
+                if (!interactive && !down && mVolumeMusicControlActive) {
+                    isWakeKey = false;
+                    result &= ~ACTION_PASS_TO_USER;
+                    mVolumeMusicControlActive = false;
+                    break;
+                }
+
                 if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                     if (down) {
                         // Any activity on the vol down button stops the ringer toggle shortcut
@@ -6547,6 +6600,38 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // figure out.
                     MediaSessionLegacyHelper.getHelper(mContext).sendVolumeKeyEvent(
                             event, AudioManager.USE_DEFAULT_STREAM_TYPE, true);
+
+                    boolean notHandledMusicControl = false;
+                    if (!interactive && mVolumeMusicControl && isMusicActive()) {
+                        if (down) {
+                            if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                                scheduleLongPressKeyEvent(event, KeyEvent.KEYCODE_MEDIA_PREVIOUS);
+                                break;
+                            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                                scheduleLongPressKeyEvent(event, KeyEvent.KEYCODE_MEDIA_NEXT);
+                                break;
+                            }
+                        } else {
+                            mHandler.removeMessages(MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK);
+                            notHandledMusicControl = true;
+                        }
+                    }
+                    if (down || notHandledMusicControl) {
+                        KeyEvent newEvent = event;
+                        if (!down) {
+                            // Rewrite the event to use key-down if required
+                            newEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
+                        }
+                        if (mUseTvRouting) {
+                            dispatchDirectAudioEvent(newEvent);
+                        } else {
+                            // If we aren't passing to the user and no one else
+                            // handled it send it to the session manager to
+                            // figure out.
+                            MediaSessionLegacyHelper.getHelper(mContext)
+                                    .sendVolumeKeyEvent(newEvent, AudioManager.USE_DEFAULT_STREAM_TYPE, true);
+                        }
+                    }
                 }
                 break;
             }
@@ -6826,6 +6911,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // ignore volume keys unless docked
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (mVolumeRockerWake) {
+                    return true;
+                }
             case KeyEvent.KEYCODE_VOLUME_MUTE:
                 return mDockMode != Intent.EXTRA_DOCK_STATE_UNDOCKED;
 
@@ -6881,6 +6969,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return false;
         }
 
+        IDreamManager dreamManager = getDreamManager();
+        try {
+            if (dreamManager != null && dreamManager.isDozing()) {
+                if (event != null && isVolumeKey(event) && mVolumeMusicControl) {
+                    return false;
+                }
+            }
+        } catch (RemoteException e) {
+            Slog.e(TAG, "RemoteException when checking if dreaming", e);
+        }
+
         // Send events to keyguard while the screen is on and it's showing.
         if (isKeyguardShowingAndNotOccluded() && !displayOff) {
             return true;
@@ -6896,10 +6995,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         // Send events to a dozing dream even if the screen is off since the dream
         // is in control of the state of the screen.
-        IDreamManager dreamManager = getDreamManager();
-
         try {
-            if (dreamManager != null && dreamManager.isDreaming()) {
+            if (dreamManager != null && dreamManager.isDreaming() && !dreamManager.isDozing()) {
                 return true;
             }
         } catch (RemoteException e) {
@@ -6909,6 +7006,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Otherwise, consume events since the user can't see what is being
         // interacted with.
         return false;
+    }
+
+    private boolean isVolumeKey(KeyEvent event) {
+        return event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN
+                || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP;
     }
 
     private void dispatchDirectAudioEvent(KeyEvent event) {
@@ -9365,5 +9467,27 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return Whether music is being played right now "locally" (e.g. on the device's speakers
+     *    or wired headphones) or "remotely" (e.g. on a device using the Cast protocol and
+     *    controlled by this device, or through remote submix).
+     */
+    private boolean isMusicActive() {
+        final AudioManager am = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        if (am == null) {
+            Log.w(TAG, "isMusicActive: couldn't get AudioManager reference");
+            return false;
+        }
+        return am.isMusicActive();
+    }
+
+    private void scheduleLongPressKeyEvent(KeyEvent origEvent, int keyCode) {
+        KeyEvent event = new KeyEvent(origEvent.getDownTime(), origEvent.getEventTime(),
+                origEvent.getAction(), keyCode, 0);
+        Message msg = mHandler.obtainMessage(MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK, event);
+        msg.setAsynchronous(true);
+        mHandler.sendMessageDelayed(msg, ViewConfiguration.getLongPressTimeout());
     }
 }
