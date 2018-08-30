@@ -703,4 +703,8 @@
     <dimen name="harmful_app_message_padding_bottom">24dp</dimen>
     <!-- Line spacing modifier for the message field of the harmful app dialog -->
     <item name="harmful_app_message_line_spacing_modifier" type="dimen">1.22</item>
+
+    <!-- Minimal height of bottom stack when IME is displayed -->
+    <dimen name="config_bottom_stack_minimal_height">0dp</dimen>
+
 </resources>
