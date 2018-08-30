@@ -187,7 +187,7 @@ public class QSFactoryImpl implements QSFactory {
             case "reading_mode":
                 return mReadingModeTileProvider.get();
             case "weather":
-                return mWeatherTile.get();
+                return mWeatherTileProvider.get();
         }
 
         // Intent tiles.
