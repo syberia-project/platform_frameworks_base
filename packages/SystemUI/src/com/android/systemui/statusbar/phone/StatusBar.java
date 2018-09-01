@@ -2577,22 +2577,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         DisplayManager dm = mContext.getSystemService(DisplayManager.class);
         if (dm != null) {
-            if (mAutomaticBrightness) {
-                float adj = (2 * value) - 1;
-                adj = Math.max(adj, -1);
-                adj = Math.min(adj, 1);
-                final int val = Math.round(adj);
-                dm.setTemporaryBrightness(val);
-                AsyncTask.execute(new Runnable() {
-                    public void run() {
-                        Settings.System.putFloatForUser(mContext.getContentResolver(),
-                                Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, val,
-                                UserHandle.USER_CURRENT);
-                    }
-                });
-            } else {
-                int newBrightness = mMinBrightness + (int) Math.round(value *
-                        (android.os.PowerManager.BRIGHTNESS_ON - mMinBrightness));
+                value = value - (value*(1-value));
+                int newBrightness = mMinBrightness + (int) Math.round(value * (android.os.PowerManager.BRIGHTNESS_ON - mMinBrightness));
                 newBrightness = Math.min(newBrightness, android.os.PowerManager.BRIGHTNESS_ON);
                 newBrightness = Math.max(newBrightness, mMinBrightness);
                 final int val = newBrightness;
@@ -2605,7 +2591,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                                 UserHandle.USER_CURRENT);
                     }
                 });
-            }
         }
     }
 
