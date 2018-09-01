@@ -7800,4 +7800,8 @@ public class WindowManagerService extends IWindowManager.Stub
                     0 /* configChanges */, !PRESERVE_WINDOWS, true /* notifyClients */);
         }
     }
+
+    public void screenRecordAction(int mode) {
+        mPolicy.screenRecordAction(mode);
+    }
 }

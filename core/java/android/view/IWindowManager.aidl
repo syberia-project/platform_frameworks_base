@@ -486,6 +486,11 @@ interface IWindowManager
     void unregisterDisplayFoldListener(IDisplayFoldListener listener);
 
     /**
+     * Call screen record from WindowManager.
+     */
+    void screenRecordAction(int mode);
+
+    /**
      * Starts a window trace.
      */
     void startWindowTrace();
