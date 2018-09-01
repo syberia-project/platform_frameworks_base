@@ -661,5 +661,20 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$DeleteScreenrecordReceiver"
+            android:process=":screenrecord"
+            android:exported="false" />
+
+        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$TargetChosenReceiver"
+            android:process=":screenrecord"
+            android:exported="false" />
+
+        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenshot$TargetChosenReceiver"
+            android:process=":screenshot"
+            android:exported="false" />
+
+        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$ShareReceiver"
+            android:process=":screenrecord"
+            android:exported="false" />
     </application>
 </manifest>
