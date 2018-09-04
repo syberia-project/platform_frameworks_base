@@ -4678,7 +4678,6 @@ public final class Settings {
         public static final Validator STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
 
-
         /**
          * Stores the java DateFormat string for the date
          * @hide
@@ -5316,7 +5315,6 @@ public final class Settings {
         /** @hide */
         private static final Validator FORCE_AMBIENT_FOR_MEDIA_VALIDATOR =
               new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
-
 
         /**
          * @hide
@@ -9141,6 +9139,12 @@ public final class Settings {
          * @hide
          */
         public static final String FACE_AUTO_UNLOCK = "face_auto_unlock";
+
+	/**
+         * Which port to use for ADB Over Network
+         * @hide
+         */
+        public static final String ADB_PORT = "adb_port";
 
         /*
          * Whether to show PIE controls on the screen.
