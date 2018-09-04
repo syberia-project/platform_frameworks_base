@@ -25,8 +25,10 @@ import com.android.systemui.R;
 public class StatusbarItems extends PreferenceFragment {
 
 	private static final String KEY_STATUS_BAR_LOGO = "status_bar_logo";
+	private static final String NFC_KEY = "nfc";
 
 	private SwitchPreference mShowSyberiaLogo;
+	private StatusBarSwitch mNfcSwitch;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,12 @@ public class StatusbarItems extends PreferenceFragment {
 
         mShowSyberiaLogo = (SwitchPreference) findPreference(KEY_STATUS_BAR_LOGO);
         mShowSyberiaLogo.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_LOGO, 1) == 1));
+	mNfcSwitch = (StatusBarSwitch) findPreference(NFC_KEY);
+
+        final boolean isNfcAvailable = pm.hasSystemFeature(PackageManager.FEATURE_NFC);
+         if (!isNfcAvailable) {
+            prefScreen.removePreference(mNfcSwitch);
+         }
     }
 
     @Override
