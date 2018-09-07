@@ -338,4 +338,7 @@
 
     <!-- Value to use as default scale for fonts -->
     <item name="def_device_font_scale" format="float" type="dimen">1.0</item>
+
+    <!-- Default for Settings.Global.DEVELOPMENT_SETTINGS_ENABLED -->
+    <integer  name="def_development_settings">1</integer>
 </resources>
