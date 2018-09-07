@@ -4256,14 +4256,6 @@ public final class Settings {
          */
         public static final String HAPTIC_ON_ACTION_KEY = "haptic_on_action_key";
 
-
-	 /**
-         * Whether the use proximity sensor check before wake up
-         * @hide
-         */
-
-	public static final String PROXIMITY_ON_WAKE = "proximity_on_wake";
-
         /**
          * Whether the torch launch gesture to double tap or long press the power button when the
          * screen is off should be enabled.
