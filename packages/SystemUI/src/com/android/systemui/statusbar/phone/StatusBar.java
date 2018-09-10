@@ -2233,7 +2233,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     public boolean isUsingDarkTheme() {
         OverlayInfo themeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.dark",
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.dark.syberia",
                     mLockscreenUserManager.getCurrentUserId());
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -2244,7 +2244,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     public boolean isUsingBlackTheme() {
         OverlayInfo themeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.black",
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.black.syberia",
                     mLockscreenUserManager.getCurrentUserId());
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -4251,13 +4251,13 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         if (isUsingDarkTheme() != useDarkTheme) {
                 try {
-                    mOverlayManager.setEnabled("com.android.system.theme.dark",
+                    mOverlayManager.setEnabled("com.android.system.theme.dark.syberia",
                             useDarkTheme, mLockscreenUserManager.getCurrentUserId());
-                    mOverlayManager.setEnabled("com.android.systemui.theme.dark",
+                    mOverlayManager.setEnabled("com.android.systemui.theme.dark.syberia",
                             useDarkTheme, mLockscreenUserManager.getCurrentUserId());
-                    mOverlayManager.setEnabled("com.android.settings.theme.dark",
+                    mOverlayManager.setEnabled("com.android.settings.theme.dark.syberia",
                             useDarkTheme, mLockscreenUserManager.getCurrentUserId());
-                    mOverlayManager.setEnabled("com.android.gboard.theme.dark",
+                    mOverlayManager.setEnabled("com.android.gboard.theme.dark.syberia",
                             useDarkTheme, mLockscreenUserManager.getCurrentUserId());
                     // Check for black and white accent so we don't end up
                     // with white on white or black on black
@@ -4269,14 +4269,14 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         if (isUsingBlackTheme() != useBlackTheme) {
                 try {
-                    mOverlayManager.setEnabled("com.android.system.theme.black",
+                    mOverlayManager.setEnabled("com.android.system.theme.black.syberia",
                             useBlackTheme, mLockscreenUserManager.getCurrentUserId());
-                    mOverlayManager.setEnabled("com.android.systemui.theme.black",
+                    mOverlayManager.setEnabled("com.android.systemui.theme.black.syberia",
                             useBlackTheme, mLockscreenUserManager.getCurrentUserId());
-                    mOverlayManager.setEnabled("com.android.settings.theme.black",
+                    mOverlayManager.setEnabled("com.android.settings.theme.black.syberia",
                             useBlackTheme, mLockscreenUserManager.getCurrentUserId());
                             // Gboard overlays are common to DarkUI and BlackUI
-                    mOverlayManager.setEnabled("com.android.gboard.theme.dark",
+                    mOverlayManager.setEnabled("com.android.gboard.theme.dark.syberia",
                             useBlackTheme, mLockscreenUserManager.getCurrentUserId());
                     // Check for black and white accent so we don't end up
                     // with white on white or black on black
