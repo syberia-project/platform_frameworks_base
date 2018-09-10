@@ -168,7 +168,8 @@ public final class BluetoothCodecConfig implements Parcelable {
     @IntDef(prefix = "CHANNEL_MODE_", value = {
             CHANNEL_MODE_NONE,
             CHANNEL_MODE_MONO,
-            CHANNEL_MODE_STEREO
+            CHANNEL_MODE_STEREO,
+            CHANNEL_MODE_DUAL_CHANNEL
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ChannelMode {}
@@ -181,7 +182,12 @@ public final class BluetoothCodecConfig implements Parcelable {
 
     @UnsupportedAppUsage
     public static final int CHANNEL_MODE_STEREO = 0x1 << 1;
-    public static final int CHANNEL_MODE_JOINT_STEREO = 0x1 << 2;
+
+    @UnsupportedAppUsage
+    public static final int CHANNEL_MODE_DUAL_CHANNEL = 0x1 << 2;
+
+    @UnsupportedAppUsage
+    public static final int CHANNEL_MODE_JOINT_STEREO = 0x1 << 3;
 
     private final @SourceCodecType int mCodecType;
     private @CodecPriority int mCodecPriority;
@@ -328,6 +334,9 @@ public final class BluetoothCodecConfig implements Parcelable {
         }
         if ((mChannelMode & CHANNEL_MODE_STEREO) != 0) {
             channelModeStr = appendCapabilityToString(channelModeStr, "STEREO");
+        }
+        if ((mChannelMode & CHANNEL_MODE_DUAL_CHANNEL) != 0) {
+            channelModeStr = appendCapabilityToString(channelModeStr, "DUAL_CHANNEL");
         }
 
         return "{codecName:" + getCodecName()
@@ -513,7 +522,8 @@ public final class BluetoothCodecConfig implements Parcelable {
      * supported channel modes:
      * {@link android.bluetooth.BluetoothCodecConfig#CHANNEL_MODE_NONE} or
      * {@link android.bluetooth.BluetoothCodecConfig#CHANNEL_MODE_MONO} or
-     * {@link android.bluetooth.BluetoothCodecConfig#CHANNEL_MODE_STEREO}
+     * {@link android.bluetooth.BluetoothCodecConfig#CHANNEL_MODE_STEREO} or
+     * {@link android.bluetooth.BluetoothCodecConfig#CHANNEL_MODE_DUAL_CHANNEL}
      *
      * @return the codec channel mode
      * @hide
