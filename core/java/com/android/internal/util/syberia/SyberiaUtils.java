@@ -37,6 +37,8 @@ import android.view.KeyEvent;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
+import java.util.Locale;
 
 import com.android.internal.statusbar.IStatusBarService;
 
@@ -119,7 +121,13 @@ public class SyberiaUtils {
     public static boolean deviceHasFlashlight(Context ctx) {
         return ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
-    
+
+    // Check for Chinese language
+    public static boolean isChineseLanguage() {
+       return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
+               Locale.CHINESE.getLanguage());
+    }
+
     // Check if device has a notch
     public static boolean hasNotch(Context context) {
         int result = 0;
