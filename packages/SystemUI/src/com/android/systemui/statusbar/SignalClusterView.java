@@ -166,7 +166,7 @@ public class SignalClusterView extends LinearLayout implements NetworkController
     public void onTuningChanged(String key, String newValue) {
         if (StatusBarIconController.ICON_BLACKLIST.equals(key)) {
             ArraySet<String> blockList = StatusBarIconController.getIconBlacklist(newValue);
-	    Log.d(TAG, "onTuningChanged " + blockList);
+	    if (DEBUG) Log.d(TAG, "onTuningChanged " + blockList);
             boolean blockAirplane = blockList.contains(SLOT_AIRPLANE);
             boolean blockMobile = blockList.contains(SLOT_MOBILE);
             boolean blockWifi = blockList.contains(SLOT_WIFI);

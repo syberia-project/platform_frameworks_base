@@ -43,6 +43,7 @@ import com.android.systemui.R;
 import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.phone.StatusBarIconController.DarkIconManager;
+import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.DarkIconDispatcher;
 import com.android.systemui.statusbar.policy.DarkIconDispatcher.DarkReceiver;
 import com.android.systemui.statusbar.policy.EncryptionHelper;
@@ -67,7 +68,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private KeyguardMonitor mKeyguardMonitor;
     private NetworkController mNetworkController;
     private LinearLayout mSystemIconArea;
-    private View mClockView;
+    private Clock mClockView;
     private View mRightClock;
     private int mClockStyle;
     private View mNotificationIconAreaInner;
@@ -136,7 +137,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         Dependency.get(StatusBarIconController.class).addIconGroup(mDarkIconManager);
         Dependency.get(DarkIconDispatcher.class).addDarkReceiver(this);
         mSystemIconArea = mStatusBar.findViewById(R.id.system_icon_area);
-        mClockView = mStatusBar.findViewById(R.id.clock);
+        mClockView = (Clock) mStatusBar.findViewById(R.id.clock);
         syberiaLogo = mStatusBar.findViewById(R.id.status_bar_logo);
         mCenterClockLayout = (LinearLayout) mStatusBar.findViewById(R.id.center_clock_layout);
         mRightClock = mStatusBar.findViewById(R.id.right_clock);
@@ -410,9 +411,13 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     private void updateClockStyle(boolean animate) {
         if (mClockStyle == 1 || mClockStyle == 2) {
-            animateHide(mClockView, animate, false);
+	    if (mClockView.isClockVisible()) {
+        	animateHide(mClockView, animate, false);
+	    }
         } else {
-            animateShow(mClockView, animate);
+	    if (mClockView.isClockVisible()) {
+        	animateShow(mClockView, animate);
+	    }
         }
     }
 }
