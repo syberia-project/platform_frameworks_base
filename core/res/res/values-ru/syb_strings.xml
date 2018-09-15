@@ -162,4 +162,9 @@
     <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay переключен в ночной режим.</string>
     <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay переключен в режим на улице.</string>
 
+    <!-- FireHound Gaming -->
+    <string name="notification_channel_gaming">Игровой режим</string>
+    <string name="gaming_notif_title">Игровой режим включен</string>
+    <string name="gaming_notif_ticker">Игровой режим включен</string>
+
 </resources>
