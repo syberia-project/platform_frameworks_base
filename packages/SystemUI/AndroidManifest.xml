@@ -221,6 +221,9 @@
 
     <uses-permission android:name="android.permission.ONE_HANDED_MODE" />
 
+    <!-- SmartNav permissions -->
+    <uses-permission android:name="android.permission.NAVIGATION_EDITOR" />
+
     <protected-broadcast android:name="com.android.settingslib.action.REGISTER_SLICE_RECEIVER" />
     <protected-broadcast android:name="com.android.settingslib.action.UNREGISTER_SLICE_RECEIVER" />
 

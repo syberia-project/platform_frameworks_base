@@ -17,6 +17,7 @@
 package com.android.systemui.statusbar;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.biometrics.IBiometricPromptReceiver;
 import android.os.Bundle;
@@ -97,6 +98,11 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_CAMERA_FLASH_ON        = 48 << MSG_SHIFT;
     private static final int MSG_TOGGLE_CAMERA_FLASH_OFF       = 49 << MSG_SHIFT;
     private static final int MSG_RESTART_UI                    = 50 << MSG_SHIFT;
+    private static final int MSG_SCREEN_PINNING_STATE_CHANGED  = 51 << MSG_SHIFT;
+    private static final int MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED  = 52 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_FLASHLIGHT             = 53 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_NAVIGATION_EDITOR      = 54 << MSG_SHIFT;
+    private static final int MSG_DISPATCH_NAVIGATION_EDITOR_RESULTS = 55 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -173,6 +179,11 @@ public class CommandQueue extends IStatusBar.Stub {
         default void toggleCameraFlashOn() { }
         default void toggleCameraFlashOff() { }
         default void restartUI() { }
+        default void screenPinningStateChanged(boolean enabled) {}
+        default void leftInLandscapeChanged(boolean isLeft) {}
+        default void toggleFlashlight() {}
+        default void toggleNavigationEditor() {}
+        default void dispatchNavigationEditorResults(Intent intent) {}
     }
 
     @VisibleForTesting
@@ -188,6 +199,44 @@ public class CommandQueue extends IStatusBar.Stub {
         mCallbacks.remove(callbacks);
     }
 
+    public void dispatchNavigationEditorResults(Intent intent) {
+        synchronized (mLock) {
+            // don't coalesce these
+            // this command can't come in fast enough to make a difference
+            // but for the sake of principle...
+            mHandler.obtainMessage(MSG_DISPATCH_NAVIGATION_EDITOR_RESULTS, intent).sendToTarget();
+        }
+    }
+
+    public void toggleNavigationEditor() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_NAVIGATION_EDITOR);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_NAVIGATION_EDITOR);
+        }
+    }
+
+    public void toggleFlashlight() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_FLASHLIGHT);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_FLASHLIGHT);
+        }
+    }
+
+    public void leftInLandscapeChanged(boolean isLeft) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED);
+            mHandler.obtainMessage(MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED,
+                    isLeft ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
+
+    public void screenPinningStateChanged(boolean enabled) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_SCREEN_PINNING_STATE_CHANGED);
+            mHandler.obtainMessage(MSG_SCREEN_PINNING_STATE_CHANGED,
+                    enabled ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
     public void setIcon(String slot, StatusBarIcon icon) {
         synchronized (mLock) {
             // don't coalesce these
@@ -852,6 +901,32 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_RESTART_UI:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).restartUI();
+		    }
+		    break;
+                case MSG_SCREEN_PINNING_STATE_CHANGED:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).screenPinningStateChanged(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).leftInLandscapeChanged(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_TOGGLE_FLASHLIGHT:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleFlashlight();
+                    }
+                    break;
+                case MSG_TOGGLE_NAVIGATION_EDITOR:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleNavigationEditor();
+                    }
+                    break;
+                case MSG_DISPATCH_NAVIGATION_EDITOR_RESULTS:
+                    Intent intent = (Intent) msg.obj;
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).dispatchNavigationEditorResults(intent);
                     }
                     break;
             }

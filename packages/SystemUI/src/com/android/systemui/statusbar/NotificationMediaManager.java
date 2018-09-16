@@ -29,6 +29,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.android.systemui.Dumpable;
+import com.android.systemui.SysUiServiceProvider;
+import com.android.systemui.statusbar.phone.StatusBar;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -46,11 +48,19 @@ public class NotificationMediaManager implements Dumpable {
     private final Context mContext;
     private final MediaSessionManager mMediaSessionManager;
 
+    private final StatusBar mStatusBar;
+
     protected NotificationPresenter mPresenter;
     protected NotificationEntryManager mEntryManager;
     private MediaController mMediaController;
     private String mMediaNotificationKey;
     private MediaMetadata mMediaMetadata;
+    private MediaUpdateListener mListener;
+
+    // callback into NavigationFragment for Pulse
+    public interface MediaUpdateListener {
+        public void onMediaUpdated(boolean playing);
+    }
 
     private final MediaController.Callback mMediaListener = new MediaController.Callback() {
         @Override
@@ -64,17 +74,18 @@ public class NotificationMediaManager implements Dumpable {
                     clearCurrentMediaNotification();
                     mPresenter.updateMediaMetaData(true, true);
                 }
+		if (mListener != null) {
+		    mListener.onMediaUpdated(isPlaybackActive(state.getState()));
+		}
             }
         }
 
         @Override
-        public void onMetadataChanged(MediaMetadata metadata) {
-            super.onMetadataChanged(metadata);
-            if (DEBUG_MEDIA) {
-                Log.v(TAG, "DEBUG_MEDIA: onMetadataChanged: " + metadata);
+        public void onSessionDestroyed() {
+            super.onSessionDestroyed();
+            if (mListener != null) {
+                mListener.onMediaUpdated(isPlaybackActive());
             }
-            mMediaMetadata = metadata;
-            mPresenter.updateMediaMetaData(true, true);
         }
     };
 
@@ -84,6 +95,7 @@ public class NotificationMediaManager implements Dumpable {
                 = (MediaSessionManager) mContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
         // TODO: use MediaSessionManager.SessionListener to hook us up to future updates
         // in session state
+        mStatusBar = SysUiServiceProvider.getComponent(mContext, StatusBar.class);
     }
 
     public void setUpWithPresenter(NotificationPresenter presenter,
@@ -180,6 +192,9 @@ public class NotificationMediaManager implements Dumpable {
                 clearCurrentMediaNotificationSession();
                 mMediaController = controller;
                 mMediaController.registerCallback(mMediaListener);
+                if (mListener != null) {
+                    mListener.onMediaUpdated(isPlaybackActive());
+                }
                 mMediaMetadata = mMediaController.getMetadata();
                 if (DEBUG_MEDIA) {
                     Log.v(TAG, "DEBUG_MEDIA: insert listener, found new controller: "
@@ -230,6 +245,14 @@ public class NotificationMediaManager implements Dumpable {
         pw.println();
     }
 
+    public void addCallback(MediaUpdateListener listener) {
+        mListener = listener;
+    }
+
+    public boolean isPlaybackActive() {
+        return isPlaybackActive(getMediaControllerPlaybackState(mMediaController));
+    }
+
     private boolean isPlaybackActive(int state) {
         return state != PlaybackState.STATE_STOPPED && state != PlaybackState.STATE_ERROR
                 && state != PlaybackState.STATE_NONE;
@@ -270,6 +293,9 @@ public class NotificationMediaManager implements Dumpable {
                         + mMediaController.getPackageName());
             }
             mMediaController.unregisterCallback(mMediaListener);
+            if (mListener != null) {
+                mListener.onMediaUpdated(isPlaybackActive());
+            }
         }
         mMediaController = null;
     }
