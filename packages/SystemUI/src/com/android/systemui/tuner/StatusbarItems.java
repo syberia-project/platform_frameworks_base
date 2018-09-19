@@ -14,14 +14,42 @@
 
 package com.android.systemui.tuner;
 
+import android.content.ContentResolver;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.preference.Preference;
+import android.support.v14.preference.SwitchPreference;
 import android.support.v14.preference.PreferenceFragment;
 import com.android.systemui.R;
 
 public class StatusbarItems extends PreferenceFragment {
 
+	private static final String KEY_STATUS_BAR_LOGO = "status_bar_logo";
+
+	private SwitchPreference mShowSyberiaLogo;
+
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        ContentResolver resolver = getActivity().getContentResolver();
+
+        mShowSyberiaLogo = (SwitchPreference) findPreference(KEY_STATUS_BAR_LOGO);
+        mShowSyberiaLogo.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_LOGO, 1) == 1));
+    }
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.statusbar_items);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        if  (preference == mShowSyberiaLogo) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(), Settings.System.STATUS_BAR_LOGO, checked ? 1:0);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preference);
     }
 }

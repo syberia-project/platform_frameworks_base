@@ -18,15 +18,21 @@ import static android.app.StatusBarManager.DISABLE_CLOCK;
 import static android.app.StatusBarManager.DISABLE_NOTIFICATION_ICONS;
 import static android.app.StatusBarManager.DISABLE_SYSTEM_INFO;
 
+import android.util.Log;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.annotation.Nullable;
 import android.app.Fragment;
 import android.app.StatusBarManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.database.ContentObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
@@ -35,17 +41,19 @@ import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.phone.StatusBarIconController.DarkIconManager;
 import com.android.systemui.statusbar.policy.DarkIconDispatcher;
+import com.android.systemui.statusbar.policy.DarkIconDispatcher.DarkReceiver;
 import com.android.systemui.statusbar.policy.EncryptionHelper;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.NetworkController.SignalCallback;
+import android.graphics.Rect;
 
 /**
  * Contains the collapsed status bar and handles hiding/showing based on disable flags
  * and keyguard state. Also manages lifecycle to make sure the views it contains are being
  * updated by the StatusBarIconController and DarkIconManager while it is attached.
  */
-public class CollapsedStatusBarFragment extends Fragment implements CommandQueue.Callbacks {
+public class CollapsedStatusBarFragment extends Fragment implements CommandQueue.Callbacks, DarkReceiver {
 
     public static final String TAG = "CollapsedStatusBarFragment";
     private static final String EXTRA_PANEL_STATE = "panel_state";
@@ -62,6 +70,11 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private StatusBar mStatusBarComponent;
     private DarkIconManager mDarkIconManager;
     private View mOperatorNameFrame;
+
+    private ImageView syberiaLogo;
+    private boolean showLogo;
+
+    private StatusBarObserver mStatusBarObserver = new StatusBarObserver(new Handler());
 
     private SignalCallback mSignalCallback = new SignalCallback() {
         @Override
@@ -94,12 +107,16 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mDarkIconManager = new DarkIconManager(view.findViewById(R.id.statusIcons));
         mDarkIconManager.setShouldLog(true);
         Dependency.get(StatusBarIconController.class).addIconGroup(mDarkIconManager);
+        Dependency.get(DarkIconDispatcher.class).addDarkReceiver(this);
         mSystemIconArea = mStatusBar.findViewById(R.id.system_icon_area);
         mClockView = mStatusBar.findViewById(R.id.clock);
+        syberiaLogo = mStatusBar.findViewById(R.id.status_bar_logo);
         showSystemIconArea(false);
         showClock(false);
         initEmergencyCryptkeeperText();
         initOperatorName();
+        mStatusBarObserver.observe();
+        mStatusBarObserver.update();
     }
 
     @Override
@@ -124,6 +141,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     public void onDestroyView() {
         super.onDestroyView();
         Dependency.get(StatusBarIconController.class).removeIconGroup(mDarkIconManager);
+        Dependency.get(DarkIconDispatcher.class).removeDarkReceiver(this);
         if (mNetworkController.hasEmergencyCryptKeeperText()) {
             mNetworkController.removeCallback(mSignalCallback);
         }
@@ -234,15 +252,21 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate);
+        if (showLogo) {
+            animateHide(syberiaLogo, animate);
+        }
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
+        if (showLogo) {
+            animateShow(syberiaLogo, animate);
+        }
     }
 
     public void hideOperatorName(boolean animate) {
         if (mOperatorNameFrame != null) {
-            animateHide(mOperatorNameFrame, animate);
+            animateHiddenState(mOperatorNameFrame, View.GONE, animate);
         }
     }
 
@@ -326,6 +350,46 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         if (getResources().getBoolean(R.bool.config_showOperatorNameInStatusBar)) {
             ViewStub stub = mStatusBar.findViewById(R.id.operator_name);
             mOperatorNameFrame = stub.inflate();
+        }
+    }
+
+    private class StatusBarObserver extends ContentObserver {
+        StatusBarObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_LOGO),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            showLogo = Settings.System.getIntForUser( getContext().getContentResolver(), Settings.System.STATUS_BAR_LOGO, 1, UserHandle.USER_CURRENT) == 1;
+
+            if (mNotificationIconAreaInner != null) {
+                if (showLogo) {
+                    if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
+                        animateShow(syberiaLogo, true);
+                    }
+                } else {
+                    animateHiddenState(syberiaLogo, View.GONE, true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDarkChanged(Rect area, float darkIntensity, int tint) {
+        int color = DarkIconDispatcher.getTint(area, syberiaLogo, tint);
+        if (showLogo){
+            syberiaLogo.setColorFilter(color);
         }
     }
 }
