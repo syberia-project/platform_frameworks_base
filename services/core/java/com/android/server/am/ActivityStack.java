@@ -2740,7 +2740,7 @@ class ActivityStack<T extends StackWindowController> extends ConfigurationContai
                     if (!next.hasBeenLaunched) {
                         next.hasBeenLaunched = true;
                     } else  if (SHOW_APP_STARTING_PREVIEW && lastStack != null
-                            && getDisplay() != null && lastStack.isTopStackOnDisplay()) {
+                            && lastStack.getDisplay() != null && lastStack.isTopStackOnDisplay()) {
                         next.showStartingWindow(null /* prev */, false /* newTask */,
                                 false /* taskSwitch */);
                     }
