@@ -664,25 +664,21 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     }
 
 
-    private class ScreenshotAction extends SinglePressAction {
+    private class ScreenshotAction extends SinglePressAction implements LongPressAction {
         public ScreenshotAction() {
             super(R.drawable.ic_screenshot, R.string.global_action_screenshot);
         }
 
         @Override
         public void onPress() {
-            // Add a little delay before executing, to give the
-            // dialog a chance to go away before it takes a
-            // screenshot.
-            // TODO: instead, omit global action dialog layer
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mScreenshotHelper.takeScreenshot(1, true, true, mHandler);
-                    MetricsLogger.action(mContext,
-                            MetricsEvent.ACTION_SCREENSHOT_POWER_MENU);
-                }
-            }, 500);
+            mHandler.sendMessageDelayed(Message.obtain(null, MESSAGE_SCREENSHOT, 1), 500);
+        }
+
+        @Override
+        public boolean onLongPress() {
+            mHandler.sendEmptyMessage(MESSAGE_DISMISS);
+            mHandler.sendMessageDelayed(Message.obtain(null, MESSAGE_SCREENSHOT, 2), 500);
+            return true;
         }
 
         @Override
@@ -729,12 +725,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
 
             public void onPress() {
                 mHandler.sendEmptyMessage(MESSAGE_DISMISS);
-                /* wait for the dialog box to close */
-                try {
-                     Thread.sleep(1000); //1s
-                } catch (InterruptedException ie) {}
-
-                takeScreenrecord();
+                mHandler.sendEmptyMessageDelayed(MESSAGE_SCREENRECORD, 1000);
             }
 
             public boolean showDuringKeyguard() {
@@ -1760,6 +1751,13 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     mDialog.refreshList();
                     mDialog.show();
                     break;
+                case MESSAGE_SCREENRECORD:
+                    takeScreenrecord();
+                    break;
+                case MESSAGE_SCREENSHOT:
+                    mScreenshotHelper.takeScreenshot((Integer) msg.obj, true, true, mHandler);
+                    break;
+                    
             }
         }
     };
