@@ -264,12 +264,14 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate, true);
         animateHide(mCenterClockLayout, animate, true);
-        animateHide(syberiaLogo, animate, true);
+        if (showLogo) {
+            animateHide(syberiaLogo, animate, true);
+        }
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
-	animateShow(mCenterClockLayout, animate);
+        animateShow(mCenterClockLayout, animate);
         if (showLogo) {
             animateShow(syberiaLogo, animate);
         }
@@ -278,12 +280,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     public void hideOperatorName(boolean animate) {
         if (mOperatorNameFrame != null) {
             animateHide(mOperatorNameFrame, animate, true);
-        }
-    }
-
-    public void hideSyberiaLogo(boolean animate) {
-        if (syberiaLogo != null) {
-            animateHide(syberiaLogo, animate, true);
         }
     }
 
@@ -389,7 +385,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                         animateShow(syberiaLogo, true);
                     }
                 } else {
-                    hideSyberiaLogo(showLogo);
+                    if (syberiaLogo != null) {
+                        animateHide(syberiaLogo, true, false);
+                    }
                 }
             }
         }
