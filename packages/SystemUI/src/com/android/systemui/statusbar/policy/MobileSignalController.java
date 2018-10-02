@@ -21,6 +21,7 @@ import android.database.ContentObserver;
 import android.net.NetworkCapabilities;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
@@ -31,6 +32,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
+import android.os.UserHandle;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.telephony.TelephonyIntents;
@@ -71,6 +73,8 @@ public class MobileSignalController extends SignalController<
     private SignalStrength mSignalStrength;
     private MobileIconGroup mDefaultIcons;
     private Config mConfig;
+
+    private boolean ignoreRSSNR = false;
 
     // TODO: Reduce number of vars passed in, if we have the NetworkController, probably don't
     // need listener lists anymore.
@@ -160,6 +164,19 @@ public class MobileSignalController extends SignalController<
         mContext.getContentResolver().registerContentObserver(Global.getUriFor(
                 Global.MOBILE_DATA + mSubscriptionInfo.getSubscriptionId()),
                 true, mObserver);
+        mContext.getContentResolver().registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.IGNORE_RSSNR),
+                    false /* notifyForDescendants */, 
+                    new ContentObserver(new Handler()) {
+                        @Override
+                        public void onChange(boolean selfChange) {
+                            boolean i = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.IGNORE_RSSNR, 0, UserHandle.USER_CURRENT) == 1;
+                            if(i!=ignoreRSSNR){
+                                ignoreRSSNR = i;
+                                updateTelephony();
+                            }                            
+                        }
+                    });
     }
 
     /**
@@ -454,7 +471,7 @@ public class MobileSignalController extends SignalController<
             if (!mSignalStrength.isGsm() && mConfig.alwaysShowCdmaRssi) {
                 mCurrentState.level = mSignalStrength.getCdmaLevel();
             } else {
-                mCurrentState.level = mSignalStrength.getLevel();
+                mCurrentState.level = mSignalStrength.getLevel(ignoreRSSNR);
             }
         }
         if (mNetworkToIconLookup.indexOfKey(mDataNetType) >= 0) {
@@ -516,7 +533,7 @@ public class MobileSignalController extends SignalController<
         public void onSignalStrengthsChanged(SignalStrength signalStrength) {
             if (DEBUG) {
                 Log.d(mTag, "onSignalStrengthsChanged signalStrength=" + signalStrength +
-                        ((signalStrength == null) ? "" : (" level=" + signalStrength.getLevel())));
+                        ((signalStrength == null) ? "" : (" level=" + signalStrength.getLevel(ignoreRSSNR))));
             }
             mSignalStrength = signalStrength;
             updateTelephony();
