@@ -4443,6 +4443,16 @@ public final class Settings {
          */
         public static final String DEVICE_FEATURE_SETTINGS = "device_feature_settings";
 
+
+        /**
+         * @hide
+         */
+        public static final String HIDE_NOTCH = "hide_notch";
+
+        /** @hide */
+        private static final Validator HIDE_NOTCH_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         /**
          * Whether to control brightness from status bar
          * @hide
@@ -5382,7 +5392,8 @@ public final class Settings {
             STATUS_BAR_TICKER_ANIMATION_MODE,
             STATUS_BAR_TICKER_TICK_DURATION,
             OMNI_BOTTOM_GESTURE_TRIGGER_TIMEOUT,
-            OMNI_BOTTOM_GESTURE_SWIPE_LIMIT
+            OMNI_BOTTOM_GESTURE_SWIPE_LIMIT,
+	    HIDE_NOTCH
         };
 
         /**
@@ -5532,6 +5543,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_ANIMATION_MODE);
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_TICK_DURATION);
             PRIVATE_SETTINGS.add(MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD);
+            PRIVATE_SETTINGS.add(HIDE_NOTCH);
         }
 
 
@@ -5662,6 +5674,7 @@ public final class Settings {
                     OMNI_BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
             VALIDATORS.put(OMNI_BOTTOM_GESTURE_SWIPE_LIMIT,
                     OMNI_BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
+            VALIDATORS.put(HIDE_NOTCH, HIDE_NOTCH_VALIDATOR);
         }
 
         /**
