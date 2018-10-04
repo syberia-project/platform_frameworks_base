@@ -149,7 +149,7 @@ public class ToggleSliderView extends RelativeLayout implements ToggleSlider {
 
     @Override
     public void setAutoBrightness(boolean enable) {
-        mSlider.setThumb(enable ? getResources().getDrawable(R.drawable.ic_qs_brightness_auto_on) :
+        mSlider.setThumb(enable ? getResources().getDrawable(R.drawable.ic_qs_brightness_auto_off) :
                 getResources().getDrawable(R.drawable.ic_qs_brightness_auto_off));
     }
 
