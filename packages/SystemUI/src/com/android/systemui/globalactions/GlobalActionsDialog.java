@@ -549,7 +549,10 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     mHasLogoutButton = true;
                 }
             } else if (GLOBAL_ACTION_KEY_RESTART_RECOVERY.equals(actionKey)) {
+                if (Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.POWERMENU_RESTART_RECOVERY, 0) == 1) {
                 mItems.add(mShowAdvancedToggles);
+		}
             } else if (GLOBAL_ACTION_KEY_SCREENRECORD.equals(actionKey)) {
                 if (Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.POWERMENU_SCREENRECORD, 0) == 1) {
