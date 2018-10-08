@@ -4902,6 +4902,22 @@ public final class Settings {
         private static final Validator LOCKSCREEN_WEATHER_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String LOCKSCREEN_WEATHER_SHOW_TEMP = "lockscreen_weather_show_temp";
+
+        /** @hide */
+        private static final Validator LOCKSCREEN_WEATHER_SHOW_TEMP_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * @hide
+         */
+        public static final String LOCKSCREEN_WEATHER_SHOW_CITY = "lockscreen_weather_show_city";
+
+        /** @hide */
+        private static final Validator LOCKSCREEN_WEATHER_SHOW_CITY_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4980,6 +4996,8 @@ public final class Settings {
             OMNI_USE_BOTTOM_GESTURE_NAVIGATION,
             OMNIJAWS_WEATHER_ICON_PACK,
             LOCKSCREEN_WEATHER_ENABLED,
+            LOCKSCREEN_WEATHER_SHOW_TEMP,
+            LOCKSCREEN_WEATHER_SHOW_CITY,
         };
 
         /**
@@ -5119,6 +5137,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_ENABLED);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_TEMP);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
         }
 
 
@@ -5237,6 +5257,8 @@ public final class Settings {
                     OMNI_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR);
             VALIDATORS.put(OMNIJAWS_WEATHER_ICON_PACK, OMNIJAWS_WEATHER_ICON_PACK_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_WEATHER_ENABLED, LOCKSCREEN_WEATHER_ENABLED_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_TEMP, LOCKSCREEN_WEATHER_SHOW_TEMP_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_WEATHER_SHOW_CITY, LOCKSCREEN_WEATHER_SHOW_CITY_VALIDATOR);
         }
 
         /**
