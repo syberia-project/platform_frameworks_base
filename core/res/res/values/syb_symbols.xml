@@ -174,5 +174,9 @@
 
   <!-- Whether device has turbo power charging support -->
   <java-symbol type="bool" name="config_hasTurboPowerCharger" />
+  
+  <!-- SystemUI Restart -->
+  <java-symbol type="string" name="systemui_restart_title" />
+  <java-symbol type="string" name="systemui_restart_message" />
 
 </resources>
