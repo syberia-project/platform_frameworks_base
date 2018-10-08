@@ -41,4 +41,7 @@
     <string name="animation_grow_shrink_right">Увеличение (вправо)</string>
     <string name="action_null">Пусто</string>
 
+    <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">Требуется перезагрузка интерфейса</string>
+    <string name="systemui_restart_message">Для применения изменений необходимо перезагрузить системный интерфейс. Сделать это сейчас?</string>
 </resources>
