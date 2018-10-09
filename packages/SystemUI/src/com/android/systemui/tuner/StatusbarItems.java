@@ -15,11 +15,14 @@
 package com.android.systemui.tuner;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.preference.Preference;
 import android.support.v14.preference.SwitchPreference;
 import android.support.v14.preference.PreferenceFragment;
+import android.support.v7.preference.PreferenceScreen;
 import com.android.systemui.R;
 
 public class StatusbarItems extends PreferenceFragment {
@@ -33,11 +36,13 @@ public class StatusbarItems extends PreferenceFragment {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        final PreferenceScreen prefScreen = getPreferenceScreen();
+        final PackageManager pm = getActivity().getApplicationContext().getPackageManager();
         ContentResolver resolver = getActivity().getContentResolver();
 
         mShowSyberiaLogo = (SwitchPreference) findPreference(KEY_STATUS_BAR_LOGO);
         mShowSyberiaLogo.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_LOGO, 1) == 1));
+
 	mNfcSwitch = (StatusBarSwitch) findPreference(NFC_KEY);
 
         final boolean isNfcAvailable = pm.hasSystemFeature(PackageManager.FEATURE_NFC);
