@@ -2257,6 +2257,17 @@ public class StatusBar extends SystemUI implements DemoMode,
         return themeInfo != null && themeInfo.isEnabled();
     }
 
+    public boolean isUsingSyberiaTheme() {
+        OverlayInfo themeInfo = null;
+        try {
+            themeInfo = mOverlayManager.getOverlayInfo("com.android.system.theme.syberia",
+                    mLockscreenUserManager.getCurrentUserId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return themeInfo != null && themeInfo.isEnabled();
+    }
+
     // Check for black and white accent overlays
     public void unfuckBlackWhiteAccent() {
         OverlayInfo themeInfo = null;
@@ -4239,6 +4250,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.SYSTEM_UI_THEME, 0, mLockscreenUserManager.getCurrentUserId());
         boolean useBlackTheme = false;
         boolean useDarkTheme = false;
+        boolean useSyberiaTheme = false;
         if (userThemeSetting == 0) {
             // The system wallpaper defines if QS should be light or dark.
             WallpaperColors systemColors = mColorExtractor
@@ -4249,6 +4261,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             // with white on white or black on black
             unfuckBlackWhiteAccent();
         } else {
+            useSyberiaTheme = userThemeSetting == 4;
             useBlackTheme = userThemeSetting == 3;
             useDarkTheme = userThemeSetting == 2;
             // Check for black and white accent so we don't end up
@@ -4290,6 +4303,23 @@ public class StatusBar extends SystemUI implements DemoMode,
                     unfuckBlackWhiteAccent();
                 } catch (RemoteException e) {
                     Log.w(TAG, "Can't change black theme(s)", e);
+            }
+        }
+
+        if (isUsingSyberiaTheme() != useSyberiaTheme) {
+                try {
+                    mOverlayManager.setEnabled("com.android.system.theme.syberia",
+                            useSyberiaTheme, mLockscreenUserManager.getCurrentUserId());
+                    mOverlayManager.setEnabled("com.android.systemui.theme.syberia",
+                            useSyberiaTheme, mLockscreenUserManager.getCurrentUserId());
+                    mOverlayManager.setEnabled("com.android.settings.theme.syberia",
+                            useSyberiaTheme, mLockscreenUserManager.getCurrentUserId());
+                    // Gboard overlays are common to DarkUI and BlackUI
+                    mOverlayManager.setEnabled("com.android.gboard.theme.dark.syberia",
+                            useSyberiaTheme, mLockscreenUserManager.getCurrentUserId());
+                    unfuckBlackWhiteAccent();
+                } catch (RemoteException e) {
+                    Log.w(TAG, "Can't change Syberya theme(s)", e);
             }
         }
 
