@@ -31,6 +31,7 @@
     <color name="quick_settings_theme_tile_pink">#FF4081</color>
     <color name="quick_settings_theme_tile_purple">#E040FB</color>
     <color name="quick_settings_theme_tile_deep_purple">#7C4DFF</color>
+    <color name="quick_settings_theme_tile_rosy">#BD717D</color>
     <color name="quick_settings_theme_tile_indigo">#536DFE</color>
     <color name="quick_settings_theme_tile_blue">#448AFF</color>
     <color name="quick_settings_theme_tile_light_blue">#03A9F4</color>

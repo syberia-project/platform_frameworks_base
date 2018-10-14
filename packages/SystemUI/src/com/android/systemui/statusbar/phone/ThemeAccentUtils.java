@@ -45,8 +45,9 @@ public class ThemeAccentUtils {
         "com.accents.brown", // 17
         "com.accents.grey", // 18
         "com.accents.bluegrey", // 19
-        "com.accents.black", // 20
-        "com.accents.white", // 21
+        "com.accents.rosy", // 20
+        "com.accents.black", // 21
+        "com.accents.white", // 22
     };
 
     private static final String[] DARK_THEMES = {
@@ -73,21 +74,21 @@ public class ThemeAccentUtils {
     public static void updateAccents(IOverlayManager om, int userId, int accentSetting) {
         if (accentSetting == 0) {
             unloadAccents(om, userId);
-        } else if (accentSetting < 20) {
+        } else if (accentSetting < 21) {
             try {
                 om.setEnabled(ACCENTS[accentSetting],
                         true, userId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
             }
-        } else if (accentSetting == 20) {
+        } else if (accentSetting == 21) {
             try {
                 // If using a dark, black or Syberia theme we use the white accent, otherwise use the black accent
                 if (isUsingDarkTheme(om, userId) || isUsingBlackTheme(om, userId) || isUsingSyberiaTheme(om, userId)) {
-                    om.setEnabled(ACCENTS[21],
+                    om.setEnabled(ACCENTS[22],
                             true, userId);
                 } else {
-                    om.setEnabled(ACCENTS[20],
+                    om.setEnabled(ACCENTS[21],
                             true, userId);
                 }
             } catch (RemoteException e) {
