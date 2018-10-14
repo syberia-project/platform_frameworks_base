@@ -47,6 +47,7 @@ public class ThemeAccentUtils {
         "com.accents.bluegrey", // 19
         "com.accents.black", // 20
         "com.accents.white", // 21
+	"com.accents.belle", // 22
     };
 
     private static final String[] DARK_THEMES = {
