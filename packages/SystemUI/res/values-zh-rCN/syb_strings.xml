@@ -15,63 +15,63 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Advanced reboot -->
-    <string name="global_action_restart_advanced">�߼�����</string>
-    <string name="global_action_restart_recovery">�ָ�ģʽ</string>
-    <string name="global_action_restart_bootloader">����ģʽ</string>
-    <string name="global_action_restart_ui">ϵͳ����</string>
-    <string name="global_action_restart_soft">������</string>
-    <string name="global_action_screenrecord">¼��</string>
+    <string name="global_action_restart_advanced">高级重启</string>
+    <string name="global_action_restart_recovery">恢复模式</string>
+    <string name="global_action_restart_bootloader">引导模式</string>
+    <string name="global_action_restart_ui">系统界面</string>
+    <string name="global_action_restart_soft">软重启</string>
+    <string name="global_action_screenrecord">录屏</string>
 
     <!-- LTE QS Tile -->
     <string name="qs_lte_label">LTE</string>
-    <string name="lte_on">LTE ON </string>
-    <string name="lte_off">LTE OFF</string>
+    <string name="lte_on">LTE 开启 </string>
+    <string name="lte_off">LTE 关闭</string>
 
     <!-- Reboot/Recovery QS Tile -->
-    <string name="quick_settings_reboot_label">����</string>
-    <string name="quick_settings_reboot_recovery_label">�ָ�ģʽ</string>
+    <string name="quick_settings_reboot_label">重启</string>
+    <string name="quick_settings_reboot_recovery_label">恢复模式</string>
 
     <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenshot_label">��ͼ</string>
-    <string name="quick_settings_region_screenshot_label">�ֲ���ͼ</string>
+    <string name="quick_settings_screenshot_label">截图</string>
+    <string name="quick_settings_region_screenshot_label">局部截图</string>
 
-    <string name="statusbar_items_title">״̬��ͼ��</string>
+    <string name="statusbar_items_title">状态栏图标</string>
 
-    <string name="lockscreen_default">Ĭ��</string>
-    <string name="lockscreen_hidden">��</string>
+    <string name="lockscreen_default">默认</string>
+    <string name="lockscreen_hidden">无</string>
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-    <string name="custom_hint">����ͼ�꼴������</string>
+    <string name="custom_hint">滑动图标即可启动</string>
 
     <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenrecord_label">¼��</string>
-    <string name="quick_settings_screenrecord_lq_label">¼�� LQ</string>
-    <string name="quick_settings_screenrecord_mq_label">¼�� MQ</string>
-    <string name="quick_settings_screenrecord_hq_label">¼�� HQ</string>
+    <string name="quick_settings_screenrecord_label">录屏</string>
+    <string name="quick_settings_screenrecord_lq_label">录屏 LQ</string>
+    <string name="quick_settings_screenrecord_mq_label">录屏 MQ</string>
+    <string name="quick_settings_screenrecord_hq_label">录屏 HQ</string>
 
-    <string name="screenrecord_notif_final_ticker">¼���ɹ�</string>
-    <string name="screenrecord_notif_completed">¼���ɹ�</string>
-    <string name="screenrecord_notif_description">����Բ鿴������Ļ¼��</string>
+    <string name="screenrecord_notif_final_ticker">录屏成功</string>
+    <string name="screenrecord_notif_completed">录屏成功</string>
+    <string name="screenrecord_notif_description">点击以查看您的屏幕录制</string>
 
     <!-- Screenrecord Notification Ticker -->
-    <string name="screenrecord_notif_ticker">����¼��</string>
+    <string name="screenrecord_notif_ticker">正在录屏</string>
     <!-- Screenrecord notification title -->
-    <string name="screenrecord_notif_title">����¼��</string>
+    <string name="screenrecord_notif_title">正在录屏</string>
     <!-- Screenrecord notification action: Stop -->
-    <string name="screenrecord_notif_stop">ֹͣp</string>
+    <string name="screenrecord_notif_stop">停止p</string>
     <!-- Screenrecord notification action: show/hide pointer -->
-    <string name="screenrecord_notif_pointer_on">��ʾָ��</string>
-    <string name="screenrecord_notif_pointer_off">����ָ��</string>
+    <string name="screenrecord_notif_pointer_on">显示指针</string>
+    <string name="screenrecord_notif_pointer_off">隐藏指针</string>
     <!-- Screen record notification error title -->
-    <string name="screenrecord_notif_error">�޷�¼��</string>
-    <string name="notification_channel_screenrecord">¼��</string>
+    <string name="screenrecord_notif_error">无法录屏</string>
+    <string name="notification_channel_screenrecord">录屏</string>
     <!-- Heads up snooze toast -->
-    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - ������Ϣ��ͣ��ʾ 1 ����.</string>
-    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> -������Ϣ��ͣ��ʾ <xliff:g id="number">%d</xliff:g> ����.</string>
+    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - 悬浮消息暂停显示 1 分钟.</string>
+    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> -悬浮消息暂停显示 <xliff:g id="number">%d</xliff:g> 分钟.</string>
 
     <!-- QS Config -->
-    <string name="qs_menu_item_columns">������</string>
-    <string name="qs_menu_item_columns_landscape">������</string>
+    <string name="qs_menu_item_columns">竖屏排</string>
+    <string name="qs_menu_item_columns_landscape">横屏排</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -79,76 +79,76 @@
     <string name="qs_menu_item_columns_seven">7</string>
     <string name="qs_menu_item_columns_eight">8</string>
     <string name="qs_menu_item_columns_nine">9</string>
-    <string name="qs_menu_item_reset">����</string>
-    <string name="qs_menu_item_titles">��ʾ��ǩ</string>
-    <string name="qs_menu_item_rows">������</string>
-    <string name="qs_menu_item_rows_landscape">������</string>
+    <string name="qs_menu_item_reset">重置</string>
+    <string name="qs_menu_item_titles">显示标签</string>
+    <string name="qs_menu_item_rows">竖屏列</string>
+    <string name="qs_menu_item_rows_landscape">横屏列</string>
     <string name="qs_menu_item_rows_one">1</string>
     <string name="qs_menu_item_rows_two">2</string>
     <string name="qs_menu_item_rows_three">3</string>
     <string name="qs_menu_item_rows_four">4</string>
-    <string name="qs_menu_item_qs_columns">��ݴ���</string>
-    <string name="qs_menu_item_columns_auto">����Ӧ</string>
+    <string name="qs_menu_item_qs_columns">快捷磁贴</string>
+    <string name="qs_menu_item_columns_auto">自适应</string>
 
     <string name="syberia_logo_title">Syberia logo</string>
-    <string name="syberia_logo_summary">�����˿��������Ļʱ������֪������ʹ�� Syberia</string>
+    <string name="syberia_logo_summary">但别人看到你的屏幕时，让他知道你在使用 Syberia</string>
 
     <!-- Advance location quick setting tile -->
     <string name="quick_settings_secondary_location_off"></string>
-    <string name="quick_settings_location_secondary_battery_saving">ʡ��ģʽ</string>
-    <string name="accessibility_quick_settings_location_battery_saving">λ����Ϣ: ʡ��ģʽ.</string>
-    <string name="quick_settings_location_secondary_gps_only">���豸</string>
-    <string name="accessibility_quick_settings_location_gps_only">λ����Ϣ: ���豸.</string>
-    <string name="quick_settings_location_secondary_high_accuracy">�߾���</string>
-    <string name="accessibility_quick_settings_location_high_accuracy">λ����Ϣ: �߾���.</string>
+    <string name="quick_settings_location_secondary_battery_saving">省电模式</string>
+    <string name="accessibility_quick_settings_location_battery_saving">位置信息: 省电模式.</string>
+    <string name="quick_settings_location_secondary_gps_only">仅设备</string>
+    <string name="accessibility_quick_settings_location_gps_only">位置信息: 仅设备.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">高精度</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">位置信息: 高精度.</string>
 
     <!-- Caffeine QS Tile -->
-    <string name="quick_settings_caffeine_label">��������</string>
-    <string name="accessibility_quick_settings_caffeine_off">�ر�</string>
-    <string name="accessibility_quick_settings_caffeine_on">����</string>
+    <string name="quick_settings_caffeine_label">保持亮屏</string>
+    <string name="accessibility_quick_settings_caffeine_off">关闭</string>
+    <string name="accessibility_quick_settings_caffeine_on">开启</string>
 
     <!-- Sound QS Tile -->
-    <string name="quick_settings_sound_label">����</string>
-    <string name="quick_settings_sound_ring">����</string>
-    <string name="quick_settings_sound_vibrate">��</string>
-    <string name="quick_settings_sound_dnd">����</string>
+    <string name="quick_settings_sound_label">声音</string>
+    <string name="quick_settings_sound_ring">铃声</string>
+    <string name="quick_settings_sound_vibrate">震动</string>
+    <string name="quick_settings_sound_dnd">勿扰</string>
 
     <string name="tuner_cellular_title">Mobile</string>
 
     <!-- Theme tile -->
-    <string name="systemui_theme_style_title">UI ��ʽ</string>
-    <string name="systemui_theme_style_auto">����Ӧ</string>
-    <string name="systemui_theme_style_light">����ɫ</string>
-    <string name="systemui_theme_style_dark">����ɫ</string>
-    <string name="systemui_theme_style_black">A����</string>
+    <string name="systemui_theme_style_title">UI 样式</string>
+    <string name="systemui_theme_style_auto">自适应</string>
+    <string name="systemui_theme_style_light">亮白色</string>
+    <string name="systemui_theme_style_dark">暗黑色</string>
+    <string name="systemui_theme_style_black">A屏黑</string>
     <string name="systemui_theme_style_syberia">Syberia</string>
-    <string name="quick_settings_theme_tile_title">ǿ��ɫ</string>
-    <string name="quick_settings_theme_tile_accent_detail_title">ѡ��ǿ��ɫ</string>
-    <string name="quick_settings_theme_tile_style_detail_title">ѡ����ʽ</string>
-    <string name="quick_settings_theme_tile_color_default">Ĭ��</string>
-    <string name="quick_settings_theme_tile_color_red">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_pink">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_purple">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_deep_purple">����</string>
-    <string name="quick_settings_theme_tile_color_indigo">����</string>
-    <string name="quick_settings_theme_tile_color_blue">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_light_blue">����</string>
-    <string name="quick_settings_theme_tile_color_cyan">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_teal">ˮѼ��</string>
-    <string name="quick_settings_theme_tile_color_green">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_light_green">����</string>
-    <string name="quick_settings_theme_tile_color_lime">����</string>
-    <string name="quick_settings_theme_tile_color_yellow">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_amber">����ɫ</string>
-    <string name="quick_settings_theme_tile_color_orange">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_deep_orange">���</string>
-    <string name="quick_settings_theme_tile_color_brown">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_grey">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_blue_grey">����y</string>
-    <string name="quick_settings_theme_tile_color_black">��ɫ</string>
-    <string name="quick_settings_theme_tile_color_white">��ɫ</string>
+    <string name="quick_settings_theme_tile_title">强调色</string>
+    <string name="quick_settings_theme_tile_accent_detail_title">选择强调色</string>
+    <string name="quick_settings_theme_tile_style_detail_title">选择样式</string>
+    <string name="quick_settings_theme_tile_color_default">默认</string>
+    <string name="quick_settings_theme_tile_color_red">红色</string>
+    <string name="quick_settings_theme_tile_color_pink">粉色</string>
+    <string name="quick_settings_theme_tile_color_purple">紫色</string>
+    <string name="quick_settings_theme_tile_color_deep_purple">深紫</string>
+    <string name="quick_settings_theme_tile_color_indigo">靛青</string>
+    <string name="quick_settings_theme_tile_color_blue">蓝色</string>
+    <string name="quick_settings_theme_tile_color_light_blue">亮蓝</string>
+    <string name="quick_settings_theme_tile_color_cyan">青色</string>
+    <string name="quick_settings_theme_tile_color_teal">水鸭蓝</string>
+    <string name="quick_settings_theme_tile_color_green">绿色</string>
+    <string name="quick_settings_theme_tile_color_light_green">亮绿</string>
+    <string name="quick_settings_theme_tile_color_lime">青柠</string>
+    <string name="quick_settings_theme_tile_color_yellow">黄色</string>
+    <string name="quick_settings_theme_tile_color_amber">琥珀色</string>
+    <string name="quick_settings_theme_tile_color_orange">橙色</string>
+    <string name="quick_settings_theme_tile_color_deep_orange">深橙</string>
+    <string name="quick_settings_theme_tile_color_brown">棕色</string>
+    <string name="quick_settings_theme_tile_color_grey">灰色</string>
+    <string name="quick_settings_theme_tile_color_blue_grey">蓝灰y</string>
+    <string name="quick_settings_theme_tile_color_black">黑色</string>
+    <string name="quick_settings_theme_tile_color_white">白色</string>
 
-    <string name="theme_info_title">����ʲô?</string>
-    <string name="theme_info_message">���������һ�����ص�����ʹ�õĴ����������û�����ϵͳǿ��ɫ����ʽ.\n\nҪ��ǿ��ɫ����ʽ֮���л���ֻ�賤����ש��Ȼ���ٰ�һ�μ��ɴ��ṩ��ѡ���н���ѡ��.</string>
+    <string name="theme_info_title">这是什么?</string>
+    <string name="theme_info_message">主题磁贴是一个独特但易于使用的磁贴，允许用户更改系统强调色与样式.\n\n要在强调色与样式之间切换，只需长按瓷砖，然后再按一次即可从提供的选项中进行选择.</string>
 
 </resources>
