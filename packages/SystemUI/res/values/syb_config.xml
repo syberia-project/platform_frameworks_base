@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2018 Syberia Project
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Overall pie animation speed -->
+    <integer name="pie_animation_speed">250</integer>
+
+    <!-- Maximum amount of notification icons allowed to show in PIE -->
+    <integer name="pie_maximum_notifications">8</integer>
+
+    <!-- Pie letter spacing -->
+    <item name="pie_status_letter_spacing" format="float" type="integer">0.2</item>
+    <item name="pie_clock_letter_spacing" format="float" type="integer">0.1</item>
+
+    <bool name="config_relocatePieOnRotation">true</bool>
+    <bool name="config_forcePieCentered">false</bool>
+
+    <!-- Pie colors -->
+    <color name="pie_foreground">#ff8a8a8a</color>
+    <color name="pie_background">#ffffffff</color>
+    <color name="pie_icon">#4dffffff</color>
+    <color name="pie_line">#ffffff</color>
+    <color name="pie_selected">#ff000000</color>
+    <color name="pie_back_button">#ff8a8a8a</color>
+    <color name="pie_home_button">#ff8a8a8a</color>
+    <color name="pie_recent_button">#ff8a8a8a</color>
+    <color name="pie_background_circle">#33000000</color>
+    <color name="pie_dark_background">@*android:color/accent_material_dark</color>
+    <color name="pie_dark_snap_point">#4a4a4a</color>
+    <color name="pie_battery">#76c124</color>
+    <color name="pie_battery_med">#ff3d00</color>
+    <color name="pie_battery_low">#f90028</color>
+    <color name="pie_shader_start">#FF4d4d4d</color>
+    <color name="pie_shader_end">#FF212121</color>
+    <color name="system_primary_color">@*android:color/primary_material_light</color>
+
+</resources>

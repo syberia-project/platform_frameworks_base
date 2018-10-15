@@ -484,18 +484,6 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
     }
 
     @Override
-    public void toggleRecentApps() {
-        enforceStatusBarService();
-
-        if (mBar != null) {
-            try {
-                mBar.toggleRecentApps();
-            } catch (RemoteException ex) {
-            }
-        }
-    }
-
-    @Override
     public void toggleSplitScreen() {
         enforceStatusBarService();
 
@@ -993,6 +981,28 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
                         }
                     }
                 });
+        }
+    }
+
+    @Override
+    public void toggleRecentApps() {
+        enforceStatusBarService();
+        if (mBar != null) {
+            try {
+                mBar.toggleRecentApps();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void toggleOrientationListener(boolean enable) {
+        if (mBar != null) {
+            try {
+                mBar.toggleOrientationListener(enable);
+            } catch (RemoteException ex) {
+                // system is dead
+            }
         }
     }
 
