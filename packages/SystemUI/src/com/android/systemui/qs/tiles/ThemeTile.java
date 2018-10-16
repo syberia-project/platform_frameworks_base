@@ -104,6 +104,8 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
                 R.string.quick_settings_theme_tile_color_grey));
         sThemeItems.add(new ThemeTileItem(19, R.color.quick_settings_theme_tile_blue_grey,
                 R.string.quick_settings_theme_tile_color_blue_grey));
+        sThemeItems.add(new ThemeTileItem(20, R.color.quick_settings_theme_tile_rosy,
+                R.string.quick_settings_theme_tile_color_rosy));
     }
 
     static final List<ThemeTileItem> sStyleItems = new ArrayList<ThemeTileItem>();
@@ -290,10 +292,10 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
     private ThemeTileItem getThemeItemForStyleMode() {
         boolean isDark = isUsingDarkTheme() || isUsingBlackTheme() || isUsingSyberiaTheme();
         if (isDark) {
-            return new ThemeTileItem(20, R.color.quick_settings_theme_tile_white,
+            return new ThemeTileItem(21, R.color.quick_settings_theme_tile_white,
                     R.string.quick_settings_theme_tile_color_white);
         } else {
-            return new ThemeTileItem(20, R.color.quick_settings_theme_tile_black,
+            return new ThemeTileItem(21, R.color.quick_settings_theme_tile_black,
                     R.string.quick_settings_theme_tile_color_black);
         }
     }
