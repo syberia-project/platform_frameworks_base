@@ -4228,6 +4228,15 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     /**
+     * Switches qs tile style.
+     */
+     public void updateTileStyle() {
+         int qsTileStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                 Settings.System.QS_TILE_STYLE, 0, mLockscreenUserManager.getCurrentUserId());
+        ThemeAccentUtils.updateTileStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), qsTileStyle);
+    }
+
+    /**
      * Switches theme from light to dark and vice-versa.
      */
     protected void updateTheme() {
@@ -4314,6 +4323,11 @@ public class StatusBar extends SystemUI implements DemoMode,
     // Unload all the theme accents
     public void unloadAccents() {
         ThemeAccentUtils.unloadAccents(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+    }
+
+     // Switches qs tile style back to stock.
+    public void stockTileStyle() {
+        ThemeAccentUtils.stockTileStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
     private void updateDozingState() {
@@ -4994,6 +5008,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 	    resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_METADATA),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_TILE_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5013,7 +5030,11 @@ public class StatusBar extends SystemUI implements DemoMode,
                 // Keeps us from overloading the system by performing these tasks every time.
                 unloadAccents();
                 updateAccents();
-            } 
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_TILE_STYLE))) {
+                stockTileStyle();
+                updateTileStyle();
+            }
             update();
         }
 
