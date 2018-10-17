@@ -112,11 +112,10 @@ public class ThemeAccentUtils {
                 om.setEnabled(QS_TILE_THEMES[qsTileStyle],
                         true, userId);
             } catch (RemoteException e) {
-                Log.w(TAG, "Can't change qs tile icon", e);
             }
         }
     }
-     // Switches qs tile style back to stock.
+    // Switches qs tile style back to stock.
     public static void stockTileStyle(IOverlayManager om, int userId) {
         // skip index 0
         for (int i = 1; i < QS_TILE_THEMES.length; i++) {

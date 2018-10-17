@@ -4244,15 +4244,6 @@ public final class Settings {
         public static final String FLASH_ON_CALLWAITING_DELAY = "flash_on_call_waiting_delay";
 
         /**
-         * 0 - Default
-         * 1 - Round with ring
-         * 2 - Two-toned round with ring
-         * 3 - Squircle with ring
-         * @hide
-         */
-        public static final String QS_TILE_STYLE = "qs_tile_style";
-
-        /**
          * Whether to show the battery info on the lockscreen while charging
          * @hide
          */
@@ -4973,6 +4964,13 @@ public final class Settings {
          public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
 
         /**
+         * Select from various styles to use on the QS tiles
+         *
+         * @hide
+         */
+        public static final String QS_TILE_STYLE = "qs_tile_style";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5198,7 +5196,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_TEMP);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
             PRIVATE_SETTINGS.add(ONE_HAND_MODE_ENABLED);
-            PRIVATE_SETTINGS.add(QS_TILE_STYLE);
         }
 
 
