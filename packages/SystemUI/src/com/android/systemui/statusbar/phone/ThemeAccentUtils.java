@@ -122,26 +122,12 @@ public class ThemeAccentUtils {
     public static void updateTileStyle(IOverlayManager om, int userId, int qsTileStyle) {
         if (qsTileStyle == 0) {
             stockTileStyle(om, userId);
-        } else if (qsTileStyle < 1) {
+        } else {
             try {
                 om.setEnabled(QS_TILE_THEMES[qsTileStyle],
                         true, userId);
             } catch (RemoteException e) {
-                Log.w(TAG, "Can't change qs tile style", e);
-            }
-        } else if (qsTileStyle < 2) {
-            try {
-                om.setEnabled(QS_TILE_THEMES[qsTileStyle],
-                        true, userId);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Can't change qs tile style", e);
-            }
-        } else if (qsTileStyle < 3) {
-            try {
-                om.setEnabled(QS_TILE_THEMES[qsTileStyle],
-                        true, userId);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Can't change qs tile style", e);
+                Log.w(TAG, "Can't change qs tile icon", e);
             }
         }
     }
