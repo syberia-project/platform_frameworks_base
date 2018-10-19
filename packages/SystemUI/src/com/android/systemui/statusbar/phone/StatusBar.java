@@ -4206,15 +4206,6 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     /**
-     * Switches qs tile style.
-     */
-     public void updateTileStyle() {
-         int qsTileStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
-                 Settings.System.QS_TILE_STYLE, 0, mLockscreenUserManager.getCurrentUserId());
-        ThemeAccentUtils.updateTileStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), qsTileStyle);
-    }
-
-    /**
      * Switches theme from light to dark and vice-versa.
      */
     protected void updateTheme() {
@@ -4292,7 +4283,14 @@ public class StatusBar extends SystemUI implements DemoMode,
         ThemeAccentUtils.unloadAccents(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
-     // Switches qs tile style back to stock.
+    // Switches qs tile style from stock to custom
+    public void updateTileStyle() {
+         int qsTileStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                 Settings.System.QS_TILE_STYLE, 0, mLockscreenUserManager.getCurrentUserId());
+        ThemeAccentUtils.updateTileStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), qsTileStyle);
+    }
+
+    // Unload all qs tile styles back to stock
     public void stockTileStyle() {
         ThemeAccentUtils.stockTileStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
