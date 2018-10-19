@@ -73,4 +73,41 @@
     <string name="quick_settings_sound_ring">Звонок</string>
     <string name="quick_settings_sound_vibrate">Вибрация</string>
     <string name="quick_settings_sound_dnd">Не беспокоить</string>
+
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Идёт запись экрана</string>
+    <string name="screenrecord_notif_final_ticker">Запись экрана сохранена</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Запись экрана</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Стоп</string>
+    <string name="screenrecord_notif_completed">Запись экрана сохранена</string>
+    <string name="screenrecord_notif_duration">Время:</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Нажатия</string>
+    <string name="screenrecord_notif_pointer_off">Нажатия</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Невозможно записать экран</string>
+    <string name="notification_channel_screenrecord">Запись экрана</string>
+    <string name="screenrecord_hide_hint">Индикатор записи</string>
+    <string name="screenrecord_show_hint">Индикатор записи</string>
+
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Запись экрана</string>
+    <string name="quick_settings_screenrecord_lq_label">Запись экрана LQ</string>
+    <string name="quick_settings_screenrecord_mq_label">Запись экрана MQ</string>
+    <string name="quick_settings_screenrecord_hq_label">Запись экрана HQ</string>
+
+    <!-- OmniJaws -->
+    <string name="omnijaws_service_error">Ошибка</string>
+    <string name="omnijaws_service_unkown">Нет данных погоды</string>
+    <string name="omnijaws_service_error_long">Ошибка загрузки данных погоды</string>
+    <string name="omnijaws_service_disabled">Сервис отключён</string>
+    <string name="omnijaws_detail_header">Погода</string>
+    <string name="omnijaws_label_default">Погода</string>
+    <string name="omnijaws_current_text">Сейчас</string>
+    <string name="omnijaws_package_not_available">OmniJaws недоступен</string>
+    <string name="omnijaws_service_last_update">Обновлено:</string>
+
+
 </resources>
