@@ -4213,6 +4213,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         boolean useSyberiaTheme = false;
         boolean useBlackTheme = false;
         boolean useDarkTheme = false;
+        
         if (mCurrentTheme == 0) {
             // The system wallpaper defines if QS should be light or dark.
             WallpaperColors systemColors = mColorExtractor
@@ -4225,18 +4226,21 @@ public class StatusBar extends SystemUI implements DemoMode,
             useSyberiaTheme = mCurrentTheme == 4;
         }
         if (isUsingDarkTheme() != useDarkTheme) {
+            Log.v("updateTheme", "setLightDarkTheme "+useDarkTheme);
             // Check for black and white accent so we don't end up
             // with white on white or black on black
             unfuckBlackWhiteAccent();
             ThemeAccentUtils.setLightDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useDarkTheme);
         }
         if (isUsingBlackTheme() != useBlackTheme) {
+            Log.v("updateTheme", "setLightBlackTheme "+useBlackTheme);
             // Check for black and white accent so we don't end up
             // with white on white or black on black
             unfuckBlackWhiteAccent();
             ThemeAccentUtils.setLightBlackTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useBlackTheme);
         }
         if (isUsingSyberiaTheme() != useSyberiaTheme) {
+            Log.v("updateTheme", "setLightSyberiaTheme "+useSyberiaTheme);
             // Check for black and white accent so we don't end up
             // with white on white or black on black
             unfuckBlackWhiteAccent();
