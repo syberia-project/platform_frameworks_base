@@ -24,6 +24,7 @@ import android.os.UserHandle;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 import android.view.ViewGroup;
+import android.util.Log;
 
 import com.android.internal.statusbar.StatusBarIcon;
 import com.android.systemui.Dependency;
@@ -151,14 +152,17 @@ public class StatusBarIconControllerImpl extends StatusBarIconList implements Tu
     @Override
     public void setIcon(String slot, int resourceId, CharSequence contentDescription) {
         int index = getSlotIndex(slot);
+        Log.v("VOLTE", "setIcon " + slot+"/"+index);
         StatusBarIconHolder holder = getIcon(index, 0);
         if (holder == null) {
+            Log.v("VOLTE", "setIcon " + slot+"/"+index+"/null");
             StatusBarIcon icon = new StatusBarIcon(UserHandle.SYSTEM, mContext.getPackageName(),
                     Icon.createWithResource(
                             mContext, resourceId), 0, 0, contentDescription);
             holder = StatusBarIconHolder.fromIcon(icon);
             setIcon(index, holder);
         } else {
+            Log.v("VOLTE", "setIcon " + slot+"/"+index+"/notnull");
             holder.getIcon().icon = Icon.createWithResource(mContext, resourceId);
             holder.getIcon().contentDescription = contentDescription;
             handleSet(index, holder);
@@ -253,8 +257,10 @@ public class StatusBarIconControllerImpl extends StatusBarIconList implements Tu
 
     public void setIconVisibility(String slot, boolean visibility) {
         int index = getSlotIndex(slot);
+        Log.v("VOLTE", "setIconVisibility " + slot+"/"+index+"/"+visibility);
         StatusBarIconHolder holder = getIcon(index, 0);
         if (holder == null || holder.isVisible() == visibility) {
+            Log.v("VOLTE", "setIconVisibility " + slot+"/"+index+"/"+visibility+"/null");
             return;
         }
 
