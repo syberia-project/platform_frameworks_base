@@ -1063,7 +1063,7 @@ public class WindowManagerService extends IWindowManager.Stub
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, TAG_WM);
         mHoldingScreenWakeLock.setReferenceCounted(false);
 
-        mSurfaceAnimationRunner = new SurfaceAnimationRunner();
+        mSurfaceAnimationRunner = new SurfaceAnimationRunner(mPowerManagerInternal);
 
         mAllowTheaterModeWakeFromLayout = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_allowTheaterModeWakeFromWindowLayout);
@@ -1885,6 +1885,13 @@ public class WindowManagerService extends IWindowManager.Stub
             }
 
             win.setFrameNumber(frameNumber);
+
+            if (win.mPendingForcedSeamlessRotate != null && !mWaitingForConfig) {
+                win.mPendingForcedSeamlessRotate.finish(win.mToken, win);
+                win.mFinishForcedSeamlessRotateFrameNumber = win.getFrameNumber();
+                win.mPendingForcedSeamlessRotate = null;
+            }
+
             int attrChanges = 0;
             int flagChanges = 0;
             if (attrs != null) {
