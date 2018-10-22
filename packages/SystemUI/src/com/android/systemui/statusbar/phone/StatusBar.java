@@ -4999,7 +4999,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SYSTEM_UI_THEME),
                     false, this, UserHandle.USER_ALL);	
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+    	    resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_METADATA),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -5014,7 +5014,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 final String stopString = Settings.System.getString(mContext.getContentResolver(),
                         Settings.System.HEADS_UP_STOPLIST_VALUES);
                 splitAndAddToArrayList(mStoplist, stopString, "\\|");
-	    } else if (uri.equals(Settings.System.getUriFor(
+        } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.SYSTEM_UI_THEME))) {
                 getCurrentThemeSetting();
                 updateTheme();
@@ -5038,7 +5038,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setLockscreenDoubleTapToSleep();
             setStatusDoubleTapToSleep();
             updateTheme();
-	    setLockscreenMediaMetadata();
+    	    setLockscreenMediaMetadata();
         }
     }
 
