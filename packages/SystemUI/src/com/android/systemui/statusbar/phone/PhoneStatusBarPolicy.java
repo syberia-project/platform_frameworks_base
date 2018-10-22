@@ -185,7 +185,7 @@ public class PhoneStatusBarPolicy implements Callback, Callbacks,
         mSlotHeadset = context.getString(com.android.internal.R.string.status_bar_headset);
         mSlotDataSaver = context.getString(com.android.internal.R.string.status_bar_data_saver);
         mSlotLocation = context.getString(com.android.internal.R.string.status_bar_location);
-        mSlotNfc = context.getString(com.android.internal.R.string.status_bar_nfc);
+        mSlotNfc = context.getString(com.android.internal.R.string.status_bar_nfc);        
 
         // listen for broadcasts
         IntentFilter filter = new IntentFilter();
@@ -247,7 +247,6 @@ public class PhoneStatusBarPolicy implements Callback, Callbacks,
 
         mIconController.setIcon(mSlotNfc, R.drawable.stat_sys_nfc,
                 mContext.getString(R.string.accessibility_status_bar_nfc));
-
         mIconController.setIconVisibility(mSlotNfc, false);
         updateNfc();
 

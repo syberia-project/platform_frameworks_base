@@ -414,7 +414,7 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
             NetworkController.IconState qsIcon, int statusType,
             int qsType, boolean activityIn, boolean activityOut,
             String typeContentDescription,
-            String description, boolean isWide, int subId, boolean roaming) {
+            String description, boolean isWide, int subId, boolean roaming, boolean volte) {
         mInfo.visible = statusIcon.visible;
         mInfo.mobileSignalIconId = statusIcon.icon;
         mInfo.contentDescription = statusIcon.contentDescription;
