@@ -455,9 +455,11 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         private MobileIconState(int subId) {
             super();
             this.subId = subId;
-            if (extTelephony.hasService()) {
-                mProvisioned = extTelephony.isSubProvisioned(subId);
-            }
+	    if (extTelephony != null) {
+        	if (extTelephony.hasService()) {
+            	    mProvisioned = extTelephony.isSubProvisioned(subId);
+        	}
+	    }
         }
 
         @Override
