@@ -469,4 +469,6 @@ interface IWindowManager
      * This requires the ONE_HANDED_MODE permission.
      */
     void unregisterOneHandedModeListener(IOneHandedModeListener listener);
+
+    boolean isKeyguardShowingAndNotOccluded();
 }
