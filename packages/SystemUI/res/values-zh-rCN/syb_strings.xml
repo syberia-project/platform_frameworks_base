@@ -58,7 +58,7 @@
     <!-- Screenrecord notification title -->
     <string name="screenrecord_notif_title">正在录屏</string>
     <!-- Screenrecord notification action: Stop -->
-    <string name="screenrecord_notif_stop">停止p</string>
+    <string name="screenrecord_notif_stop">停止</string>
     <!-- Screenrecord notification action: show/hide pointer -->
     <string name="screenrecord_notif_pointer_on">显示指针</string>
     <string name="screenrecord_notif_pointer_off">隐藏指针</string>
@@ -151,4 +151,13 @@
     <string name="theme_info_title">这是什么?</string>
     <string name="theme_info_message">主题磁贴是一个独特但易于使用的磁贴，允许用户更改系统强调色与样式.\n\n要在强调色与样式之间切换，只需长按瓷砖，然后再按一次即可从提供的选项中进行选择.</string>
 
+    <string name="omnijaws_service_error">错误</string>
+    <string name="omnijaws_service_unkown">无天气数据</string>
+    <string name="omnijaws_service_error_long">加载天气数据失败</string>
+    <string name="omnijaws_service_disabled">服务已停止</string>
+    <string name="omnijaws_detail_header">天气</string>
+    <string name="omnijaws_label_default">天气</string>
+    <string name="omnijaws_current_text">现在</string>
+    <string name="omnijaws_package_not_available">OmniJaws 无法使用</string>
+    <string name="omnijaws_service_last_update">最后更新:</string>
 </resources>
