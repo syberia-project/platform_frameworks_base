@@ -235,15 +235,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
                 item.icon = themeTileItem.getIcon(mContext);
                 item.line1 = themeTileItem.getLabel(mContext);
                 items.add(item);
-            }
-            Item lastItem = new Item();
-            ThemeTileItem lastThemeTileItem = getThemeItemForStyleMode();
-            lastItem.tag = lastThemeTileItem;
-            lastItem.doDisableTint = true;
-            lastItem.doDisableFocus = true;
-            lastItem.icon = lastThemeTileItem.getIcon(mContext);
-            lastItem.line1 = lastThemeTileItem.getLabel(mContext);
-            items.add(lastItem);
+            }            
             return items;
         }
 
@@ -282,17 +274,6 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
             ThemeTileItem themeItem = (ThemeTileItem) item.tag;
             showDetail(false);
             themeItem.commit(mContext);
-        }
-    }
-
-    private ThemeTileItem getThemeItemForStyleMode() {
-        boolean isDark = isUsingDarkTheme() || isUsingBlackTheme() || isUsingSyberiaTheme();
-        if (isDark) {
-            return new ThemeTileItem(21, R.color.quick_settings_theme_tile_white,
-                    R.string.quick_settings_theme_tile_color_white);
-        } else {
-            return new ThemeTileItem(21, R.color.quick_settings_theme_tile_black,
-                    R.string.quick_settings_theme_tile_color_black);
         }
     }
 
