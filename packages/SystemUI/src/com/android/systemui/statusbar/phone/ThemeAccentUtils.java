@@ -45,9 +45,7 @@ public class ThemeAccentUtils {
         "com.accents.brown", // 17
         "com.accents.grey", // 18
         "com.accents.bluegrey", // 19
-        "com.accents.rosy", // 20
-        "com.accents.black", // 21
-        "com.accents.white", // 22
+        "com.accents.rosy" // 20
     };
 
     private static final String[] DARK_THEMES = {
@@ -85,19 +83,6 @@ public class ThemeAccentUtils {
             try {
                 om.setEnabled(ACCENTS[accentSetting],
                         true, userId);
-            } catch (RemoteException e) {
-                Log.w(TAG, "Can't change theme", e);
-            }
-        } else if (accentSetting == 21) {
-            try {
-                // If using a dark, black or Syberia theme we use the white accent, otherwise use the black accent
-                if (isUsingDarkTheme(om, userId) || isUsingBlackTheme(om, userId) || isUsingSyberiaTheme(om, userId)) {
-                    om.setEnabled(ACCENTS[22],
-                            true, userId);
-                } else {
-                    om.setEnabled(ACCENTS[21],
-                            true, userId);
-                }
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
             }
@@ -222,30 +207,7 @@ public class ThemeAccentUtils {
 
     // Check for black and white accent overlays
     public static void unfuckBlackWhiteAccent(IOverlayManager om, int userId) {
-        OverlayInfo themeInfo = null;
-        try {
-            if (isUsingDarkTheme(om, userId) || isUsingBlackTheme(om, userId) || isUsingSyberiaTheme(om, userId)) {
-                themeInfo = om.getOverlayInfo(ACCENTS[20],
-                        userId);
-                if (themeInfo != null && themeInfo.isEnabled()) {
-                    om.setEnabled(ACCENTS[20],
-                            false /*disable*/, userId);
-                    om.setEnabled(ACCENTS[21],
-                            true, userId);
-                }
-            } else {
-                themeInfo = om.getOverlayInfo(ACCENTS[21],
-                        userId);
-                if (themeInfo != null && themeInfo.isEnabled()) {
-                    om.setEnabled(ACCENTS[21],
-                            false /*disable*/, userId);
-                    om.setEnabled(ACCENTS[20],
-                            true, userId);
-                }
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+       
     }
 
     // Unloads the stock dark theme
