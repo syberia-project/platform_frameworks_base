@@ -31,7 +31,7 @@ import com.android.systemui.R;
 /** Quick settings tile: Screenshot **/
 public class ScreenshotTile extends QSTileImpl<BooleanState> {
 
-    private boolean mRegion = false;
+    private boolean mListening;
 
     public ScreenshotTile(QSHost host) {
         super(host);
@@ -49,12 +49,19 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
 
     @Override
     public void handleSetListening(boolean listening) {
+	if (mListening == listening) return;
+        mListening = listening;
     }
 
     @Override
     public void handleClick() {
-        mRegion = !mRegion;
-        refreshState();
+        mHost.collapsePanels();
+
+        //finish collapsing the panel
+        try {
+             Thread.sleep(1000); //1s
+        } catch (InterruptedException ie) {}
+        SyberiaUtils.takeScreenshot(true);
     }
 
     @Override
@@ -65,7 +72,7 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
         try {
              Thread.sleep(1000); //1s
         } catch (InterruptedException ie) {}
-        SyberiaUtils.takeScreenshot(mRegion ? false : true);
+        SyberiaUtils.takeScreenshot(true);
     }
 
     @Override
@@ -80,16 +87,9 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        if (mRegion) {
-            state.label = mContext.getString(R.string.quick_settings_region_screenshot_label);
-            state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
-            state.contentDescription =  mContext.getString(
-                    R.string.quick_settings_region_screenshot_label);
-        } else {
             state.label = mContext.getString(R.string.quick_settings_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_screenshot);
             state.contentDescription =  mContext.getString(
                     R.string.quick_settings_screenshot_label);
-        }
     }
 }
