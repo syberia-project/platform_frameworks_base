@@ -4500,6 +4500,11 @@ public final class Settings {
         public static final String FULL_GESTURE_NAVBAR = "full_gesture_navbar";
 
         /**
+         * @hide
+         */
+        public static final String FULL_GESTURE_NAVBAR_DT2S = "full_gesture_navbar_dt2s";
+
+        /**
          * Whether to allow one finger quick settings expansion on the right side of the statusbar.
          * @hide
          */
@@ -4943,7 +4948,8 @@ public final class Settings {
         /** @hide */
         private static final Validator OMNI_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR =
                 BOOLEAN_VALIDATOR;
-        /**
+
+      /**
          * Wheter to play notification sound and vibration if screen is ON
          * 0 - never
          * 1 - always
