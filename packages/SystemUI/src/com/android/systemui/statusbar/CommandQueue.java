@@ -97,6 +97,7 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_CAMERA_FLASH_ON        = 48 << MSG_SHIFT;
     private static final int MSG_TOGGLE_CAMERA_FLASH_OFF       = 49 << MSG_SHIFT;
     private static final int MSG_RESTART_UI                    = 50 << MSG_SHIFT;
+    private static final int MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED  = 51 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -173,6 +174,7 @@ public class CommandQueue extends IStatusBar.Stub {
         default void toggleCameraFlashOn() { }
         default void toggleCameraFlashOff() { }
         default void restartUI() { }
+        default void leftInLandscapeChanged(boolean isLeft) {}
     }
 
     @VisibleForTesting
@@ -588,6 +590,14 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+    public void leftInLandscapeChanged(boolean isLeft) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED);
+            mHandler.obtainMessage(MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED,
+                    isLeft ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
+
     private final class H extends Handler {
         private H(Looper l) {
             super(l);
@@ -852,6 +862,11 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_RESTART_UI:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).restartUI();
+                    }
+                    break;
+                case MSG_LEFT_IN_LANDSCAPE_STATE_CHANGED:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).leftInLandscapeChanged(msg.arg1 != 0);
                     }
                     break;
             }

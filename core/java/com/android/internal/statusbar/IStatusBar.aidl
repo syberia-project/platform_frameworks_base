@@ -158,4 +158,5 @@ oneway interface IStatusBar
     void toggleCameraFlash();
     void toggleCameraFlashOn();
     void toggleCameraFlashOff();
+    void leftInLandscapeChanged(boolean isLeft);
 }
