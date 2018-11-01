@@ -109,7 +109,7 @@ public class ScreenDecorations extends SystemUI implements Tunable {
                 R.dimen.rounded_corner_content_padding_alt);
         int qsPadding = mContext.getResources().getDimensionPixelSize(
                 R.dimen.qs_corner_content_padding);
-        if (padding != 0 && Build.PRODUCT.equals("taimen")) {
+        if (padding != 0 && Build.PRODUCT.matches("taimen|beryllium")) {
             setupPadding(padding, qsPadding);
         } else {
             setupPadding(padding_alt, qsPadding);
