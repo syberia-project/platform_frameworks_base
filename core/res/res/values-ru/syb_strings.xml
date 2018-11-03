@@ -44,4 +44,8 @@
     <!-- SystemUI Restart -->
     <string name="systemui_restart_title">Требуется перезагрузка интерфейса</string>
     <string name="systemui_restart_message">Для применения изменений необходимо перезагрузить системный интерфейс. Сделать это сейчас?</string>
+
+    <!-- Ambient play -->
+    <string name="ambient_recognition_notification">Сейчас играет</string>
+    <string name="ambient_recognition_information">%1$s - %2$s</string>
 </resources>
