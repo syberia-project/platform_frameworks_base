@@ -5673,6 +5673,16 @@ public final class Settings {
         /** @hide */
         private static final Validator BACK_GESTURE_HAPTIC_VALIDATOR = BOOLEAN_VALIDATOR;
 
+        /*
+         * Whether to use smart clock or not
+         * @hide
+         */
+        public static final String SMART_CLOCK_ENABLE = "smart_clock_enable";
+
+        /** @hide */
+        private static final Validator SMART_CLOCK_ENABLE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         /**
          * Display cutout
          * @hide
@@ -6069,6 +6079,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(TOAST_ICON);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_REPEAT_COUNT);
+            PRIVATE_SETTINGS.add(SMART_CLOCK_ENABLE);
         }
 
         /**
@@ -6255,6 +6266,7 @@ public final class Settings {
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HAPTIC, BACK_GESTURE_HAPTIC_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_LIGHT_REPEAT_COUNT, PULSE_AMBIENT_LIGHT_REPEAT_COUNT_VALIDATOR);
+            VALIDATORS.put(SMART_CLOCK_ENABLE, SMART_CLOCK_ENABLE_VALIDATOR);
         }
 
         /**
