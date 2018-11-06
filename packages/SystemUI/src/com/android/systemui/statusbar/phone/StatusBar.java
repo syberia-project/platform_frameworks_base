@@ -5380,7 +5380,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TICKER_TICK_DURATION),
                     false, this, UserHandle.USER_ALL);
-        }
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                     Settings.Secure.PULSE_APPS_BLACKLIST),
+                    false, this, UserHandle.USER_ALL);
+	 }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -5409,8 +5412,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_TICKER_TICK_DURATION))) {
                 updateTickerTickDuration();
-            }
-            update();
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.PULSE_APPS_BLACKLIST))) {
+                setPulseBlacklist();
+	    }
+	    update();
         }
 
         public void update() {
@@ -5422,9 +5427,10 @@ public class StatusBar extends SystemUI implements DemoMode,
     	    setLockscreenMediaMetadata();
             updateTickerAnimation();
             updateTickerTickDuration();
-        }
+	    setPulseBlacklist();
+    	}
     }
-
+          
     private void setLockscreenDoubleTapToSleep() {
         if (mStatusBarWindow != null) {
             mStatusBarWindow.setLockscreenDoubleTapToSleep();
@@ -5446,6 +5452,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         final String blackString = Settings.System.getString(mContext.getContentResolver(),
                     Settings.System.HEADS_UP_BLACKLIST_VALUES);
         splitAndAddToArrayList(mBlacklist, blackString, "\\|");
+    }
+
+    private void setPulseBlacklist() {
+        String blacklist = Settings.Secure.getStringForUser(mContext.getContentResolver(),
+            Settings.Secure.PULSE_APPS_BLACKLIST, UserHandle.USER_CURRENT);
+        getMediaManager().setPulseBlacklist(blacklist);
     }
 
     private void setLockscreenMediaMetadata() {
