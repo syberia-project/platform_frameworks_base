@@ -5156,6 +5156,15 @@ public final class Settings {
         public static final String PIXEL_NAV_ANIMATION = "pixel_nav_animation";
 
         /**
+         * Whether to mute annoying notifications
+         * @hide
+         */
+        public static final String MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD =
+                "mute_annoying_notifications_threshold";
+        /** @hide */
+        public static final Validator MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5390,6 +5399,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUS_BAR_SHOW_TICKER);
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_ANIMATION_MODE);
             PRIVATE_SETTINGS.add(STATUS_BAR_TICKER_TICK_DURATION);
+            PRIVATE_SETTINGS.add(MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD);
         }
 
 
@@ -5518,6 +5528,7 @@ public final class Settings {
             VALIDATORS.put(STATUS_BAR_SHOW_TICKER, STATUS_BAR_SHOW_TICKER_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_TICKER_ANIMATION_MODE, STATUS_BAR_TICKER_ANIMATION_MODE_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_TICKER_TICK_DURATION, STATUS_BAR_TICKER_TICK_DURATION_VALIDATOR);
+            VALIDATORS.put(MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD, MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD_VALIDATOR);
         }
 
         /**
