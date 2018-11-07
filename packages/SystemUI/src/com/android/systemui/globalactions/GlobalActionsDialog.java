@@ -680,7 +680,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         @Override
         public boolean onLongPress() {
             mHandler.sendEmptyMessage(MESSAGE_DISMISS);
-            mHandler.sendMessageDelayed(Message.obtain(null, MESSAGE_SCREENSHOT, 2), 500);
+            mHandler.sendMessageDelayed(Message.obtain(null, MESSAGE_SCREENSHOT, 1), 500);
             return true;
         }
 
