@@ -316,8 +316,10 @@ public class BatteryMeterView extends LinearLayout implements
             }
         }
         if (mBatteryPercentView != null) {
-            mBatteryPercentView.setPaddingRelative(0, 0,
-                    mStyle == BatteryMeterDrawableBase.BATTERY_STYLE_TEXT ? 0 : mEndPadding, 0);
+            final Resources res = getContext().getResources();
+            final int startPadding = res.getDimensionPixelSize(R.dimen.battery_level_padding_start);
+            mBatteryPercentView.setPaddingRelative(startPadding, 0,
+                    /*(mDrawable.getMeterStyle() != BatteryMeterDrawableBase.BATTERY_STYLE_TEXT ? endPadding : */0/*)*/, 0);
         }
         mDrawable.showPercentInsideCircle(mShowPercentText == 2);
         mDrawable.setShowPercent(mShowPercentText == 2);
@@ -332,6 +334,14 @@ public class BatteryMeterView extends LinearLayout implements
      * Looks up the scale factor for status bar icons and scales the battery view by that amount.
      */
     private void scaleBatteryMeterViews() {
+        if (mBatteryPercentView != null) {
+            FontSizeUtils.updateFontSize(mBatteryPercentView, R.dimen.qs_time_expanded_size);
+        }
+
+        if (mBatteryIconView == null) {
+            return;
+        }
+
         Resources res = getContext().getResources();
         TypedValue typedValue = new TypedValue();
 
@@ -451,6 +461,10 @@ public class BatteryMeterView extends LinearLayout implements
                 }
                 break;
             default:
+                if (mBatteryPercentView != null) {
+                    removeView(mBatteryPercentView);
+                    mBatteryPercentView = null;
+                }
                 mDrawable.setMeterStyle(style);
                 if (mBatteryIconView == null) {
                     mBatteryIconView = new ImageView(mContext);
@@ -458,7 +472,8 @@ public class BatteryMeterView extends LinearLayout implements
                     final MarginLayoutParams mlp = new MarginLayoutParams(
                             getResources().getDimensionPixelSize(R.dimen.status_bar_battery_icon_width),
                             getResources().getDimensionPixelSize(R.dimen.status_bar_battery_icon_height));
-                    mlp.setMargins(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.battery_margin_bottom));
+                    mlp.setMargins(0, 0, 0,
+                            getResources().getDimensionPixelOffset(R.dimen.battery_margin_bottom));
                     addView(mBatteryIconView, mlp);
                 }
                 break;
@@ -471,6 +486,7 @@ public class BatteryMeterView extends LinearLayout implements
         } else {
             mForceShowPercent = false;
         }
+        scaleBatteryMeterViews();
         updateShowPercent();
         updatePercentText();
         onDensityOrFontScaleChanged();
