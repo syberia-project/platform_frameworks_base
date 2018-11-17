@@ -24,15 +24,32 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:alpha">0.87</item>
     </style>
+
     <style name="pocket_view_title_cancel">
         <item name="android:textSize">@dimen/pocket_view_title_cancel_size</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:alpha">0.54</item>
     </style>
+
     <style name="pocket_view_top_tag">
         <item name="android:textSize">@dimen/pocket_view_top_tag_size</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:alpha">0.54</item>
+    </style>
+
+    <style name="GlobalActionsAnimation">
+        <item name="windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="windowExitAnimation">@anim/slide_out_down</item>
+    </style>
+
+    <style name="GlobalActionsAnimationTop">
+        <item name="windowEnterAnimation">@anim/slide_in_down</item>
+        <item name="windowExitAnimation">@anim/slide_out_up</item>
+    </style>
+
+    <style name="GlobalActionsAnimationEnter">
+        <item name="windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
 </resources>
