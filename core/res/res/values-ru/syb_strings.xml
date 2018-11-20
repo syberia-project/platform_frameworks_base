@@ -49,26 +49,19 @@
     <string name="ambient_recognition_notification">Сейчас играет</string>
     <string name="ambient_recognition_information">%1$s - %2$s</string>
 
-    <!-- Privacy Guard -->
-    <string name="permlab_changePrivacyGuardState">Включение или выключение защищённого режима</string>
-    <string name="permdesc_changePrivacyGuardState">Приложение сможет изменять состояние защищённого режима для других приложений. Когда приложение запущено в защищённом режиме, оно не получает доступ к персональным данным, таким как контакты, сообщения или журнал звонков.</string>
-    <string name="privacy_guard_notification">Защищённый режим включён</string>
-    <string name="privacy_guard_notification_detail">У «<xliff:g id="app">%1$s</xliff:g>» нет доступа к персональным данным</string>
-    <string name="privacy_guard_dialog_title">Защищённый режим</string>
-    <string name="privacy_guard_dialog_summary">Приложение «<xliff:g id="app">%1$s</xliff:g>» пытается <xliff:g id="op">%2$s</xliff:g>.</string>
-    <!-- Text of the checkbox for the permission confirmation dialog to remember the user's choice. [CHAR LIMIT=40] -->
-    <string name="permission_remember_choice">Запомнить разрешение</string>
     <!-- App ops requests -->
-    <string name="app_ops_access_camera">получить доступ к камере</string>
-    <string name="app_ops_access_location">получить доступ к местоположению устройства</string>
-    <string name="app_ops_access_notifications">получить доступ к уведомлениям</string>
+    <string name="app_ops_access_camera">доступ к камере</string>
+    <string name="app_ops_access_location">доступ к вашему местоположению</string>
+    <string name="app_ops_access_notifications">доступ к уведомлениям</string>
     <string name="app_ops_activate_vpn">активировать VPN</string>
     <string name="app_ops_add_voicemail">добавить сообщение голосовой почты</string>
     <string name="app_ops_app_start_foreground">запуск приложений с мгновенным запуском</string>
     <string name="app_ops_assist_screenshot">сделать скриншот</string>
     <string name="app_ops_assist_structure">использовать структуру ассистента</string>
     <string name="app_ops_audio_accessibility_volume">доступ к громкости звука</string>
-    <string name="app_ops_auto_start">назначить запуск при включении устройства</string>
+    <string name="app_ops_auto_start">запуск при включении устройства</string>
+    <string name="app_ops_bind_accessibility_service">доступ к спец. возможностям</string>
+    <string name="app_ops_bluetooth_scan">поиск bluetooth устройств</string>
     <string name="app_ops_change_wallpaper">изменить обои</string>
     <string name="app_ops_delete_call_log">удалить журнал звонков</string>
     <string name="app_ops_delete_contacts">удалить контакты</string>
@@ -77,8 +70,10 @@
     <string name="app_ops_draw_on_top">отображать элементы интерфейса поверх других окон</string>
     <string name="app_ops_get_accounts">получить информацию об аккаунтах</string>
     <string name="app_ops_get_usage_stats">получать статистику использования приложений</string>
+    <string name="app_ops_accept_handover">передача вызова из другого приложения</string>
     <string name="app_ops_install_packages">установка пакетов</string>
     <string name="app_ops_keep_device_awake">запретить устройству переход в спящий режим</string>
+    <string name="app_ops_manage_ipsec_tunnels">управлять туннелями ipsec</string>
     <string name="app_ops_make_phone_call">выполнить телефонный звонок</string>
     <string name="app_ops_mock_location">предоставить фиктивные сведения о местоположении</string>
     <string name="app_ops_modify_calendar">изменить данные календаря</string>
@@ -103,12 +98,16 @@
     <string name="app_ops_read_phone_state">получить данные о состоянии телефона</string>
     <string name="app_ops_read_sms">считать SMS-сообщения</string>
     <string name="app_ops_receive_sms">получить SMS-сообщение</string>
+    <string name="app_ops_receive_emergency_broadcast">получить экстренные оповещения населения</string>
     <string name="app_ops_record_audio">записать аудио</string>
+    <string name="app_ops_request_delete_packages">запрос на удаление приложений</string>
     <string name="app_ops_run_in_background">работать в фоновом режиме</string>
+    <string name="app_ops_run_any_in_background">запускать в фоновом режиме</string>
     <string name="app_ops_scan_wifi">выполнить сканирование сетей Wi-Fi</string>
     <string name="app_ops_send_mms">отправить MMS-сообщение</string>
     <string name="app_ops_send_sms">отправить SMS-сообщение</string>
     <string name="app_ops_start_at_bootup">назначить запуск при включении устройства</string>
+    <string name="app_ops_start_foreground">запускать в приоритете</string>
     <string name="app_ops_su">получить права суперпользователя</string>
     <string name="app_ops_toast_window">отображать всплывающие уведомления</string>
     <string name="app_ops_toggle_bluetooth">переключить состояние Bluetooth</string>
@@ -132,5 +131,15 @@
     <string name="app_ops_write_external_storage">записать данные на внешнее запоминающее устройство</string>
     <string name="app_ops_write_mms">создать MMS-сообщение</string>
     <string name="app_ops_write_sms">создать SMS-сообщение</string>
+    
+    <!-- Privacy Guard -->
+    <string name="permlab_changePrivacyGuardState">Включение или выключение защищённого режима</string>
+    <string name="permdesc_changePrivacyGuardState">Приложение сможет изменять состояние защищённого режима для других приложений. Когда приложение запущено в защищённом режиме, оно не получает доступ к персональным данным, таким как контакты, сообщения или журнал звонков.</string>
+    <string name="privacy_guard_notification">Защищённый режим включён</string>
+    <string name="privacy_guard_notification_detail">У «<xliff:g id="app">%1$s</xliff:g>» нет доступа к персональным данным</string>
+    <string name="privacy_guard_dialog_title">Защищённый режим</string>
+    <string name="privacy_guard_dialog_summary">Приложение «<xliff:g id="app">%1$s</xliff:g>» пытается <xliff:g id="op">%2$s</xliff:g>.</string>
+    <!-- Text of the checkbox for the permission confirmation dialog to remember the user's choice. [CHAR LIMIT=40] -->
+    <string name="permission_remember_choice">Запомнить разрешение</string>
 
 </resources>
