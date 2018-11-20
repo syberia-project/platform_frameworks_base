@@ -110,5 +110,10 @@
     <string name="omnijaws_service_last_update">Обновлено:</string>
 
     <string name="quick_settings_ambient_play">Сейчас играет</string>
+  
+    <!-- Expanded desktop tile -->
+    <string name="quick_settings_expanded_desktop_label">Расширенный экран</string>
+    <string name="quick_settings_expanded_desktop">Расширенный</string>
+    <string name="quick_settings_expanded_desktop_off">Нормальный</string>
 
 </resources>
