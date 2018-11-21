@@ -198,4 +198,6 @@
   <java-symbol type="string" name="config_rat_3g" />
   <java-symbol type="string" name="config_rat_4g" />
 
+    <!-- System fonts -->
+    <java-symbol type="array" name="config_fontPackages" />
 </resources>
