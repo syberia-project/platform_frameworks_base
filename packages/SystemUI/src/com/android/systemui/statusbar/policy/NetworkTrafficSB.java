@@ -123,7 +123,7 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
                    }
                 // Update view if there's anything new to show
                 if (!output.contentEquals(getText())) {
-                    setGravity(Gravity.RIGHT);
+                    setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
                     setText(output);
                 }
                 mTrafficVisible = true;
