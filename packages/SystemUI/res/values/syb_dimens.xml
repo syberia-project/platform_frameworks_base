@@ -85,4 +85,13 @@
     <dimen name="pie_status_text_top_margin">13dp</dimen>
     <dimen name="pie_status_text_top_margin_land">9dp</dimen>
 
+    <!-- OPA -->
+    <dimen name="halo_diameter">18.0dip</dimen>
+    <dimen name="halo_inner_radius">8.0dip</dimen>
+    <dimen name="halo_thickness">1.0dip</dimen>
+    <dimen name="opa_diamond_translation">16.0dip</dimen>
+    <dimen name="opa_dot_diam">10.0dip</dimen>
+    <dimen name="opa_line_x_trans_bg">30.0dip</dimen>
+    <dimen name="opa_line_x_trans_ry">15.0dip</dimen>
+    <dimen name="opa_line_y_translation">16.0dip</dimen>
 </resources>
