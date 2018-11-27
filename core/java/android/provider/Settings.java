@@ -5201,6 +5201,18 @@ public final class Settings {
         public static final String ANIM_TILE_INTERPOLATOR = "anim_tile_interpolator";
 
         /**
+         * Whether to show the kill app button in notification guts
+         *
+         * @hide
+         */
+        public static final String NOTIFICATION_GUTS_KILL_APP_BUTTON =
+                "notification_guts_kill_app_button";
+
+        /** @hide */
+        private static final Validator NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5306,6 +5318,7 @@ public final class Settings {
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
             NAV_BAR_GESTURAL_HIDE_NAV,
             LOCK_SHOW_STATUS_BAR,
+            NOTIFICATION_GUTS_KILL_APP_BUTTON,
         };
 
         /**
@@ -5481,6 +5494,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NAV_BAR_GESTURAL_HIDE_NAV);
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
             PRIVATE_SETTINGS.add(LOCK_SHOW_STATUS_BAR);
+            PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
         }
 
         /**
@@ -5633,6 +5647,7 @@ public final class Settings {
             VALIDATORS.put(NAV_BAR_GESTURAL_HIDE_NAV, NAV_BAR_GESTURAL_HIDE_NAV_VALIDATOR);
             VALIDATORS.put(POCKET_JUDGE, POCKET_JUDGE_VALIDATOR);
             VALIDATORS.put(LOCK_SHOW_STATUS_BAR,LOCK_SHOW_STATUS_BAR_VALIDATOR);
+            VALIDATORS.put(NOTIFICATION_GUTS_KILL_APP_BUTTON, NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR);
         }
 
         /**
