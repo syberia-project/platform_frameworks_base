@@ -104,4 +104,9 @@
     <!-- Name of the microphone status bar icon. -->
     <string name="status_bar_microphone">Микрофон</string>
 
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Остановить принудительно?</string>
+    <string name="force_stop_dlg_text">Если вы принудительно остановите приложение, оно может работать неправильно</string>
+    <string name="guts_force_close_app">Закрыть приложение</string>
+
 </resources>
