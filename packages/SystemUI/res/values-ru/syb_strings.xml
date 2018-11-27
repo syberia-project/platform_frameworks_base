@@ -93,4 +93,11 @@
     <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_quick_settings_gaming_mode_enabled">Игровой режим включен</string>
 
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Остановить принудительно?</string>
+    <string name="force_stop_dlg_text">Если вы принудительно остановите приложение, оно может работать неправильно</string>
+    <string name="dlg_ok">@android:string/ok</string>
+    <string name="dlg_cancel">@android:string/cancel</string>
+    <string name="guts_force_close_app">Закрыть приложение</string>
+
 </resources>
