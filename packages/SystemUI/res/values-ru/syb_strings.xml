@@ -78,4 +78,11 @@
     <string name="quick_settings_reboot_recovery_label">Рекавери</string>
     <string name="quick_settings_poweroff_label">Выключить</string>
 
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Остановить принудительно?</string>
+    <string name="force_stop_dlg_text">Если вы принудительно остановите приложение, оно может работать неправильно</string>
+    <string name="dlg_ok">@android:string/ok</string>
+    <string name="dlg_cancel">@android:string/отмена</string>
+    <string name="guts_force_close_app">Закрыть приложение</string>
+
 </resources>
