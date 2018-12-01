@@ -18,4 +18,5 @@ package com.android.server.notification;
 public interface RankingHandler {
     public void requestSort();
     public void requestReconsideration(RankingReconsideration recon);
+    public void requestSavePolicyFile();
 }
