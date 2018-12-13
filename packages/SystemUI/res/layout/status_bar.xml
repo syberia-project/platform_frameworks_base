@@ -55,7 +55,10 @@
             android:layout_height="match_parent"
             android:src="@drawable/status_bar_logo"
             android:scaleType="centerInside"
-            android:padding="2dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
             android:visibility="gone" />
         <ViewStub
             android:id="@+id/operator_name"
