@@ -142,7 +142,6 @@ Navigator.OnVerticalChangedListener, KeyguardMonitor.Callback, NotificationMedia
     public static final int NAVIGATION_MODE_FLING = 2;
 
     protected Navigator mNavigationBarView = null;
-    protected NavigationBarView mOldNavBarView = null;
 
     protected AssistManager mAssistManager;
 
@@ -227,8 +226,8 @@ Navigator.OnVerticalChangedListener, KeyguardMonitor.Callback, NotificationMedia
         @Override
         public void onBackButtonAlphaChanged(float alpha, boolean animate) {
             final ButtonDispatcher backButton = mNavigationBarView.getBackButton();
-            if (mFullGestureMode && (backButton != null)) {
-                backButton.setVisibility(View.INVISIBLE);
+	    if (mFullGestureMode && (backButton != null)) {
+  		backButton.setVisibility(View.INVISIBLE);
                 return;
             }
             if (backButton != null) {
@@ -1161,8 +1160,8 @@ Navigator.OnVerticalChangedListener, KeyguardMonitor.Callback, NotificationMedia
         public void onChange(boolean selfChange) {
             NavigationBarFragment.this.updateAccessibilityServicesState(mAccessibilityManager);
             NavigationBarFragment.this.setFullGestureMode();
-            if (mOldNavBarView != null) {
-                mOldNavBarView.updateNavButtonIcons();
+            if (mNavigationBarView != null) {
+                mNavigationBarView.updateNavButtonIcons();
             }
         }
     }
@@ -1181,13 +1180,11 @@ Navigator.OnVerticalChangedListener, KeyguardMonitor.Callback, NotificationMedia
                     UserHandle.USER_CURRENT) == 1) {
                 dt2sEnabled = fullModeEnabled;
             }
-        } catch (Settings.SettingNotFoundException e) {
-        }
-	//TODO: We need to get this done in sometime or find a way for the same
-        mFullGestureMode = mOverviewProxyService.shouldShowSwipeUpUI() && fullModeEnabled;
-        if (mOldNavBarView != null) {
-            mOldNavBarView.setFullGestureMode(mFullGestureMode, dt2sEnabled);
-        }
+        } catch (Settings.SettingNotFoundException e) { }
+	mFullGestureMode = mOverviewProxyService.shouldShowSwipeUpUI() && fullModeEnabled;
+        if (mNavigationBarView != null) {
+            mNavigationBarView.setFullGestureMode(mFullGestureMode, dt2sEnabled);
+	}
     }
 
     private final Stub mRotationWatcher = new Stub() {
