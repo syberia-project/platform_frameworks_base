@@ -88,6 +88,7 @@ import com.android.systemui.volume.ui.navigation.VolumeNavigator;
 import dagger.Lazy;
 
 import junit.framework.Assert;
+import com.android.systemui.tuner.TunerService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -131,6 +132,9 @@ public class VolumeDialogImplTest extends SysuiTestCase {
     DeviceProvisionedController mDeviceProvisionedController;
     @Mock
     MediaOutputDialogFactory mMediaOutputDialogFactory;
+    @Mock
+    @Mock
+    TunerService mTunerService;
     @Mock
     InteractionJankMonitor mInteractionJankMonitor;
     @Mock
@@ -207,7 +211,8 @@ public class VolumeDialogImplTest extends SysuiTestCase {
                 mDumpManager,
                 mLazySecureSettings,
                 mVibratorHelper,
-                new FakeSystemClock());
+                new FakeSystemClock(),
+                mTunerService);
         mDialog.init(0, null);
         State state = createShellState();
         mDialog.onStateChangedH(state);
