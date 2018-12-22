@@ -5683,6 +5683,17 @@ public final class Settings {
         public static final String SMART_CHARGING_LEVEL = "smart_charging_level";
 
         /**
+        * 0: OmniJaws Style
+        * 1: KeyguardSlice Style
+        * @hide
+        */
+        public static final String AICP_LOCKSCREEN_WEATHER_STYLE = "lockscreen_weather_style";
+
+        /** @hide */
+        private static final Validator AICP_LOCKSCREEN_WEATHER_STYLE_VALIDATOR =
+	        new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5781,7 +5792,8 @@ public final class Settings {
             OMNI_STATUS_BAR_FILE_HEADER_IMAGE,
             OMNI_CUSTOM_FP_ICON,
             DOZE_ON_CHARGE,
-            FORCE_FULLSCREEN_CUTOUT_APPS
+            FORCE_FULLSCREEN_CUTOUT_APPS,
+            AICP_LOCKSCREEN_WEATHER_STYLE,
         };
 
         /**
@@ -5954,6 +5966,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_ADJUSTMENT);
             PRIVATE_SETTINGS.add(DISPLAY_PICTURE_ADJUSTMENT);
             PRIVATE_SETTINGS.add(LIVE_DISPLAY_HINTED);
+            PRIVATE_SETTINGS.add(AICP_LOCKSCREEN_WEATHER_STYLE);
         }
 
         /**
@@ -6115,6 +6128,7 @@ public final class Settings {
             VALIDATORS.put(DISPLAY_COLOR_ADJUSTMENT, DISPLAY_COLOR_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(DISPLAY_PICTURE_ADJUSTMENT, DISPLAY_PICTURE_ADJUSTMENT_VALIDATOR);
             VALIDATORS.put(LIVE_DISPLAY_HINTED, LIVE_DISPLAY_HINTED_VALIDATOR);
+            VALIDATORS.put(AICP_LOCKSCREEN_WEATHER_STYLE,AICP_LOCKSCREEN_WEATHER_STYLE_VALIDATOR);
         }
 
         /**
