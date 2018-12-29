@@ -77,6 +77,13 @@ public class ThemeAccentUtils {
 	"com.android.systemui.qstile.twotonecircletrim", //7
     };
 
+    // Switch themes
+    private static final String[] SWITCH_THEMES = {
+        "com.android.system.switch.stock", // 0
+        "com.android.system.switch.md2", // 1
+        "com.android.system.switch.oneplus", // 2
+    };
+
     private static final String STOCK_DARK_THEME = "com.android.systemui.theme.dark";
 
     // Switches theme accent from to another or back to stock
@@ -238,6 +245,31 @@ public class ThemeAccentUtils {
             }
         } catch (RemoteException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void updateSwitchStyle(IOverlayManager om, int userId, int switchStyle) {
+        if (switchStyle == 2) {
+            stockSwitchStyle(om, userId);
+        } else {
+            try {
+                om.setEnabled(SWITCH_THEMES[switchStyle],
+                        true, userId);
+            } catch (RemoteException e) {
+                Log.w(TAG, "Can't change switch theme", e);
+            }
+        }
+    }
+
+    public static void stockSwitchStyle(IOverlayManager om, int userId) {
+        for (int i = 0; i < SWITCH_THEMES.length; i++) {
+            String switchtheme = SWITCH_THEMES[i];
+            try {
+                om.setEnabled(switchtheme,
+                        false /*disable*/, userId);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
