@@ -105,7 +105,7 @@ public class KeyguardStatusView extends GridLayout implements
 
     private boolean mForcedMediaDoze;
 
-    private boolean mShowClock = true;
+    private boolean mShowClock;
     private int mClockSelection;
     private int mTextClockAlign;
 
@@ -256,7 +256,7 @@ public class KeyguardStatusView extends GridLayout implements
         updateDark();
         updateSettings();
         refreshLockFont();
-	    refreshLockDateFont();
+        refreshLockDateFont();
         refreshclocksize();
         refreshdatesize();
 
@@ -656,7 +656,8 @@ public class KeyguardStatusView extends GridLayout implements
                 mTextClock.setVisibility(View.GONE);
                 break;
             case 9: // custom text clock
-                mTextClock.setVisibility(View.VISIBLE);
+                mTextClock.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
                 mClockView.setVisibility(View.GONE);
                 mCustomClockView.setVisibility(View.GONE);
                 break;
@@ -1259,9 +1260,18 @@ public class KeyguardStatusView extends GridLayout implements
         }
     }
 
-    public void updateSettings() {
+    public void updateAll() {
+        updateSettings();
+        mKeyguardSlice.refresh();
+    }
+
+    private void updateSettings() {
         final ContentResolver resolver = getContext().getContentResolver();
         final Resources res = getContext().getResources();
+
+        mShowClock = Settings.System.getIntForUser(resolver,
+                Settings.System.LOCKSCREEN_CLOCK, 1, UserHandle.USER_CURRENT) == 1;
+
         mShowWeather = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCKSCREEN_WEATHER_ENABLED, 0,
                 UserHandle.USER_CURRENT) == 1;
