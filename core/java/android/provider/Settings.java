@@ -5263,6 +5263,12 @@ public final class Settings {
         public static final String FONT_PACKAGES = "font_packages";
 
         /**
+         * Select which lockscreen clock style to display
+         * @hide
+         */
+        public static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
+
+        /**
 	     ** Change fonts for the system lockscreen clock widget
 	     **
 	     ** @hide

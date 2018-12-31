@@ -5500,6 +5500,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SWITCH_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CLOCK_SELECTION),
+                    false, this, UserHandle.USER_ALL);
 	 }
 
         @Override
@@ -5539,10 +5542,17 @@ public class StatusBar extends SystemUI implements DemoMode,
 	    } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.SWITCH_STYLE))) {
                 stockSwitchStyle();
-                updateSwitchStyle(); 
-	    }
+                updateSwitchStyle();
+	    } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CLOCK_SELECTION))) {
+                updateKeyguardStatusSettings();
+            }
 	    update();
         }
+
+    private void updateKeyguardStatusSettings() {
+        mNotificationPanel.updateKeyguardStatusSettings();
+    }
 
         public void update() {
             setHeadsUpStoplist();
