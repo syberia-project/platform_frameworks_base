@@ -95,6 +95,7 @@ public class KeyguardStatusView extends GridLayout implements
 
     private boolean mForcedMediaDoze;
 
+    private boolean mShowClock = true;
     private int mClockSelection;
 
     private KeyguardUpdateMonitorCallback mInfoCallback = new KeyguardUpdateMonitorCallback() {
@@ -468,6 +469,38 @@ public class KeyguardStatusView extends GridLayout implements
     public boolean hasOverlappingRendering() {
         return false;
     }
+
+    private void updateVisibilities() {
+        switch (mClockSelection) {
+            case 0: // default digital
+            default:
+                mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
+                mAnalogClockView.setVisibility(View.GONE);
+                break;
+            case 1: // digital (bold)
+                mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
+                mAnalogClockView.setVisibility(View.GONE);
+                break;
+            case 2: // analog
+                mAnalogClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
+                mClockView.setVisibility(View.GONE);
+                break;
+            case 3: // sammy
+                mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
+                mAnalogClockView.setVisibility(View.GONE);
+                break;
+            case 4: // sammy (bold)
+                mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                       View.GONE) : View.VISIBLE);
+                mAnalogClockView.setVisibility(View.GONE);
+                break;
+        }
+    }
+
 
     private void refreshLockFont() {
         final Resources res = getContext().getResources();
@@ -991,10 +1024,12 @@ public class KeyguardStatusView extends GridLayout implements
 
         final int blendedTextColor = ColorUtils.blendARGB(mTextColor, Color.WHITE, mDarkAmount);
         updateDozeVisibleViews();
-        refreshTime();
         mKeyguardSlice.setDarkAmount(mDarkAmount);
         mClockView.setTextColor(blendedTextColor);
         mClockSeparator.setBackgroundColor(blendedTextColor);
+        updateVisibilities();
+        mAnalogClockView.setDark(dark);
+        updateVisibilities();
     }
 
     private void layoutOwnerInfo() {
@@ -1077,40 +1112,27 @@ public class KeyguardStatusView extends GridLayout implements
         switch (mClockSelection) {
             case 0: // default digital
             default:
-                mClockView.setVisibility(mDarkAmount != 1 ? (showClock ?
-                       View.VISIBLE : View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 break;
             case 1: // digital (bold)
-                mClockView.setVisibility(mDarkAmount != 1 ? (showClock ? View.VISIBLE :
-                       View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(true);
                 break;
             case 2: // analog
-                mAnalogClockView.setVisibility(mDarkAmount != 1 ? (showClock ? View.VISIBLE :
-                       View.GONE) : View.VISIBLE);
-                mClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
                 break;
             case 3: // sammy
-                mClockView.setVisibility(mDarkAmount != 1 ? (showClock ? View.VISIBLE :
-                       View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 break;
             case 4: // sammy (bold)
-                mClockView.setVisibility(mDarkAmount != 1 ? (showClock ? View.VISIBLE :
-                       View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
                 mClockView.setSingleLine(false);
                 break;
         }
+        updateVisibilities();
+        updateDozeVisibleViews();
 
         if (mWeatherView != null) {
             if (mShowWeather) {
