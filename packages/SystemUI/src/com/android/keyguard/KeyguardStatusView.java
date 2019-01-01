@@ -42,7 +42,6 @@ import android.util.Slog;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CustomAnalogClock;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextClock;
@@ -51,6 +50,7 @@ import android.graphics.Typeface;
 
 import com.android.internal.widget.LockPatternUtils;
 import com.android.internal.widget.ViewClippingUtil;
+import com.android.keyguard.clocks.CustomAnalogClock;
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
 import com.android.systemui.syberia.CurrentWeatherView;
@@ -75,7 +75,7 @@ public class KeyguardStatusView extends GridLayout implements
     private final float mSmallClockScale;
 
     private TextView mLogoutView;
-    private CustomAnalogClock mAnalogClockView;
+    private CustomAnalogClock mCustomClockView;
     private TextClock mClockView;
     private View mClockSeparator;
     private TextView mOwnerInfo;
@@ -201,7 +201,7 @@ public class KeyguardStatusView extends GridLayout implements
 
         mClockView = findViewById(R.id.clock_view);
         mClockView.setShowCurrentUserTime(true);
-        mAnalogClockView = findViewById(R.id.analog_clock_view);
+        mCustomClockView = findViewById(R.id.custom_clock_view);
         mOwnerInfo = findViewById(R.id.owner_info);
         mKeyguardSlice = findViewById(R.id.keyguard_status_area);
         mKeyguardSliceView = findViewById(R.id.keyguard_status_area);
@@ -215,8 +215,8 @@ public class KeyguardStatusView extends GridLayout implements
         if (mClockView != null) {
             mVisibleInDoze.add(mClockView);
         }
-        if (mAnalogClockView != null) {
-            mVisibleInDoze.add(mAnalogClockView);
+        if (mCustomClockView != null) {
+            mVisibleInDoze.add(mCustomClockView);
         }
 
         if (mKeyguardSlice != null) {
@@ -264,10 +264,10 @@ public class KeyguardStatusView extends GridLayout implements
 
        // Custom analog clock
         RelativeLayout.LayoutParams customlayoutParams =
-                (RelativeLayout.LayoutParams) mAnalogClockView.getLayoutParams();
+                (RelativeLayout.LayoutParams) mCustomClockView.getLayoutParams();
         customlayoutParams.bottomMargin = getResources().getDimensionPixelSize(
                 R.dimen.bottom_text_spacing_digital);
-        mAnalogClockView.setLayoutParams(customlayoutParams);
+        mCustomClockView.setLayoutParams(customlayoutParams);
 
         layoutParams = (RelativeLayout.LayoutParams) mClockSeparator.getLayoutParams();
         layoutParams.topMargin = smallClock ? (int) mWidgetPadding : 0;
@@ -477,27 +477,27 @@ public class KeyguardStatusView extends GridLayout implements
             default:
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
+                mCustomClockView.setVisibility(View.GONE);
                 break;
             case 1: // digital (bold)
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
+                mCustomClockView.setVisibility(View.GONE);
                 break;
             case 2: // analog
-                mAnalogClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                mCustomClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
                 mClockView.setVisibility(View.GONE);
                 break;
             case 3: // sammy
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
+                mCustomClockView.setVisibility(View.GONE);
                 break;
             case 4: // sammy (bold)
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mAnalogClockView.setVisibility(View.GONE);
+                mCustomClockView.setVisibility(View.GONE);
                 break;
         }
     }
@@ -1029,7 +1029,7 @@ public class KeyguardStatusView extends GridLayout implements
         mClockView.setTextColor(blendedTextColor);
         mClockSeparator.setBackgroundColor(blendedTextColor);
         updateVisibilities();
-        mAnalogClockView.setDark(dark);
+        mCustomClockView.setDark(dark);
         updateVisibilities();
     }
 
@@ -1123,7 +1123,7 @@ public class KeyguardStatusView extends GridLayout implements
                 mClockView.setGravity(Gravity.CENTER);
                 break;
             case 2: // analog
-                params.addRule(RelativeLayout.BELOW, R.id.analog_clock_view);
+                params.addRule(RelativeLayout.BELOW, R.id.custom_clock_view);
                 break;
             case 3: // sammy
                 params.addRule(RelativeLayout.BELOW, R.id.clock_view);
