@@ -27671,4 +27671,8 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
     }
 
+    Context getContext() {
+        return mContext;
+    }
+
 }
