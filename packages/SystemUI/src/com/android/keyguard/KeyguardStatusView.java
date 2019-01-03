@@ -99,6 +99,8 @@ public class KeyguardStatusView extends GridLayout implements
     private boolean mShowClock = true;
     private int mClockSelection;
 
+    private boolean mWasLatestViewSmall;
+
     private KeyguardUpdateMonitorCallback mInfoCallback = new KeyguardUpdateMonitorCallback() {
 
         @Override
@@ -254,6 +256,7 @@ public class KeyguardStatusView extends GridLayout implements
      */
     private void onSliceContentChanged() {
         boolean smallClock = mKeyguardSlice.hasHeader() || mPulsing;
+        prepareSmallView(smallClock);
         float clockScale = smallClock ? mSmallClockScale : 1;
 		Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
         RelativeLayout.LayoutParams layoutParams =
@@ -371,7 +374,7 @@ public class KeyguardStatusView extends GridLayout implements
     private void refreshTime() {
         mClockView.refresh();
 
-        if (mClockSelection == 0) {
+        if (mClockSelection == 0 || mWasLatestViewSmall) {
             mClockView.setFormat12Hour(Patterns.clockView12);
             mClockView.setFormat24Hour(Patterns.clockView24);
         } else if (mClockSelection == 1) {
@@ -1107,7 +1110,10 @@ public class KeyguardStatusView extends GridLayout implements
 
         mClockSelection = Settings.System.getIntForUser(resolver,
                 Settings.System.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT);
+        setStyle();
+    }
 
+    private void setStyle() {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
                 mKeyguardSlice.getLayoutParams();
         switch (mClockSelection) {
@@ -1148,6 +1154,24 @@ public class KeyguardStatusView extends GridLayout implements
                 mWeatherView.setVisibility(View.GONE);
                 mWeatherView.disableUpdates();
             }
+        }
+    }
+
+    private void prepareSmallView(boolean small) {
+        if (mWasLatestViewSmall == small) return;
+        mWasLatestViewSmall = small;
+        if (small) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
+                    mKeyguardSlice.getLayoutParams();
+            params.addRule(RelativeLayout.BELOW, R.id.clock_view);
+            mClockView.setSingleLine(true);
+            mClockView.setGravity(Gravity.CENTER);
+            mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
+                    View.GONE) : View.VISIBLE);
+            mCustomClockView.setVisibility(View.GONE);
+        } else {
+            setStyle();
+            refreshTime();
         }
     }
 
