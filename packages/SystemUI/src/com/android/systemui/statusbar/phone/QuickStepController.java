@@ -395,6 +395,7 @@ public class QuickStepController implements GestureHelper {
                         mPreviousUpEventY = (int)event.getY();
                     }
                     if (mBackActionScheduled) {
+                        endQuickScrub(true /* animate */);
                         SyberiaUtils.sendKeycode(KeyEvent.KEYCODE_BACK, mHandler);
                     } else {
                         endQuickScrub(true /* animate */);
@@ -406,11 +407,10 @@ public class QuickStepController implements GestureHelper {
                 break;
         }
 
-        // Proxy motion events to launcher if not handled by quick scrub or back action
+        // Proxy motion events to launcher if not handled by quick scrub
         // Proxy motion events up/cancel that would be sent after long press on any nav button
-        if (!mQuickScrubActive && !mBackActionScheduled
-                && (mAllowGestureDetection || action == MotionEvent.ACTION_CANCEL
-                || action == MotionEvent.ACTION_UP)) {
+        if (!mQuickScrubActive && (mAllowGestureDetection || mBackActionScheduled
+                || action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP)) {
             proxyMotionEvents(event);
         }
         return mQuickScrubActive || mQuickStepStarted || deadZoneConsumed || mBackActionScheduled;
