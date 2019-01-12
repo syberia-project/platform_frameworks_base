@@ -196,4 +196,7 @@
 
     <!-- ADB over network QS tile -->
     <string name="quick_settings_network_adb_label">ADB-Over-Network</string>
+
+    <!-- Ambient Display Pixel-Like string -->
+    <string name="ambientmusic_songinfo">%s by %s</string>
 </resources>
