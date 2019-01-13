@@ -28,11 +28,14 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.text.TextUtils;
 import android.view.IWindowManager;
 import android.view.WindowManagerGlobal;
 import android.view.InputDevice;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+
+import com.android.internal.R;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -116,6 +119,14 @@ public class SyberiaUtils {
 
     public static void killForegroundApp() {
         FireActions.killForegroundApp();
+    }
+
+    // Check if device has a notch
+    public static boolean hasNotch(Context context) {
+        String displayCutout = context.getResources().getString(R.string.config_mainBuiltInDisplayCutout);
+        boolean maskDisplayCutout = context.getResources().getBoolean(R.bool.config_maskMainBuiltInDisplayCutout);
+        boolean displayCutoutExists = (!TextUtils.isEmpty(displayCutout) && !maskDisplayCutout);
+        return displayCutoutExists;
     }
 
     /**
