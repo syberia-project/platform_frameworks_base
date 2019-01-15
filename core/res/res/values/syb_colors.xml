@@ -60,4 +60,6 @@
     <color name="generic_theme_primary_dark">#346AC3</color>
     <color name="generic_theme_accent">#3B77DB</color>
 
+    <color name="bootleg_accent_gradient_end_color">#00000000</color>
+
 </resources>

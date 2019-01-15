@@ -229,4 +229,5 @@
        before setting power profiles on boot. -->
   <java-symbol type="bool" name="config_waitForMpctlOnBoot" />
 
+  <java-symbol type="color" name="bootleg_accent_gradient_end_color" />
 </resources>
