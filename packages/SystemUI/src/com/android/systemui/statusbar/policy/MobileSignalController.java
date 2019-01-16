@@ -16,10 +16,8 @@
 package com.android.systemui.statusbar.policy;
 
 import android.content.ContentResolver;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
@@ -46,10 +44,6 @@ import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.PhoneConstants.DataState;
 import com.android.settingslib.graph.SignalDrawable;
 import com.android.systemui.R;
-import android.telephony.ims.ImsReasonInfo;
-import android.telephony.ims.stub.ImsRegistrationImplBase;
-import com.android.ims.ImsException;
-import com.android.ims.ImsManager;
 import com.android.systemui.statusbar.policy.NetworkController.IconState;
 import com.android.systemui.statusbar.policy.NetworkController.SignalCallback;
 import com.android.systemui.statusbar.policy.NetworkControllerImpl.Config;
@@ -58,7 +52,6 @@ import com.android.systemui.statusbar.policy.NetworkControllerImpl.SubscriptionD
 import java.io.PrintWriter;
 import java.util.BitSet;
 import java.util.Objects;
-import java.util.List;
 
 
 public class MobileSignalController extends SignalController<
@@ -68,8 +61,6 @@ public class MobileSignalController extends SignalController<
     private final String mNetworkNameDefault;
     private final String mNetworkNameSeparator;
     private final ContentObserver mObserver;
-    private ImsManager mImsManager;
-    private boolean mImsResitered;
     @VisibleForTesting
     final PhoneStateListener mPhoneStateListener;
     // Save entire info for logging, we only use the id.
@@ -122,8 +113,6 @@ public class MobileSignalController extends SignalController<
         mLastState.iconGroup = mCurrentState.iconGroup = mDefaultIcons;
         // Get initial data sim state.
         updateDataSim();
-        int phoneId = SubscriptionManager.getPhoneId(mSubscriptionInfo.getSubscriptionId());
-        mImsManager = ImsManager.getInstance(mContext, phoneId);
         mObserver = new ContentObserver(new Handler(receiverLooper)) {
             @Override
             public void onChange(boolean selfChange) {
@@ -135,7 +124,8 @@ public class MobileSignalController extends SignalController<
         SettingsObserver settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();
     }
-     class SettingsObserver extends ContentObserver {
+
+    class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
         }
@@ -154,21 +144,15 @@ public class MobileSignalController extends SignalController<
             updateSettings();
         }
     }
+
      private void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
          mShow4gForLte = Settings.System.getIntForUser(resolver,
                 Settings.System.SHOW_FOURG_ICON, 0,
                 UserHandle.USER_CURRENT) == 1;
-         mapIconSets();
+        mapIconSets();
         updateTelephony();
 
-        try {
-            mImsManager.addRegistrationCallback(mImsRegistrationCallback);
-        }catch(ImsException e){
-            Log.d(mTag, "exception:" + e);
-        }
-        mContext.registerReceiver(mVolteSwitchObserver,
-                new IntentFilter("org.codeaurora.intent.action.ACTION_ENHANCE_4G_SWITCH"));
     }
 
     public void setConfiguration(Config config) {
@@ -242,12 +226,6 @@ public class MobileSignalController extends SignalController<
     public void unregisterListener() {
         mPhone.listen(mPhoneStateListener, 0);
         mContext.getContentResolver().unregisterContentObserver(mObserver);
-        mContext.unregisterReceiver(mVolteSwitchObserver);
-    }
-
-    private boolean isEnhanced4gLteModeSettingEnabled() {
-        return mImsManager.isEnhanced4gLteModeSettingEnabledByUser()
-                && mImsManager.isNonTtyOrTtyOnVolteEnabled();
     }
 
     /**
@@ -391,42 +369,7 @@ public class MobileSignalController extends SignalController<
         int typeIcon = (showDataIcon || mConfig.alwaysShowDataRatIcon) ? icons.mDataType : 0;
         callback.setMobileDataIndicators(statusIcon, qsIcon, typeIcon, qsTypeIcon,
                 activityIn, activityOut, dataContentDescription, description, icons.mIsWide,
-                mSubscriptionInfo.getSubscriptionId(), mCurrentState.roaming, mCurrentState.volte);
-    }
-
-    private final ImsRegistrationImplBase.Callback mImsRegistrationCallback =
-            new ImsRegistrationImplBase.Callback() {
-                @Override
-                public void onRegistered(
-                        @ImsRegistrationImplBase.ImsRegistrationTech int imsRadioTech) {
-                    Log.d(mTag, "onRegistered imsRadioTech=" + imsRadioTech);
-                    mImsResitered = true;
-                    notifyListeners();
-                }
-                 @Override
-                public void onRegistering(
-                        @ImsRegistrationImplBase.ImsRegistrationTech int imsRadioTech) {
-                    Log.d(mTag, "onRegistering imsRadioTech=" + imsRadioTech);
-                    mImsResitered = false;
-                    notifyListeners();
-                }
-                 @Override
-                public void onDeregistered(ImsReasonInfo imsReasonInfo) {
-                    Log.d(mTag, "onDeregistered imsReasonInfo=" + imsReasonInfo);
-                    mImsResitered = false;
-                    notifyListeners();
-                }
-            };
-    
-    private final BroadcastReceiver mVolteSwitchObserver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            Log.d(mTag, "action=" + intent.getAction());
-            notifyListeners();
-        }
-    };
-
-    private boolean isVolte() {
-        return (isEnhanced4gLteModeSettingEnabled() && mImsResitered);
+                mSubscriptionInfo.getSubscriptionId(), mCurrentState.roaming);
     }
 
     @Override
@@ -592,7 +535,6 @@ public class MobileSignalController extends SignalController<
                     || mMMSDataState == DataState.CONNECTED);
 
         mCurrentState.roaming = isRoaming();
-        mCurrentState.volte = isVolte();
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
         } else if (isDataDisabled() && !mConfig.alwaysShowDataRatIcon) {
@@ -729,7 +671,6 @@ public class MobileSignalController extends SignalController<
         boolean isDefault;
         boolean userSetup;
         boolean roaming;
-        boolean volte;
 
         @Override
         public void copyFrom(State s) {
@@ -745,7 +686,6 @@ public class MobileSignalController extends SignalController<
             carrierNetworkChangeMode = state.carrierNetworkChangeMode;
             userSetup = state.userSetup;
             roaming = state.roaming;
-            volte = state.volte;
         }
 
         @Override
@@ -777,8 +717,7 @@ public class MobileSignalController extends SignalController<
                     && ((MobileState) o).carrierNetworkChangeMode == carrierNetworkChangeMode
                     && ((MobileState) o).userSetup == userSetup
                     && ((MobileState) o).isDefault == isDefault
-                    && ((MobileState) o).roaming == roaming
-                    && ((MobileState) o).volte == volte;
+                    && ((MobileState) o).roaming == roaming;
         }
     }
 }

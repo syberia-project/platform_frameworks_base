@@ -64,8 +64,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
     guava
 
 LOCAL_JAVA_LIBRARIES := telephony-common \
-    android.car \
-    ims-common
+    android.car
 
 LOCAL_PACKAGE_NAME := SystemUI
 LOCAL_PRIVATE_PLATFORM_APIS := true
