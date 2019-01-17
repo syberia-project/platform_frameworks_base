@@ -109,13 +109,11 @@
     <string name="omnijaws_package_not_available">OmniJaws недоступен</string>
     <string name="omnijaws_service_last_update">Обновлено:</string>
 
-    <string name="quick_settings_ambient_play">Сейчас играет</string>
-  
     <!-- Expanded desktop tile -->
     <string name="quick_settings_expanded_desktop_label">Расширенный экран</string>
     <string name="quick_settings_expanded_desktop">Расширенный</string>
     <string name="quick_settings_expanded_desktop_off">Нормальный</string>
-    
+
     <string name="syberia_logo_title">Логотип Syberia</string>
     <string name="syberia_logo_summary">Пусть все знают, что вы используете Syberia, когда они видят ваш экран</string>
 
