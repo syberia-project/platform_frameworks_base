@@ -1937,6 +1937,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
             stack.checkReadyForSleep();
         }
 
+        service.mAppOpsService.handlePackageResumed(this.app.uid, this.packageName);
         updatePrivacyGuardNotificationLocked();
     }
 
@@ -1948,9 +1949,9 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
 
         boolean privacy = service.mAppOpsService.getPrivacyGuardSettingForPackage(
                 this.app.uid, this.packageName);
-        boolean privacyNotification = (Settings.Secure.getInt(
+        boolean privacyNotification = Settings.Secure.getInt(
                 service.mContext.getContentResolver(),
-                Settings.Secure.PRIVACY_GUARD_NOTIFICATION, 1) == 1);
+                Settings.Secure.PRIVACY_GUARD_NOTIFICATION, 1) == 1;
 
         if (privacyGuardPackageName != null && !privacy) {
             Message msg = service.mHandler.obtainMessage(
