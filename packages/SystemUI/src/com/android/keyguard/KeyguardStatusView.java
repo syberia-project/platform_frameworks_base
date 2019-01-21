@@ -1222,9 +1222,6 @@ public class KeyguardStatusView extends GridLayout implements
             animate = false;
         }
         mKeyguardSlice.setPulsing(pulsing, animate);
-        if (mWeatherView != null) {
-            mWeatherView.setVisibility((mShowWeather && mOmniStyle && !mPulsing) ? View.VISIBLE : View.GONE);
-        }
         updateDozeVisibleViews();
     }
 
