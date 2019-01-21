@@ -1222,9 +1222,6 @@ public class KeyguardStatusView extends GridLayout implements
             animate = false;
         }
         mKeyguardSlice.setPulsing(pulsing, animate);
-        if (mWeatherView != null) {
-            mWeatherView.setVisibility((mShowWeather && mOmniStyle && !mPulsing) ? View.VISIBLE : View.GONE);
-        }
         updateDozeVisibleViews();
     }
 
@@ -1242,7 +1239,7 @@ public class KeyguardStatusView extends GridLayout implements
                 child.setAlpha(mDarkAmount == 1 ? 0 : 1);
             }
             if (mWeatherView != null) {
-                 mWeatherView.setVisibility((mShowWeather && mOmniStyle) ? View.VISIBLE : View.GONE);
+                 mWeatherView.setVisibility((mShowWeather && mOmniStyle && !mPulsing) ? View.VISIBLE : View.GONE);
             }
         }
     }
