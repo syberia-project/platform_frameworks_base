@@ -967,8 +967,7 @@ public class Build {
     /**
      * @hide
      */
-    public static final String CUSTOM_FINGERPRINT = SystemProperties.get("com.syberia.fingerprint",
-            deriveFingerprint());
+    public static final String CUSTOM_FINGERPRINT = getString("ro.build.date");
 
     /**
      * Some devices split the fingerprint components between multiple
