@@ -22,16 +22,20 @@ import android.annotation.ColorInt;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.provider.AlarmClock;
+import android.provider.Settings;
 import android.service.notification.ZenModeConfig;
 import android.support.annotation.VisibleForTesting;
 import android.widget.FrameLayout;
@@ -124,6 +128,29 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     /** Counts how many times the long press tooltip has been shown to the user. */
     private int mShownCount;
 
+    private boolean mLandscape;
+    private boolean mHeaderImageEnabled;
+
+    private class OmniSettingsObserver extends ContentObserver {
+        OmniSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = getContext().getContentResolver();
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER), false,
+                    this, UserHandle.USER_ALL);
+            }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateSettings();
+        }
+    }
+
+    private OmniSettingsObserver mOmniSettingsObserver = new OmniSettingsObserver(mHandler); 
+
     private final BroadcastReceiver mRingerReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -186,6 +213,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mClockView.setOnClickListener(this);
         mClockView.setClockHideableByUser(false);
         mDateView = findViewById(R.id.date);
+        updateSettings();
     }
 
     private void updateStatusText() {
@@ -257,13 +285,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
         updateResources();
-
-        // Update color schemes in landscape to use wallpaperTextColor
-        boolean shouldUseWallpaperTextColor =
-                newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE;
-        mBatteryMeterView.useWallpaperTextColor(shouldUseWallpaperTextColor);
-        mClockView.useWallpaperTextColor(shouldUseWallpaperTextColor);
+        updateStatusbarProperties();
     }
 
     @Override
@@ -294,18 +318,23 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 resources.getDimensionPixelSize(R.dimen.qs_header_tooltip_height);
         mHeaderTextContainerView.setLayoutParams(mHeaderTextContainerView.getLayoutParams());
 
-        mSystemIconsView.getLayoutParams().height = resources.getDimensionPixelSize(
-                com.android.internal.R.dimen.quick_qs_offset_height);
+        int topMargin = resources.getDimensionPixelSize(
+                com.android.internal.R.dimen.quick_qs_offset_height) + (mHeaderImageEnabled ?
+                resources.getDimensionPixelSize(R.dimen.qs_header_image_offset) : 0);
+
+        mSystemIconsView.getLayoutParams().height = topMargin;
         mSystemIconsView.setLayoutParams(mSystemIconsView.getLayoutParams());
 
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
         if (mQsDisabled) {
-            lp.height = resources.getDimensionPixelSize(
-                    com.android.internal.R.dimen.quick_qs_offset_height);
+            lp.height = topMargin;
         } else {
-            lp.height = Math.max(getMinimumHeight(),
-                    resources.getDimensionPixelSize(
-                            com.android.internal.R.dimen.quick_qs_total_height));
+	int qsHeight = resources.getDimensionPixelSize(
+                    com.android.internal.R.dimen.quick_qs_total_height);
+	if (mHeaderImageEnabled) {
+                qsHeight += resources.getDimensionPixelSize(R.dimen.qs_header_image_offset);
+            }
+            lp.height = Math.max(getMinimumHeight(), qsHeight);
         }
 
         setLayoutParams(lp);
@@ -632,5 +661,20 @@ public class QuickStatusBarHeader extends RelativeLayout implements
             lp.leftMargin = sideMargins;
             lp.rightMargin = sideMargins;
         }
+    }
+
+    private void updateSettings() {
+        mHeaderImageEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER, 0,
+                UserHandle.USER_CURRENT) == 1;
+        updateResources();
+        updateStatusbarProperties();
+    }
+
+    // Update color schemes in landscape to use wallpaperTextColor
+    private void updateStatusbarProperties() {
+        boolean shouldUseWallpaperTextColor = mLandscape && !mHeaderImageEnabled;
+        mBatteryMeterView.useWallpaperTextColor(shouldUseWallpaperTextColor);
+        mClockView.useWallpaperTextColor(shouldUseWallpaperTextColor);
     }
 }
