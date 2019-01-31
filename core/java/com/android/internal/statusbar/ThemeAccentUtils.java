@@ -52,12 +52,14 @@ public class ThemeAccentUtils {
         "com.android.system.theme.dark.syberia", // 0
         "com.android.settings.theme.dark.syberia", // 1
         "com.android.systemui.theme.dark.syberia", // 2
+	"com.android.updater.theme.dark.syberia", // 3
     };
 
     private static final String[] BLACK_THEMES = {
         "com.android.system.theme.black.syberia", // 0
         "com.android.settings.theme.black.syberia", // 1
         "com.android.systemui.theme.black.syberia", // 2
+	"com.android.updater.theme.black.syberia", // 3
     };
 
     private static final String[] SYBERIA_THEMES = {
