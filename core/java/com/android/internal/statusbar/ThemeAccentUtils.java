@@ -53,6 +53,7 @@ public class ThemeAccentUtils {
         "com.android.settings.theme.dark.syberia", // 1
         "com.android.systemui.theme.dark.syberia", // 2
 	"com.android.updater.theme.dark.syberia", // 3
+	"com.android.wellbeing.theme.dark", // 4
     };
 
     private static final String[] BLACK_THEMES = {
