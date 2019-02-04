@@ -70,8 +70,8 @@
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> -悬浮消息暂停显示 <xliff:g id="number">%d</xliff:g> 分钟.</string>
 
     <!-- QS Config -->
-    <string name="qs_menu_item_columns">竖屏排</string>
-    <string name="qs_menu_item_columns_landscape">横屏排</string>
+    <string name="qs_menu_item_columns">竖屏列</string>
+    <string name="qs_menu_item_columns_landscape">横屏列</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -81,8 +81,8 @@
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">重置</string>
     <string name="qs_menu_item_titles">显示标签</string>
-    <string name="qs_menu_item_rows">竖屏列</string>
-    <string name="qs_menu_item_rows_landscape">横屏列</string>
+    <string name="qs_menu_item_rows">竖屏排</string>
+    <string name="qs_menu_item_rows_landscape">横屏排</string>
     <string name="qs_menu_item_rows_one">1</string>
     <string name="qs_menu_item_rows_two">2</string>
     <string name="qs_menu_item_rows_three">3</string>
@@ -91,7 +91,7 @@
     <string name="qs_menu_item_columns_auto">自适应</string>
 
     <string name="syberia_logo_title">Syberia logo</string>
-    <string name="syberia_logo_summary">但别人看到你的屏幕时，让他知道你在使用 Syberia</string>
+    <string name="syberia_logo_summary">当别人看到你的屏幕时，让他知道你在使用 Syberia</string>
 
     <!-- Advance location quick setting tile -->
     <string name="quick_settings_secondary_location_off"></string>
@@ -160,4 +160,36 @@
     <string name="omnijaws_current_text">现在</string>
     <string name="omnijaws_package_not_available">OmniJaws 无法使用</string>
     <string name="omnijaws_service_last_update">最后更新:</string>
+  
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_turbo_power_time">TurboPower 连接 (<xliff:g id="charging_time_left">%s</xliff:g> until full)</string>
+    <string name="keyguard_plugged_in_turbo_power_charging">TurboPower 连接</string>
+
+    <string name="screenshot_abort_title">没有截屏</string>
+    <string name="screenshot_abort_text">已终止操作</string>
+
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop_label">扩展桌面</string>
+    <string name="quick_settings_expanded_desktop">扩展</string>
+    <string name="quick_settings_expanded_desktop_off">正常</string>
+
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash 快充 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash 快充</string>
+
+    <!-- accessibility label for button to open running apps prefscreen [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_running_services">打开正在运行的服务屏幕。</string>
+
+    <!-- Pie controls -->
+    <string name="pie_date_format">EEEE, dd MMMM yyyy</string>
+    <string name="pie_hour_format_12">hh:mm</string>
+    <string name="pie_hour_format_24">HH:mm</string>
+    <string name="pie_am_pm">a</string>
+    <string name="pie_state_name">Pie 控制</string>
+    <string name="pie_state_summary">在沉浸模式下使用 Pie 控制</string>
+    <string name="pie_battery_level">"BATTERY LEVEL "</string>
+    <string name="quick_settings_pie">Pie 控制</string>
+
+    <!-- ADB over network QS tile -->
+    <string name="quick_settings_network_adb_label">ADB-Over-Network</string>
 </resources>
