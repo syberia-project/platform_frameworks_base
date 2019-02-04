@@ -69,7 +69,7 @@ public class ScreenGesturesController {
                 if ((position.FLAG & backGestureEdgesFlag) != 0) {
                     Point displaySize = new Point();
                     windowManager.getDefaultDisplay().getSize(displaySize);
-                    startGesture = touchY > (percent*displaySize.y)/100;
+                    startGesture = touchY < (percent*displaySize.y)/100;
                 }
 
                 if (startGesture) {
