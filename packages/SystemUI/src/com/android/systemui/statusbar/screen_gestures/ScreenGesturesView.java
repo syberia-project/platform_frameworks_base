@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.UserHandle;
 import android.os.Vibrator;
+import android.os.VibrationEffect;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,6 +46,15 @@ public class ScreenGesturesView extends FrameLayout {
     private int possibleGestures = GestureType.NONE;
 
     private Vibrator vibrator;
+    final Handler vibrationHandler = new Handler();
+
+    final Runnable haptic = new Runnable() {
+        public void run() {
+            if (getFeedbackStrength() == 0)
+                return;
+            vibrator.vibrate(VibrationEffect.createOneShot(getFeedbackStrength(), VibrationEffect.DEFAULT_AMPLITUDE));
+       }
+    };
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -89,7 +99,6 @@ public class ScreenGesturesView extends FrameLayout {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setVisibility(View.GONE);
-
         vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
@@ -113,6 +122,7 @@ public class ScreenGesturesView extends FrameLayout {
         setVisibility(View.VISIBLE);
 
         if ((position.FLAG & backGestureEdgesFlag) != 0) {
+
             possibleGestures = GestureType.BACK;
 
             if (shouldShowUIFeedback()) {
@@ -173,16 +183,16 @@ public class ScreenGesturesView extends FrameLayout {
         boolean canSendHome = (possibleGestures & GestureType.HOME) != 0;
         if (canSendHome && (posY - initialY < -threshold)) {
             if (DEBUG) Log.d(TAG, "stopGesture: Home");
-            vibrator.vibrate(getFeedbackStrength());
             onGestureCompletedListener.onGestureCompleted(GestureType.HOME);
+            vibrationHandler.postDelayed(haptic, 10);
             return;
         }
 
         boolean canSendBack = (possibleGestures & GestureType.BACK) != 0;
         if (canSendBack && (Math.abs(posX - initialX) > threshold)) {
             if (DEBUG) Log.d(TAG, "stopGesture: Back");
-            vibrator.vibrate(getFeedbackStrength());
             onGestureCompletedListener.onGestureCompleted(GestureType.BACK);
+            vibrationHandler.postDelayed(haptic, 10);
             return;
         }
 
@@ -209,6 +219,7 @@ public class ScreenGesturesView extends FrameLayout {
                 lastY = y;
 
                 if ((possibleGestures & GestureType.BACK) != 0) {
+                    stopLongPress();
                     leftArrowView.onTouchMoved(x - leftArrowView.getLeft(), y - leftArrowView.getTop());
                     rightArrowView.onTouchMoved(x - rightArrowView.getLeft(), y - rightArrowView.getTop());
                 }
@@ -224,6 +235,8 @@ public class ScreenGesturesView extends FrameLayout {
 
                 if (possibleGestures != GestureType.NONE) {
                     stopGesture((int) event.getX(), (int) event.getY());
+                    handler.postDelayed(() -> setVisibility(View.GONE), 10);
+                } else {
                     handler.postDelayed(() -> setVisibility(View.GONE), 10);
                 }
                 return true;
@@ -267,7 +280,7 @@ public class ScreenGesturesView extends FrameLayout {
                 if (onGestureCompletedListener != null) {
                     onGestureCompletedListener.onGestureCompleted(GestureType.RECENTS);
                 }
-                vibrator.vibrate(getFeedbackStrength());
+                vibrationHandler.postDelayed(haptic, 100);
             }
         }
     };

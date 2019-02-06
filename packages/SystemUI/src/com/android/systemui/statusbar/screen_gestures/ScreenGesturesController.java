@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import com.android.internal.util.gesture.EdgeGesturePosition;
 import com.android.internal.util.gesture.EdgeServiceConstants;
 import com.android.systemui.statusbar.phone.StatusBar;
+import com.android.internal.util.syberia.SyberiaUtils;
 
 /**
  * Created by arasthel on 15/02/18.
@@ -50,7 +51,7 @@ public class ScreenGesturesController {
             final ScreenGesturesView gesturesView = screenGesturesView;
 
             if (gesturesView != null && !keyguardManager.isKeyguardLocked()) {
-                boolean startGesture = true;
+                boolean startGesture = false;
                 String backSettingsId = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ?
                         Settings.Secure.EDGE_GESTURES_BACK_EDGES :
                         Settings.Secure.EDGE_GESTURES_LANDSCAPE_BACK_EDGES;
@@ -69,8 +70,15 @@ public class ScreenGesturesController {
                 if ((position.FLAG & backGestureEdgesFlag) != 0) {
                     Point displaySize = new Point();
                     windowManager.getDefaultDisplay().getSize(displaySize);
-                    startGesture = touchY < (percent*displaySize.y)/100;
+                       if (backGestureEdgesFlag == 1 && touchY < (percent*displaySize.y)/100 && touchX < (10*displaySize.y)/100) {
+                            startGesture = true;
+                       } else if (backGestureEdgesFlag == 4 && touchY < (percent*displaySize.y)/100 && touchX > (90*displaySize.y)/100) {
+                            startGesture = true;
+                       } else
+                         startGesture = touchY < (percent*displaySize.y)/100;
                 }
+                if ((position.FLAG & EdgeGesturePosition.BOTTOM.FLAG) != 0)
+                     startGesture = true;
 
                 if (startGesture) {
                     gesturesView.startGesture(touchX, touchY, position);
@@ -92,13 +100,13 @@ public class ScreenGesturesController {
     private ScreenGesturesView.OnGestureCompletedListener onGestureCompletedListener = gestureType -> {
         switch (gestureType) {
             case ScreenGesturesView.GestureType.HOME:
-                injectKeyCode(KeyEvent.KEYCODE_HOME);
+                SyberiaUtils.sendKeycode(KeyEvent.KEYCODE_HOME);
                 break;
             case ScreenGesturesView.GestureType.BACK:
-                injectKeyCode(KeyEvent.KEYCODE_BACK);
+                SyberiaUtils.sendKeycode(KeyEvent.KEYCODE_BACK);
                 break;
             case ScreenGesturesView.GestureType.RECENTS:
-                injectKeyCode(KeyEvent.KEYCODE_APP_SWITCH);
+                SyberiaUtils.sendKeycode(KeyEvent.KEYCODE_APP_SWITCH);
                 break;
             default:
                 Log.e(TAG, "Unknown event");
@@ -106,8 +114,6 @@ public class ScreenGesturesController {
         }
 
         gestureManagerListener.restoreListenerState();
-
-        //setupEdgeGestureManager();
     };
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -157,21 +163,5 @@ public class ScreenGesturesController {
                 | edges
                 | EdgeServiceConstants.LONG_LIVING
                 | EdgeServiceConstants.UNRESTRICTED);
-    }
-
-    private void injectKeyCode(int keyCode) {
-        if (DEBUG) Log.d(TAG, "injectKeyCode: Injecting: " + String.valueOf(keyCode));
-
-        InputManager inputManager = InputManager.getInstance();
-        long now = SystemClock.uptimeMillis();
-
-        KeyEvent downEvent = new KeyEvent(now, now, KeyEvent.ACTION_DOWN, keyCode, 0, 0,
-                KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                KeyEvent.FLAG_FROM_SYSTEM, InputDevice.SOURCE_CUSTOM);
-
-        KeyEvent upEvent = KeyEvent.changeAction(downEvent, KeyEvent.ACTION_UP);
-
-        inputManager.injectInputEvent(downEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
-        inputManager.injectInputEvent(upEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     }
 }
