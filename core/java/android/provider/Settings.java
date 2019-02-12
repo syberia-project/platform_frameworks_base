@@ -5050,6 +5050,15 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION =
+                "bottom_gesture_navigation_feedback_duration";
+
+        private static final Validator OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
+         * @hide
+         */
         public static final String OMNIJAWS_WEATHER_ICON_PACK = "omnijaws_weather_icon_pack";
 
         /** @hide */
@@ -5486,6 +5495,7 @@ public final class Settings {
             STATUS_BAR_TICKER_TICK_DURATION,
             OMNI_BOTTOM_GESTURE_TRIGGER_TIMEOUT,
             OMNI_BOTTOM_GESTURE_SWIPE_LIMIT,
+            OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION,
 	    HIDE_NOTCH,
 	    FORCE_AMBIENT_FOR_MEDIA,
 	    OMNI_STATUS_BAR_CUSTOM_HEADER,
@@ -5632,6 +5642,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ENABLE);
             PRIVATE_SETTINGS.add(OMNI_BOTTOM_GESTURE_TRIGGER_TIMEOUT);
             PRIVATE_SETTINGS.add(OMNI_BOTTOM_GESTURE_SWIPE_LIMIT);
+            PRIVATE_SETTINGS.add(OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION);
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(OMNIJAWS_WEATHER_ICON_PACK);
@@ -5781,6 +5792,8 @@ public final class Settings {
                     OMNI_BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
             VALIDATORS.put(OMNI_BOTTOM_GESTURE_SWIPE_LIMIT,
                     OMNI_BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
+            VALIDATORS.put(OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION,
+                    OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION_VALIDATOR);
             VALIDATORS.put(HIDE_NOTCH, HIDE_NOTCH_VALIDATOR);
             VALIDATORS.put(FORCE_AMBIENT_FOR_MEDIA,FORCE_AMBIENT_FOR_MEDIA_VALIDATOR);
             VALIDATORS.put(OMNI_STATUS_BAR_CUSTOM_HEADER,
