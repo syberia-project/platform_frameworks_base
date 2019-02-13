@@ -1095,6 +1095,7 @@ public class NetworkMonitor extends StateMachine {
             urlConnection.setConnectTimeout(SOCKET_TIMEOUT_MS);
             urlConnection.setReadTimeout(SOCKET_TIMEOUT_MS);
             urlConnection.setUseCaches(false);
+            urlConnection.setRequestProperty("Connection", "close");
             if (mCaptivePortalUserAgent != null) {
                 urlConnection.setRequestProperty("User-Agent", mCaptivePortalUserAgent);
             }
