@@ -74,7 +74,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private NetworkController mNetworkController;
     private LinearLayout mSystemIconArea;
     private Clock mClockView;
-    private View mRightClock;
+    private Clock mRightClock;
     private int mClockStyle;
     private View mNotificationIconAreaInner;
     private int mDisabled1;
@@ -278,6 +278,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         if (mClockStyle == 2) {
             animateHide(mRightClock, animate, true);
         }
+        if (mClockStyle == 0) {
+            animateHide(mClockView, animate, true);
+        }
     }
 
     public void showSystemIconArea(boolean animate) {
@@ -285,6 +288,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         animateShow(mCenterClockLayout, animate);
         if (mClockStyle == 2) {
             animateShow(mRightClock, animate);
+        }
+        if (mClockStyle == 0) {
+            animateShow(mClockView, animate);
         }
     }
 
@@ -321,11 +327,12 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
      */
     private void animateHide(final View v, boolean animate, final boolean invisible) {
         v.animate().cancel();
-        if (!animate) {
-            v.setAlpha(0f);
-            v.setVisibility(invisible ? View.INVISIBLE : View.GONE);
-            return;
-        }
+        if (invisible) {
+            if (!animate) {
+                v.setAlpha(0f);
+                v.setVisibility(invisible ? View.INVISIBLE : View.GONE);
+                return;
+            }
 
         v.animate()
                 .alpha(0f)
@@ -333,6 +340,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                 .setStartDelay(0)
                 .setInterpolator(Interpolators.ALPHA_OUT)
                 .withEndAction(() -> v.setVisibility(invisible ? View.INVISIBLE : View.GONE));
+        } else {
+            v.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -439,14 +449,18 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     private void updateClockStyle(boolean animate) {
-        if (mClockStyle == 1 || mClockStyle == 2) {
-	    if (mClockView.isClockVisible()) {
-        	animateHide(mClockView, animate, false);
-	    }
-        } else {
-	    if (mClockView.isClockVisible()) {
-        	animateShow(mClockView, animate);
-	    }
+        if (mClockStyle==0) {
+            if (mClockView.isClockVisible()) {
+                animateShow(mClockView, animate);
+            } else {
+                animateHide(mClockView, animate, false);
+            }
+        } else if (mClockStyle == 2) {
+            if (mRightClock.isClockVisible()) {
+                animateShow(mRightClock, animate);
+            } else {
+                animateHide(mRightClock, animate, false);
+            }
         }
     }
 
