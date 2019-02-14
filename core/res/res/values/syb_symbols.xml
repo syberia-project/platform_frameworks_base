@@ -183,9 +183,6 @@
   <!-- Oreo's recents component activity -->
   <java-symbol type="string" name="config_recentsComponentNameOreo" />
 
-  <!-- Icon packs -->
-  <java-symbol type="drawable" name="adaptive_icon_drawable_wrapper" />
-
   <java-symbol type="bool" name="config_oldQtiTelephony" />
 
   <!-- display for radio tech -->

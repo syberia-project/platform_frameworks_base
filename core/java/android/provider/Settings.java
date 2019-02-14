@@ -5141,12 +5141,6 @@ public final class Settings {
         public static final Validator MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD_VALIDATOR = ANY_STRING_VALIDATOR;
 
         /**
-         * Whether to use icon pack for Recents
-         * @hide
-         */
-        public static final String RECENTS_ICON_PACK = "recents_icon_pack";
-
-        /**
          * Whether to display 4G icon instead LTE
          * @hide
          */
