@@ -142,7 +142,7 @@
     <string name="privacy_guard_notification">Protección de privacidad activada</string>
     <string name="privacy_guard_notification_detail"><xliff:g id="app">%1$s</xliff:g> no podrá acceder a los datos personales.</string>
     <string name="privacy_guard_dialog_title">Protección de privacidad</string>
-    <string name="privacy_guard_dialog_summary"><xliff:g id="app">%1$s</xliff:g>  le gustaria <xliff:g id="op">%2$s</xliff:g>string>
+    <string name="privacy_guard_dialog_summary"><xliff:g id="app">%1$s</xliff:g>  le gustaria <xliff:g id="op">%2$s</xliff:g></string>
 
     <!-- Text of the checkbox for the permission confirmation dialog to remember the user's choice. [CHAR LIMIT=40] -->
     <string name="permission_remember_choice">Recordar elección</string>
