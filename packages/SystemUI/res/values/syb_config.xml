@@ -43,4 +43,7 @@
     <!-- Asus stitch editor component name -->
     <string name="config_stitchEditor">com.asus.stitchimage/com.asus.stitchimage.editor.ScreenshotEditorActivity</string>
 
+     <!-- System icon area layout weight -->
+    <item name="system_icon_area_weight" format="float" type="integer">1</item>
+
 </resources>
