@@ -49,4 +49,7 @@
     <color name="pie_shader_end">#FF212121</color>
     <color name="system_primary_color">@*android:color/primary_material_light</color>
 
+    <!-- System icon area layout weight -->
+    <item name="system_icon_area_weight" format="float" type="integer">1</item>
+
 </resources>
