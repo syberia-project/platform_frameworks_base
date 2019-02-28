@@ -123,6 +123,7 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
     private static final int MSG_SHOW_IN_DISPLAY_FINGERPRINT_VIEW = 52 << MSG_SHIFT;
     private static final int MSG_HIDE_IN_DISPLAY_FINGERPRINT_VIEW = 53 << MSG_SHIFT;
     private static final int MSG_KILL_FOREGROUND_APP           = 54 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_SETTINGS_PANEL         = 55 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -165,6 +166,7 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
         default void animateExpandNotificationsPanel() { }
         default void animateCollapsePanels(int flags, boolean force) { }
         default void togglePanel() { }
+        default void toggleSettingsPanel() { }
         default void animateExpandSettingsPanel(String obj) { }
 
         /**
@@ -460,6 +462,13 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
         synchronized (mLock) {
             mHandler.removeMessages(MSG_TOGGLE_PANEL);
             mHandler.obtainMessage(MSG_TOGGLE_PANEL, 0, 0).sendToTarget();
+        }
+    }
+
+    public void toggleSettingsPanel() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_SETTINGS_PANEL);
+            mHandler.obtainMessage(MSG_TOGGLE_SETTINGS_PANEL, 0, 0).sendToTarget();
         }
     }
 
@@ -937,6 +946,11 @@ public class CommandQueue extends IStatusBar.Stub implements CallbackController<
                 case MSG_TOGGLE_PANEL:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).togglePanel();
+                    }
+                    break;
+                case MSG_TOGGLE_SETTINGS_PANEL:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleSettingsPanel();
                     }
                     break;
                 case MSG_EXPAND_SETTINGS:
