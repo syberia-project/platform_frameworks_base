@@ -1784,6 +1784,11 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces {
         mHeadsUpManager.releaseAllImmediately();
     }
 
+    @Override
+    public void toggleSettingsPanel() {
+        mCommandQueueCallbacks.toggleSettingsPanel();
+    }
+
     /**
      * Called when another window is about to transfer it's input focus.
      */
