@@ -658,4 +658,13 @@ public class StatusBarCommandQueueCallbacks implements CommandQueue.Callbacks {
         }
     }
 
+    @Override
+    public void toggleSettingsPanel() {
+        if (mStatusBar.isPanelExpanded()) {
+            mShadeController.animateCollapsePanels();
+        } else {
+            animateExpandSettingsPanel(null);
+        }
+    }
+
 }
