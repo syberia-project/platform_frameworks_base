@@ -2025,6 +2025,11 @@ public class CentralSurfacesImpl implements CoreStartable,
     }
 
     @Override
+    public void toggleSettingsPanel() {
+        mCommandQueueCallbacks.toggleSettingsPanel();
+    }
+
+    @Override
     public boolean isPanelExpanded() {
         return mPanelExpanded;
     }
