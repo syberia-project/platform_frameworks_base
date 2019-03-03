@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2018 Syberia Project
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Advanced reboot -->
+    <string name="global_action_restart_advanced">Розширене перезавантаження</string>
+    <string name="global_action_restart_recovery">Рекавері</string>
+    <string name="global_action_restart_bootloader">Завантажувач</string>
+    <string name="global_action_restart_ui">SystemUI</string>
+    <string name="global_action_restart_soft">Легке перезавантаження</string>
+    <string name="global_action_screenrecord">Запис екрану</string>
+
+    <!-- LTE QS Tile -->
+    <string name="qs_lte_label">LTE</string>
+    <string name="lte_on">LTE УВІМК</string>
+    <string name="lte_off">LTE ВИМК.</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Перезавантаження</string>
+    <string name="quick_settings_reboot_recovery_label">У рекавері</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Знімок екрану</string>
+    <string name="quick_settings_region_screenshot_label">Знімок області</string>
+
+    <string name="statusbar_items_title">Редагування іконок</string>
+
+    <string name="lockscreen_default">За замовчуванням</string>
+    <string name="lockscreen_hidden">Ні</string>
+
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Посуньте палецем від іконки в напрямку центру екрану</string>
+
+    <!-- Screenrecord Tile -->
+    <string name="quick_settings_screenrecord">Запис екрану</string>
+
+    <!-- Heads up snooze toast -->
+    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Спливаючі сповіщення відкладено на 1 хвилину.</string>
+    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Спливаючі сповіщення відкладено на <xliff:g id="number">%d</xliff:g> хвилин.</string>
+
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Стовпці</string>
+    <string name="qs_menu_item_columns_landscape">Стовпці в ландшафті.</string>
+    <string name="qs_menu_item_reset">Скидання</string>
+    <string name="qs_menu_item_titles">Відображати підписи</string>
+    <string name="qs_menu_item_rows">Ряди</string>
+    <string name="qs_menu_item_rows_landscape">Ряди в ландшафті.</string>
+    <string name="qs_menu_item_qs_columns">Чис-ть мал. плиток</string>
+    <string name="qs_menu_item_columns_auto">Авто</string>
+
+    <!-- Caffeine Tile -->
+    <string name="quick_settings_caffeine_label">Кофеїн</string>
+    <string name="accessibility_quick_settings_caffeine_off">Кофеїн вимкнено</string>
+    <string name="accessibility_quick_settings_caffeine_on">Кофеїн увімк</string>
+
+    <!-- QuickSettings: Sound [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Виклик</string>
+    <string name="quick_settings_sound_vibrate">Вібрації</string>
+    <string name="quick_settings_sound_dnd">Не турбувати</string>
+
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Йде запис екрану</string>
+    <string name="screenrecord_notif_final_ticker">Запис екрану збережено</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Запис екрану</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Зупинити</string>
+    <string name="screenrecord_notif_completed">Запис екрану збережено</string>
+    <string name="screenrecord_notif_duration">Час:</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Натиск</string>
+    <string name="screenrecord_notif_pointer_off">Натиск</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Неможливо записати екран</string>
+    <string name="notification_channel_screenrecord">Запис екрану</string>
+    <string name="screenrecord_hide_hint">Індикатор запису</string>
+    <string name="screenrecord_show_hint">Індикатор запису</string>
+
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Запис екрану</string>
+    <string name="quick_settings_screenrecord_lq_label">Запис екрану LQ</string>
+    <string name="quick_settings_screenrecord_mq_label">Запис екрану MQ</string>
+    <string name="quick_settings_screenrecord_hq_label">Запис екрану HQ</string>
+
+    <!-- OmniJaws -->
+    <string name="omnijaws_service_error">Помилка</string>
+    <string name="omnijaws_service_unkown">Немає даних про погоду</string>
+    <string name="omnijaws_service_error_long">Помилка завантаження даних погоди</string>
+    <string name="omnijaws_service_disabled">Послуга відключена</string>
+    <string name="omnijaws_detail_header">Погода</string>
+    <string name="omnijaws_label_default">Погода</string>
+    <string name="omnijaws_current_text">Зараз</string>
+    <string name="omnijaws_package_not_available">OmniJaws не доступний</string>
+    <string name="omnijaws_service_last_update">Останнє оновлення:</string>
+
+    <!-- Expanded desktop tile -->
+    <string name="quick_settings_expanded_desktop_label">Розширений екран</string>
+    <string name="quick_settings_expanded_desktop">Розширений</string>
+    <string name="quick_settings_expanded_desktop_off">Звичайний</string>
+    <string name="syberia_logo_title">Логотип Syberia</string>
+    <string name="syberia_logo_summary">Нехай всі знають, що використовується Syberia, коли вони бачать екран</string>
+
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до повної)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash зарядка</string>
+
+    <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_stabilization_label">Стабілізація екрана</string>
+    <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_stabilization_off">Стабілізація екрана</string>
+    <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_stabilization_on">Стабілізація екрана</string>
+
+    <!-- Button that controls inversion of layout of navigation bar -->
+    <string name="nav_bar_layout_inverse">Інвертувати порядок кнопок</string>
+
+    <!-- Compass QS Tile -->
+    <string name="quick_settings_compass_label">Компас</string>
+    <string name="quick_settings_compass_value"><xliff:g id="degrees">%1$.0f</xliff:g>\u00b0 <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="quick_settings_compass_init">Ініціалізація\u2026</string>
+    <string name="accessibility_quick_settings_compass_off">Компас вимк.</string>
+    <string name="accessibility_quick_settings_compass_on">Компас увімк.</string>
+    <string name="accessibility_quick_settings_compass_changed_off">Компас вимкнено.</string>
+    <string name="accessibility_quick_settings_compass_changed_on">Компас увімкнутий.</string>
+    <string name="quick_settings_compass_N">Пн</string>
+    <string name="quick_settings_compass_NE">Пн-Сх</string>
+    <string name="quick_settings_compass_E">Сх</string>
+    <string name="quick_settings_compass_SE">Пд-Сх</string>
+    <string name="quick_settings_compass_S">Пд</string>
+    <string name="quick_settings_compass_SW">Пд-Зх</string>
+    <string name="quick_settings_compass_W">Зх</string>
+    <string name="quick_settings_compass_NW">Пн-Зх</string>
+
+    <!-- OneHand mode QS tile -->
+    <string name="qs_onehand_label">Управління однією рукою</string>
+</resources>

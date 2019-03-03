@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+**
+** Copyright 2017, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="reboot_to_recovery_title">Режим відновлення</string>
+    <string name="reboot_to_recovery_message">Перезавантаження в рекавері</string>
+    <string name="reboot_to_bootloader_title">Завантажувач</string>
+    <string name="reboot_to_bootloader_message">Перезавантаження у завантажувач</string>
+    <string name="reboot_title">Перезавантаження</string>
+    <string name="reboot_message">Перезавантаження системи</string>
+
+    <!-- AOKP custom system animations -->
+    <string name="animation_fade">Затухання</string>
+    <string name="animation_slide_right">Зсув вправо</string>
+    <string name="animation_slide_left">Зсув вліво</string>
+    <string name="animation_slide_right_no_fade">Зсув вправо (без затухання)</string>
+    <string name="animation_slide_left_no_fade">Зсув вліво (без затухання)</string>
+    <string name="animation_slide_up">Зсунути донизу</string>
+    <string name="animation_slide_down">Зсунути в верх</string>
+    <string name="animation_default">За замовчуванням</string>
+    <string name="animation_translucent">Напівпрозорий</string>
+    <string name="animation_grow_shrink">Збільшити (вгору)</string>
+    <string name="animation_grow_shrink_center">Збільшення (центр)</string>
+    <string name="animation_grow_shrink_bottom">Збільшити (вниз)</string>
+    <string name="animation_grow_shrink_left">Збільшити (вліво)</string>
+    <string name="animation_grow_shrink_right">Збільшити (вправо)</string>
+    <string name="action_null">Порожньо</string>
+
+    <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">Потрібне перезавантаження інтерфейсу</string>
+    <string name="systemui_restart_message">Щоб застосувати зміни, слід перезавантажити інтерфейс системи. Зробити це зараз?</string>
+
+    <!-- App ops requests -->
+    <string name="app_ops_access_camera">доступ до камери</string>
+    <string name="app_ops_access_location">доступ до вашого місцезнаходження</string>
+    <string name="app_ops_access_notifications">доступ до сповіщень</string>
+    <string name="app_ops_activate_vpn">активувати VPN</string>
+    <string name="app_ops_add_voicemail">додати повідомлення голосової пошти</string>
+    <string name="app_ops_app_start_foreground">старт додатків з миттєвим запуском</string>
+    <string name="app_ops_assist_screenshot">зробити скриншот</string>
+    <string name="app_ops_assist_structure">використовувати структуру асистента</string>
+    <string name="app_ops_audio_accessibility_volume">доступ до гучності звуку</string>
+    <string name="app_ops_auto_start">запуск при увімкнені приладу</string>
+    <string name="app_ops_bind_accessibility_service">доступ до спец. можливостей</string>
+    <string name="app_ops_bluetooth_scan">пошук bluetooth пристроїв</string>
+    <string name="app_ops_change_wallpaper">заміна шпалер</string>
+    <string name="app_ops_delete_call_log">видалити журнал викликів</string>
+    <string name="app_ops_delete_contacts">видалення контактів</string>
+    <string name="app_ops_delete_mms">видалити MMS-повідомлення</string>
+    <string name="app_ops_delete_sms">видалити SMS-повідомленя</string>
+    <string name="app_ops_draw_on_top">відображення елементів інтерфейсу користувача поверх інших вікон</string>
+    <string name="app_ops_get_accounts">отримати інформацію про облікові записи</string>
+    <string name="app_ops_get_usage_stats">отримати статистику використання застосунків</string>
+    <string name="app_ops_accept_handover">передача виклику з іншої програми</string>
+    <string name="app_ops_install_packages">встановлення пакетів</string>
+    <string name="app_ops_keep_device_awake">заборонити пристрою переходити у режим сну</string>
+    <string name="app_ops_manage_ipsec_tunnels">керувати тунелями ipsec</string>
+    <string name="app_ops_make_phone_call">виконати телефонний дзвінок</string>
+    <string name="app_ops_mock_location">надати фіктивну інформацію про місцезнаходження</string>
+    <string name="app_ops_modify_calendar">змінювати відомості календаря</string>
+    <string name="app_ops_modify_call_log">змінити дані журналу викликів</string>
+    <string name="app_ops_modify_clipboard">змінити вміст буфера обміну</string>
+    <string name="app_ops_modify_contacts">змінити контактні дані</string>
+    <string name="app_ops_modify_settings">змінити налаштування системи</string>
+    <string name="app_ops_mute_unmute_microphone">вимкнути або увімкнути мікрофон</string>
+    <string name="app_ops_phone_calls">відповідь на телефонні дзвінки</string>
+    <string name="app_ops_picture_in_picture">використовувати картинку в картинці</string>
+    <string name="app_ops_play_audio">відтворення аудіо</string>
+    <string name="app_ops_post_notification">вивід повідомлення</string>
+    <string name="app_ops_project_media">виконувати вміст трансляції</string>
+    <string name="app_ops_read_calendar">зчитування даних календаря</string>
+    <string name="app_ops_read_call_log">зчитування даних списку дзвінків</string>
+    <string name="app_ops_read_cell_broadcasts">читати екстерні повідомлення</string>
+    <string name="app_ops_read_clipboard">читати вміст буфера обміну</string>
+    <string name="app_ops_read_contacts">читати контакти</string>
+    <string name="app_ops_read_external_storage">прочитати дані з зовнішнього накопичувача</string>
+    <string name="app_ops_read_mms">зчитати MMS-повідомлення</string>
+    <string name="app_ops_read_phone_numbers">читання телефонних номерів</string>
+    <string name="app_ops_read_phone_state">отримати інформацію про стан вашого телефону</string>
+    <string name="app_ops_read_sms">зчитати SMS-повідомлення</string>
+    <string name="app_ops_receive_sms">отримати SMS-повідомлення</string>
+    <string name="app_ops_receive_emergency_broadcast">отримувати екстерні повідомлення населення</string>
+    <string name="app_ops_record_audio">записати аудіо</string>
+    <string name="app_ops_request_delete_packages">запит на видалення додатків</string>
+    <string name="app_ops_run_in_background">запускати у фоновому режимі</string>
+    <string name="app_ops_run_any_in_background">запускати у фоновому режимі</string>
+    <string name="app_ops_scan_wifi">сканування доступних Wi-Fi мереж</string>
+    <string name="app_ops_send_mms">надіслати MMS-повідомлення</string>
+    <string name="app_ops_send_sms">надіслати SMS-повідомлення</string>
+    <string name="app_ops_start_at_bootup">призначити запуск при увікненні пристрою</string>
+    <string name="app_ops_start_foreground">запускати в пріоритеті</string>
+    <string name="app_ops_su">отримати права суперкористувача</string>
+    <string name="app_ops_toast_window">відображати спливаючі повідомлення</string>
+    <string name="app_ops_toggle_bluetooth">переключити стан Bluetooth</string>
+    <string name="app_ops_toggle_mobile_data">увімкнути або вимкнути мобільну мережу</string>
+    <string name="app_ops_toggle_nfc">переключити стан модуля NFC</string>
+    <string name="app_ops_toggle_wifi">переключити стан Wi-Fi</string>
+    <string name="app_ops_turn_on_screen">увімкнути екран</string>
+    <string name="app_ops_use_alarm_volume">отримати керування гучності будильника</string>
+    <string name="app_ops_use_audio_focus">отримати керування аудіофокусом</string>
+    <string name="app_ops_use_bluetooth_volume">отримати керування гучністю Bluetooth-приладу</string>
+    <string name="app_ops_use_body_sensors">використання датчиків на тілі</string>
+    <string name="app_ops_use_fingerprint">використати сканер відпечатків пальців</string>
+    <string name="app_ops_use_master_volume">отпримати керуваняя загальною гучністю</string>
+    <string name="app_ops_use_media_buttons">використати клавіші мультимедіа</string>
+    <string name="app_ops_use_media_volume">отримати керування гучністю мультимедіа</string>
+    <string name="app_ops_use_notification_volume">отримати керування гучністю повідомлень</string>
+    <string name="app_ops_use_ring_volume">отримати керування гучностю дзвінка</string>
+    <string name="app_ops_use_vibrate">використати вібрацію</string>
+    <string name="app_ops_use_voice_volume">отримати керування гучністю під час розмови</string>
+    <string name="app_ops_wifi_change">змінити стан Wi-Fi</string>
+    <string name="app_ops_write_external_storage">записувати дані на зовнішній пристрій зберігання</string>
+    <string name="app_ops_write_mms">створити MMS-повідомлення</string>
+    <string name="app_ops_write_sms">створити SMS-повідомлення</string>
+
+    <!-- Privacy Guard -->
+    <string name="permlab_changePrivacyGuardState">Вмикання або вимикання захищеного режиму</string>
+    <string name="permdesc_changePrivacyGuardState">Застосунок може змінити статус захищеного режиму для інших програм. Коли застосунок виконується в захищеному режимі, він не отримує доступ до особистих даних, наприклад, контакти, повідомлення, або журнал дзвінків.</string>
+    <string name="privacy_guard_notification">Захищений режим увімкнений</string>
+    <string name="privacy_guard_notification_detail">У «<xliff:g id="app">%1$s</xliff:g>» немає доступу до особистих даних</string>
+    <string name="privacy_guard_dialog_title">Захищений режим</string>
+    <string name="privacy_guard_dialog_summary">Додаток «<xliff:g id="app">%1$s</xliff:g>» намагається <xliff:g id="op">%2$s</xliff:g>.</string>
+    <!-- Text of the checkbox for the permission confirmation dialog to remember the user's choice. [CHAR LIMIT=40] -->
+    <string name="permission_remember_choice">Запам\'ятати дозвіл</string>
+</resources>
