@@ -257,9 +257,6 @@ public class BatteryStatsImpl extends BatteryStats {
     @GuardedBy("this")
     private int mNumAllUidCpuTimeReads;
 
-    private boolean ignoreRSSNR = false;
-    private int signalStrengthLevel = 0;
-
     /** Container for Resource Power Manager stats. Updated by updateRpmStatsLocked. */
     private final RpmStats mTmpRpmStats = new RpmStats();
     /** The soonest the RPM stats can be updated after it was last updated. */
@@ -5428,8 +5425,8 @@ public class BatteryStatsImpl extends BatteryStats {
 
     public void notePhoneSignalStrengthLocked(SignalStrength signalStrength) {
         // Bin the strength.
-        signalStrengthLevel = signalStrength.getLevel(ignoreRSSNR);
-        updateAllPhoneStateLocked(mPhoneServiceStateRaw, mPhoneSimStateRaw, signalStrengthLevel);
+        int bin = signalStrength.getLevel();
+        updateAllPhoneStateLocked(mPhoneServiceStateRaw, mPhoneSimStateRaw, bin);
     }
 
     public void notePhoneDataConnectionStateLocked(int dataType, boolean hasData) {
@@ -13322,9 +13319,6 @@ public class BatteryStatsImpl extends BatteryStats {
             mResolver.registerContentObserver(
                     Settings.Global.getUriFor(Settings.Global.BATTERY_STATS_CONSTANTS),
                     false /* notifyForDescendants */, this);
-            mResolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.IGNORE_RSSNR),
-                    false /* notifyForDescendants */, this);
             updateConstants();
         }
 
@@ -13363,12 +13357,6 @@ public class BatteryStatsImpl extends BatteryStats {
                 BATTERY_LEVEL_COLLECTION_DELAY_MS = mParser.getLong(
                         KEY_BATTERY_LEVEL_COLLECTION_DELAY_MS,
                         DEFAULT_BATTERY_LEVEL_COLLECTION_DELAY_MS);
-
-                boolean i = Settings.System.getIntForUser(mResolver, Settings.System.IGNORE_RSSNR, 0, UserHandle.USER_CURRENT) == 1;
-                if(i!=ignoreRSSNR){
-                    ignoreRSSNR = i;
-                    updateAllPhoneStateLocked(mPhoneServiceStateRaw, mPhoneSimStateRaw, signalStrengthLevel);
-                }
             }
         }
 
