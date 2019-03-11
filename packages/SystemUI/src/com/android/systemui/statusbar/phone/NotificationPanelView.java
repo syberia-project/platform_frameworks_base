@@ -934,7 +934,7 @@ public class NotificationPanelView extends PanelView implements
         Log.v("DoubleTap","onTouchEvent "+h+"/"+event.getY()+"/"+(h / 3)+"/"+(h - mStatusBarHeaderHeight * 5));
         if ((mIsLockscreenDoubleTapEnabled
                 && mStatusBarState == StatusBarState.KEYGUARD
-                && (event.getY() < (h / 3) ||
+                && (event.getY() < h ||
                 event.getY() > (h - mStatusBarHeaderHeight * 10))) ||
                 (!mQsExpanded && mDoubleTapToSleepEnabled
                 && event.getY() < mStatusBarHeaderHeight)) {
