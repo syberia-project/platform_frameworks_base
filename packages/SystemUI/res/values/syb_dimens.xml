@@ -27,7 +27,7 @@
 
     <!-- Network traffic monitor -->
     <dimen name="net_traffic_multi_text_size">14dp</dimen>
-    <dimen name="net_traffic_txt_img_padding">2dp</dimen>
+    <dimen name="net_traffic_txt_img_padding">1dp</dimen>
 
     <!-- Sets a custom extra padding for the QS icons and statusbar date -->
     <dimen name="qs_items_padding">8dp</dimen>
