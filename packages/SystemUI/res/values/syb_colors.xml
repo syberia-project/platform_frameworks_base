@@ -49,6 +49,7 @@
     <color name="quick_settings_theme_tile_blue_grey">#607D8B</color>
     <color name="quick_settings_theme_tile_black">#000000</color>
     <color name="quick_settings_theme_tile_white">#ffffff</color>
+    <color name="quick_settings_theme_tile_sweet_purple">#B39DDB</color>
 
     <!-- Quicksettings main QS background-->
     <color name="quick_settings_status_bar_background_color">#ff000000</color>
