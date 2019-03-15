@@ -45,7 +45,8 @@ public class ThemeAccentUtils {
         "com.accents.brown", // 17
         "com.accents.grey", // 18
         "com.accents.bluegrey", // 19
-        "com.accents.rosy" // 20
+        "com.accents.rosy", // 20
+        "com.accents.qpurple", // 21
     };
 
     private static final String[] DARK_THEMES = {
@@ -93,8 +94,8 @@ public class ThemeAccentUtils {
     public static void updateAccents(IOverlayManager om, int userId, int accentSetting) {
         if (accentSetting == 0) {
             unloadAccents(om, userId);
-        } else if (accentSetting < 21) {
-            try {
+        } else {
+           try {
                 om.setEnabled(ACCENTS[accentSetting],
                         true, userId);
             } catch (RemoteException e) {
