@@ -692,6 +692,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.GAMING_MODE_HEADSUP_TOGGLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HIDE_NOTCH),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -777,6 +780,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.GAMING_MODE_ACTIVE)) ||
                     uri.equals(Settings.System.getUriFor(Settings.System.GAMING_MODE_HEADSUP_TOGGLE))) {
                 updateGamingPeekMode();
+            }else if (uri.equals(Settings.System.getUriFor(Settings.System.HIDE_NOTCH))) {
+                updateCutoutOverlay();
             }
             update();
         }
@@ -798,6 +803,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateLockscreenFilter();
             updateChargingAnimation();
             updateGamingPeekMode();
+            updateCutoutOverlay();
         }
     }
 
@@ -935,6 +941,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     };
     private boolean mNoAnimationOnNextBarModeChange;
     protected FalsingManager mFalsingManager;
+
+    private boolean mDisplayCutoutHidden;
 
     private final KeyguardUpdateMonitorCallback mUpdateCallback =
             new KeyguardUpdateMonitorCallback() {
@@ -2693,6 +2701,21 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.Secure.SYSUI_ROUNDED_CONTENT_PADDING, contentPaddingRes);
 
         return (cornerRadiusRes == cornerRadius) && (contentPaddingRes == contentPadding);
+    }
+
+    private void updateCutoutOverlay() {
+        boolean displayCutoutHidden = Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.HIDE_NOTCH, 0, UserHandle.USER_CURRENT) == 1;
+        if (mDisplayCutoutHidden != displayCutoutHidden){
+            mDisplayCutoutHidden = displayCutoutHidden;
+            mUiOffloadThread.submit(() -> {
+                try {
+                    mOverlayManager.setEnabled("com.syberia.overlay.hidecutout",
+                                mDisplayCutoutHidden, mLockscreenUserManager.getCurrentUserId());
+                } catch (RemoteException ignored) {
+                }
+            });
+        }
     }
 
     @Nullable
