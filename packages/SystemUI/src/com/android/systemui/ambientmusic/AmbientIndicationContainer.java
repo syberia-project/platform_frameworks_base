@@ -63,8 +63,6 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
     }
 
     public void updateKeyguardState(boolean keyguard) {
-        mKeyguard = keyguard;
-        setTickerMarquee(keyguard, false);
         if (keyguard && mInfoAvailable) {
             mText.setText(mInfoToSet);
             mLastInfo = mInfoToSet;
@@ -75,6 +73,10 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
             mAmbientIndication.setVisibility(View.INVISIBLE);
             mText.setText(null);
         }
+        if (mKeyguard != keyguard) {
+            setTickerMarquee(keyguard, false);
+        }
+        mKeyguard = keyguard;
     }
 
     private void setTickerMarquee(boolean enable, boolean extendPulseOnNewTrack) {
