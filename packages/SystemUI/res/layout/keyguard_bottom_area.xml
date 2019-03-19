@@ -45,6 +45,7 @@
             android:animateLayoutChanges="true"
             android:visibility="gone" />
 
+
         <com.android.systemui.statusbar.phone.KeyguardIndicationTextView
             android:id="@+id/keyguard_indication_enterprise_disclosure"
             android:layout_width="match_parent"
@@ -74,6 +75,10 @@
         android:id="@+id/preview_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include layout="@layout/ambient_indication"
+            android:id="@+id/ambient_indication_container" />
+
     </FrameLayout>
 
     <com.android.systemui.statusbar.KeyguardAffordanceView
