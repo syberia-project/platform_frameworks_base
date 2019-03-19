@@ -14,9 +14,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
 <com.android.systemui.ambientmusic.AmbientIndicationContainer
-    android:layout_gravity="bottom"
+    android:layout_gravity="center_horizontal"
     android:id="@id/ambient_indication_container"
     android:layout="@layout/ambient_indication_inner"
     android:layout_width="fill_parent"
