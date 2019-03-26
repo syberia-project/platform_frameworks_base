@@ -80,7 +80,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -126,7 +125,7 @@ public class VolumeDialogImpl implements VolumeDialog {
     private CustomDialog mDialog;
     private ViewGroup mDialogView;
     private ViewGroup mDialogRowsView;
-    private FrameLayout mRinger;
+    private ViewGroup  mRinger;
     private ImageButton mRingerIcon;
     private View mExpandRowsView;
     private ExpandableIndicator mExpandRows;
@@ -195,6 +194,7 @@ public class VolumeDialogImpl implements VolumeDialog {
     }
 
     private SettingsObserver settingsObserver;
+
     private boolean mLeftVolumeRocker;
 
     public VolumeDialogImpl(Context context) {
@@ -290,19 +290,15 @@ public class VolumeDialogImpl implements VolumeDialog {
         mExpandRowsView = mDialog.findViewById(R.id.expandable_indicator_container);
         mExpandRows = mDialog.findViewById(R.id.expandable_indicator);
 
-        LinearLayout.LayoutParams paramsRinger = (LinearLayout.LayoutParams) mRinger.getLayoutParams();
-        FrameLayout.LayoutParams paramsExpandRows = (FrameLayout.LayoutParams) mExpandRows.getLayoutParams();
-        if(!isAudioPanelOnLeftSide()) {            
-            paramsRinger.gravity = Gravity.RIGHT|Gravity.CENTER_VERTICAL;
-            paramsExpandRows.gravity = Gravity.RIGHT;
+        if(!isAudioPanelOnLeftSide()) {
+            mRinger.setForegroundGravity(Gravity.RIGHT);
+            mExpandRows.setForegroundGravity(Gravity.RIGHT);
             mExpandRows.setRotation(90);
         } else {
-            paramsRinger.gravity = Gravity.LEFT|Gravity.CENTER_VERTICAL;
-            paramsExpandRows.gravity = Gravity.LEFT;
+            mRinger.setForegroundGravity(Gravity.LEFT);
+            mExpandRows.setForegroundGravity(Gravity.LEFT);
             mExpandRows.setRotation(-90);
         }
-        mRinger.setLayoutParams(paramsRinger);
-        mExpandRows.setLayoutParams(paramsExpandRows);
 
         mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
         mZenIcon = mRinger.findViewById(R.id.dnd_icon);
@@ -319,10 +315,11 @@ public class VolumeDialogImpl implements VolumeDialog {
                     addRow(AudioManager.STREAM_RING, R.drawable.ic_volume_ringer,
                             R.drawable.ic_volume_ringer_mute, true, false);
                 } else {
-                    addRow(AudioManager.STREAM_NOTIFICATION, R.drawable.ic_volume_notification,
+                    addRow(AudioManager.STREAM_RING, R.drawable.ic_volume_notification,
                             R.drawable.ic_volume_notification_mute, true, false);
                 }
-
+                addRow(AudioManager.STREAM_NOTIFICATION,
+                        R.drawable.ic_volume_ringer, R.drawable.ic_volume_ringer_mute, true, false);
                 addRow(STREAM_ALARM,
                         R.drawable.ic_volume_alarm, R.drawable.ic_volume_alarm_mute, true, false);
                 addRow(AudioManager.STREAM_VOICE_CALL,
@@ -474,8 +471,6 @@ public class VolumeDialogImpl implements VolumeDialog {
         }
         row.dndIcon = row.view.findViewById(R.id.dnd_icon);
         row.slider =  row.view.findViewById(R.id.volume_row_slider);
-        row.slider.setProgressTintMode(PorterDuff.Mode.SRC_ATOP);
-        row.slider.setThumbTintMode(PorterDuff.Mode.SRC_ATOP);
         row.slider.setOnSeekBarChangeListener(new VolumeSeekBarChangeListener(row));
         row.anim = null;
 
@@ -516,11 +511,9 @@ public class VolumeDialogImpl implements VolumeDialog {
     private void cleanExpandRows() {
         for(int i = mRows.size() - 1; i >= 0; i--) {
             final VolumeRow row = mRows.get(i);
-            if ((row.stream == AudioManager.STREAM_RING ||
-                    row.stream == AudioManager.STREAM_ALARM) && row.stream != mActiveStream) {
-                // Remove streams, except the active one.
+            if (row.stream == AudioManager.STREAM_RING ||
+                    row.stream == AudioManager.STREAM_ALARM)
                 removeRow(row);
-            }
         }
     }
 
@@ -535,18 +528,13 @@ public class VolumeDialogImpl implements VolumeDialog {
             Dependency.get(ActivityStarter.class).startActivity(intent, true /* dismissShade */);
             return true;
         });
-
-        // When an active stream is equal to our extra elements
-        // we need to make sure it becomes visible.
-        if(!mExpanded) {
-            initialiseExtraRows(/* userTap */ false);
-        }
-
         mExpandRows.setOnClickListener(v -> {
             if(!mExpanded) {
-                // Activate streams on user tap, and consider whether
-                // they were already opened.
-                initialiseExtraRows(/* userTap */ true);
+                addRow(AudioManager.STREAM_RING,
+                        R.drawable.ic_volume_notification, R.drawable.ic_volume_notification_mute, true, false);
+                addRow(AudioManager.STREAM_ALARM,
+                        R.drawable.ic_volume_alarm, R.drawable.ic_volume_alarm_mute, true, false);
+                updateAllActiveRows();
                 mExpanded = true;
             } else {
                 cleanExpandRows();
@@ -554,25 +542,6 @@ public class VolumeDialogImpl implements VolumeDialog {
             }
             mExpandRows.setExpanded(mExpanded);
         });
-    }
-
-    private void initialiseExtraRows(boolean userTap) {
-        // Let's check whether we should activate the ring stream.
-        VolumeRow row = findRow(AudioManager.STREAM_RING);
-        if (row == null && userTap || row == null &&
-                (mActiveStream == AudioManager.STREAM_RING && !userTap)) {
-            addRow(AudioManager.STREAM_RING,
-                    R.drawable.ic_volume_ringer, R.drawable.ic_volume_ringer_mute, true, false);
-        }
-        // Let's check whether we should activate the alarm stream.
-        row = findRow(AudioManager.STREAM_ALARM);
-        if (row == null && userTap || row == null &&
-                    (mActiveStream == AudioManager.STREAM_ALARM && !userTap)) {
-            addRow(AudioManager.STREAM_ALARM,
-                    R.drawable.ic_volume_alarm, R.drawable.ic_volume_alarm_mute, true, false);
-        }
-        // Update all active rows
-        updateAllActiveRows();
     }
 
     public void initRingerH() {
@@ -705,11 +674,8 @@ public class VolumeDialogImpl implements VolumeDialog {
     protected void dismissH(int reason) {
         // Avoid multiple animation calls on touch spams.
         if (!mShowing) {
-            // Close all the extra streams on touch spams.
-            cleanExpandRows();
             return;
         }
-
         mHandler.removeMessages(H.DISMISS);
         mHandler.removeMessages(H.SHOW);
         mDialogView.animate().cancel();
@@ -724,10 +690,6 @@ public class VolumeDialogImpl implements VolumeDialog {
                 .withEndAction(() -> mHandler.postDelayed(() -> {
                     if (D.BUG) Log.d(TAG, "mDialog.dismiss()");
                     mDialog.dismiss();
-                    // Dismiss the expanded view along the dialog.
-                    cleanExpandRows();
-                    mExpanded = false;
-                    mExpandRows.setExpanded(mExpanded);
                 }, 50));
         if (!isLandscape()) animator.translationX((mDialogView.getWidth() / 2)*(!isAudioPanelOnLeftSide() ? 1 : -1));
         animator.start();
@@ -740,6 +702,10 @@ public class VolumeDialogImpl implements VolumeDialog {
                 mSafetyWarning.dismiss();
             }
         }
+
+        cleanExpandRows();
+        mExpanded = false;
+        mExpandRows.setExpanded(mExpanded);
     }
 
     private boolean shouldBeVisibleH(VolumeRow row, VolumeRow activeRow) {
