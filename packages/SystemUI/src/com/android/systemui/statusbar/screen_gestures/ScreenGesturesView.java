@@ -20,6 +20,10 @@ import android.widget.FrameLayout;
 
 import com.android.internal.util.gesture.EdgeGesturePosition;
 
+/**
+ * Created by arasthel on 15/02/18.
+ */
+
 public class ScreenGesturesView extends FrameLayout {
 
     public static final boolean DEBUG = false;
@@ -61,6 +65,22 @@ public class ScreenGesturesView extends FrameLayout {
     private BackArrowView leftArrowView;
     private BackArrowView rightArrowView;
 
+    private ContentObserver blackThemeContentObserver = new ContentObserver(handler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+
+            boolean useBlackTheme = uiFeedbackUsesBlackTheme();
+            leftArrowView.setUseBlackArrow(useBlackTheme);
+            rightArrowView.setUseBlackArrow(useBlackTheme);
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+            return true;
+        }
+    };
+
     public ScreenGesturesView(Context context) {
         this(context, null);
     }
@@ -76,11 +96,15 @@ public class ScreenGesturesView extends FrameLayout {
     public ScreenGesturesView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
+        boolean useBlackThemeForUI = uiFeedbackUsesBlackTheme();
+
         leftArrowView = new BackArrowView(context);
         leftArrowView.setReversed(true);
+        leftArrowView.setUseBlackArrow(useBlackThemeForUI);
         leftArrowView.name = "LEFT";
 
         rightArrowView = new BackArrowView(context);
+        rightArrowView.setUseBlackArrow(useBlackThemeForUI);
         rightArrowView.name = "RIGHT";
 
         addView(leftArrowView);
@@ -93,6 +117,9 @@ public class ScreenGesturesView extends FrameLayout {
         rightParams.rightMargin = 0;
         leftArrowView.setLayoutParams(leftParams);
         rightArrowView.setLayoutParams(rightParams);
+
+        Uri blackThemeUri = Settings.Secure.getUriFor(Settings.Secure.EDGE_GESTURES_BACK_USE_BLACK_ARROW);
+        context.getContentResolver().registerContentObserver(blackThemeUri, false, blackThemeContentObserver);
     }
 
     @Override
@@ -144,8 +171,7 @@ public class ScreenGesturesView extends FrameLayout {
 
     private int getFeedbackStrength() {
         try {
-            return Settings.Secure.getIntForUser(getContext().getContentResolver(),
-                    Settings.Secure.EDGE_GESTURES_FEEDBACK_DURATION, UserHandle.USER_CURRENT);
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_FEEDBACK_DURATION);
         } catch (Settings.SettingNotFoundException exception) {
             return 100;
         }
@@ -153,8 +179,7 @@ public class ScreenGesturesView extends FrameLayout {
 
     private int getLongpressDuration() {
         try {
-            return Settings.Secure.getIntForUser(getContext().getContentResolver(),
-                    Settings.Secure.EDGE_GESTURES_LONG_PRESS_DURATION, UserHandle.USER_CURRENT);
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_LONG_PRESS_DURATION);
         } catch (Settings.SettingNotFoundException exception) {
             return 500;
         }
@@ -162,8 +187,15 @@ public class ScreenGesturesView extends FrameLayout {
 
     private boolean shouldShowUIFeedback() {
         try {
-            return Settings.Secure.getIntForUser(getContext().getContentResolver(),
-                    Settings.Secure.EDGE_GESTURES_BACK_SHOW_UI_FEEDBACK, UserHandle.USER_CURRENT) == 1;
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_BACK_SHOW_UI_FEEDBACK) == 1;
+        } catch (Settings.SettingNotFoundException exception) {
+            return true;
+        }
+    }
+
+    private boolean uiFeedbackUsesBlackTheme() {
+        try {
+            return Settings.Secure.getInt(getContext().getContentResolver(), Settings.Secure.EDGE_GESTURES_BACK_USE_BLACK_ARROW) == 1;
         } catch (Settings.SettingNotFoundException exception) {
             return true;
         }
