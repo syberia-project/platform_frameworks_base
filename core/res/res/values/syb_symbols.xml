@@ -201,4 +201,8 @@
      <java-symbol type="style" name="GlobalActionsAnimationCard" />
 
      <java-symbol type="string" name="config_fodAnimationPackage" />
+
+     <!-- Smart charging battery percentage -->
+     <java-symbol type="integer" name="config_smartChargingBatteryLevel" />
+
 </resources>
