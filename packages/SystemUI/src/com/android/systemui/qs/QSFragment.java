@@ -74,6 +74,7 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
     private QSFooter mFooter;
     private float mLastQSExpansion = -1;
     private boolean mQsDisabled;
+    private boolean mSecureExpandDisabled;
 
     private RemoteInputQuickSettingsDisabler mRemoteInputQuickSettingsDisabler =
             Dependency.get(RemoteInputQuickSettingsDisabler.class);
@@ -304,7 +305,7 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
         final float translationScaleY = expansion - 1;
         if (!mHeaderAnimating) {
             getView().setTranslationY(
-                    mKeyguardShowing
+                    mKeyguardShowing || mSecureExpandDisabled
                             ? translationScaleY * mHeader.getHeight()
                             : headerTranslation);
         }
@@ -344,6 +345,7 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
 
     @Override
     public void animateHeaderSlidingIn(long delay) {
+        if (mSecureExpandDisabled) return;
         if (DEBUG) Log.d(TAG, "animateHeaderSlidingIn");
         // If the QS is already expanded we don't need to slide in the header as it's already
         // visible.
@@ -356,6 +358,7 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
 
     @Override
     public void animateHeaderSlidingOut() {
+        if (mSecureExpandDisabled) return;
         if (DEBUG) Log.d(TAG, "animateHeaderSlidingOut");
         mHeaderAnimating = true;
         getView().animate().y(-mHeader.getHeight())
@@ -426,13 +429,18 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
 
     @Override
     public int getQsMinExpansionHeight() {
-        return mHeader.getHeight();
+        return mSecureExpandDisabled ? 0 : mHeader.getHeight();
     }
 
     @Override
     public void hideImmediately() {
         getView().animate().cancel();
         getView().setY(-mHeader.getHeight());
+    }
+
+    @Override
+    public void setSecureExpandDisabled(boolean value) {
+        mSecureExpandDisabled = value;
     }
 
     private final ViewTreeObserver.OnPreDrawListener mStartHeaderSlidingIn
