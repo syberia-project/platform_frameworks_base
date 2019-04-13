@@ -51,6 +51,7 @@ import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.RebootTile;
 import com.android.systemui.qs.tiles.PieTile;
 import com.android.systemui.qs.tiles.ReadingModeTile;
+import com.android.systemui.qs.tiles.RecorderTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenStabilizationTile;
 import com.android.systemui.qs.tiles.SoundTile;
@@ -160,6 +161,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new GamingModeTile(mHost);
             case "vpn":
                 return new VpnTile(mHost);
+            case "recorder":
+                return new RecorderTile(mHost);
         }
 
         // Intent tiles.

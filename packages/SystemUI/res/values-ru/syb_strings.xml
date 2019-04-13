@@ -185,4 +185,8 @@
     <string name="vpn_credentials_username">Пользователь</string>
     <string name="vpn_credentials_password">Пароль</string>
     <string name="vpn_credentials_dialog_connect">Подлключение</string>
+
+    <!-- QS Recorder Tile -->
+    <string name="quick_settings_recorder_label">Запись экрана</string>
+
 </resources>
