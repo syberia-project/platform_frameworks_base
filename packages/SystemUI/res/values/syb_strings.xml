@@ -251,4 +251,8 @@
     <string name="accessibility_quick_settings_gaming_mode_on">Gaming mode on</string>
     <string name="accessibility_quick_settings_gaming_mode_off">Gaming mode off</string>
 
+    <!-- CustomText clock -->
+    <string name="high_noon_first_row">High</string>
+    <string name="high_noon_second_row">Noon</string>
+
 </resources>
