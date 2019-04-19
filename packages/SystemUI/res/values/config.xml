@@ -123,7 +123,7 @@
 
     <!-- Tiles native to System UI. Order should match "quick_settings_tiles_default" -->
     <string name="quick_settings_tiles_stock" translatable="false">
-        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,pie,location,hotspot,inversion,saver,work,cast,night,lte,screenrecord,screenstabilization,caffeine,sound,reboot,screenshot,theme,weather,expanded_desktop,adb_network,compass,onehand,sync
+        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,pie,location,hotspot,inversion,saver,work,cast,night,lte,screenrecord,screenstabilization,caffeine,sound,reboot,screenshot,theme,weather,expanded_desktop,adb_network,compass,onehand,sync,hwkeys,gaming
     </string>
 
     <!-- The tiles to display in QuickSettings -->
@@ -508,3 +508,4 @@
     <!-- Whether to show VoLTE icon in the status bar -->
     <bool name="config_display_volte">true</bool>
 </resources>
+

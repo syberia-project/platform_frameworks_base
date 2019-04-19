@@ -36,7 +36,9 @@ import com.android.systemui.qs.tiles.DataSaverTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.ExpandedDesktopTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
+import com.android.systemui.qs.tiles.GamingModeTile;
 import com.android.systemui.qs.tiles.HotspotTile;
+import com.android.systemui.qs.tiles.HWKeysTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.LteTile;
@@ -141,6 +143,10 @@ public class QSFactoryImpl implements QSFactory {
                 return new OneHandTile(mHost);
             case "sync":
                 return new SyncTile(mHost);
+            case "hwkeys":
+                return new HWKeysTile(mHost);
+            case "gaming":
+                return new GamingModeTile(mHost);
         }
 
         // Intent tiles.
@@ -170,3 +176,4 @@ public class QSFactoryImpl implements QSFactory {
         }
     }
 }
+
