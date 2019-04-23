@@ -58,6 +58,9 @@
         <item>pt</item>
         <item>fr</item>
         <item>ru</item>
+        <item>tr</item>
+        <item>nl</item>
+        <item>ja</item>
     </string-array>
 
 </resources>
