@@ -45,7 +45,6 @@
 
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenrecord_label">Ekran kaydı</string>
-    <string name="quick_settings_screenrecord_label">Ekran kaydı</string>
     <string name="quick_settings_screenrecord_lq_label">Ekran kaydı 480</string>
     <string name="quick_settings_screenrecord_mq_label">Ekran kaydı 720</string>
     <string name="quick_settings_screenrecord_hq_label">Ekran kaydı 720+</string>
