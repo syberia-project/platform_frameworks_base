@@ -49,9 +49,9 @@ import java.io.InputStreamReader;
 /** @hide */
 public final class Zygote {
     /*
-    * Bit values for "runtimeFlags" argument.  The definitions are duplicated
-    * in the native code.
-    */
+     * Bit values for "runtimeFlags" argument.  The definitions are duplicated
+     * in the native code.
+     */
 
     /** enable debugging over JDWP */
     public static final int DEBUG_ENABLE_JDWP   = 1;
@@ -472,7 +472,7 @@ public final class Zygote {
      *         application that is passed up from usapMain.
      */
     static Runnable forkUsap(LocalServerSocket usapPoolSocket,
-                             int[] sessionSocketRawFDs) {
+            int[] sessionSocketRawFDs) {
         FileDescriptor[] pipeFDs = null;
 
         try {
@@ -496,8 +496,8 @@ public final class Zygote {
     }
 
     private static native int nativeForkUsap(int readPipeFD,
-                                                 int writePipeFD,
-                                                 int[] sessionSocketRawFDs);
+            int writePipeFD,
+            int[] sessionSocketRawFDs);
 
     /**
      * This function is used by unspecialized app processes to wait for specialization requests from
@@ -508,7 +508,7 @@ public final class Zygote {
      * @return A runnable oject representing the new application.
      */
     private static Runnable usapMain(LocalServerSocket usapPoolSocket,
-                                     FileDescriptor writePipe) {
+            FileDescriptor writePipe) {
         final int pid = Process.myPid();
         Process.setArgV0(Process.is64Bit() ? "usap64" : "usap32");
 
@@ -558,6 +558,7 @@ public final class Zygote {
         try {
             // SIGTERM is blocked on loop exit.  This prevents a USAP that is specializing from
             // being killed during a pool flush.
+            setAppProcessName(args, "USAP");
 
             applyUidSecurityPolicy(args, peerCredentials);
             applyDebuggerSystemProperty(args);
@@ -618,22 +619,18 @@ public final class Zygote {
             }
 
             specializeAppProcess(args.mUid, args.mGid, args.mGids,
-                                 args.mRuntimeFlags, rlimits, args.mMountExternal,
-                                 args.mSeInfo, args.mNiceName, args.mStartChildZygote,
-                                 args.mInstructionSet, args.mAppDataDir, args.mIsTopApp);
+                    args.mRuntimeFlags, rlimits, args.mMountExternal,
+                    args.mSeInfo, args.mNiceName, args.mStartChildZygote,
+                    args.mInstructionSet, args.mAppDataDir, args.mIsTopApp);
 
             disableExecuteOnly(args.mTargetSdkVersion);
-
-            if (args.mNiceName != null) {
-                Process.setArgV0(args.mNiceName);
-            }
 
             // End of the postFork event.
             Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
 
             return ZygoteInit.zygoteInit(args.mTargetSdkVersion,
-                                         args.mRemainingArgs,
-                                         null /* classLoader */);
+                    args.mRemainingArgs,
+                    null /* classLoader */);
         } finally {
             // Unblock SIGTERM to restore the process to default behavior.
             unblockSigTerm();
@@ -651,6 +648,16 @@ public final class Zygote {
     }
 
     private static native void nativeUnblockSigTerm();
+
+    static void setAppProcessName(ZygoteArguments args, String loggingTag) {
+        if (args.mNiceName != null) {
+            Process.setArgV0(args.mNiceName);
+        } else if (args.mPackageName != null) {
+            Process.setArgV0(args.mPackageName);
+        } else {
+            Log.w(loggingTag, "Unable to set package name.");
+        }
+    }
 
     private static final String USAP_ERROR_PREFIX = "Invalid command to USAP: ";
 
@@ -674,7 +681,7 @@ public final class Zygote {
             throw new IllegalArgumentException(USAP_ERROR_PREFIX + "--start-child-zygote");
         } else if (args.mApiBlacklistExemptions != null) {
             throw new IllegalArgumentException(
-                USAP_ERROR_PREFIX + "--set-api-blacklist-exemptions");
+                    USAP_ERROR_PREFIX + "--set-api-blacklist-exemptions");
         } else if (args.mHiddenApiAccessLogSampleRate != -1) {
             throw new IllegalArgumentException(
                     USAP_ERROR_PREFIX + "--hidden-api-log-sampling-rate=");
@@ -685,8 +692,8 @@ public final class Zygote {
             throw new IllegalArgumentException(USAP_ERROR_PREFIX + "--invoke-with");
         } else if (args.mPermittedCapabilities != 0 || args.mEffectiveCapabilities != 0) {
             throw new ZygoteSecurityException("Client may not specify capabilities: "
-                + "permitted=0x" + Long.toHexString(args.mPermittedCapabilities)
-                + ", effective=0x" + Long.toHexString(args.mEffectiveCapabilities));
+                    + "permitted=0x" + Long.toHexString(args.mPermittedCapabilities)
+                    + ", effective=0x" + Long.toHexString(args.mEffectiveCapabilities));
         }
     }
 
@@ -743,7 +750,7 @@ public final class Zygote {
             if (uidRestricted && args.mUidSpecified && (args.mUid < Process.SYSTEM_UID)) {
                 throw new ZygoteSecurityException(
                         "System UID may not launch process with UID < "
-                        + Process.SYSTEM_UID);
+                                + Process.SYSTEM_UID);
             }
         }
 
@@ -793,8 +800,8 @@ public final class Zygote {
         if (args.mInvokeWith != null && peerUid != 0
                 && (args.mRuntimeFlags & Zygote.DEBUG_ENABLE_JDWP) == 0) {
             throw new ZygoteSecurityException("Peer is permitted to specify an "
-                + "explicit invoke-with wrapper command only for debuggable "
-                + "applications.");
+                    + "explicit invoke-with wrapper command only for debuggable "
+                    + "applications.");
         }
     }
 
@@ -877,7 +884,7 @@ public final class Zygote {
             return new LocalServerSocket(fd);
         } catch (IOException ex) {
             throw new RuntimeException(
-                "Error building socket from file descriptor: " + fileDesc, ex);
+                    "Error building socket from file descriptor: " + fileDesc, ex);
         }
     }
 
