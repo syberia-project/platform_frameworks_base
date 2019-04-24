@@ -157,4 +157,18 @@
     <string name="accessibility_quick_settings_sync_on">Синхронизация вкл.</string>
     <string name="accessibility_quick_settings_sync_changed_off">Синхронизация откл.</string>
     <string name="accessibility_quick_settings_sync_changed_on">Синхронизация вкл.</string>
+    
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">Аппаратные клавиши включены</string>
+    <string name="accessibility_quick_settings_hwkeys_off">Аппаратные клавиши отключены</string>
+    <string name="quick_settings_hwkeys_label">Аппаратные клавиши</string>
+
+    <!-- Gaming Mode -->
+    <string name="gaming_mode_tile_title">Игровой режим</string>
+    <string name="gaming_mode_tile_toast">Игровой режим включен</string>
+    <string name="gaming_mode_tile_toast_disabled">Игровой режим выключен</string>
+    <string name="gaming_mode_dialog_title">Игровой режим</string>
+    <string name="gaming_mode_dialog_message">Когда игровой режим включен, ваш режим звонка изменится на режим вибрации, все всплывающие сообщения будут отключены и аппаратные клавиши будут отключены. Громкость медиа будет увеличена до максимального значения. Все отключенные настройки будут сброшены к значениям по умолчанию после выхода из игрового режима.</string>
+    <string name="accessibility_quick_settings_gaming_mode_on">Игровой режим включен</string>
+    <string name="accessibility_quick_settings_gaming_mode_off">Игровой режим выключен</string>
 </resources>
