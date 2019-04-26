@@ -5469,6 +5469,20 @@ public final class Settings {
         public static final String ENABLE_GAMING_MODE = "enable_gaming_mode";
 
         /**
+         * Whether to enable DOZE only when charging
+         * @hide
+         */
+        public static final String DOZE_ON_CHARGE = "doze_on_charge";
+
+        private static final Validator DOZE_ON_CHARGE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * hidden stting of the current atate of DOZE only when charging
+         * @hide
+         */
+        public static final String DOZE_ON_CHARGE_NOW = "doze_on_charge_now";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5565,7 +5579,8 @@ public final class Settings {
             OMNI_STATUS_BAR_CUSTOM_HEADER_PROVIDER,
             OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE,
             OMNI_STATUS_BAR_FILE_HEADER_IMAGE,
-            OMNI_CUSTOM_FP_ICON
+            OMNI_CUSTOM_FP_ICON,
+            DOZE_ON_CHARGE
         };
 
         /**
@@ -5725,6 +5740,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE);
             PRIVATE_SETTINGS.add(OMNI_STATUS_BAR_FILE_HEADER_IMAGE);
             PRIVATE_SETTINGS.add(OMNI_CUSTOM_FP_ICON);
+            PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
         }
 
 
@@ -5873,6 +5889,8 @@ public final class Settings {
                     OMNI_STATUS_BAR_FILE_HEADER_IMAGE_VALIDATOR);
             VALIDATORS.put(OMNI_CUSTOM_FP_ICON,
                     OMNI_CUSTOM_FP_ICON_VALIDATOR);
+            VALIDATORS.put(DOZE_ON_CHARGE,
+                    DOZE_ON_CHARGE_VALIDATOR);
         }
 
         /**
