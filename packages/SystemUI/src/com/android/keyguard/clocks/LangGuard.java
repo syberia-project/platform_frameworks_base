@@ -49,14 +49,8 @@ public class LangGuard {
                 return numString;
 
             case "ru":
-                if (units == 1) {
-                    numString = TensString[tens].substring(0, TensString[tens].length() - 1)+
-                                UnitsString[units];
-                    return numString;
-                } else {
-                    numString = TensString[tens] +" "+ UnitsString[units];
-                    return numString;
-                }
+	        numString = TensString[tens] +" "+ UnitsString[units];
+		return numString;
 
             case "fr":
                 return numString;
