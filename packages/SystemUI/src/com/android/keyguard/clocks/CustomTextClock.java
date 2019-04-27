@@ -220,7 +220,7 @@ public class CustomTextClock extends TextView {
             if ( units == 0 ) {
                 NumString = TensString[tens];
             } else {
-                if (LangGuard.isAvailable(langExceptions,curLang)) {
+                if (LangGuard.isAvailable(langExceptions, curLang)) {
                     NumString = LangGuard.evaluateEx(curLang, units, TensString, UnitsString, tens, hours, num);
                 } else {
                     NumString = TensString[tens]+" "+UnitsString[units].substring(2, UnitsString[units].length());
@@ -233,13 +233,17 @@ public class CustomTextClock extends TextView {
                 } else {
                     NumString = UnitsString[num];
                 }
-            } else if (LangGuard.isAvailable(langExceptions,curLang)) {
+            } else if (LangGuard.isAvailable(langExceptions, curLang)) {
                 NumString = LangGuard.evaluateEx(curLang, 0, TensString, UnitsString, 0, hours, num);
             } else {
                 NumString = UnitsString[num];
             }
         } else if (num < 20 && num >= 10) {
-                NumString = UnitsString[num];
+                if (LangGuard.isAvailable(langExceptions, curLang)) {
+                    NumString = LangGuard.evaluateEx(curLang, 0, TensString, UnitsString, 0, hours, num);
+                } else {
+                    NumString = UnitsString[num];
+                }
         }
 
         return NumString;

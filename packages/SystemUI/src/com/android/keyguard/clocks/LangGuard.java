@@ -32,7 +32,7 @@ public class LangGuard {
         String numString = "";
         switch (lang) {
             case "it":
-                if (num < 10) {
+                if (num < 20) {
                     numString = UnitsString[num];
                     return numString;
                 }
@@ -49,16 +49,24 @@ public class LangGuard {
                 }
 
             case "pt":
-                if (num < 10) {
+                if (num < 20) {
                     numString = UnitsString[num];
-                    if (hours) {
-                        numString = numString + "heures";
+                    if (!hours && num != 0) {
+                        numString = "E "+ numString;
+                        return numString;
+                    } else if (!hours && num == 0) {
+                        numString = "Hora";
+                        return numString;
+                    } else if (hours && num == 1) {
+                        numString = "Uma";
                     }
                     return numString;
-                }
-                numString = TensString[tens] + "e " + UnitsString[units].toLowerCase();
-                if (hours) {
-                    numString = numString + "heures";
+                } else {
+                    numString = TensString[tens] + " e " + UnitsString[units].toLowerCase();
+                    if (!hours) {
+                        numString = "E "+ numString;
+                        return numString;
+                    }
                 }
                 return numString;
 
@@ -66,7 +74,7 @@ public class LangGuard {
                 return numString;
 
             case "fr":
-                if (num < 10) {
+                if (num < 20) {
                     numString = UnitsString[num];
                     return numString;
                 }
@@ -78,13 +86,14 @@ public class LangGuard {
                 return numString;
 
             case "ja":
-                if (num < 10) {
+                if (num < 20) {
                     numString = UnitsString[num];
                     return numString;
                 }
                 numString = TensString[tens] + UnitsString[units];
                 return numString;
 
+            // Completely broken
             case "nl":
                 if(hours && num < 10) {
                     units = num;
@@ -101,11 +110,13 @@ public class LangGuard {
                 }
                 if (hours && num < 10) {
                     numString = numString.substring(0, (numString.length() - 2));
+                } else if(num < 20) {
+                    numString = UnitsString[num];
                 }
                 return numString;
 
             case "tr":
-                if (num < 10) {
+                if (num < 20) {
                     numString = UnitsString[num];
                     return numString;
                 }
