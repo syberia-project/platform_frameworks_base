@@ -557,8 +557,6 @@ public class KeyguardStatusView extends GridLayout implements
             default:
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -567,8 +565,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 1: // digital (bold)
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -577,8 +573,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 2: // analog
                 mCustomClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -587,8 +581,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 3: // sammy
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -597,8 +589,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 4: // sammy (bold)
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -607,8 +597,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 5: // sammy accent
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mClockView.setBackgroundResource(0);
@@ -617,8 +605,6 @@ public class KeyguardStatusView extends GridLayout implements
             case 6: // sammy accent
                 mClockView.setVisibility(mDarkAmount != 1 ? (mShowClock ? View.VISIBLE :
                        View.GONE) : View.VISIBLE);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_sammy_accent_font_size));
                 mClockView.setLineSpacing(0,1f);
                 mCustomClockView.setVisibility(View.GONE);
                 mTextClock.setVisibility(View.GONE);
@@ -630,8 +616,6 @@ public class KeyguardStatusView extends GridLayout implements
                 mClockView.getLayoutParams().width = getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_size);
                 mClockView.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_size);
                 mClockView.setLineSpacing(0,1f);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_nerves_font_size));
                 mClockView.setPadding(0,20,0,20);
                 mCustomClockView.setVisibility(View.GONE);
                 mKeyguardSlice.setPadding(0,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
@@ -646,8 +630,6 @@ public class KeyguardStatusView extends GridLayout implements
                 mClockView.getLayoutParams().width = getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_size);
                 mClockView.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_size);
                 mClockView.setLineSpacing(0,1f);
-                mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                getResources().getDimensionPixelSize(R.dimen.widget_clock_shishu_nerves_font_size));
                 mClockView.setPadding(0,20,0,20);
                 mCustomClockView.setVisibility(View.GONE);
                 mKeyguardSlice.setPadding(0,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
