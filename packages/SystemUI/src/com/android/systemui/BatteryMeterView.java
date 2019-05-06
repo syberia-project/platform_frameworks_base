@@ -292,8 +292,7 @@ public class BatteryMeterView extends LinearLayout implements
         if (mBatteryPercentView != null) {
             CharSequence mChargeIndicator =
                     mCharging && mStyle == BatteryMeterDrawableBase.BATTERY_STYLE_TEXT ? "~" : "";
-            mBatteryPercentView.setText(mChargeIndicator +
-                    NumberFormat.getPercentInstance().format(mLevel / 100f));
+            mBatteryPercentView.setText(mChargeIndicator + NumberFormat.getPercentInstance().format(mLevel / 100f).replace('\u00A0',' ').replace('\u2007',' ').replace('\u202F',' ').replace('\u2060',' ').replace(" ",""));            
         }
     }
 
@@ -325,8 +324,7 @@ public class BatteryMeterView extends LinearLayout implements
         if (mBatteryPercentView != null) {
             final Resources res = getContext().getResources();
             final int startPadding = res.getDimensionPixelSize(R.dimen.battery_level_padding_start);
-            mBatteryPercentView.setPaddingRelative(startPadding, 0,
-                    /*(mDrawable.getMeterStyle() != BatteryMeterDrawableBase.BATTERY_STYLE_TEXT ? endPadding : */0/*)*/, 0);
+            mBatteryPercentView.setPaddingRelative(startPadding, 0, (mDrawable.getMeterStyle() != BatteryMeterDrawableBase.BATTERY_STYLE_TEXT) ? startPadding : 0, 0);
         }
         mDrawable.showPercentInsideCircle(mShowPercentText == 2);
         mDrawable.setShowPercent(mShowPercentText == 2);
