@@ -28,6 +28,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.os.UserManager;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -56,6 +57,7 @@ import com.android.systemui.R;
 import com.android.systemui.R.dimen;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.qs.TouchAnimator.Builder;
+import com.android.systemui.statusbar.phone.ExpandableIndicator;
 import com.android.systemui.statusbar.phone.MultiUserSwitch;
 import com.android.systemui.statusbar.phone.SettingsButton;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
@@ -71,6 +73,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class QSFooterImpl extends FrameLayout implements QSFooter,
         OnClickListener, OnLongClickListener, OnUserInfoChangedListener, EmergencyListener, SignalCallback {
 
+    private static final float EXPAND_INDICATOR_THRESHOLD = .93f;
     private ActivityStarter mActivityStarter;
     private UserInfoController mUserInfoController;
     private SettingsButton mSettingsButton;
@@ -84,6 +87,8 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     private QuickQSPanel mQuickQSPanel;
 
     private boolean mExpanded;
+
+    protected ExpandableIndicator mExpandIndicator;
 
     private boolean mListening;
 
@@ -126,6 +131,7 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         mPageIndicator = findViewById(R.id.footer_page_indicator);
 
+        mExpandIndicator = findViewById(R.id.expand_indicator);
         mSettingsButton = findViewById(R.id.settings_button);
         mSettingsContainer = findViewById(R.id.settings_button_container);
         mSettingsButton.setOnClickListener(this);
@@ -147,6 +153,7 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         // RenderThread is doing more harm than good when touching the header (to expand quick
         // settings), so disable it for this view
+        ((RippleDrawable) mExpandIndicator.getBackground()).setForceSoftware(true);
         ((RippleDrawable) mSettingsButton.getBackground()).setForceSoftware(true);
         ((RippleDrawable) mRunningServicesButton.getBackground()).setForceSoftware(true);
 
@@ -189,6 +196,12 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
     private void updateResources() {
         updateFooterAnimator();
+
+        boolean toggleExpanderView = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.QS_PANEL_USE_OREO_STYLE, 0,
+                UserHandle.USER_CURRENT) == 1;
+
+        mExpandIndicator.setVisibility(toggleExpanderView ? View.VISIBLE : View.GONE);
 
         // Update the width and weight of the actions container as the page indicator can sometimes
         // show and the layout needs to center it between the carrier text and actions container.
@@ -243,6 +256,8 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         if (mFooterAnimator != null) {
             mFooterAnimator.setPosition(headerExpansionFraction);
         }
+
+        mExpandIndicator.setExpanded(headerExpansionFraction > EXPAND_INDICATOR_THRESHOLD);
     }
 
     @Override
@@ -259,6 +274,11 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         }
         mListening = listening;
         updateListeners();
+    }
+
+    @Override
+    public View getExpandView() {
+        return findViewById(R.id.expand_indicator);
     }
 
     @Override

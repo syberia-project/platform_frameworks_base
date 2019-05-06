@@ -251,6 +251,11 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
     @Override
     public void setHeaderClickable(boolean clickable) {
         if (DEBUG) Log.d(TAG, "setHeaderClickable " + clickable);
+
+        View expandView = mFooter.getExpandView();
+        if (expandView != null) {
+            expandView.setClickable(clickable);
+        }
     }
 
     @Override
@@ -375,7 +380,11 @@ public class QSFragment extends Fragment implements QS, CommandQueue.Callbacks {
 
     @Override
     public void setExpandClickListener(OnClickListener onClickListener) {
-        mFooter.setExpandClickListener(onClickListener);
+        View expandView = mFooter.getExpandView();
+
+        if (expandView != null) {
+            expandView.setOnClickListener(onClickListener);
+        }
     }
 
     @Override
