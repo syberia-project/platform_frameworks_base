@@ -4215,7 +4215,7 @@ public final class Settings {
 
         /** @hide */
         public static final Validator SHOW_BATTERY_PERCENT_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 3);
 
         /**
          * Custom button brightness value for manual mode
