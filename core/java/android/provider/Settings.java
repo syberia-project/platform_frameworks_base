@@ -4878,6 +4878,12 @@ public final class Settings {
          * @hide
          */
         public static final String PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
+	
+	/**
+         * Whether to disable showing arrows in network traffic indicators
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
 
         /**
          * Three Finger Gesture from Oppo
