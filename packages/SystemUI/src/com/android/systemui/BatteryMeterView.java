@@ -320,6 +320,11 @@ public class BatteryMeterView extends LinearLayout implements
                             new ViewGroup.LayoutParams(
                                     LayoutParams.WRAP_CONTENT,
                                     LayoutParams.MATCH_PARENT));
+                } else if(mStyle == BatteryMeterDrawableBase.BATTERY_STYLE_TEXT){
+                    addView(mBatteryPercentView,
+                            new ViewGroup.LayoutParams(
+                                    LayoutParams.WRAP_CONTENT,
+                                    LayoutParams.MATCH_PARENT));
                 }
             }
         } else {
