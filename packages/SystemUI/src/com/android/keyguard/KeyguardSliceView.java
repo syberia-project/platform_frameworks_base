@@ -36,6 +36,7 @@ import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -413,6 +414,19 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
     public void refresh() {
         Slice slice = SliceViewManager.getInstance(getContext()).bindSlice(mKeyguardSliceUri);
         onChanged(slice);
+    }
+
+    public void setRowGravity(int gravity, int paddingPixel) {
+        mRow.setGravity(gravity);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mRow.getLayoutParams();
+        if(gravity == Gravity.START){
+            lp.setMargins(paddingPixel, lp.topMargin, 0, lp.bottomMargin);
+        } else if(gravity == Gravity.END) {
+            lp.setMargins(0, lp.topMargin, paddingPixel, lp.bottomMargin);
+        } else {
+            lp.setMargins(0, lp.topMargin, 0, lp.bottomMargin);
+        }
+        mRow.setLayoutParams(lp);      
     }
 
     public static class Row extends LinearLayout {
