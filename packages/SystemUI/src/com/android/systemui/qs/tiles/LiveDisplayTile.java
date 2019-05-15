@@ -17,7 +17,6 @@
 
 package com.android.systemui.qs.tiles;
 
-import static com.android.internal.custom.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_AUTO;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_DAY;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OFF;
@@ -80,10 +79,12 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
         updateEntries();
 
+        final boolean mOutdoorOverlayCapable = res.getBoolean(R.bool.config_outdoorCapable);
+
         mLiveDisplay = LiveDisplayManager.getInstance(mContext);
         if (mLiveDisplay.getConfig() != null) {
             mOutdoorModeAvailable = mLiveDisplay.getConfig().hasFeature(MODE_OUTDOOR) ||
-                    mLiveDisplay.getConfig().hasFeature(FEATURE_MANAGED_OUTDOOR_MODE);
+                    mOutdoorOverlayCapable;
             mDayTemperature = mLiveDisplay.getDayColorTemperature();
         } else {
             mOutdoorModeAvailable = false;
