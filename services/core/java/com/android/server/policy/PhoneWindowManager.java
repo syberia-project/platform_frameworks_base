@@ -854,6 +854,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean mScreenrecordChordVolumeUpKeyTriggered;
     private long mScreenrecordChordVolumeUpKeyTime;
     private boolean mScreenrecordChordVolumeUpKeyConsumed;
+    private int mScreenrecordMode = SCREEN_RECORD_LOW_QUALITY;
+
     // end screenrecord
     private boolean mA11yShortcutChordVolumeUpKeyTriggered;
     private long mA11yShortcutChordVolumeUpKeyTime;
@@ -1214,6 +1216,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.PIE_STATE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SCREENRECORD_QUALITY_MODE), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2146,15 +2151,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private final ScreenshotRunnable mScreenshotRunnable = new ScreenshotRunnable();
 
     private class ScreenrecordRunnable implements Runnable {
-        private int mMode = SCREEN_RECORD_LOW_QUALITY;
         
         public void setMode(int mode) {
-            mMode = mode;
+            mScreenrecordmode = mode;
         }
         
         @Override
         public void run() {
-            takeScreenrecord(mMode);
+            takeScreenrecord(mScreenrecordmode);
         }
     }
 
@@ -2979,6 +2983,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 		    UserHandle.USER_CURRENT) == 1);
 	    mTorchActionMode = Settings.System.getIntForUser(resolver,
                     Settings.System.TORCH_POWER_BUTTON_GESTURE, 0,
+                    UserHandle.USER_CURRENT);
+            mScreenrecordMode = Settings.System.getIntForUser(resolver,
+                    Settings.System.SCREENRECORD_QUALITY_MODE, SCREEN_RECORD_LOW_QUALITY,
                     UserHandle.USER_CURRENT);
 
             if (!mContext.getResources()
