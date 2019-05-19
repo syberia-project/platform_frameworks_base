@@ -161,4 +161,5 @@ interface IStatusBarService
      * Syberia
      */
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
 }
