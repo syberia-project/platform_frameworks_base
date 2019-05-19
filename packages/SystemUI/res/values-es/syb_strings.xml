@@ -226,4 +226,43 @@
     <string name="quick_settings_compass_SW">SW</string>
     <string name="quick_settings_compass_W">W</string>
     <string name="quick_settings_compass_NW">NW</string>
+
+    <!-- OneHand mode QS tile -->
+    <string name="qs_onehand_label">Modo una mano</string>
+
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sincronizar</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronización Act.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronización Des.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronización desactivada.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronización activada.</string>
+
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">Teclas HW activadas</string>
+    <string name="accessibility_quick_settings_hwkeys_off">Teclas HW desactivadas</string>
+    <string name="quick_settings_hwkeys_label">Teclas HW</string>
+
+    <!-- Gaming Mode -->
+    <string name="gaming_mode_tile_title">Modo Juego</string>
+    <string name="gaming_mode_tile_toast">Modo Juego activado</string>
+    <string name="gaming_mode_tile_toast_disabled">Modo Juego desactivado</string>
+    <string name="gaming_mode_dialog_title">Modo Juego</string>
+    <string name="gaming_mode_dialog_message">Cuando el modo juego está habilitado, todos los mensajes flotantes y las teclas de hardware se desactivarán. Todos los ajustes deshabilitados se restablecerán a los valores predeterminados una vez que salga del modo de juego.</string>
+    <string name="accessibility_quick_settings_gaming_mode_on">Modo Juegoe</string>
+    <string name="accessibility_quick_settings_gaming_mode_off">Modo Juego</string>
+
+    <!-- CustomText clock -->
+    <string name="high_noon_first_row">Alto</string>
+    <string name="high_noon_second_row">Mediodía</string>
+    
+    <!--Google sound search tile -->
+    <string name="quick_settings_sound_search">Búsqueda de sonido</string>
+
+    <!-- Reader mode QS tile -->
+    <string name="quick_settings_reading_mode">Modo lectura</string>
+    <string name="accessibility_quick_settings_reading_mode_on">Modo lectura Act.</string>
+    <string name="accessibility_quick_settings_reading_mode_off">Modo lectura Des.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_on">Modo de lectura activado.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_off">Modo de lectura desactivado.</string>
+
 </resources>
