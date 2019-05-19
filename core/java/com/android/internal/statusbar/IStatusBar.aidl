@@ -169,4 +169,6 @@ oneway interface IStatusBar
     void dispatchNavigationEditorResults(in Intent intent);
 
     void toggleOrientationListener(boolean enable);
+    void toggleCameraFlashState(boolean enable);
+
 }
