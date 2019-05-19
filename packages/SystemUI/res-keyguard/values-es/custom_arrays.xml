@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2019 Descendant
+** Copyright 2019 The Evolution X Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string-array translatable="true" name="TensString">
+        <item></item>
+        <item></item>
+        <item>Veinte</item>
+        <item>Treinta</item>
+        <item>Cuarenta</item>
+        <item>Cincuenta</item>
+        <item>Sesenta</item>
+    </string-array>
+
+    <string-array translatable="true" name="UnitsString">
+        <item>En punto</item>          
+        <item>y Uno</item>          
+        <item>y Dos</item>    
+        <item>y Tres</item>    
+        <item>y Cuatro</item>     
+        <item>y Cinco</item>     
+        <item>y Seis</item>
+        <item>y Siete</item>
+        <item>y Ocho</item>
+        <item>y Nueve</item>
+        <item>y Diez</item>
+        <item>y Once</item>
+        <item>Y Doce</item>
+        <item>y Trece</item>
+        <item>y Catorce</item>
+        <item>y Quince</item>
+        <item>y Dieciséis</item>
+        <item>y Diecisiete</item>
+        <item>y Dieciocho</item>
+        <item>y Diecinueve</item>
+    </string-array>
+
+    <string-array translatable="false" name="langExceptions">
+        <item>it</item>
+        <item>pt</item>
+        <item>fr</item>
+        <item>ru</item>
+        <item>tr</item>
+        <item>nl</item>
+        <item>ja</item>
+    </string-array>
+
+</resources>
