@@ -177,4 +177,6 @@ oneway interface IStatusBar
      * Syberia
      */
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
+
 }
