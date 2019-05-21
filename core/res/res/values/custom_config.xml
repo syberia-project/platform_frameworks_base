@@ -63,7 +63,4 @@
     <!-- Should we filter any display modes which are unampped? -->
     <bool name="config_filterDisplayModes">false</bool>
 
-    <!-- Value for overriding outdoor capable mode for LiveDisplay tile -->
-    <bool name="config_outdoorCapable">false</bool>
-
 </resources>
