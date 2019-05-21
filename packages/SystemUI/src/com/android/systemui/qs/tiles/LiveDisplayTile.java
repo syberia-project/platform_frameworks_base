@@ -17,6 +17,7 @@
 
 package com.android.systemui.qs.tiles;
 
+import static com.android.internal.custom.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_AUTO;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_DAY;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OFF;
@@ -61,7 +62,7 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
     private int mDayTemperature;
 
     private final boolean mOutdoorModeAvailable;
-    private final boolean mOutdoorOverlayCapable;
+
     private final LiveDisplayManager mLiveDisplay;
 
     private static final int OFF_TEMPERATURE = 6500;
@@ -79,11 +80,10 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
         updateEntries();
 
-        mOutdoorOverlayCapable = res.getBoolean(R.bool.config_outdoorCapable);
-
         mLiveDisplay = LiveDisplayManager.getInstance(mContext);
         if (mLiveDisplay.getConfig() != null) {
-            mOutdoorModeAvailable = mLiveDisplay.getConfig().hasFeature(MODE_OUTDOOR);
+            mOutdoorModeAvailable = mLiveDisplay.getConfig().hasFeature(MODE_OUTDOOR) ||
+                    mLiveDisplay.getConfig().hasFeature(FEATURE_MANAGED_OUTDOOR_MODE);
             mDayTemperature = mLiveDisplay.getDayColorTemperature();
         } else {
             mOutdoorModeAvailable = false;
@@ -180,7 +180,7 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
             nextMode = Integer.valueOf(mValues[next]);
             // Skip outdoor mode if it's unsupported, and skip the day setting
             // if it's the same as the off setting
-            if ((!mOutdoorModeAvailable && !mOutdoorOverlayCapable && nextMode == MODE_OUTDOOR) ||
+            if ((!mOutdoorModeAvailable && nextMode == MODE_OUTDOOR) ||
                     (mDayTemperature == OFF_TEMPERATURE && nextMode == MODE_DAY)) {
                 next++;
                 if (next >= mValues.length) {
