@@ -726,7 +726,7 @@ public class NotificationPanelView extends PanelView implements
                     mClockPositionResult.clockY, CLOCK_ANIMATION_PROPERTIES, animateClock);
             updateNotificationTranslucency();
             updateClock();
-            stackScrollerPadding = mClockPositionResult.stackScrollerPadding;
+            stackScrollerPadding = mClockPositionResult.stackScrollerPaddingExpanded;
         }
         mNotificationStackScroller.setIntrinsicPadding(stackScrollerPadding);
         mNotificationStackScroller.setAntiBurnInOffsetX(mClockPositionResult.clockX);
@@ -1681,7 +1681,7 @@ public class NotificationPanelView extends PanelView implements
         } else if (mKeyguardShowing) {
             // We can only do the smoother transition on Keyguard when we also are not collapsing
             // from a scrolled quick settings.
-            return MathUtils.lerp((float) mNotificationStackScroller.getIntrinsicPadding(),
+            return MathUtils.lerp((float) mClockPositionResult.stackScrollerPadding,
                     (float) (mQsMaxExpansionHeight + mQsNotificationTopPadding),
                     getQsExpansionFraction());
         } else {
@@ -1690,9 +1690,7 @@ public class NotificationPanelView extends PanelView implements
     }
 
     protected void requestScrollerTopPaddingUpdate(boolean animate) {
-        mNotificationStackScroller.updateTopPadding(calculateQsTopPadding(),
-                animate, mKeyguardShowing
-                        && (mQsExpandImmediate || mIsExpanding && mQsExpandedWhenExpandingStarted));
+        mNotificationStackScroller.updateTopPadding(calculateQsTopPadding(), animate);
     }
 
     private void trackMovement(MotionEvent event) {
