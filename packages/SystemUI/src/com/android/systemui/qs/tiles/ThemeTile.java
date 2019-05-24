@@ -104,6 +104,14 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
                 R.string.quick_settings_theme_tile_color_rosy));
         sThemeItems.add(new ThemeTileItem(21, R.color.quick_settings_theme_tile_sweet_purple,
                 R.string.quick_settings_theme_tile_color_sweet_purple));
+	sThemeItems.add(new ThemeTileItem(22, R.color.quick_settings_theme_tile_pastel_red,
+                R.string.quick_settings_theme_tile_color_pastel_red));
+	sThemeItems.add(new ThemeTileItem(23, R.color.quick_settings_theme_tile_pastel_green,
+                R.string.quick_settings_theme_tile_color_pastel_green));
+	sThemeItems.add(new ThemeTileItem(24, R.color.quick_settings_theme_tile_pastel_darkblue,
+                R.string.quick_settings_theme_tile_color_pastel_darkblue));
+	sThemeItems.add(new ThemeTileItem(25, R.color.quick_settings_theme_tile_pastel_etonblue,
+                R.string.quick_settings_theme_tile_color_pastel_etonblue));
     }
 
     static final List<ThemeTileItem> sStyleItems = new ArrayList<ThemeTileItem>();

@@ -50,6 +50,10 @@
     <color name="quick_settings_theme_tile_black">#000000</color>
     <color name="quick_settings_theme_tile_white">#ffffff</color>
     <color name="quick_settings_theme_tile_sweet_purple">#B39DDB</color>
+    <color name="quick_settings_theme_tile_pastel_red">#FE6B64</color>
+    <color name="quick_settings_theme_tile_pastel_green">#98E690</color>
+    <color name="quick_settings_theme_tile_pastel_darkblue">#769ECB</color>
+    <color name="quick_settings_theme_tile_pastel_etonblue">#8FC1A9</color>
 
     <!-- Quicksettings main QS background-->
     <color name="quick_settings_status_bar_background_color">#ff000000</color>
