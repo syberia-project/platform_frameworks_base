@@ -661,6 +661,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     private boolean mKeyguardShowingMedia;
     private boolean mWallpaperSupportsAmbientMode;
 
+    private boolean mChargingAnimation;
+
     private BroadcastReceiver mWallpaperChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -5572,6 +5574,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 	    resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LESS_BORING_HEADS_UP),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION),
+                    false, this, UserHandle.USER_ALL);
 	    }
 
         @Override
@@ -5623,6 +5628,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_ALBUM_ART_FILTER))) {
                 updateLockscreenFilter();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION))) {
+                updateChargingAnimation();
             }
 	    update();
         }
@@ -5645,8 +5653,10 @@ public class StatusBar extends SystemUI implements DemoMode,
 	    updateCorners();
             setForceAmbient();
             updateLockscreenFilter();
+            updateChargingAnimation();
         }
     }
+
           
     private void setLockscreenDoubleTapToSleep() {
         if (mStatusBarWindow != null) {
@@ -5709,6 +5719,15 @@ public class StatusBar extends SystemUI implements DemoMode,
         mAlbumArtFilter = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_ALBUM_ART_FILTER, 0,
                 UserHandle.USER_CURRENT);
+    }
+
+
+    private void updateChargingAnimation() {
+        mChargingAnimation = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_CHARGING_ANIMATION, 1, UserHandle.USER_CURRENT) == 1;
+        if (mKeyguardIndicationController != null) {
+            mKeyguardIndicationController.updateChargingIndication(mChargingAnimation);
+        }
     }
 
     public int getWakefulnessState() {
