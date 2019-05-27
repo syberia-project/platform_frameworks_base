@@ -26,6 +26,6 @@
     <dimen name="qs_header_image_side_margin">4dp</dimen>
     <dimen name="qs_header_image_bottom_margin">4dp</dimen>
 
-    <dimen name="ambient_indication_margin_bottom">12.0dip</dimen>
+    <dimen name="ambient_indication_margin_bottom">88.0dip</dimen>
 
 </resources>
