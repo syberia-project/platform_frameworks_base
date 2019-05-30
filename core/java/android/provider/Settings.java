@@ -5159,12 +5159,6 @@ public final class Settings {
         public static final Validator RECENTS_COMPONENT_VALIDATOR =
                 new SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
 
-	/**
-         * Whether to enable the pixel navbar animation
-         * @hide
-         */
-        public static final String PIXEL_NAV_ANIMATION = "pixel_nav_animation";
-
         /**
          * Whether to mute annoying notifications
          * @hide
