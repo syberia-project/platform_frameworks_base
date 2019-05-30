@@ -73,12 +73,16 @@ public class LangGuard {
             case "ru":
                 if (num < 20) {
                    if (!hours && num < 10 ) {
-                       numString = "Ноль " + UnitsString[num];
+                       if (num == 0){
+                           numString = "Ровно";
+                       } else {
+                           numString = "Ноль " + UnitsString[num].toLowerCase();
+                       }
                    } else
                     numString = UnitsString[num];
                     return numString;
                 }
-                numString = TensString[tens] + " "+ UnitsString[units];
+                numString = TensString[tens] + " " + UnitsString[units].toLowerCase();
                 return numString;
 
             case "fr":
