@@ -157,7 +157,7 @@
     <string name="accessibility_quick_settings_sync_on">Синхронизация вкл.</string>
     <string name="accessibility_quick_settings_sync_changed_off">Синхронизация откл.</string>
     <string name="accessibility_quick_settings_sync_changed_on">Синхронизация вкл.</string>
-    
+
     <!-- HW Keys Tile -->
     <string name="accessibility_quick_settings_hwkeys_on">Аппаратные клавиши включены</string>
     <string name="accessibility_quick_settings_hwkeys_off">Аппаратные клавиши отключены</string>
@@ -171,19 +171,38 @@
     <string name="gaming_mode_dialog_message">Когда игровой режим включен, все всплывающие сообщения будут отключены и аппаратные клавиши будут отключены. Громкость медиа будет увеличена до максимального значения. Все отключенные настройки будут сброшены к значениям по умолчанию после выхода из игрового режима.</string>
     <string name="accessibility_quick_settings_gaming_mode_on">Игровой режим включен</string>
     <string name="accessibility_quick_settings_gaming_mode_off">Игровой режим выключен</string>
-    
+
     <!--Google sound search tile -->
     <string name="quick_settings_sound_search">Звуковой поиск</string>
-    
+
     <!-- Reader mode QS tile -->
     <string name="quick_settings_reading_mode">Режим чтения</string>
     <string name="accessibility_quick_settings_reading_mode_on">Режим чтения включен.</string>
     <string name="accessibility_quick_settings_reading_mode_off">Режим чтения отключен.</string>
     <string name="accessibility_quick_settings_reading_mode_changed_on">Режим чтения включен.</string>
     <string name="accessibility_quick_settings_reading_mode_changed_off">Режим чтения отключен.</string>
-    
+
     <!-- Font Tile -->
     <string name="quick_settings_font_label">Шрифты</string>
     <string name="quick_settings_font_detail_label">Выберите шрифт</string>
+
+    <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Отчет о местоположении: режим энергосбережения.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Отчет о местоположении: режим по датчикам.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Отчет о местоположении: режим высокой точности.</string>
+    <string name="quick_settings_location_battery_saving_label">Энергосбережение</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Энерго\nсбережение</string>
+    <string name="quick_settings_location_gps_only_label">Только датчики</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Только датчики</string>
+    <string name="quick_settings_location_high_accuracy_label">Высокая точность</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая\nточность</string>
+    <string name="quick_settings_location_detail_title">Местоположение</string>
+    <string name="quick_settings_location_detail_menu_title">Выберите режим:</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Высокая точность</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Энергосбережение</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Только датчики</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Использовать GPS, Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
 
 </resources>
