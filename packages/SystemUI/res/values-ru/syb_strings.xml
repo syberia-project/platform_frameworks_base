@@ -185,5 +185,24 @@
     <!-- Font Tile -->
     <string name="quick_settings_font_label">Шрифты</string>
     <string name="quick_settings_font_detail_label">Выберите шрифт</string>
+    
+    <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Отчет о местоположении: режим энергосбережения.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Отчет о местоположении: режим по датчикам.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Отчет о местоположении: режим высокой точности.</string>
+    <string name="quick_settings_location_battery_saving_label">Энергосбережение</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">"Энерго\nсбережение</string>
+    <string name="quick_settings_location_gps_only_label">Только датчики</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Только датчики</string>
+    <string name="quick_settings_location_high_accuracy_label">Высокая точность</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая\nточность</string>
+    <string name="quick_settings_location_detail_title">Местоположение</string>
+    <string name="quick_settings_location_detail_menu_title">Выберите режим:</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Высокая точность</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Энергосбережение</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Только датчики</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Использовать GPS, Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
 
 </resources>
