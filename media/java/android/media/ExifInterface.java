@@ -2550,6 +2550,13 @@ public class ExifInterface {
                     }
                     try {
                         if (mPosition != position) {
+                            // We don't allow seek to positions after the available bytes,
+                            // the input stream won't be able to seek back then.
+                            // However, if we hit an exception before (mPosition set to -1),
+                            // let it try the seek in hope it might recover.
+                            if (mPosition >= 0 && position >= mPosition + in.available()) {
+                                return -1;
+                            }
                             in.seek(position);
                             mPosition = position;
                         }
