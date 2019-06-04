@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2018-2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,6 +107,11 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
     private boolean isCTCAvailable() {
         return !ColorDisplayController.isAvailable(mContext);
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return (!ColorDisplayController.isAvailable(mContext) && !mOutdoorOverlayCapable);
     }
 
     @Override
