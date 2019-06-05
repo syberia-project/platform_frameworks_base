@@ -366,6 +366,12 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
         return mHasHeader;
     }
 
+    public void updateWeatherSliceIconSize() {
+        float scaleRatio = getResources().getDisplayMetrics().density;
+        mWeatherIconSize = (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCKDATE_FONT_SIZE, 16)) * (int)(scaleRatio + 0.5);
+     }
+
     /**
      * LiveData observer lifecycle.
      * @param slice the new slice content.
@@ -414,7 +420,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
     @Override
     public void onDensityOrFontScaleChanged() {
         mIconSize = mContext.getResources().getDimensionPixelSize(R.dimen.widget_icon_size);
-        mWeatherIconSize = mContext.getResources().getDimensionPixelSize(R.dimen.weather_icon_size);
+        updateWeatherSliceIconSize();
     }
 
     public void refresh() {
@@ -432,7 +438,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
         } else {
             lp.setMargins(0, lp.topMargin, 0, lp.bottomMargin);
         }
-        mRow.setLayoutParams(lp);      
+        mRow.setLayoutParams(lp);
     }
 
     public static class Row extends LinearLayout {
