@@ -5507,13 +5507,6 @@ public final class Settings {
         private static final Validator OMNI_CUSTOM_FP_ICON_VALIDATOR =
                 ANY_STRING_VALIDATOR;
 
-         /**
-         * Whether to enable gaming mode or not
-         *
-         * @hide
-         */
-        public static final String ENABLE_GAMING_MODE = "enable_gaming_mode";
-
         /**
          * Whether to enable DOZE only when charging
          * @hide
