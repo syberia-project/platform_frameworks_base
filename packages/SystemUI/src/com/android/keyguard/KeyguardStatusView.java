@@ -1010,6 +1010,8 @@ public class KeyguardStatusView extends GridLayout implements
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
         int lockDateSize = isPrimary ? getLockDateSize() : 16;
 
+        if (!mOmniStyle) mKeyguardSlice.updateWeatherSliceIconSize();
+
         if (lockDateSize == 0) {
         mKeyguardSlice.setViewsTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.lock_date_font_size_1));
