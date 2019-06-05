@@ -34,6 +34,7 @@ import android.os.Process;
 import android.os.UserHandle;
 import android.view.Display;
 
+import com.android.internal.app.ColorDisplayController;
 import com.android.server.LocalServices;
 import com.android.server.ServiceThread;
 import com.android.server.SystemService;
@@ -143,6 +144,7 @@ public class LiveDisplayService extends SystemService {
     @Override
     public void onBootPhase(int phase) {
         if (phase == PHASE_BOOT_COMPLETED) {
+            final boolean isNightDisplayAvailable = ColorDisplayController.isAvailable(mContext);
 
             mAwaitingNudge = getSunsetCounter() < 1;
 
@@ -150,7 +152,9 @@ public class LiveDisplayService extends SystemService {
             mFeatures.add(mDHC);
 
             mCTC = new ColorTemperatureController(mContext, mHandler, mDHC);
-            mFeatures.add(mCTC);
+            if (!isNightDisplayAvailable) {
+                mFeatures.add(mCTC);
+            }
 
             mOMC = new OutdoorModeController(mContext, mHandler);
             mFeatures.add(mOMC);
@@ -192,6 +196,11 @@ public class LiveDisplayService extends SystemService {
             // ServiceType does not matter when retrieving global saver mode.
             mState.mLowPowerMode =
                     pmi.getLowPowerState(SERVICE_TYPE_DUMMY).globalBatterySaverEnabled;
+
+            if (!isNightDisplayAvailable) {
+                mTwilightTracker.registerListener(mTwilightListener, mHandler);
+                mState.mTwilight = mTwilightTracker.getCurrentState();
+            }
 
             mTwilightTracker.registerListener(mTwilightListener, mHandler);
             mState.mTwilight = mTwilightTracker.getCurrentState();
