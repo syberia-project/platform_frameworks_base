@@ -19,6 +19,7 @@ package com.android.systemui.qs.tiles;
 
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_AUTO;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_DAY;
+import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_NIGHT;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OFF;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OUTDOOR;
 
@@ -103,6 +104,10 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
         mValues = res.getStringArray(R.array.live_display_values);
     }
 
+    private boolean isCTCAvailable() {
+        return !ColorDisplayController.isAvailable(mContext);
+    }
+
     @Override
     public LiveDisplayState newTileState() {
         return new LiveDisplayState();
@@ -178,10 +183,11 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
         while (true) {
             nextMode = Integer.valueOf(mValues[next]);
-            // Skip outdoor mode if it's unsupported, and skip the day setting
-            // if it's the same as the off setting
+            // Skip outdoor mode if it's unsupported, and skip the day/night setting
+            // if ColorTransform is not available (since we using AOSP day/night mode)
             if ((!mOutdoorModeAvailable && !mOutdoorOverlayCapable && nextMode == MODE_OUTDOOR) ||
-                    (mDayTemperature == OFF_TEMPERATURE && nextMode == MODE_DAY)) {
+                    (mDayTemperature == OFF_TEMPERATURE && nextMode == MODE_DAY) ||
+                    (!isCTCAvailable() && (nextMode == MODE_DAY || nextMode == MODE_NIGHT))) {
                 next++;
                 if (next >= mValues.length) {
                     next = 0;
