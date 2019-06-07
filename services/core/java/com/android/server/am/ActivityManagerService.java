@@ -4414,7 +4414,7 @@ public class ActivityManagerService extends IActivityManager.Stub
             }
             else if (ringerMode == 3) {
                 mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_SILENT);
-                mNotificationManager.setZenMode(ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
+                mNotificationManager.setZenMode(ZEN_MODE_OFF, null, TAG);
             }
         }
         // Media volume increased to the fullest
@@ -6230,6 +6230,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         // Check if the selected app is removed from the stack
         if (isGameApp(app.processName) || (isDynamicGamingMode && (app.info.category == ApplicationInfo.CATEGORY_GAME ||
                       (app.info.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME))) {
+            mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             final boolean wasAdaptiveEnabledByUser = Settings.System.getInt(mContext.getContentResolver(),
                               Settings.System.GAMING_SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
                 Settings.System.putInt(mContext.getContentResolver(),
