@@ -196,15 +196,6 @@
     <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
 
-    <!-- FireHound Gaming -->
-    <string name="gaming_mode_tile_title">Игровой режим</string>
-    <string name="gaming_mode_tile_toast">Игровой режим включен</string>
-    <string name="gaming_mode_tile_toast_disabled">Игровой режим выключен</string>
-    <string name="gaming_mode_dialog_title">Игровой режим</string>
-    <string name="gaming_mode_dialog_message">Будет включен игровой режим. Длительное нажатие для настройки параметров</string>
-    <string name="accessibility_quick_settings_gaming_mode_on">Игровой режим включен</string>
-    <string name="accessibility_quick_settings_gaming_mode_off">Игровой режим выключен</string>
-    <string name="gaming_notif_title">Игровой режим включен</string>
-    <string name="gaming_notif_ticker">Игровой режим включен</string>
     <string name="notification_channel_gaming">Игровой режим</string>
+
 </resources>
