@@ -343,6 +343,7 @@
     <item msgid="5363960654009010371">"Цвета, оптимизированные для цифрового контента"</item>
   </string-array>
     <string name="inactive_apps_title" msgid="9042996804461901648">"Приложения в режиме ожидания"</string>
+    <string name="inactive_apps_summary" msgid="9042996804461901648">"Настроить уровень активности приложений в режиме ожидания"</string>
     <string name="inactive_app_inactive_summary" msgid="5091363706699855725">"Выключено. Нажмите, чтобы включить."</string>
     <string name="inactive_app_active_summary" msgid="4174921824958516106">"Включено. Нажмите, чтобы отключить."</string>
     <string name="standby_bucket_summary" msgid="6567835350910684727">"Статус приложения в режиме ожидания:<xliff:g id="BUCKET"> %s</xliff:g>"</string>
