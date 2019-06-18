@@ -5289,6 +5289,14 @@ public final class Settings {
          */
         public static final String FONT_PACKAGES = "font_packages";
 
+
+        /**
+         * Gaming Mode master switch
+         *
+         * @hide
+         */
+        public static final String GAMING_MODE_MASTER_SWITCH = "gaming_mode_master_switch";
+
         /**
          * Whether to enable gaming mode or not
          *
