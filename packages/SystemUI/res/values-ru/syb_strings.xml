@@ -196,6 +196,7 @@
     <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать Wi\u2011Fi, Bluetooth или сотовые сети для определения местоположения</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
 
+    <!-- Gaming Mode -->
     <string name="notification_channel_gaming">Игровой режим</string>
 
 </resources>
