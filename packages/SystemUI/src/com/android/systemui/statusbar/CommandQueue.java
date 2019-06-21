@@ -105,6 +105,7 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_DISPATCH_NAVIGATION_EDITOR_RESULTS = 55 << MSG_SHIFT;
     private static final int MSG_TOGGLE_PIE_ORIENTATION        = 56 << MSG_SHIFT;
     private static final int MSG_IN_DISPLAY_FINGERPRINT        = 57 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_CAMERA_FLASH_STATE     = 58 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -188,6 +189,7 @@ public class CommandQueue extends IStatusBar.Stub {
         default void toggleNavigationEditor() {}
         default void dispatchNavigationEditorResults(Intent intent) {}
         default void toggleOrientationListener(boolean enable) {}
+        default void toggleCameraFlashState(boolean enable) { }
     }
 
     @VisibleForTesting
@@ -660,6 +662,14 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+    @Override
+    public void toggleCameraFlashState(boolean enable) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH_STATE);
+            mHandler.obtainMessage(MSG_TOGGLE_CAMERA_FLASH_STATE,enable ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
+
     private final class H extends Handler {
         private H(Looper l) {
             super(l);
@@ -963,6 +973,11 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_TOGGLE_PIE_ORIENTATION:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).toggleOrientationListener(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_TOGGLE_CAMERA_FLASH_STATE:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleCameraFlashState(msg.arg1 != 0);
                     }
                     break;
             }
