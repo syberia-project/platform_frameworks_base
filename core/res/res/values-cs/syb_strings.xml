@@ -14,67 +14,67 @@
 <resources>
     <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
          when the user asks to reboot. [CHAR LIMIT=NONE] -->
-    <string name="reboot_confirm">Do you want to reboot?</string>
-    <string name="reboot_title">Reboot</string>
+    <string name="reboot_confirm">Chcete restartovat?</string>
+    <string name="reboot_title">Restartovat</string>
     <!-- advanced reboot to bootloader. -->
-    <string name="reboot_to_bootloader_title">Reboot bootloader</string>
-    <string name="reboot_to_bootloader_message">Rebooting to bootloader\u2026</string>
+    <string name="reboot_to_bootloader_title">Restartovat do bootloaderu</string>
+    <string name="reboot_to_bootloader_message">Restartování do bootloaderu\u2026</string>
     <!-- advanced reboot to recovery. -->
-    <string name="reboot_to_recovery_title">Reboot recovery</string>
-    <string name="reboot_to_recovery_message">Rebooting to recovery\u2026</string>
+    <string name="reboot_to_recovery_title">Restartovat do recovery</string>
+    <string name="reboot_to_recovery_message">Restartování do recovery\u2026</string>
     <!-- advanced reboot system -->
-    <string name="reboot_system_title">Restart system</string>
-    <string name="reboot_system_message">Restarting system\u2026</string>
+    <string name="reboot_system_title">Restartovat systém</string>
+    <string name="reboot_system_message">Restartování systému\u2026</string>
     <!-- LiveDisplay strings -->
-    <string name="live_display_auto">Automatic</string>
-    <string name="live_display_auto_summary">Automatically adjust color temperature of screen after sunset and sunrise</string>
-    <string name="live_display_off">Off</string>
-    <string name="live_display_off_summary">Disable all adjustments</string>
-    <string name="live_display_day">Day</string>
-    <string name="live_display_day_summary">Use day settings only</string>
-    <string name="live_display_night">Night</string>
-    <string name="live_display_night_summary">Use night settings only</string>
-    <string name="live_display_outdoor">Outdoor (bright sun)</string>
-    <string name="live_display_outdoor_summary">Use outdoor settings only</string>
-    <string name="live_display_hint">LiveDisplay can help reduce eyestrain and help you sleep at night. Click here to try it out!</string>
-    <string name="accessibility_quick_settings_live_display_off">LiveDisplay off.</string>
-    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: auto mode.</string>
-    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: day mode.</string>
-    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: night mode.</string>
-    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: outdoor mode.</string>
-    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay turned off.</string>
-    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay changed to auto mode.</string>
-    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay changed to day mode.</string>
-    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay changed to night mode.</string>
-    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay changed to outdoor mode.</string>
+    <string name="live_display_auto">Automaticky</string>
+    <string name="live_display_auto_summary">Upravit teplotu barev obrazovky automaticky po západu a východu Slunce</string>
+    <string name="live_display_off">Vyp.</string>
+    <string name="live_display_off_summary">Zakázat všechny úpravy</string>
+    <string name="live_display_day">Den</string>
+    <string name="live_display_day_summary">Použít nastavení pouze pro den</string>
+    <string name="live_display_night">Noc</string>
+    <string name="live_display_night_summary">Použít nastavení pouze pro noc</string>
+    <string name="live_display_outdoor">Venku (slunečno)</string>
+    <string name="live_display_outdoor_summary">Použít pouze venkovní nastavení</string>
+    <string name="live_display_hint">LiveDisplay může pomoci snížit namáhání očí a umožnit vám lépe usnout. Klepnutím sem tuto funkci můžete vyzkoušet!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay vyp.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: automatický režim.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: režim ve dne.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: režim v noci.</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: režim venku.</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay je vypnutý.</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay změněn na automatický režim.</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay změněn na režim ve dne.</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay změněn na režim v noci.</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay změněn na režim venku.</string>
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_fakePackageSignature">Spoof package signature</string>
+    <string name="permlab_fakePackageSignature">Napodobit podpis balíčku</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Grant this permission with caution only!</string>
+    <string name="permdesc_fakePackageSignature">Umožňuje aplikaci předstírat, že je jinou aplikací. Škodlivé aplikace by mohly použít tuto možnost k přístupu k datům soukromých aplikací. Udělujte toto oprávnění s opatrností!</string>
     <!-- Pocket Lock -->
-    <string name="pocket_lock_message_long_press">Press and hold power button to unlock</string>
+    <string name="pocket_lock_message_long_press">Stisknutím a podržením tlačítka napájení zapnout obrazovku</string>
     <!-- AOKP custom system animations -->
-    <string name="animation_fade">Fade</string>
-    <string name="animation_slide_right">Slide in right</string>
-    <string name="animation_slide_left">Slide in left</string>
-    <string name="animation_slide_right_no_fade">Slide in right (No fade)</string>
-    <string name="animation_slide_left_no_fade">Slide in left (No fade)</string>
-    <string name="animation_slide_up">Slide in bottom</string>
-    <string name="animation_slide_down">Slide in top</string>
-    <string name="animation_default">Default</string>
-    <string name="animation_translucent">Translucent</string>
-    <string name="animation_grow_shrink">Grow in (Top)</string>
-    <string name="animation_grow_shrink_center">Grow in (Center)</string>
-    <string name="animation_grow_shrink_bottom">Grow in (Bottom)</string>
-    <string name="animation_grow_shrink_left">Grow in (Left)</string>
-    <string name="animation_grow_shrink_right">Grow in (Right)</string>
-    <string name="animation_random">Random</string>
-    <string name="action_null">Blank</string>
+    <string name="animation_fade">Slábnutí</string>
+    <string name="animation_slide_right">Přejetí vpravo</string>
+    <string name="animation_slide_left">Přejetí vlevo</string>
+    <string name="animation_slide_right_no_fade">Přejetí vpravo (bez slábnutí)</string>
+    <string name="animation_slide_left_no_fade">Přejetí vlevo (bez slábnutí)</string>
+    <string name="animation_slide_up">Přejetí dolů</string>
+    <string name="animation_slide_down">Přejetí nahoru</string>
+    <string name="animation_default">Výchozí</string>
+    <string name="animation_translucent">Průhlednost</string>
+    <string name="animation_grow_shrink">Nárůst (nahoru)</string>
+    <string name="animation_grow_shrink_center">Nárůst (ze středu)</string>
+    <string name="animation_grow_shrink_bottom">Nárůst (dolů)</string>
+    <string name="animation_grow_shrink_left">Nárůst (vlevo)</string>
+    <string name="animation_grow_shrink_right">Nárůst (vpravo)</string>
+    <string name="animation_random">Náhodně</string>
+    <string name="action_null">Nic</string>
     <string name="animation_ethans">Ethans</string>
     <!-- Gaming mode -->
-    <string name="notification_channel_gaming">Gaming mode</string>
-    <string name="gaming_mode_notification_title">Gaming mode enabled</string>
-    <string name="gaming_mode_notification_content">Tap to turn off Gaming mode</string>
-    <string name="gaming_mode_enabled_toast">Gaming mode turned on</string>
-    <string name="gaming_mode_disabled_toast">Gaming mode turned off</string>
+    <string name="notification_channel_gaming">Herní režim</string>
+    <string name="gaming_mode_notification_title">Herní režim povolen</string>
+    <string name="gaming_mode_notification_content">Klepněte sem pro vypnutí Herního režimu</string>
+    <string name="gaming_mode_enabled_toast">Herní režim je zapnutý</string>
+    <string name="gaming_mode_disabled_toast">Herní režim je vypnutý</string>
 </resources>

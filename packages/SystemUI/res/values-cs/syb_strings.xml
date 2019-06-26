@@ -15,29 +15,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="global_action_reboot">Restart</string>
-  <string name="global_action_reboot_more">Restart\u2026</string>
-  <string name="global_action_reboot_sub">System</string>
+  <string name="global_action_reboot">Restartovat</string>
+  <string name="global_action_reboot_more">Restartovat\u2026</string>
+  <string name="global_action_reboot_sub">Systém</string>
   <string name="global_action_reboot_recovery">Recovery</string>
   <string name="global_action_reboot_bootloader">Bootloader</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
-  <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-  <string name="statusbar_items_title">Statusbar icon</string>
-  <string name="status_bar_location">Location</string>
-  <string name="lockscreen_default">Default</string>
-  <string name="lockscreen_hidden">None</string>
+  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • DASH nabíjení (zbývá <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> do plného nabití)</string>
+  <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
+  <string name="statusbar_items_title">Ikona na stavovém řádku</string>
+  <string name="status_bar_location">Poloha</string>
+  <string name="lockscreen_default">Výchozí</string>
+  <string name="lockscreen_hidden">Nic</string>
   <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Swipe from icon to launch</string>
+  <string name="custom_hint">Spustit přejetím prstu od ikony</string>
   <!-- Reader mode QS tile -->
-  <string name="quick_settings_reading_mode">Reading mode</string>
-  <string name="accessibility_quick_settings_reading_mode_on">Reading mode on.</string>
-  <string name="accessibility_quick_settings_reading_mode_off">Reading mode off.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_on">Reading mode turned on.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_off">Reading mode turned off.</string>
+  <string name="quick_settings_reading_mode">Režim čtení</string>
+  <string name="accessibility_quick_settings_reading_mode_on">Režim čtení zap.</string>
+  <string name="accessibility_quick_settings_reading_mode_off">Režim čtení vyp.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_on">Režim čtení je zapnutý.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_off">Režim čtení je vypnutý.</string>
   <!-- QS Config -->
-  <string name="qs_menu_item_columns">Columns</string>
-  <string name="qs_menu_item_columns_landscape">Columns landscape</string>
+  <string name="qs_menu_item_columns">Sloupce</string>
+  <string name="qs_menu_item_columns_landscape">Sloupce (na šířku)</string>
   <string name="qs_menu_item_columns_three">3</string>
   <string name="qs_menu_item_columns_four">4</string>
   <string name="qs_menu_item_columns_five">5</string>
@@ -45,136 +45,136 @@
   <string name="qs_menu_item_columns_seven">7</string>
   <string name="qs_menu_item_columns_eight">8</string>
   <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Reset</string>
-  <string name="qs_menu_item_titles">Show labels</string>
-  <string name="tuner_quick_settings">Quick settings</string>
-  <string name="tuner_show_brightness_new">Show brightness slider</string>
-  <string name="tuner_brightness_position_bottom">Brightness slider on bottom</string>
-  <string name="omnijaws_service_error">Error</string>
-  <string name="omnijaws_service_unkown">No weather data</string>
-  <string name="omnijaws_service_error_long">Error loading weather data</string>
-  <string name="omnijaws_service_disabled">Service is disabled</string>
-  <string name="omnijaws_detail_header">Weather</string>
-  <string name="omnijaws_label_default">Weather</string>
-  <string name="omnijaws_current_text">Now</string>
-  <string name="omnijaws_package_not_available">OmniJaws not available</string>
-  <string name="omnijaws_service_last_update">Last update:</string>
+  <string name="qs_menu_item_reset">Resetovat</string>
+  <string name="qs_menu_item_titles">Zobrazit popisky</string>
+  <string name="tuner_quick_settings">Rychlá nastavení</string>
+  <string name="tuner_show_brightness_new">Zobrazit posuvník jasu</string>
+  <string name="tuner_brightness_position_bottom">Posuvník jasu v dolní části</string>
+  <string name="omnijaws_service_error">Chyba</string>
+  <string name="omnijaws_service_unkown">Žádné údaje o počasí</string>
+  <string name="omnijaws_service_error_long">Chyba při načítání údajů o počasí</string>
+  <string name="omnijaws_service_disabled">Služba je zakázána</string>
+  <string name="omnijaws_detail_header">Počasí</string>
+  <string name="omnijaws_label_default">Počasí</string>
+  <string name="omnijaws_current_text">Nyní</string>
+  <string name="omnijaws_package_not_available">OmniJaws není k dispozici</string>
+  <string name="omnijaws_service_last_update">Poslední aktualizace:</string>
   <!-- StatusBar tuner icons -->
   <string name="status_bar_roaming">Roaming</string>
-  <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+  <string name="status_bar_data_disabled">Křížky, když jsou data zakázána</string>
   <string name="status_bar_vpn">VPN</string>
   <!-- Caffeine QS tile -->
-  <string name="quick_settings_caffeine_label">Caffeine</string>
-  <string name="accessibility_quick_settings_caffeine_off">Caffeine off.</string>
-  <string name="accessibility_quick_settings_caffeine_on">Caffeine on.</string>
+  <string name="quick_settings_caffeine_label">Kofein</string>
+  <string name="accessibility_quick_settings_caffeine_off">Kofein vyp.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Kofein zap.</string>
   <!-- Sound QS tile -->
-  <string name="quick_settings_sound_label">Sound</string>
-  <string name="quick_settings_sound_ring">Ring</string>
-  <string name="quick_settings_sound_vibrate">Vibrate</string>
-  <string name="quick_settings_sound_dnd">Do not disturb</string>
+  <string name="quick_settings_sound_label">Zvuk</string>
+  <string name="quick_settings_sound_ring">Vyzvánění</string>
+  <string name="quick_settings_sound_vibrate">Vibrace</string>
+  <string name="quick_settings_sound_dnd">Nerušit</string>
   <!-- Reboot/Recovery/PowerOff QS tile -->
-  <string name="quick_settings_reboot_label">Reboot</string>
+  <string name="quick_settings_reboot_label">Restartovat</string>
   <string name="quick_settings_reboot_recovery_label">Recovery</string>
-  <string name="quick_settings_poweroff_label">Power off</string>
+  <string name="quick_settings_poweroff_label">Vypnout</string>
   <!-- Kill button in notification guts -->
-  <string name="force_stop_dlg_title">Force stop?</string>
-  <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+  <string name="force_stop_dlg_title">Vynutit ukončení?</string>
+  <string name="force_stop_dlg_text">Vynucené ukončení může způsobit nepředvídatelné chování aplikace.</string>
   <string name="dlg_ok">@android:string/ok</string>
   <string name="dlg_cancel">@android:string/cancel</string>
-  <string name="guts_force_close_app">Close App</string>
+  <string name="guts_force_close_app">Zavřít aplikaci</string>
   <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_battery_saving">Location reporting: battery saving mode.</string>
+  <string name="accessibility_quick_settings_location_battery_saving">Hlášení polohy: úspora baterie.</string>
   <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_gps_only">Location reporting: sensors only mode.</string>
+  <string name="accessibility_quick_settings_location_gps_only">Hlášení polohy: pouze GPS.</string>
   <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_high_accuracy">Location reporting: high accuracy mode.</string>
+  <string name="accessibility_quick_settings_location_high_accuracy">Hlášení polohy: vysoká přesnost.</string>
   <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_battery_saving_label">Battery saving</string>
-  <string name="quick_settings_location_battery_saving_label_twoline">Battery\nsaving</string>
+  <string name="quick_settings_location_battery_saving_label">Úspora baterie</string>
+  <string name="quick_settings_location_battery_saving_label_twoline">Úspora\nbaterie</string>
   <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_gps_only_label">Device only</string>
-  <string name="quick_settings_location_gps_only_label_twoline">Device\nonly</string>
+  <string name="quick_settings_location_gps_only_label">Pouze GPS</string>
+  <string name="quick_settings_location_gps_only_label_twoline">Pouze\nGPS</string>
   <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
-  <string name="quick_settings_location_high_accuracy_label_twoline">High\naccuracy</string>
+  <string name="quick_settings_location_high_accuracy_label">Vysoká přesnost</string>
+  <string name="quick_settings_location_high_accuracy_label_twoline">Vysoká\npřesnost</string>
   <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_title">Location</string>
+  <string name="quick_settings_location_detail_title">Poloha</string>
   <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_menu_title">Select mode:</string>
+  <string name="quick_settings_location_detail_menu_title">Zvolte režim:</string>
   <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_title">High accuracy</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_title">Vysoká přesnost</string>
   <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_title">Battery saving</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_title">Úspora baterie</string>
   <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_title">Device only</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_title">Pouze GPS</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_description">Use GPS, Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_description">K určování polohy používat GPS, Wi\u2011Fi, Bluetooth nebo mobilní sítě</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_description">Use Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_description">K určování polohy používat Wi\u2011Fi, Bluetooth nebo mobilní sítě</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_description">Use GPS to determine location</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_description">K určování polohy používat GPS</string>
   <!-- Heads up snooze toast -->
-  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for 1 minute.</string>
-  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
+  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Plovoucí oznámení jsou odložena na dobu 1 minuty.</string>
+  <string name="heads_up_snooze_message"><xliff:g id="string">%s </xliff:g> - Plovoucí oznámení jsou odložena na dobu <xliff:g id="number">%d </xliff:g> minut.</string>
   <!-- Gaming mode -->
-  <string name="gaming_mode_not_enabled">Gaming mode is disabled in settings</string>
-  <string name="quick_settings_gaming_mode_label">Gaming mode</string>
+  <string name="gaming_mode_not_enabled">Herní režim je vypnutý v Nastavení</string>
+  <string name="quick_settings_gaming_mode_label">Herní režim</string>
   <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
+  <string name="accessibility_quick_settings_gaming_mode_disabled">Herní režim je vypnutý.</string>
   <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+  <string name="accessibility_quick_settings_gaming_mode_enabled">Herní režim je zapnutý.</string>
   <!-- DataSwitch Tile -->
-  <string name="qs_data_switch_label">Switch data card</string>
-  <string name="qs_data_switch_toast_0">Currently no SIM card is inserted</string>
-  <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
-  <string name="qs_data_switch_changed_1">Using SIM 1 for Mobile data</string>
-  <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
+  <string name="qs_data_switch_label">Přepnout SIM pro data</string>
+  <string name="qs_data_switch_toast_0">Momentálně není vložena žádná SIM karta</string>
+  <string name="qs_data_switch_toast_1">Momentálně je vložena pouze jedna SIM karta</string>
+  <string name="qs_data_switch_changed_1">Mobilní data jsou používána na SIM 1</string>
+  <string name="qs_data_switch_changed_2">Mobilní data jsou používána na SIM 2</string>
   <!-- AOD QS tile -->
   <string name="quick_settings_aod_label">AOD</string>
   <!-- CPUInfo tile -->
-  <string name="quick_settings_cpuinfo_label">CPU Info</string>
-  <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
-  <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
+  <string name="quick_settings_cpuinfo_label">Informace o CPU</string>
+  <string name="accessibility_quick_settings_cpuinfo_off">Informace o CPU vypnuty</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">Informace o CPU zapnuty</string>
   <!-- Sync QS Tile -->
-  <string name="quick_settings_sync_label">Sync</string>
-  <string name="accessibility_quick_settings_sync_off">Sync off</string>
-  <string name="accessibility_quick_settings_sync_on">Sync on</string>
-  <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
-  <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+  <string name="quick_settings_sync_label">Synchronizace</string>
+  <string name="accessibility_quick_settings_sync_off">Synch. vyp</string>
+  <string name="accessibility_quick_settings_sync_on">Synch. zap</string>
+  <string name="accessibility_quick_settings_sync_changed_off">Synchronizace vypnuta</string>
+  <string name="accessibility_quick_settings_sync_changed_on">Synchronizace zapnuta</string>
   <!-- LTE QS Tile -->
   <string name="qs_lte_label">LTE</string>
-  <string name="lte_on">LTE ON </string>
-  <string name="lte_off">LTE OFF</string>
+  <string name="lte_on">LTE zap. </string>
+  <string name="lte_off">LTE vyp.</string>
   <!-- Language toggle tile -->
-  <string name="quick_settings_locale_label">Language</string>
-  <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+  <string name="quick_settings_locale_label">Jazyk</string>
+  <string name="quick_settings_locale_more_locales_toast">Chcete-li povolit funkci přepínání, nastavte více jazyků</string>
   <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_label">Screen Stabilization</string>
+  <string name="quick_settings_stabilization_label">Stabilizace obrazovky</string>
   <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_off">ScreenStabilization is disabled</string>
+  <string name="quick_settings_stabilization_off">Stabilizace obrazovky je vypnuta</string>
   <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_on">ScreenStabilization is enabled</string>
-  <string name="low_label">Low</string>
-  <string name="high_label">High</string>
-  <string name="stabilization_velocity_friction">Velocity Friction</string>
-  <string name="stabilization_velocity_amplitude">Velocity Amplitude</string>
-  <string name="stabilization_position_friction">Position Friction</string>
+  <string name="quick_settings_stabilization_on">Stabilizace obrazovky je zapnuta</string>
+  <string name="low_label">Nízká</string>
+  <string name="high_label">Vysoká</string>
+  <string name="stabilization_velocity_friction">Rychlost přesunu</string>
+  <string name="stabilization_velocity_amplitude">Amplituda rychlosti</string>
+  <string name="stabilization_position_friction">Pozice přesunu</string>
   <!--Immersive mode tile -->
-  <string name="quick_settings_immersive_tile">Immersive mode</string>
-  <string name="quick_settings_immersive_tile_off">Immersive off</string>
-  <string name="quick_settings_immersive_tile_statusbar">Immersive statusbar</string>
-  <string name="quick_settings_immersive_tile_navbar">Immersive navbar</string>
-  <string name="quick_settings_immersive_tile_full">Immersive full</string>
+  <string name="quick_settings_immersive_tile">Pohlcující režim</string>
+  <string name="quick_settings_immersive_tile_off">Pohlcující režim vypnutý</string>
+  <string name="quick_settings_immersive_tile_statusbar">Pohlcující stavový řádek</string>
+  <string name="quick_settings_immersive_tile_navbar">Pohlcující navigační panel</string>
+  <string name="quick_settings_immersive_tile_full">Pohlcující režim celé obrazovky</string>
   <!-- FPS Info tile -->
-  <string name="quick_settings_fpsinfo_label">FPS Info</string>
-  <string name="accessibility_quick_settings_fpsinfo_off">FPS Info off</string>
-  <string name="accessibility_quick_settings_fpsinfo_on">FPS Info on</string>
+  <string name="quick_settings_fpsinfo_label">Informace o FPS</string>
+  <string name="accessibility_quick_settings_fpsinfo_off">Informace o FPS vypnuty</string>
+  <string name="accessibility_quick_settings_fpsinfo_on">Informace o FPS zapnuty</string>
   <!-- Long swipe gesture actions -->
-  <string name="app_picker_dialog_title">Select an app</string>
-  <string name="active_edge_app_select_title">Select app</string>
-  <string name="active_edge_activity_select_title">Select activity</string>
-  <string name="recents_app_killed">App killed</string>
-  <string name="nope_cant_kill">Launcher cannot be killed</string>
+  <string name="app_picker_dialog_title">Vybrat aplikaci</string>
+  <string name="active_edge_app_select_title">Vybrat aplikaci</string>
+  <string name="active_edge_activity_select_title">Vybrat aktivitu</string>
+  <string name="recents_app_killed">Aplikace ukončena</string>
+  <string name="nope_cant_kill">Spouštěč nelze ukončit</string>
   <!-- Alerting notification header label -->
-  <string name="notification_section_header_alerting">Alerting notifications</string>
+  <string name="notification_section_header_alerting">Výstrahy a oznámení</string>
 </resources>
