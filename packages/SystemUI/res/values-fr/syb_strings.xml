@@ -134,47 +134,47 @@
   <!-- CPUInfo tile -->
   <string name="quick_settings_cpuinfo_label">Infos sur le processeur</string>
   <string name="accessibility_quick_settings_cpuinfo_off">CPU Info désactivé</string>
-  <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">Infos CPU activées</string>
   <!-- Sync QS Tile -->
-  <string name="quick_settings_sync_label">Sync</string>
-  <string name="accessibility_quick_settings_sync_off">Sync off</string>
-  <string name="accessibility_quick_settings_sync_on">Sync on</string>
-  <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
-  <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+  <string name="quick_settings_sync_label">Synchroniser</string>
+  <string name="accessibility_quick_settings_sync_off">Synchro. désactivée</string>
+  <string name="accessibility_quick_settings_sync_on">Synchro. activée</string>
+  <string name="accessibility_quick_settings_sync_changed_off">La synchronisation est désactivée</string>
+  <string name="accessibility_quick_settings_sync_changed_on">La synchronisation a été activée</string>
   <!-- LTE QS Tile -->
   <string name="qs_lte_label">LTE</string>
-  <string name="lte_on">LTE ON </string>
-  <string name="lte_off">LTE OFF</string>
+  <string name="lte_on">LTE Activée </string>
+  <string name="lte_off">LTE désactivée</string>
   <!-- Language toggle tile -->
-  <string name="quick_settings_locale_label">Language</string>
-  <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+  <string name="quick_settings_locale_label">Langue</string>
+  <string name="quick_settings_locale_more_locales_toast">Veuillez configurer plusieurs langues pour utiliser cette fonctionnalité</string>
   <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_label">Screen Stabilization</string>
+  <string name="quick_settings_stabilization_label">Stabilisation de l\'écran</string>
   <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_off">ScreenStabilization is disabled</string>
+  <string name="quick_settings_stabilization_off">La stabilisation de l\'écran est désactivée</string>
   <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_on">ScreenStabilization is enabled</string>
-  <string name="low_label">Low</string>
-  <string name="high_label">High</string>
-  <string name="stabilization_velocity_friction">Velocity Friction</string>
-  <string name="stabilization_velocity_amplitude">Velocity Amplitude</string>
-  <string name="stabilization_position_friction">Position Friction</string>
+  <string name="quick_settings_stabilization_on">La stabilisation de l\'écran est activée</string>
+  <string name="low_label">Faible</string>
+  <string name="high_label">Élevée</string>
+  <string name="stabilization_velocity_friction">Vitesse de déplacement</string>
+  <string name="stabilization_velocity_amplitude">Amplitude de vitesse</string>
+  <string name="stabilization_position_friction">Position du déplacement</string>
   <!--Immersive mode tile -->
-  <string name="quick_settings_immersive_tile">Immersive mode</string>
-  <string name="quick_settings_immersive_tile_off">Immersive off</string>
-  <string name="quick_settings_immersive_tile_statusbar">Immersive statusbar</string>
-  <string name="quick_settings_immersive_tile_navbar">Immersive navbar</string>
-  <string name="quick_settings_immersive_tile_full">Immersive full</string>
+  <string name="quick_settings_immersive_tile">Mode immersif</string>
+  <string name="quick_settings_immersive_tile_off">Mode immersif désactivé</string>
+  <string name="quick_settings_immersive_tile_statusbar">Barre d\'état masquée</string>
+  <string name="quick_settings_immersive_tile_navbar">Barre de navigation masquée</string>
+  <string name="quick_settings_immersive_tile_full">Mode immersif total</string>
   <!-- FPS Info tile -->
-  <string name="quick_settings_fpsinfo_label">FPS Info</string>
-  <string name="accessibility_quick_settings_fpsinfo_off">FPS Info off</string>
-  <string name="accessibility_quick_settings_fpsinfo_on">FPS Info on</string>
+  <string name="quick_settings_fpsinfo_label">Infos FPS</string>
+  <string name="accessibility_quick_settings_fpsinfo_off">Infos FPS désactivé</string>
+  <string name="accessibility_quick_settings_fpsinfo_on">Infos FPS activé</string>
   <!-- Long swipe gesture actions -->
-  <string name="app_picker_dialog_title">Select an app</string>
-  <string name="active_edge_app_select_title">Select app</string>
-  <string name="active_edge_activity_select_title">Select activity</string>
-  <string name="recents_app_killed">App killed</string>
-  <string name="nope_cant_kill">Launcher cannot be killed</string>
+  <string name="app_picker_dialog_title">Sélectionner une application</string>
+  <string name="active_edge_app_select_title">Sélectionner une application</string>
+  <string name="active_edge_activity_select_title">Sélectionner une activité</string>
+  <string name="recents_app_killed">Application arrêtée</string>
+  <string name="nope_cant_kill">Le lanceur ne peut pas être arrêté</string>
   <!-- Alerting notification header label -->
-  <string name="notification_section_header_alerting">Alerting notifications</string>
+  <string name="notification_section_header_alerting">Notifications d’alerte</string>
 </resources>
