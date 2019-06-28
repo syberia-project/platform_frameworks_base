@@ -79,7 +79,6 @@
                 android:id="@+id/status_bar_left_side"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
                 android:clipChildren="false"
             >
                 <com.android.systemui.statusbar.policy.Clock
@@ -88,6 +87,7 @@
                     android:layout_height="match_parent"
                     android:textAppearance="@style/TextAppearance.StatusBar.Clock"
                     android:singleLine="true"
+                    android:visibility="gone"
                     android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
                     android:paddingEnd="@dimen/status_bar_left_clock_end_padding"
                     android:gravity="center_vertical|start"
@@ -109,7 +109,7 @@
             android:id="@+id/cutout_space_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_horizontal|center_vertical"
         />
 
         <com.android.keyguard.AlphaOptimizedLinearLayout android:id="@+id/system_icon_area"
@@ -117,19 +117,11 @@
             android:layout_height="match_parent"
             android:layout_weight="@integer/system_icon_area_weight"
             android:orientation="horizontal"
-            android:gravity="end|center"
+            android:gravity="center_vertical|end"
             >
 
             <include layout="@layout/system_icons" />
         </com.android.keyguard.AlphaOptimizedLinearLayout>
-
-        <ViewStub
-            android:id="@+id/ticker_stub"
-            android:inflatedId="@+id/ticker"
-            android:layout="@layout/status_bar_ticker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        />
 
         <com.android.systemui.statusbar.policy.ClockRight
             android:id="@+id/right_clock"
@@ -163,6 +155,14 @@
             android:singleLine="true"
             />
     </com.android.keyguard.AlphaOptimizedLinearLayout>
+
+    <ViewStub
+        android:id="@+id/ticker_stub"
+        android:inflatedId="@+id/ticker"
+        android:layout="@layout/status_bar_ticker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    />
 
     <ViewStub
         android:id="@+id/emergency_cryptkeeper_text"
