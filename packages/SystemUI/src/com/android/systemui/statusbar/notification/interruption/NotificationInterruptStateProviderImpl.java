@@ -74,6 +74,7 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
     private HeadsUpManager mHeadsUpManager;
 
     private boolean mLessBoringHeadsUp;
+    private boolean mSkipHeadsUp;
 
     ActivityManager mAm;
     private ArrayList<String> mStoplist = new ArrayList<String>();
@@ -326,13 +327,18 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
         mLessBoringHeadsUp = lessBoring;
     }
 
+    @Override
+    public void setGamingPeekMode(boolean skipHeadsUp) {
+        mSkipHeadsUp = skipHeadsUp;
+    }
+
     private boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
         boolean isImportantHeadsUp = false;
         String notificationPackageName = sbn.getPackageName().toLowerCase();
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("messaging") ||
                 notificationPackageName.contains("clock");
-        return mLessBoringHeadsUp && !isImportantHeadsUp;
+        return mLessBoringHeadsUp && !isImportantHeadsUp && mSkipHeadsUp;
     }
 
     /**
