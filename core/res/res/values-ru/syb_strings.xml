@@ -54,5 +54,12 @@
     <string name="action_null">Пусто</string>
     <string name="animation_ethans">Ethans</string>
 
+    <!-- Gaming Mode-->
+    <string name="notification_channel_gaming">Игровой режим</string>
+    <string name="gaming_mode_notification_title">Игровой режим включен</string>
+    <string name="gaming_mode_notification_content">Нажми чтобы выключить игровой режим</string>
+    <string name="gaming_mode_enabled_toast">Игровой режим включен</string>
+    <string name="gaming_mode_disabled_toast">Игровой режим выключен</string>
+
 </resources>
 
