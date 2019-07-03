@@ -28,6 +28,14 @@
     <!-- Whether to show emergency button in power menu -->
     <bool name="config_showEmergencyButtonInPowerMenu">false</bool>
 
+    <!-- Paths to the libraries that contain alternative (LOS) device specific key handlers -->
+    <string-array name="config_alternativeDeviceKeyHandlerLibs" translatable="false">
+    </string-array>
+
+    <!-- Names of the alternative (LOS) key handler classes -->
+    <string-array name="config_alternativeDeviceKeyHandlerClasses" translatable="false">
+    </string-array>
+
     <!-- Path to the library that contains a device specific key handler -->
     <string name="config_deviceKeyHandlerLib" translatable="false"></string>
      <!-- Name of that key handler class -->
