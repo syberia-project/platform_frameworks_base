@@ -287,6 +287,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto;
+import com.android.internal.os.AlternativeDeviceKeyHandler;
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.policy.IKeyguardDismissCallback;
 import com.android.internal.policy.IShortcutService;
@@ -322,6 +323,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.WindowManager.SCREEN_RECORD_LOW_QUALITY;
@@ -352,6 +354,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private Sensor mProximitySensor;
     private boolean mProxiWakeupCheckEnabled;
     private boolean mProxiListenerEnabled;
+
+    private final List<AlternativeDeviceKeyHandler> mAlternativeDeviceKeyHandlers = new ArrayList<>();
 
     // Whether to allow dock apps with METADATA_DOCK_HOME to temporarily take over the Home key.
     // No longer recommended for desk docks;
@@ -2745,8 +2749,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         String deviceKeyHandlerLib = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerLib);
-         String deviceKeyHandlerClass = mContext.getResources().getString(
+        String deviceKeyHandlerClass = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerClass);
+        boolean defaultKeyHandlerLoaded = false;
          if (!deviceKeyHandlerLib.isEmpty() && !deviceKeyHandlerClass.isEmpty()) {
             try {
                 PathClassLoader loader =  new PathClassLoader(deviceKeyHandlerLib,
@@ -2755,15 +2760,37 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Constructor<?> constructor = klass.getConstructor(Context.class);
                 mDeviceKeyHandler = (DeviceKeyHandler) constructor.newInstance(
                         mContext);
+                defaultKeyHandlerLoaded = true;
                 if(DEBUG) Slog.d(TAG, "Device key handler loaded");
             } catch (Exception e) {
                 Slog.w(TAG, "Could not instantiate device key handler "
                         + deviceKeyHandlerClass + " from class "
                         + deviceKeyHandlerLib, e);
             }
+         }
+
+         if (!defaultKeyHandlerLoaded){
+             final String[] alternativeDeviceKeyHandlerLibs = mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_alternativeDeviceKeyHandlerLibs);
+             final String[] alternativeDeviceKeyHandlerClasses = mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_alternativeDeviceKeyHandlerClasses);
+             for (int i = 0;
+                    i < alternativeDeviceKeyHandlerLibs.length && i < alternativeDeviceKeyHandlerClasses.length; i++) {
+                try {
+                    PathClassLoader loader = new PathClassLoader(
+                            alternativeDeviceKeyHandlerLibs[i], getClass().getClassLoader());
+                    Class<?> klass = loader.loadClass(alternativeDeviceKeyHandlerClasses[i]);
+                    Constructor<?> constructor = klass.getConstructor(Context.class);
+                    mAlternativeDeviceKeyHandlers.add((AlternativeDeviceKeyHandler) constructor.newInstance(mContext));
+                } catch (Exception e) {
+                    Slog.w(TAG, "Could not instantiate device key handler "
+                            + alternativeDeviceKeyHandlerLibs[i] + " from class "
+                            + alternativeDeviceKeyHandlerClasses[i], e);
+               }
+            }
         }
 
-	boolean supportPowerButtonProxyCheck = mContext.getResources().getBoolean(R.bool.config_proxiSensorWakupCheck);
+        boolean supportPowerButtonProxyCheck = mContext.getResources().getBoolean(R.bool.config_proxiSensorWakupCheck);
         if (supportPowerButtonProxyCheck) {
             mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mDeviceKeyHandler != null && mDeviceKeyHandler.getCustomProxiSensor() != null) {
@@ -2775,8 +2802,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
             }
-	}
-	    mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        }
+
+        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mProximitySensor == null) {
                 mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
                 if (mProximitySensor != null) {
@@ -4736,6 +4764,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+        // Specific device key handling
+        if (dispatchKeyToKeyHandlers(event)) {
+            return -1;
+        }
+
         if (down) {
             long shortcutCode = keyCode;
             if (event.isCtrlPressed()) {
@@ -4839,6 +4872,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Slog.e(TAG, "Error taking bugreport", e);
             }
         }
+    }
+
+
+    private boolean dispatchKeyToKeyHandlers(KeyEvent event) {
+        for (AlternativeDeviceKeyHandler handler : mAlternativeDeviceKeyHandlers) {
+            try {
+                if (DEBUG_INPUT) {
+                    Log.d(TAG, "Dispatching key event " + event + " to handler " + handler);
+                }
+                event = handler.handleKeyEvent(event);
+                if (event == null) {
+                    return true;
+                }
+            } catch (Exception e) {
+                Slog.w(TAG, "Could not dispatch event to device key handler", e);
+            }
+        }
+        return false;
     }
 
     /** {@inheritDoc} */
@@ -6939,6 +6990,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && (!isNavBarVirtKey || mNavBarVirtualKeyHapticFeedbackEnabled)
                 && event.getRepeatCount() == 0
                 && !isHwKeysDisabled();
+
+
+        // Specific device key handling
+        if (dispatchKeyToKeyHandlers(event)) {
+            return 0;
+        }
 
         // Specific device key handling
         if (mDeviceKeyHandler != null) {
