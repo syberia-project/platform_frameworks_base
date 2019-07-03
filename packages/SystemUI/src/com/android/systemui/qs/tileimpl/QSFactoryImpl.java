@@ -60,6 +60,7 @@ import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.ThemeTile;
 import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.UserTile;
+import com.android.systemui.qs.tiles.VpnTile;
 import com.android.systemui.qs.tiles.WeatherTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.qs.tiles.WorkModeTile;
@@ -160,6 +161,8 @@ public class QSFactoryImpl implements QSFactory {
                 return new FontTile(mHost);
             case "gaming":
                 return new GamingModeTile(mHost);
+            case "vpn":
+                return new VpnTile(mHost);
         }
 
         // Intent tiles.
