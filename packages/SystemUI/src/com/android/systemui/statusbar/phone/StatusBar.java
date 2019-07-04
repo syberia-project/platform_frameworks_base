@@ -604,22 +604,187 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         void observe() {
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_STOPLIST_VALUES), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_STATUSBAR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ACCENT_PICKER),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SYSTEM_UI_THEME),
+                    false, this, UserHandle.USER_ALL);	
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_METADATA),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_TILE_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TICKER_ANIMATION_MODE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TICKER_TICK_DURATION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                     Settings.Secure.PULSE_APPS_BLACKLIST),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.Secure.SYSUI_ROUNDED_FWVALS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FORCE_AMBIENT_FOR_MEDIA),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SWITCH_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CLOCK_SELECTION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_TEXT_CLOCK_ALIGN),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CLOCK),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_INFO),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.LOCKSCREEN_ALBUM_ART_FILTER),
+                  false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL),
                     false, this, UserHandle.USER_ALL);
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SCREEN_BRIGHTNESS_MODE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.PIE_STATE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.PIE_GRAVITY),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.NAVIGATION_BAR_VISIBLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.EDGE_GESTURES_ENABLED),
                     false, this, UserHandle.USER_ALL);
             update();
         }
 
         @Override
-        public void onChange(boolean selfChange) {
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_STOPLIST_VALUES))) {
+                final String stopString = Settings.System.getString(mContext.getContentResolver(),
+                        Settings.System.HEADS_UP_STOPLIST_VALUES);
+                splitAndAddToArrayList(mStoplist, stopString, "\\|");
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SYSTEM_UI_THEME))) {
+                getCurrentThemeSetting();
+                updateTheme();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.ACCENT_PICKER))) {
+                // Unload the accents and update the accent only when the user asks.
+                // Keeps us from overloading the system by performing these tasks every time.
+                unloadAccents();
+                updateAccents();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_TILE_STYLE))) {
+                unlockQsTileStyles();
+                updateTileStyle();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TICKER_ANIMATION_MODE))) {
+                updateTickerAnimation();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_TICKER_TICK_DURATION))) {
+                updateTickerTickDuration();
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.PULSE_APPS_BLACKLIST))) {
+                setPulseBlacklist();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.LESS_BORING_HEADS_UP))) {
+                setUseLessBoringHeadsUp();
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
+                updateCorners();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.FORCE_AMBIENT_FOR_MEDIA))) {
+                setForceAmbient();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SWITCH_STYLE))) {
+                stockSwitchStyle();
+                updateSwitchStyle();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CLOCK_SELECTION)) ||
+                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK)) ||
+                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_INFO)) ||
+                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_TEXT_CLOCK_ALIGN))) {
+                updateKeyguardStatusSettings();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_ALBUM_ART_FILTER))) {
+                updateLockscreenFilter();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION))) {
+                updateChargingAnimation();
+            } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.NAVIGATION_BAR_VISIBLE))) {
+                 boolean showing = Settings.Secure.getInt(mContext.getContentResolver(),
+                        Settings.Secure.NAVIGATION_BAR_VISIBLE,
+                        ActionUtils.hasNavbarByDefault(mContext) ? 1 : 0) != 0;
+                 if (!showing && mNavigationBar != null && mNavigationBarView != null) {
+                      removeNavigationBar();
+                 } else if (showing && mNavigationBar == null && mNavigationBarView == null) {
+                      createNavigationBar();
+                 }
+                 if (!ActionUtils.hasNavbarByDefault(mContext)) {
+                     Intent intent = new Intent("com.cyanogenmod.action.UserChanged");
+                     intent.setPackage("com.android.settings");
+                     mContext.sendBroadcastAsUser(intent, new UserHandle(UserHandle.USER_CURRENT));
+                }
+            } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.PIE_STATE)) ||
+                    uri.equals(Settings.Secure.getUriFor(Settings.Secure.PIE_GRAVITY))) {
+                boolean pieEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                        Settings.Secure.PIE_STATE, 0, UserHandle.USER_CURRENT) == 1;
+                updatePieControls(!pieEnabled);
+            } else if (uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.EDGE_GESTURES_ENABLED))) {
+                boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                    Settings.Secure.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+                updateEdgeGestures(edgeGesturesEnabled);
+            }
             update();
         }
 
         public void update() {
             setBrightnessSlider();
+            setHeadsUpStoplist();
+            setHeadsUpBlacklist();
+            setLockscreenDoubleTapToSleep();
+            setStatusDoubleTapToSleep();
+            updateTheme();
+            setLockscreenMediaMetadata();
+            updateTickerAnimation();
+            updateTickerTickDuration();
+            setUseLessBoringHeadsUp();
+            setPulseBlacklist();
+            updateCorners();
+            setForceAmbient();
+            updateLockscreenFilter();
+            updateChargingAnimation();
         }
     }
 
@@ -853,9 +1018,6 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         mDeviceProvisionedController = Dependency.get(DeviceProvisionedController.class);
 
-        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                Settings.Secure.NAVIGATION_BAR_VISIBLE), false, mNavbarObserver, UserHandle.USER_ALL);
-
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
@@ -884,19 +1046,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         createAndAddWindows();
-
-        mNosSettingsObserver.observe();
-        mNosSettingsObserver.update();
-
-        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                Settings.Secure.EDGE_GESTURES_ENABLED), false,
-                mEdgeGesturesSettingsObserver);
-
-        mPieSettingsObserver.onChange(false);
-        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                Settings.Secure.PIE_STATE), false, mPieSettingsObserver);
-        mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
-                Settings.Secure.PIE_GRAVITY), false, mPieSettingsObserver);
 
         // Make sure we always have the most current wallpaper info.
         IntentFilter wallpaperChangedFilter = new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED);
@@ -962,7 +1111,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController);
         mSignalPolicy = new StatusBarSignalPolicy(mContext, mIconController);
-	mStatusBarObserver.observe();
+        mStatusBarObserver.observe();
+        mStatusBarObserver.update();
 
         mUnlockMethodCache = UnlockMethodCache.getInstance(mContext);
         mUnlockMethodCache.addListener(this);
@@ -3966,7 +4116,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         updateNotificationViews();
         mMediaManager.clearCurrentMediaNotification();
         setLockscreenUser(newUserId);
-	mStatusBarObserver.update();
+        mStatusBarObserver.update();
     }
 
     @Override
@@ -5509,157 +5659,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 
-    private NosSettingsObserver mNosSettingsObserver = new NosSettingsObserver(mHandler);
-    private class NosSettingsObserver extends ContentObserver {
-        
-        NosSettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.HEADS_UP_STOPLIST_VALUES), false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.HEADS_UP_BLACKLIST_VALUES), false, this);            
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_STATUSBAR),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.ACCENT_PICKER),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.SYSTEM_UI_THEME),
-                    false, this, UserHandle.USER_ALL);	
-	    resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_MEDIA_METADATA),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.QS_TILE_STYLE),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_TICKER_ANIMATION_MODE),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_TICKER_TICK_DURATION),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
-                     Settings.Secure.PULSE_APPS_BLACKLIST),
-                    false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.Secure.SYSUI_ROUNDED_FWVALS),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.FORCE_AMBIENT_FOR_MEDIA),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.SWITCH_STYLE),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CLOCK_SELECTION),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_TEXT_CLOCK_ALIGN),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CLOCK),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_INFO),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.LOCKSCREEN_ALBUM_ART_FILTER),
-                  false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LESS_BORING_HEADS_UP),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION),
-                    false, this, UserHandle.USER_ALL);
-	    }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.HEADS_UP_STOPLIST_VALUES))) {
-                final String stopString = Settings.System.getString(mContext.getContentResolver(),
-                        Settings.System.HEADS_UP_STOPLIST_VALUES);
-                splitAndAddToArrayList(mStoplist, stopString, "\\|");
-	    } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SYSTEM_UI_THEME))) {
-                getCurrentThemeSetting();
-                updateTheme();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.ACCENT_PICKER))) {
-                // Unload the accents and update the accent only when the user asks.
-                // Keeps us from overloading the system by performing these tasks every time.
-                unloadAccents();
-                updateAccents();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.QS_TILE_STYLE))) {
-                unlockQsTileStyles();
-                updateTileStyle();
-	    } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_TICKER_ANIMATION_MODE))) {
-                updateTickerAnimation();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_TICKER_TICK_DURATION))) {
-                updateTickerTickDuration();
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.PULSE_APPS_BLACKLIST))) {
-                setPulseBlacklist();
-	    } else if (uri.equals(Settings.System.getUriFor(Settings.System.LESS_BORING_HEADS_UP))) {
-                setUseLessBoringHeadsUp();
-	    } else if (uri.equals(Settings.Secure.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
-                updateCorners();
-	    } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.FORCE_AMBIENT_FOR_MEDIA))) {
-                setForceAmbient();
-	    } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SWITCH_STYLE))) {
-                stockSwitchStyle();
-                updateSwitchStyle();
-	    } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CLOCK_SELECTION)) ||
-                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK)) ||
-                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_INFO)) ||
-                    uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_TEXT_CLOCK_ALIGN))) {
-                updateKeyguardStatusSettings();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_ALBUM_ART_FILTER))) {
-                updateLockscreenFilter();
-            } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION))) {
-                updateChargingAnimation();
-            }
-	    update();
-        }
 
     private void updateKeyguardStatusSettings() {
         mNotificationPanel.updateKeyguardStatusSettings();
     }
 
-        public void update() {
-            setHeadsUpStoplist();
-            setHeadsUpBlacklist();
-            setLockscreenDoubleTapToSleep();
-            setStatusDoubleTapToSleep();
-            updateTheme();
-    	    setLockscreenMediaMetadata();
-            updateTickerAnimation();
-            updateTickerTickDuration();
-	    setUseLessBoringHeadsUp();
-	    setPulseBlacklist();
-	    updateCorners();
-            setForceAmbient();
-            updateLockscreenFilter();
-            updateChargingAnimation();
-        }
-    }
 
-          
     private void setLockscreenDoubleTapToSleep() {
         if (mStatusBarWindow != null) {
             mStatusBarWindow.setLockscreenDoubleTapToSleep();
@@ -6196,25 +6201,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         return false;
     }
 
-    protected final ContentObserver mNavbarObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            boolean showing = Settings.Secure.getInt(mContext.getContentResolver(),
-                    Settings.Secure.NAVIGATION_BAR_VISIBLE,
-                    ActionUtils.hasNavbarByDefault(mContext) ? 1 : 0) != 0;
-            if (!showing && mNavigationBar != null && mNavigationBarView != null) {
-                removeNavigationBar();
-            } else if (showing && mNavigationBar == null && mNavigationBarView == null) {
-                createNavigationBar();
-            }
-            if (!ActionUtils.hasNavbarByDefault(mContext)) {
-                Intent intent = new Intent("com.cyanogenmod.action.UserChanged");
-                intent.setPackage("com.android.settings");
-                mContext.sendBroadcastAsUser(intent, new UserHandle(UserHandle.USER_CURRENT));
-            }
-        }
-    };
-
     // Begin Extra BaseStatusBar methods.
 
     protected CommandQueue mCommandQueue;
@@ -6274,17 +6260,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         return mDeviceInteractive;
     }
 
-    private final ContentObserver mEdgeGesturesSettingsObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            ContentResolver resolver = mContext.getContentResolver();
-            boolean edgeGesturesEnabled = Settings.Secure.getIntForUser(resolver,
-                    Settings.Secure.EDGE_GESTURES_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
-
-            updateEdgeGestures(edgeGesturesEnabled);
-        }
-    };
-
     public ArrayList<Pair<StatusBarNotification, Icon>> getNotifications() {
         ArrayList<Pair<StatusBarNotification, Icon>> notifs
                 = new ArrayList<Pair<StatusBarNotification, Icon>>();
@@ -6295,15 +6270,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
         return notifs;
     }
-
-    private final ContentObserver mPieSettingsObserver = new ContentObserver(mHandler) {
-         @Override
-         public void onChange(boolean selfChange) {
-            boolean pieEnabled = Settings.Secure.getIntForUser(mContext.getContentResolver(),
-                    Settings.Secure.PIE_STATE, 0, UserHandle.USER_CURRENT) == 1;
-            updatePieControls(!pieEnabled);
-        }
-    };
 
     @Override  // NotificationData.Environment
     public boolean isDeviceProvisioned() {
