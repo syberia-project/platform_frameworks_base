@@ -400,7 +400,7 @@ public class MobileSignalController extends SignalController<
         int resId = 0;
 
         if ( mCurrentState.imsRegistered ) {
-            resId = R.drawable.ic_volte;
+            resId = R.drawable.ims_state;
         }
         return resId;
     }
