@@ -69,7 +69,6 @@ import static android.view.WindowManager.LayoutParams.LAST_SUB_WINDOW;
 import static android.view.WindowManager.LayoutParams.LAST_SYSTEM_WINDOW;
 import static android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
 import static android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
-import static android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
 import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManager.LayoutParams.PRIVATE_FLAG_ACQUIRES_SLEEP_TOKEN;
 import static android.view.WindowManager.LayoutParams.PRIVATE_FLAG_FORCE_DRAW_STATUS_BAR_BACKGROUND;
@@ -955,7 +954,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean mUseGestureButton;
     private GestureButton mGestureButton;
     private boolean mGestureButtonRegistered;
-    private boolean mHideNotch;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -1213,9 +1211,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.OMNI_BOTTOM_GESTURE_FEEDBACK_DURATION), false, this,
-                    UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.HIDE_NOTCH), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.USE_EDGE_SERVICE_FOR_GESTURES), false, this,
@@ -3133,9 +3128,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mUseGestureButton = Settings.System.getIntForUser(resolver,
                     Settings.System.OMNI_USE_BOTTOM_GESTURE_NAVIGATION, 0,
                     UserHandle.USER_CURRENT) != 0;
-            mHideNotch = Settings.System.getIntForUser(resolver,
-                    Settings.System.HIDE_NOTCH, 0,
-                    UserHandle.USER_CURRENT) != 0;
         }
 
         boolean doShowNavbar = Settings.Secure.getIntForUser(resolver,
@@ -3495,10 +3487,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (attrs.type != TYPE_STATUS_BAR) {
             // The status bar is the only window allowed to exhibit keyguard behavior.
             attrs.privateFlags &= ~WindowManager.LayoutParams.PRIVATE_FLAG_KEYGUARD;
-        }
-
-        if (mHideNotch) {
-            attrs.layoutInDisplayCutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
         }
     }
 

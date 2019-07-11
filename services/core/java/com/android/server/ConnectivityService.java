@@ -871,6 +871,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTestMode = mSystemProperties.get("cm.test.mode").equals("true")
                 && mSystemProperties.get("ro.build.type").equals("eng");
 
+        mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+
         mTethering = makeTethering();
 
         mPermissionMonitor = new PermissionMonitor(mContext, mNetd);
@@ -906,8 +908,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDataConnectionStats.startMonitoring();
 
         mPacManager = new PacManager(mContext, mHandler, EVENT_PROXY_HAS_CHANGED);
-
-        mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
 
         mKeepaliveTracker = new KeepaliveTracker(mHandler);
         mNotifier = new NetworkNotificationManager(mContext, mTelephonyManager,
@@ -3770,6 +3770,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throwIfLockdownEnabled();
             return mVpns.get(user).establish(config);
         }
+    }
+
+    @Override
+    public VpnProfile[] getAllLegacyVpns() {
+        enforceConnectivityInternalPermission();
+        final ArrayList<VpnProfile> result = new ArrayList<>();
+        final long token = Binder.clearCallingIdentity();
+        try {
+            for (String key : mKeyStore.list(Credentials.VPN)) {
+                final VpnProfile profile = VpnProfile.decode(key,
+                        mKeyStore.get(Credentials.VPN + key));
+                if (profile != null) {
+                    result.add(profile);
+                }
+            }
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
+        return result.toArray(new VpnProfile[result.size()]);
     }
 
     /**

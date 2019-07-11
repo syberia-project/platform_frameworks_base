@@ -73,7 +73,8 @@ public class GamingModeController {
     private static int mRingerState;
     private static int mZenState;
     private static int mHwKeysState;
-    private static int mHeadsUpState;
+    private static int mEdgeGesturesState;
+    private static int mOpGesturesState;
     private static int mAdaptiveBrightness;
 
     public static final String GAMING_MODE_TURN_OFF = "android.intent.action.GAMING_MODE_TURN_OFF";
@@ -250,15 +251,6 @@ public class GamingModeController {
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS_MODE, SCREEN_BRIGHTNESS_MODE_MANUAL);
         }
-        boolean blockHeadsUp = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1) == 1;
-        // Heads up
-        if (blockHeadsUp) {
-            mHeadsUpState = Settings.Global.getInt(mContext.getContentResolver(),
-                              Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 1);
-            Settings.Global.putInt(mContext.getContentResolver(),
-                    Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, 0);
-        }
         // HW Buttons
         boolean disableHwKeys = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.GAMING_MODE_HW_KEYS_TOGGLE, 0) == 1;
@@ -267,6 +259,21 @@ public class GamingModeController {
                               Settings.Secure.HARDWARE_KEYS_DISABLE, 0);
             Settings.Secure.putInt(mContext.getContentResolver(),
                 Settings.Secure.HARDWARE_KEYS_DISABLE, 1);
+        }
+
+        // Gestures
+        boolean disableGestures = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.GAMING_MODE_GESTURES_TOGGLE, 0) == 1;
+        if (disableGestures) {
+            mEdgeGesturesState = Settings.Secure.getInt(mContext.getContentResolver(),
+                              Settings.Secure.EDGE_GESTURES_ENABLED, 0);
+            Settings.Secure.putInt(mContext.getContentResolver(),
+                Settings.Secure.EDGE_GESTURES_ENABLED, 0);
+
+            mOpGesturesState = Settings.System.getInt(mContext.getContentResolver(),
+                              Settings.System.OMNI_USE_BOTTOM_GESTURE_NAVIGATION, 0);
+            Settings.System.putInt(mContext.getContentResolver(),
+                Settings.System.OMNI_USE_BOTTOM_GESTURE_NAVIGATION, 0);
         }
 
         // Ringer mode (0: Off, 1: Vibrate, 2:DND: 3:Silent)
@@ -305,18 +312,23 @@ public class GamingModeController {
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS_MODE, mAdaptiveBrightness);
         }
-        boolean blockHeadsUp = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1) == 1;
-        if (blockHeadsUp) {
-            Settings.Global.putInt(mContext.getContentResolver(),
-                    Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED, mHeadsUpState);
-        }
         boolean disableHwKeys = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.GAMING_MODE_HW_KEYS_TOGGLE, 0) == 1;
         if (disableHwKeys) {
             Settings.Secure.putInt(mContext.getContentResolver(),
                 Settings.Secure.HARDWARE_KEYS_DISABLE, mHwKeysState);
         }
+
+        // Gestures
+        boolean disableGestures = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.GAMING_MODE_GESTURES_TOGGLE, 0) == 1;
+        if (disableGestures) {
+            Settings.Secure.putInt(mContext.getContentResolver(),
+                Settings.Secure.EDGE_GESTURES_ENABLED, mEdgeGesturesState);
+            Settings.System.putInt(mContext.getContentResolver(),
+                Settings.System.OMNI_USE_BOTTOM_GESTURE_NAVIGATION, mOpGesturesState);
+        }
+
         int ringerMode = Settings.System.getInt(mContext.getContentResolver(),
                  Settings.System.GAMING_MODE_RINGER_MODE, 0);
         if (ringerMode != 0 && (mRingerState != getRingerModeInternal() ||
@@ -359,9 +371,9 @@ public class GamingModeController {
     }
 
     private void activateGamingMode(boolean enabled) {
-        if (mGamingModeActivated == enabled)
+        if (mGamingModeActivated == enabled && mGamingModeEnabled)
             return;
-        mGamingModeActivated = enabled;
+        mGamingModeActivated = enabled && mGamingModeEnabled;
         if (mGamingModeActivated) {
             enableGamingFeatures();
         } else {
@@ -407,8 +419,9 @@ public class GamingModeController {
                                    Settings.System.GAMING_MODE_ENABLED))) {
                 mGamingModeEnabled = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.GAMING_MODE_ENABLED, 0) == 1;
-                if (!mGamingModeEnabled) Settings.System.putInt(mContext.getContentResolver(),
-                    Settings.System.GAMING_MODE_ACTIVE, 0);
+                if (!mGamingModeEnabled)
+                    Settings.System.putInt(mContext.getContentResolver(),
+                         Settings.System.GAMING_MODE_ACTIVE, 0);
             } else if (uri.equals(Settings.System.getUriFor(
                                    Settings.System.GAMING_MODE_ACTIVE))) {
                 boolean enable = Settings.System.getInt(mContext.getContentResolver(),
