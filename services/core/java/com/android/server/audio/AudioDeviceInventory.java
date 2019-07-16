@@ -691,8 +691,14 @@ public class AudioDeviceInventory {
         // enable A2DP before notifying A2DP connection to avoid unnecessary processing in
         // audio policy manager
         mDeviceBroker.setBluetoothA2dpOnInt(true, eventSource);
-        AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP,
-                AudioSystem.DEVICE_STATE_AVAILABLE, address, name, a2dpCodec);
+        final int res = AudioSystem.setDeviceConnectionState(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP,
+                                AudioSystem.DEVICE_STATE_AVAILABLE, address, name, a2dpCodec);
+        if (res != AudioSystem.AUDIO_STATUS_OK) {
+            Slog.e(TAG, "not connecting device 0x"
+                    + Integer.toHexString(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP)
+                    + " due to command error " + res);
+            return;
+        }
         // Reset A2DP suspend state each time a new sink is connected
         AudioSystem.setParameters("A2dpSuspended=false");
         mConnectedDevices.put(
