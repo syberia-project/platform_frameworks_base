@@ -1072,10 +1072,9 @@ public class Build {
         // Don't care on eng builds.  Incremental build may trigger false negative.
         if (IS_ENG) return true;
 
-        if (IS_TREBLE_ENABLED) {
-            // If we can run this code, the device should already pass AVB.
-            // So, we don't need to check AVB here.
-            int result = VintfObject.verifyWithoutAvb();
+        //disalbe check compatibility due to kernel4.9 can't satisfy androidO requirement
+        if (false /*IS_TREBLE_ENABLED*/) {
+            int result = VintfObject.verify(new String[0]);
 
             if (result != 0) {
                 Slog.e(TAG, "Vendor interface is incompatible, error="
