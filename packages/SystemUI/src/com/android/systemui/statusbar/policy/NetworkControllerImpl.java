@@ -262,6 +262,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
         for (int i = 0; i < mMobileSignalControllers.size(); i++) {
             MobileSignalController mobileSignalController = mMobileSignalControllers.valueAt(i);
             mobileSignalController.registerListener();
+            if(isDevice5GConnected()){
+                mobileSignalController.registerFiveGStateListener(mFiveGServiceClient);
+            }
         }
         if (mSubscriptionListener == null) {
             mSubscriptionListener = new SubListener();
@@ -289,11 +292,29 @@ public class NetworkControllerImpl extends BroadcastReceiver
         updateMobileControllers();
     }
 
+    /**
+     * Check if the device is connected to a 5G network. Non-5G devices will not be able to register 5G services.
+     * @return True if the device is connected to a 5G network.
+     * @return False if it isn't
+     */
+
+    private boolean isDevice5GConnected() {
+        int networkType = mPhone != null ? mPhone.getNetworkType() : 0;
+        if (networkType < 20) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     private void unregisterListeners() {
         mListening = false;
         for (int i = 0; i < mMobileSignalControllers.size(); i++) {
             MobileSignalController mobileSignalController = mMobileSignalControllers.valueAt(i);
             mobileSignalController.unregisterListener();
+            if(isDevice5GConnected()){
+                mobileSignalController.unregisterFiveGStateListener(mFiveGServiceClient);
+            }
         }
         mSubscriptionManager.removeOnSubscriptionsChangedListener(mSubscriptionListener);
         mContext.unregisterReceiver(this);
@@ -603,6 +624,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
                 }
                 if (mListening) {
                     controller.registerListener();
+                    if(isDevice5GConnected()){
+                        controller.registerFiveGStateListener(mFiveGServiceClient);
+                    }
                 }
             }
         }
@@ -613,6 +637,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
                     mDefaultSignalController = null;
                 }
                 cachedControllers.get(key).unregisterListener();
+                if(isDevice5GConnected()){
+                    cachedControllers.get(key).unregisterFiveGStateListener(mFiveGServiceClient);
+                }
             }
         }
         mCallbackHandler.setSubs(subscriptions);
