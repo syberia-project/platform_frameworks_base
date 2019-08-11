@@ -199,6 +199,8 @@ import com.android.internal.policy.PhoneLayoutInflater;
 
 import java.util.Map;
 
+import com.android.internal.custom.longshot.LongScreenshotManager;
+
 /**
  * Manages all of the system services that can be returned by {@link Context#getSystemService}.
  * Used by {@link ContextImpl}.
@@ -1289,6 +1291,14 @@ final class SystemServiceRegistry {
                                 IDynamicSystemService.Stub.asInterface(b));
                     }});
         //CHECKSTYLE:ON IndentationCheck
+
+        registerService(Context.LONGSCREENSHOT_SERVICE, LongScreenshotManager.class,
+                new CachedServiceFetcher<LongScreenshotManager>() {
+                    @Override
+                    public LongScreenshotManager createService(ContextImpl ctx)
+                            throws ServiceNotFoundException {
+                        return LongScreenshotManager.getInstance();
+                    }});
     }
 
     /**

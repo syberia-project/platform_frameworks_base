@@ -171,6 +171,9 @@ import java.util.concurrent.Future;
 import com.android.server.custom.LineageHardwareService;
 import com.android.server.custom.display.LiveDisplayService;
 
+// Long screenshot
+import com.android.internal.custom.longshot.LongScreenshotManagerService;
+
 public final class SystemServer {
 
     private static final String TAG = "SystemServer";
@@ -1094,6 +1097,11 @@ public final class SystemServer {
             traceBeginAndSlog("SignedConfigService");
             SignedConfigService.registerUpdateReceiver(mSystemContext);
             traceEnd();
+
+            traceBeginAndSlog("LongScreenShot Manager");
+            ServiceManager.addService(Context.LONGSCREENSHOT_SERVICE, LongScreenshotManagerService.getInstance(context));
+            traceEnd();
+
         } catch (RuntimeException e) {
             Slog.e("System", "******************************************");
             Slog.e("System", "************ Failure starting core service", e);

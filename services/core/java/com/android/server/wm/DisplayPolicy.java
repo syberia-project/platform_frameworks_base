@@ -128,6 +128,7 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.hardware.input.InputManager;
 import android.hardware.power.V1_0.PowerHint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -3610,11 +3611,30 @@ public class DisplayPolicy {
      *                       {@link WindowManager#TAKE_SCREENSHOT_FULLSCREEN} or
      *                       {@link WindowManager#TAKE_SCREENSHOT_SELECTED_REGION}
      */
-    public void takeScreenshot(int screenshotType) {
+    public void takeScreenshot(int screenshotType, boolean keyguardOn, boolean isUserSetupComplete,
+                                   boolean isDeviceProvisioned, boolean dockMinimized, int displayRotation) {
+            boolean longshot;
+            boolean inMultiWindow = mFocusedWindow != null ? mFocusedWindow.inMultiWindowMode() : false;
+            if (screenshotType == 2 || keyguardOn || !isUserSetupComplete ||
+                    !isDeviceProvisioned || (inMultiWindow && !dockMinimized) || displayRotation != 0) {
+                longshot = false;
+            } else {
+                longshot = true;
+            }
+            Bundle screenshotBundle = new Bundle();
+            screenshotBundle.putBoolean("longshot", longshot);
+            if (mFocusedWindow != null) {
+                screenshotBundle.putString("focusWindow", mFocusedWindow.getAttrs().packageName);
+            }
+            if (mFocusedWindow != null &&
+                (mFocusedWindow.getAttrs().flags & WindowManager.LayoutParams.FLAG_SECURE) != 0){
+                    mScreenshotHelper.notifyScreenshotCaptureError();
+                    return;
+            }
         if (mScreenshotHelper != null) {
             mScreenshotHelper.takeScreenshot(screenshotType,
                     mStatusBar != null && mStatusBar.isVisibleLw(),
-                    mNavigationBar != null && mNavigationBar.isVisibleLw(), mHandler);
+                    mNavigationBar != null && mNavigationBar.isVisibleLw(), mHandler, longshot, screenshotBundle);
         }
     }
 

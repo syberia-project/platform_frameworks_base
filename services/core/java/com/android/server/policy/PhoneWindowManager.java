@@ -252,6 +252,8 @@ import java.util.HashSet;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import com.android.internal.custom.longshot.ILongScreenshotManager;
+
 /**
  * WindowManagerPolicy implementation for the Android phone UI.  This
  * introduces a new method suffix, Lp, for an internal lock of the
@@ -704,6 +706,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean mProxiListenerEnabled;
     private boolean mHasPermanentMenuKey;
     private SwipeToScreenshotListener mSwipeToScreenshot;
+    protected int mDisplayRotation;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -1582,7 +1585,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         @Override
         public void run() {
-            mDefaultDisplayPolicy.takeScreenshot(mScreenshotType);
+            boolean dockMinimized = mWindowManagerInternal.isMinimizedDock();
+            mDefaultDisplayPolicy.takeScreenshot(mScreenshotType, keyguardOn(), isUserSetupComplete(), isDeviceProvisioned(), dockMinimized,  mDisplayRotation);
         }
     }
 
@@ -1600,9 +1604,37 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         final boolean keyguardShowing = isKeyguardShowingAndNotOccluded();
         mGlobalActions.showDialog(keyguardShowing, isDeviceProvisioned());
+        stopLongshot();
         // since it took two seconds of long press to bring this up,
         // poke the wake lock so they have some time to see the dialog.
         mPowerManager.userActivity(SystemClock.uptimeMillis(), false);
+    }
+
+
+    private void stopLongshot() {
+        ILongScreenshotManager shot = ILongScreenshotManager.Stub.asInterface(ServiceManager.getService(Context.LONGSCREENSHOT_SERVICE));
+        if (shot != null) {
+            try {
+                if (shot.isLongshotMode()) {
+                    shot.stopLongshot();
+                }
+            } catch (RemoteException e) {
+                Slog.d(TAG, e.toString());
+            }
+        }
+    }
+
+    @Override
+    public void stopLongshotConnection() {
+        if (mScreenshotHelper != null) {
+            mScreenshotHelper.stopLongshotConnection();
+        }
+    }
+
+    @Override
+    public void takeOPScreenshot(int type, int reason) {
+        mScreenshotRunnable.setScreenshotType(type);
+        mHandler.post(mScreenshotRunnable);
     }
 
     boolean isDeviceProvisioned() {

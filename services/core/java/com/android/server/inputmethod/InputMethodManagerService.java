@@ -297,6 +297,10 @@ public class InputMethodManagerService extends IInputMethodManager.Stub
     @UserIdInt
     private int mLastSwitchUserId;
 
+    // Long screenshot
+    private long LONGSHOT_BLOCK_SHOWING_TIMEOUT = 1000;
+    public boolean mLongshotBlockShowing = false;
+
     final Context mContext;
     final Resources mRes;
     final Handler mHandler;
@@ -2795,6 +2799,11 @@ public class InputMethodManagerService extends IInputMethodManager.Stub
             return false;
         }
 
+        if (mLongshotBlockShowing) {
+            Slog.d(TAG, "Longshot Blocking");
+            return false;
+        }
+
         boolean res = false;
         if (mCurMethod != null) {
             if (DEBUG) Slog.d(TAG, "showCurrentInputLocked: mCurToken=" + mCurToken);
@@ -2827,6 +2836,30 @@ public class InputMethodManagerService extends IInputMethodManager.Stub
         }
 
         return res;
+    }
+
+    @Override
+    public boolean hideSoftInputForLongshot(int flags, ResultReceiver resultReceiver) {
+        boolean hideCurrentInputLocked;
+        if (!calledFromValidUserLocked()) {
+            return false;
+        }
+        int uid = Binder.getCallingUid();
+        long ident = Binder.clearCallingIdentity();
+        try {
+            synchronized (mMethodMap) {
+                mLongshotBlockShowing = true;
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        mLongshotBlockShowing = false;
+                    }
+                }, LONGSHOT_BLOCK_SHOWING_TIMEOUT);
+                hideCurrentInputLocked = hideCurrentInputLocked(flags, resultReceiver);
+            }
+            return hideCurrentInputLocked;
+        } finally {
+            Binder.restoreCallingIdentity(ident);
+        }
     }
 
     @Override
