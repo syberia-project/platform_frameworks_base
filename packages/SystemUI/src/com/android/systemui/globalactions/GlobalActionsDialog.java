@@ -1802,7 +1802,11 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     takeScreenrecord();
                     break;
                 case MESSAGE_SCREENSHOT:
-                    mScreenshotHelper.takeScreenshot((Integer) msg.obj, true, true, mHandler);
+                    try {
+                        WindowManagerGlobal.getWindowManagerService().takeOPScreenshot(1, 0);
+                    } catch (RemoteException e) {
+                        Log.e(TAG, "Error while trying to takeOPScreenshot.", e);
+                    }
                     break;
                     
             }
