@@ -941,7 +941,7 @@ public final class ActionUtils {
                 : WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
         IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
         try {
-            wm.mokeeTakeScreenshot(type);
+            wm.takeAlternativeScreenshot();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -6550,4 +6550,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         msg.setAsynchronous(true);
         mHandler.sendMessageDelayed(msg, ViewConfiguration.getLongPressTimeout());
     }
+
+    @Override
+    public void takeAlternativeScreenshot() {
+        mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
+        mHandler.post(mScreenshotRunnable);
+    }
 }
