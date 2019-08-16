@@ -76,6 +76,7 @@ public class FODCircleView extends ImageView implements OnTouchListener {
     private boolean mIsDreaming;
     private boolean mIsPulsing;
     private boolean mIsScreenOn;
+    private boolean mShouldHide = false;
 
     public boolean viewAdded;
     private boolean mIsEnrolling;
@@ -152,7 +153,7 @@ public class FODCircleView extends ImageView implements OnTouchListener {
         public void onFingerprintAuthenticated(int userId) {
             super.onFingerprintAuthenticated(userId);
             mInsideCircle = false;
-            setDim(false);
+            //setDim(false);
         }
 
         @Override
@@ -162,6 +163,13 @@ public class FODCircleView extends ImageView implements OnTouchListener {
             if ((viewAdded) && (mMsgId == 7)) {
                 hide();
             }
+        }
+
+        @Override
+        public void onTrustChanged(int userId) {
+            super.onTrustChanged(userId);
+            int mUserId = userId;
+            mShouldHide = (mUpdateMonitor.getUserHasTrust(mUserId) ? true : false);
         }
     };
 
@@ -210,7 +218,7 @@ public class FODCircleView extends ImageView implements OnTouchListener {
         super.onDraw(canvas);
         //TODO w!=h?
 
-        if(mInsideCircle) {
+        if(mInsideCircle && (!mShouldHide || mIsPulsing)) {
             canvas.drawCircle(mW/2, mH/2, (float) (mW/2.0f), this.mPaintFingerprint);
             setDim(true);
         }
@@ -271,11 +279,12 @@ public class FODCircleView extends ImageView implements OnTouchListener {
 
         mParams.type = WindowManager.LayoutParams.TYPE_VOLUME_OVERLAY;
         mParams.setTitle("Fingerprint on display");
-        mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+        mParams.flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM |
             WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
             WindowManager.LayoutParams.FLAG_DIM_BEHIND |
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
-        mParams.dimAmount = .1f;
+        mParams.dimAmount = .0f;
 
         mParams.packageName = "android";
 
@@ -357,7 +366,7 @@ public class FODCircleView extends ImageView implements OnTouchListener {
                 Settings.System.OMNI_CUSTOM_FP_ICON,
                 UserHandle.USER_CURRENT);
 
-        if (mIsDreaming && !mIsPulsing) {
+        if (!mIsPulsing && (mIsDreaming || mShouldHide)) {
             setImageResource(R.drawable.fod_icon_empty);
             return;
         }
