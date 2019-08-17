@@ -153,9 +153,9 @@ public final class ThreadedRenderer extends HardwareRenderer {
      * Defines the rendering pipeline to be used by the ThreadedRenderer.
      *
      * Possible values:
-     * "opengl", will use the existing OpenGL renderer
-     * "skiagl", will use Skia's OpenGL renderer
      * "skiavk", will use Skia's Vulkan renderer
+     * "opengl", will use OpenGL renderer
+     * "skiagl", will use Skia's OpenGL renderer
      *
      * @hide
      */
