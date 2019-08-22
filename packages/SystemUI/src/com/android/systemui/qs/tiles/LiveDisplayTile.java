@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
- * Copyright (C) 2018-2019 The LineageOS Project
+ * Copyright (C) 2018 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 
 package com.android.systemui.qs.tiles;
 
+import static com.android.internal.custom.hardware.LiveDisplayManager.FEATURE_MANAGED_OUTDOOR_MODE;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_AUTO;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_DAY;
-import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_NIGHT;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OFF;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OUTDOOR;
 
@@ -33,7 +33,6 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 
-import com.android.internal.app.ColorDisplayController;
 import com.android.internal.util.ArrayUtils;
 import com.android.systemui.plugins.qs.QSTile.LiveDisplayState;
 import com.android.systemui.qs.QSHost;
@@ -63,7 +62,7 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
     private int mDayTemperature;
 
     private final boolean mOutdoorModeAvailable;
-    private final boolean mOutdoorOverlayCapable;
+
     private final LiveDisplayManager mLiveDisplay;
 
     private static final int OFF_TEMPERATURE = 6500;
@@ -81,11 +80,10 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
         updateEntries();
 
-        mOutdoorOverlayCapable = res.getBoolean(R.bool.config_outdoorCapable);
-
         mLiveDisplay = LiveDisplayManager.getInstance(mContext);
         if (mLiveDisplay.getConfig() != null) {
-            mOutdoorModeAvailable = mLiveDisplay.getConfig().hasFeature(MODE_OUTDOOR);
+            mOutdoorModeAvailable = mLiveDisplay.getConfig().hasFeature(MODE_OUTDOOR) &&
+                    !mLiveDisplay.getConfig().hasFeature(FEATURE_MANAGED_OUTDOOR_MODE);
             mDayTemperature = mLiveDisplay.getDayColorTemperature();
         } else {
             mOutdoorModeAvailable = false;
@@ -103,15 +101,6 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
         mDescriptionEntries = res.getStringArray(R.array.live_display_description);
         mAnnouncementEntries = res.getStringArray(R.array.live_display_announcement);
         mValues = res.getStringArray(R.array.live_display_values);
-    }
-
-    private boolean isCTCAvailable() {
-        return !ColorDisplayController.isAvailable(mContext);
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return isCTCAvailable() || mOutdoorOverlayCapable;
     }
 
     @Override
@@ -189,11 +178,10 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
 
         while (true) {
             nextMode = Integer.valueOf(mValues[next]);
-            // Skip outdoor mode if it's unsupported, and skip the day/night setting
-            // if ColorTransform is not available (since we using AOSP day/night mode)
-            if ((!mOutdoorModeAvailable && !mOutdoorOverlayCapable && nextMode == MODE_OUTDOOR) ||
-                    (mDayTemperature == OFF_TEMPERATURE && nextMode == MODE_DAY) ||
-                    (!isCTCAvailable() && (nextMode == MODE_DAY || nextMode == MODE_NIGHT))) {
+            // Skip outdoor mode if it's unsupported, and skip the day setting
+            // if it's the same as the off setting
+            if ((!mOutdoorModeAvailable && nextMode == MODE_OUTDOOR) ||
+                    (mDayTemperature == OFF_TEMPERATURE && nextMode == MODE_DAY)) {
                 next++;
                 if (next >= mValues.length) {
                     next = 0;
