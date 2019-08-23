@@ -40,6 +40,8 @@ import com.android.server.ServiceThread;
 import com.android.server.SystemService;
 
 import com.android.server.custom.common.UserContentObserver;
+import com.android.server.custom.display.TwilightTracker.TwilightListener;
+import com.android.server.custom.display.TwilightTracker.TwilightState;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -62,10 +64,6 @@ import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_LAST;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OFF;
 import static com.android.internal.custom.hardware.LiveDisplayManager.MODE_OUTDOOR;
 
-import com.android.server.twilight.TwilightListener;
-import com.android.server.twilight.TwilightManager;
-import com.android.server.twilight.TwilightState;
-
 /**
  * LiveDisplay is an advanced set of features for improving
  * display quality under various ambient conditions.
@@ -75,7 +73,7 @@ import com.android.server.twilight.TwilightState;
  * and calibration. It interacts with LineageHardwareService to relay
  * changes down to the lower layers.
  */
-public class LiveDisplayService extends SystemService implements TwilightListener {
+public class LiveDisplayService extends SystemService {
 
     private static final String TAG = "LiveDisplay";
 
@@ -85,7 +83,7 @@ public class LiveDisplayService extends SystemService implements TwilightListene
 
     private DisplayManager mDisplayManager;
     private ModeObserver mModeObserver;
-    private final TwilightManager mTwilightManager;
+    private final TwilightTracker mTwilightTracker;
 
     private boolean mAwaitingNudge = true;
     private boolean mSunset = false;
@@ -135,7 +133,7 @@ public class LiveDisplayService extends SystemService implements TwilightListene
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
 
-        mTwilightManager = getLocalService(TwilightManager.class);
+        mTwilightTracker = new TwilightTracker(context);
     }
 
     @Override
@@ -373,7 +371,7 @@ public class LiveDisplayService extends SystemService implements TwilightListene
 
         @Override
         public boolean isNight() {
-            final TwilightState twilight = mTwilightManager.getLastTwilightState();
+            final TwilightState twilight = mTwilightTracker.getCurrentState();
             return twilight != null && twilight.isNight();
         }
     };
@@ -462,12 +460,15 @@ public class LiveDisplayService extends SystemService implements TwilightListene
         }
     }
 
-    @Override
-    public void onTwilightStateChanged(TwilightState state) {
-        mState.mTwilight = state;
-        updateFeatures(TWILIGHT_CHANGED);
-        nudge();
-    }
+    // Night watchman
+    private final TwilightListener mTwilightListener = new TwilightListener() {
+        @Override
+        public void onTwilightStateChanged() {
+            mState.mTwilight = mTwilightTracker.getCurrentState();
+            updateFeatures(TWILIGHT_CHANGED);
+            nudge();
+        }
+    };
 
     private boolean isScreenOn() {
         return mDisplayManager.getDisplay(
@@ -508,7 +509,7 @@ public class LiveDisplayService extends SystemService implements TwilightListene
      * @param state
      */
     private void nudge() {
-        final TwilightState twilight = mTwilightManager.getLastTwilightState();
+        final TwilightState twilight = mTwilightTracker.getCurrentState();
         if (!mAwaitingNudge || twilight == null) {
             return;
         }
