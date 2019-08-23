@@ -29,9 +29,6 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Permite que la aplicación sea una aplicación diferente. Las aplicaciones malintencionadas pueden usar esto para acceder a datos de aplicaciones privadas. ¡Concede este permiso solo con precaución!</string>
 
-    <!-- If this is true, key chords can be used to take a screen record on the device. -->
-    <bool name="config_enableScreenrecordChord">true</bool>
-
     <!-- AOKP custom system animations -->
     <string name="animation_fade">Fundido</string>
     <string name="animation_slide_right">Deslizar a la derecha</string>

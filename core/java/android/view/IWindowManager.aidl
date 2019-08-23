@@ -413,11 +413,6 @@ interface IWindowManager
     Region getCurrentImeTouchRegion();
 
     /**
-     * Call screen record from WindowManager.
-     */
-    void screenRecordAction(int mode);
-
-    /**
      * Starts a window trace.
      */
     void startWindowTrace();

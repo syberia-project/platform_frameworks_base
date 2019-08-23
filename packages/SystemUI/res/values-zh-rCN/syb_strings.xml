@@ -20,7 +20,6 @@
     <string name="global_action_restart_bootloader">引导模式</string>
     <string name="global_action_restart_ui">系统界面</string>
     <string name="global_action_restart_soft">软重启</string>
-    <string name="global_action_screenrecord">录屏</string>
 
     <!-- LTE QS Tile -->
     <string name="qs_lte_label">LTE</string>
@@ -43,28 +42,6 @@
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">滑动图标即可启动</string>
 
-    <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenrecord_label">录屏</string>
-    <string name="quick_settings_screenrecord_lq_label">录屏 LQ</string>
-    <string name="quick_settings_screenrecord_mq_label">录屏 MQ</string>
-    <string name="quick_settings_screenrecord_hq_label">录屏 HQ</string>
-
-    <string name="screenrecord_notif_final_ticker">录屏成功</string>
-    <string name="screenrecord_notif_completed">录屏成功</string>
-    <string name="screenrecord_notif_description">点击以查看您的屏幕录制</string>
-
-    <!-- Screenrecord Notification Ticker -->
-    <string name="screenrecord_notif_ticker">正在录屏</string>
-    <!-- Screenrecord notification title -->
-    <string name="screenrecord_notif_title">正在录屏</string>
-    <!-- Screenrecord notification action: Stop -->
-    <string name="screenrecord_notif_stop">停止p</string>
-    <!-- Screenrecord notification action: show/hide pointer -->
-    <string name="screenrecord_notif_pointer_on">显示指针</string>
-    <string name="screenrecord_notif_pointer_off">隐藏指针</string>
-    <!-- Screen record notification error title -->
-    <string name="screenrecord_notif_error">无法录屏</string>
-    <string name="notification_channel_screenrecord">录屏</string>
     <!-- Heads up snooze toast -->
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - 悬浮消息暂停显示 1 分钟.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> -悬浮消息暂停显示 <xliff:g id="number">%d</xliff:g> 分钟.</string>

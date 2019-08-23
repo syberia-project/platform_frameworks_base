@@ -23,7 +23,6 @@
     <string name="global_action_restart_bootloader">Bootloader</string>
     <string name="global_action_restart_ui">Interfaz</string>
     <string name="global_action_restart_soft">Reinicio rápido</string>
-    <string name="global_action_screenrecord">Grabar pantalla</string>
 
     <!-- LTE QS Tile -->
     <string name="qs_lte_label">LTE</string>
@@ -46,28 +45,6 @@
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Desliza desde el icono para abrir</string>
 
-    <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenrecord_label">Grabación pantalla</string>
-    <string name="quick_settings_screenrecord_lq_label">Grabación LQ</string>
-    <string name="quick_settings_screenrecord_mq_label">Grabación MQ</string>
-    <string name="quick_settings_screenrecord_hq_label">Grabación HQ</string>
-
-    <string name="screenrecord_notif_final_ticker">Pantalla grabada correctamente</string>
-    <string name="screenrecord_notif_completed">Pantalla grabada correctamente</string>
-    <string name="screenrecord_notif_description">Toca para ver tu grabación de pantalla</string>
-
-    <!-- Screenrecord Notification Ticker -->
-    <string name="screenrecord_notif_ticker">La pantalla se está grabando</string>
-    <!-- Screenrecord notification title -->
-    <string name="screenrecord_notif_title">Grabando pantalla</string>
-    <!-- Screenrecord notification action: Stop -->
-    <string name="screenrecord_notif_stop">Parar</string>
-    <!-- Screenrecord notification action: show/hide pointer -->
-    <string name="screenrecord_notif_pointer_on">Mostrar puntero</string>
-    <string name="screenrecord_notif_pointer_off">Ocultar puntero</string>
-    <!-- Screen record notification error title -->
-    <string name="screenrecord_notif_error">No se puede grabar la pantalla</string>
-    <string name="notification_channel_screenrecord">Grabaciones de pantalla</string>
     <!-- Heads up snooze toast -->
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Las notificaciones se desactivaran durante 1 minuto.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Las notificaciones se desactivaran durante <xliff:g id="number">%d</xliff:g> minutos.</string>

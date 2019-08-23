@@ -141,7 +141,6 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private static final String GLOBAL_ACTION_KEY_EMERGENCY = "emergency";
     private static final String GLOBAL_ACTION_KEY_SCREENSHOT = "screenshot";
     private static final String GLOBAL_ACTION_KEY_RESTART_RECOVERY = "recovery";
-    private static final String GLOBAL_ACTION_KEY_SCREENRECORD = "screenrecord";
     private static final String GLOBAL_ACTION_KEY_TORCH = "torch";
 
     private static final int SHOW_TOGGLES_BUTTON = 1;
@@ -560,11 +559,6 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                         Settings.System.POWERMENU_RESTART_RECOVERY, 0) == 1) {
                 mItems.add(mShowAdvancedToggles);
 		}
-            } else if (GLOBAL_ACTION_KEY_SCREENRECORD.equals(actionKey)) {
-                if (Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.POWERMENU_SCREENRECORD, 0) == 1) {
-                    mItems.add(getScreenrecordAction());
-	        }
             } else if (GLOBAL_ACTION_KEY_EMERGENCY.equals(actionKey)) {
                 if (mSeparatedEmergencyButtonEnabled
                         && !mEmergencyAffordanceManager.needsEmergencyAffordance()) {
@@ -763,25 +757,6 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         public void onPress() {
             mWindowManagerFuncs.advancedReboot(PowerManager.REBOOT_RECOVERY);
         }
-    }
-
-    private Action getScreenrecordAction() {
-        return new SinglePressAction(com.android.systemui.R.drawable.ic_lock_screenrecord,
-                com.android.systemui.R.string.global_action_screenrecord) {
-
-            public void onPress() {
-                mHandler.sendEmptyMessage(MESSAGE_DISMISS);
-                mHandler.sendEmptyMessageDelayed(MESSAGE_SCREENRECORD, 1000);
-            }
-
-            public boolean showDuringKeyguard() {
-                return true;
-            }
-
-            public boolean showBeforeProvisioning() {
-                return false;
-            }
-        };
     }
 
     private Action getTorchToggleAction() {
@@ -1088,70 +1063,6 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     };
                     items.add(switchToUser);
                 }
-            }
-        }
-    }
-
-    /**
-     * functions needed for taking screen record.
-     */
-    final Object mScreenrecordLock = new Object();
-    ServiceConnection mScreenrecordConnection = null;
-
-    final Runnable mScreenrecordTimeout = new Runnable() {
-        @Override public void run() {
-            synchronized (mScreenrecordLock) {
-                if (mScreenrecordConnection != null) {
-                    mContext.unbindService(mScreenrecordConnection);
-                    mScreenrecordConnection = null;
-                }
-            }
-        }
-    };
-
-    private void takeScreenrecord() {
-       synchronized (mScreenrecordLock) {
-            if (mScreenrecordConnection != null) {
-                return;
-            }
-            ComponentName cn = new ComponentName("com.android.systemui",
-                    "com.android.systemui.syberia.screenrecord.TakeScreenrecordService");
-            Intent intent = new Intent();
-            intent.setComponent(cn);
-            ServiceConnection conn = new ServiceConnection() {
-                @Override
-                public void onServiceConnected(ComponentName name, IBinder service) {
-                    synchronized (mScreenrecordLock) {
-                        Messenger messenger = new Messenger(service);
-                        Message msg = Message.obtain(null, 1);
-                        final ServiceConnection myConn = this;
-                        Handler h = new Handler(mHandler.getLooper()) {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                synchronized (mScreenrecordLock) {
-                                    if (mScreenrecordConnection == myConn) {
-                                        mContext.unbindService(mScreenrecordConnection);
-                                        mScreenrecordConnection = null;
-                                        mHandler.removeCallbacks(mScreenrecordTimeout);
-                                    }
-                                }
-                            }
-                        };
-                        msg.replyTo = new Messenger(h);
-                        msg.arg1 = msg.arg2 = 0;
-                        try {
-                            messenger.send(msg);
-                        } catch (RemoteException e) {
-                        }
-                    }
-                }
-                @Override
-                public void onServiceDisconnected(ComponentName name) {}
-            };
-            if (mContext.bindServiceAsUser(
-                    intent, conn, Context.BIND_AUTO_CREATE, UserHandle.CURRENT)) {
-                mScreenrecordConnection = conn;
-                mHandler.postDelayed(mScreenrecordTimeout, 31 * 60 * 1000);
             }
         }
     }
@@ -1767,8 +1678,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private static final int MESSAGE_SHOW = 2;
     private static final int MESSAGE_SHOW_ADVANCED_TOGGLES = 3;
     private static final int MESSAGE_SCREENSHOT = 4;
-    private static final int MESSAGE_SCREENRECORD = 5;
-    private static final int MESSAGE_SHOW_ADVANCED_TOGGLES_SHOW = 6;
+    private static final int MESSAGE_SHOW_ADVANCED_TOGGLES_SHOW = 5;
 
     private static final int DIALOG_DISMISS_DELAY = 300; // ms
 
@@ -1801,9 +1711,6 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     addNewItems();
                     mDialog.refreshList();
                     mDialog.show();
-                    break;
-                case MESSAGE_SCREENRECORD:
-                    takeScreenrecord();
                     break;
                 case MESSAGE_SCREENSHOT:
                     try {
