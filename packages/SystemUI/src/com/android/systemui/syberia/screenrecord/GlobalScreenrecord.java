@@ -108,8 +108,6 @@ class GlobalScreenrecord {
     private long mRecordingTotalTime = 0;
     private long mFileSize = 0;
 
-    private boolean mHigherAspectRatio;
-
     private void setFinisher(Runnable finisher) {
         mFinisher = finisher;
     }
@@ -118,11 +116,9 @@ class GlobalScreenrecord {
 
         private Runnable mFInisher;
         private int mMode;
-        private boolean mHigherAspectRatio;
 
-        public void setMode(int mode, boolean higherAspectRatio) {
+        public void setMode(int mode) {
             mMode = mode;
-            mHigherAspectRatio = higherAspectRatio;
         }
 
         public void run() {
@@ -134,21 +130,21 @@ class GlobalScreenrecord {
                 case WindowManager.SCREEN_RECORD_LOW_QUALITY:
                     // low resolution and 1.5Mbps
                     cmds[2] = "--size";
-                    cmds[3] = mHigherAspectRatio ? "480x960" : "480x800";
+                    cmds[3] = "480x800";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "1500000";
                     break;
                 case WindowManager.SCREEN_RECORD_MID_QUALITY:
                     // default resolution (720p) and 4Mbps
                     cmds[2] = "--size";
-                    cmds[3] = mHigherAspectRatio ? "720x1440" : "720x1280";
+                    cmds[3] = "720x1280";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "4000000";
                     break;
                 case WindowManager.SCREEN_RECORD_HIGH_QUALITY:
                     // default resolution (1080p) and 8Mbps
                     cmds[2] = "--size";
-                    cmds[3] = mHigherAspectRatio ? "1080x2160" : "1080x1920";
+                    cmds[3] = "1080x1920";
                     cmds[4] = "--bit-rate";
                     cmds[5] = "8000000";
                     break;
@@ -201,8 +197,6 @@ class GlobalScreenrecord {
      */
     public GlobalScreenrecord(Context context) {
         mContext = context;
-        mHigherAspectRatio = Resources.getSystem().getBoolean(
-                com.android.internal.R.bool.config_haveHigherAspectRatioScreen);
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what == MSG_TASK_ENDED) {
@@ -239,7 +233,7 @@ class GlobalScreenrecord {
 
         setFinisher(finisher);
         mCaptureThread = new CaptureThread();
-        mCaptureThread.setMode(mode, mHigherAspectRatio);
+        mCaptureThread.setMode(mode);
         mCaptureThread.start();
 
         updateNotification(mode);
