@@ -4520,9 +4520,6 @@ public final class Settings {
         public static final String VIBRATE_ON_DISCONNECT = "vibrate_on_disconnect";
 
         /**
-         * @hide
-         */
-        public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
 
         /**
          * Whether to display cross sign for a data disabled connection
