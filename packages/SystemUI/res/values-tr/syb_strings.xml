@@ -20,7 +20,6 @@
     <string name="global_action_restart_bootloader">Ön yükleyici</string>
     <string name="global_action_restart_ui">Arayüz</string>
     <string name="global_action_restart_soft">Hızlı</string>
-    <string name="global_action_screenrecord">Ekran kaydı</string>
 
     <!-- LTE QS Tile -->
     <string name="qs_lte_label">LTE</string>
@@ -42,29 +41,6 @@
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Başlatmak için simgeden kaydır</string>
-
-    <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenrecord_label">Ekran kaydı</string>
-    <string name="quick_settings_screenrecord_lq_label">Ekran kaydı 480</string>
-    <string name="quick_settings_screenrecord_mq_label">Ekran kaydı 720</string>
-    <string name="quick_settings_screenrecord_hq_label">Ekran kaydı 720+</string>
-
-    <string name="screenrecord_notif_final_ticker">Ekran başarıyla kaydedildi</string>
-    <string name="screenrecord_notif_completed">Ekran başarıyla kaydedildi</string>
-    <string name="screenrecord_notif_description">Ekran kaydını görüntülemek için dokunun</string>
-
-    <!-- Screenrecord Notification Ticker -->
-    <string name="screenrecord_notif_ticker">Ekran kaydediliyor</string>
-    <!-- Screenrecord notification title -->
-    <string name="screenrecord_notif_title">Ekran kaydı</string>
-    <!-- Screenrecord notification action: Stop -->
-    <string name="screenrecord_notif_stop">Durdur</string>
-    <!-- Screenrecord notification action: show/hide pointer -->
-    <string name="screenrecord_notif_pointer_on">İşaretçiyi göster</string>
-    <string name="screenrecord_notif_pointer_off">İşaretçiyi gizle</string>
-    <!-- Screen record notification error title -->
-    <string name="screenrecord_notif_error">Ekran kaydedilemiyor</string>
-    <string name="notification_channel_screenrecord">Ekran kayıtları</string>
 
     <!-- Heads up snooze toast -->
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Bildirim pencereleri 1 dakikalığına erteleniyor.</string>

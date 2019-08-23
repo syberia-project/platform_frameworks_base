@@ -237,9 +237,6 @@
     <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
 
-    <!-- screenrecord -->
-    <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
-
     <!-- Reboot -->
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.RECOVERY" />
@@ -334,12 +331,6 @@
                 <action android:name="com.android.systemui.action.REFRESH_SOUND" />
             </intent-filter>
         </receiver>
-
-        <!-- started from PhoneWindowManager
-             TODO: Should have an android:permission attribute -->
-        <service android:name=".syberia.screenrecord.TakeScreenrecordService"
-            android:process=":screenrecord"
-            android:exported="false" />
 
         <service android:name=".ImageWallpaper"
                 android:permission="android.permission.BIND_WALLPAPER"
@@ -707,28 +698,11 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$DeleteScreenrecordReceiver"
-            android:process=":screenrecord"
-            android:exported="false" />
-
-        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$TargetChosenReceiver"
-            android:process=":screenrecord"
-            android:exported="false" />
-
-        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenshot$TargetChosenReceiver"
-            android:process=":screenshot"
-            android:exported="false" />
-
-        <receiver android:name="com.android.systemui.syberia.screenrecord.GlobalScreenrecord$ShareReceiver"
-            android:process=":screenrecord"
-            android:exported="false" />
-
         <receiver android:name="com.android.systemui.syberia.gamingmode.GamingModeReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.GAMING_MODE_TURN_OFF" />
                 <action android:name="android.intent.action.GAMING_MODE_TURN_ON" />
             </intent-filter>
         </receiver>
-
     </application>
 </manifest>
