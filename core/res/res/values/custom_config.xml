@@ -27,11 +27,6 @@
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
     <bool name="config_notifyClientOnFingerprintCancelSuccess">false</bool>
 
-    <!-- Show a custom view for FOD -->
-    <bool name="config_needCustomFODView">false</bool>
-
-    <bool name="config_usesOnePlusFOD">false</bool>
-
     <!-- Default values for LiveDisplay -->
     <integer name="config_dayColorTemperature">6500</integer>
     <integer name="config_nightColorTemperature">4800</integer>

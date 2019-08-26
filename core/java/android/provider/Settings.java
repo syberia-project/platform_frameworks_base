@@ -5577,15 +5577,6 @@ public final class Settings {
         public static final String STABILIZATION_VELOCITY_AMPLITUDE = "stabilization_velocity_amplitude";
 
         /**
-         * @hide
-         */
-        public static final String OMNI_CUSTOM_FP_ICON = "custom_fingerprint_icon";
-
-        /** @hide */
-        private static final Validator OMNI_CUSTOM_FP_ICON_VALIDATOR =
-                ANY_STRING_VALIDATOR;
-
-        /**
          * Whether to enable DOZE only when charging
          * @hide
          */
@@ -5883,7 +5874,6 @@ public final class Settings {
             OMNI_STATUS_BAR_CUSTOM_HEADER_PROVIDER,
             OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE,
             OMNI_STATUS_BAR_FILE_HEADER_IMAGE,
-            OMNI_CUSTOM_FP_ICON,
             DOZE_ON_CHARGE,
             FORCE_FULLSCREEN_CUTOUT_APPS,
             AICP_LOCKSCREEN_WEATHER_STYLE,
@@ -6045,7 +6035,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(OMNI_STATUS_BAR_CUSTOM_HEADER_PROVIDER);
             PRIVATE_SETTINGS.add(OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE);
             PRIVATE_SETTINGS.add(OMNI_STATUS_BAR_FILE_HEADER_IMAGE);
-            PRIVATE_SETTINGS.add(OMNI_CUSTOM_FP_ICON);
             PRIVATE_SETTINGS.add(DOZE_ON_CHARGE);
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
             PRIVATE_SETTINGS.add(DISPLAY_TEMPERATURE_DAY);
@@ -6206,8 +6195,6 @@ public final class Settings {
                     OMNI_STATUS_BAR_CUSTOM_HEADER_IMAGE_VALIDATOR);
             VALIDATORS.put(OMNI_STATUS_BAR_FILE_HEADER_IMAGE,
                     OMNI_STATUS_BAR_FILE_HEADER_IMAGE_VALIDATOR);
-            VALIDATORS.put(OMNI_CUSTOM_FP_ICON,
-                    OMNI_CUSTOM_FP_ICON_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE,
                     DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(FORCE_FULLSCREEN_CUTOUT_APPS, FORCE_FULLSCREEN_CUTOUT_APPS_VALIDATOR);
