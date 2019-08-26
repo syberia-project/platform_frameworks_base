@@ -128,7 +128,7 @@ public class KeyguardStatusView extends GridLayout implements
                 updateLogoutView();
                 updateSettings();
                 refreshLockFont();
-		        refreshLockDateFont();
+                refreshLockDateFont();
                 refreshclocksize();
                 refreshdatesize();
             }
@@ -151,7 +151,7 @@ public class KeyguardStatusView extends GridLayout implements
             updateLogoutView();
             updateSettings();
             refreshLockFont();
-	        refreshLockDateFont();
+            refreshLockDateFont();
             refreshclocksize();
             refreshdatesize();
         }
@@ -481,13 +481,26 @@ public class KeyguardStatusView extends GridLayout implements
     private void updateOwnerInfo() {
         if (mOwnerInfo == null) return;
         String info = mLockPatternUtils.getDeviceOwnerInfo();
+        int paddingPixel = (int) getResources().getDimension(R.dimen.custom_clock_left_padding);
         if (info == null) {
 
             // If text style clock, align the textView to start else keep it center.
             if (mClockSelection == 9) {
-                mOwnerInfo.setPaddingRelative((int) mContext.getResources()
-                    .getDimension(R.dimen.custom_clock_left_padding) + 8, 0, 0, 0);
-                mOwnerInfo.setGravity(Gravity.START);
+                switch(mTextClockAlign) {
+                    case 0:
+                    default:
+                        mOwnerInfo.setPaddingRelative(paddingPixel + 8, 0, 0, 0);
+                        mOwnerInfo.setGravity(Gravity.START);
+                        break;
+                    case 1:
+                        mOwnerInfo.setPaddingRelative(0, 0, 0, 0);
+                        mOwnerInfo.setGravity(Gravity.CENTER);
+                        break;
+                    case 2:
+                        mOwnerInfo.setPaddingRelative(0 , 0 , paddingPixel , 0);
+                        mOwnerInfo.setGravity(Gravity.END);
+                        break;
+                }
             } else {
                 mOwnerInfo.setPaddingRelative(0, 0, 0, 0);
                 mOwnerInfo.setGravity(Gravity.CENTER);
