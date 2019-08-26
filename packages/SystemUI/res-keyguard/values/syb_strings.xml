@@ -18,9 +18,9 @@
 
 <resources>
 
-    <string name="custom_text_clock_top_text_default">Son las</string>
-    <string name="high_noon_first_row">Alto</string>
-    <string name="high_noon_second_row">Mediodía</string>
-    <string name="twelve_am">Doce</string>
+    <string name="custom_text_clock_top_text_default">It\'s</string>
+    <string name="high_noon_first_row">High</string>
+    <string name="high_noon_second_row">Noon</string>
+    <string name="twelve_am">Twelve</string>
 
 </resources>
