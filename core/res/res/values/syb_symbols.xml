@@ -26,4 +26,8 @@
     <java-symbol type="string" name="config_deviceKeyHandlerLib" />
     <java-symbol type="string" name="config_deviceKeyHandlerClass" />
     <java-symbol type="bool" name="config_proxiSensorWakupCheck" />
+
+    <!-- Whether device ignores the RSSNR signal implementation -->
+    <java-symbol type="bool" name="config_ignoreRssnrSignalLevel" />
+
 </resources>
