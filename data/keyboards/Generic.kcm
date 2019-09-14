@@ -540,7 +540,7 @@ key BUTTON_SELECT {
 }
 
 key BUTTON_MODE {
-    base:                               fallback HOME
+    base:                               fallback MENU
 }
 
 key BUTTON_1 {
