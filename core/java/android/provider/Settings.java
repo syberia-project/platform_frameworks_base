@@ -4465,6 +4465,16 @@ public final class Settings {
          */
         public static final String DEVICE_PROXI_CHECK_ENABLED = "device_proxi_check_enabled";
 
+        /**
+         * @hide
+         */
+        public static final String DEVICE_FEATURE_SETTINGS = "device_feature_settings";
+
+        /**
+         * @hide
+         */
+        public static final String BUTTON_EXTRA_KEY_MAPPING = "button_extra_keymapping";
+
         /** @hide */
         private static final Validator DEVICE_PROXI_CHECK_ENABLED_VALIDATOR =
                 BOOLEAN_VALIDATOR;
