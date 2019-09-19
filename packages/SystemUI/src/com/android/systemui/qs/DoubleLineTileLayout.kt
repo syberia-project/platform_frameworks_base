@@ -114,6 +114,8 @@ class DoubleLineTileLayout(
         updateResources()
     }
 
+    override fun updateSettings() { }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
         mRecords.forEach {
