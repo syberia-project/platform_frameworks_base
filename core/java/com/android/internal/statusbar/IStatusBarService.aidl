@@ -85,7 +85,7 @@ interface IStatusBarService
      * These methods are needed for global actions control which the UI is shown in sysui.
      */
     void shutdown();
-    void reboot(boolean safeMode);
+    void reboot(boolean safeMode, String reason);
 
     void addTile(in ComponentName tile);
     void remTile(in ComponentName tile);
@@ -116,4 +116,12 @@ interface IStatusBarService
      */
     void toggleCameraFlash();
     void toggleCameraFlashState(boolean enable);
+    void toggleCameraFlashOn();
+    void toggleCameraFlashOff();
+
+    void toggleRecentApps();
+    void toggleSplitScreen();
+    void preloadRecentApps();
+    void cancelPreloadRecentApps();
+    void startAssist(in Bundle args);
 }

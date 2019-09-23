@@ -81,6 +81,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Process;
 import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
@@ -123,6 +124,12 @@ import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.RegisterStatusBarResult;
+import com.android.internal.util.hwkeys.ActionConstants;
+import com.android.internal.util.hwkeys.ActionUtils;
+import com.android.internal.util.hwkeys.PackageMonitor;
+import com.android.internal.util.hwkeys.PackageMonitor.PackageChangedListener;
+import com.android.internal.util.hwkeys.PackageMonitor.PackageState;
+import com.android.internal.util.syberia.SyberiaUtils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
@@ -249,7 +256,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         ColorExtractor.OnColorsChangedListener, ConfigurationListener,
         StatusBarStateController.StateListener, ShadeController,
         ActivityLaunchAnimator.Callback, AmbientPulseManager.OnAmbientChangedListener,
-        AppOpsController.Callback {
+        AppOpsController.Callback, PackageChangedListener {
     public static final boolean MULTIUSER_DEBUG = false;
 
     public static final boolean ENABLE_CHILD_NOTIFICATIONS
@@ -260,6 +267,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected static final int MSG_CANCEL_PRELOAD_RECENT_APPS = 1023;
     protected static final int MSG_TOGGLE_KEYBOARD_SHORTCUTS_MENU = 1026;
     protected static final int MSG_DISMISS_KEYBOARD_SHORTCUTS_MENU = 1027;
+    protected static final int MSG_TOGGLE_FLASH_ON = 1028;
+    protected static final int MSG_TOGGLE_FLASH_OFF = 1029;
 
     // Should match the values in PhoneWindowManager
     public static final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
@@ -421,6 +430,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     private final Rect mLastDockedStackBounds = new Rect();
 
     private final DisplayMetrics mDisplayMetrics = Dependency.get(DisplayMetrics.class);
+
+    private PackageMonitor mPackageMonitor;
 
     // XXX: gesture research
     private final GestureRecorder mGestureRec = DEBUG_GESTURES
@@ -668,6 +679,10 @@ public class StatusBar extends SystemUI implements DemoMode,
         mDisplay = mWindowManager.getDefaultDisplay();
         mDisplayId = mDisplay.getDisplayId();
         updateDisplaySize();
+
+        mPackageMonitor = new PackageMonitor();
+        mPackageMonitor.register(mContext, mHandler);
+        mPackageMonitor.addListener(this);
 
         mVibrateOnOpening = mContext.getResources().getBoolean(
                 R.bool.config_vibrateOnIconAnimation);
@@ -1751,6 +1766,20 @@ public class StatusBar extends SystemUI implements DemoMode,
                 case MSG_LAUNCH_TRANSITION_TIMEOUT:
                     onLaunchTransitionTimeout();
                     break;
+                case MSG_TOGGLE_FLASH_ON:
+                    if (mFlashlightController.isAvailable() && !mFlashlightController.isEnabled()) {
+                        mFlashlightController.setFlashlight(true);
+                        int delay = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.FLASH_ON_CALLWAITING_DELAY, 200, UserHandle.USER_CURRENT);
+                        mHandler.sendEmptyMessageDelayed(MSG_TOGGLE_FLASH_OFF, delay);
+                    }
+                    break;
+                case MSG_TOGGLE_FLASH_OFF:
+                    if (mFlashlightController.isAvailable() && mFlashlightController.isEnabled()) {
+                        mFlashlightController.setFlashlight(false);
+                        int delay = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.FLASH_ON_CALLWAITING_DELAY, 200, UserHandle.USER_CURRENT);
+                        mHandler.sendEmptyMessageDelayed(MSG_TOGGLE_FLASH_ON, delay);
+                    }
+                    break;
             }
         }
     }
@@ -1844,6 +1873,33 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
                 mFlashlightController.setFlashlight(enable);
             }
+        }
+    }
+
+    @Override
+    public void toggleCameraFlashOn() {
+        if (DEBUG) {
+            Log.d(TAG, "Toggling camera flashlight ON");
+        }
+        if (mFlashlightController.isAvailable() && !mFlashlightController.isEnabled()) {
+            mFlashlightController.setFlashlight(true);
+            int delay = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.FLASH_ON_CALLWAITING_DELAY, 200, UserHandle.USER_CURRENT);
+            mHandler.sendEmptyMessageDelayed(MSG_TOGGLE_FLASH_OFF, delay);
+        }
+    }
+
+    @Override
+    public void toggleCameraFlashOff() {
+        if (DEBUG) {
+            Log.d(TAG, "Toggling camera flashlight OFF");
+        }
+
+        mHandler.removeMessages(MSG_TOGGLE_FLASH_ON);
+        mHandler.removeMessages(MSG_TOGGLE_FLASH_OFF);
+
+        if (mFlashlightController.isAvailable()) {
+            mFlashlightController.setFlashlight(false);
+
         }
     }
 
@@ -2898,6 +2954,26 @@ public class StatusBar extends SystemUI implements DemoMode,
         startActivityDismissingKeyguard(intent, onlyProvisioned, true /* dismissShade */);
     }
 
+    @Override
+    public void onPackageChanged(String pkg, PackageState state) {
+        if (state == PackageState.PACKAGE_REMOVED
+                || state == PackageState.PACKAGE_CHANGED) {
+            final Context ctx = mContext;
+            final Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!ActionUtils.hasNavbarByDefault(ctx)) {
+                        ActionUtils.resolveAndUpdateButtonActions(ctx,
+                                ActionConstants
+                                        .getDefaults(ActionConstants.HWKEYS));
+                    }
+                }
+            });
+            thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+            thread.start();
+        }
+    }
+
     private boolean mDemoModeAllowed;
     private boolean mDemoMode;
 
@@ -3532,6 +3608,10 @@ public class StatusBar extends SystemUI implements DemoMode,
         mKeyguardIndicationController.showTransientIndication(R.string.phone_hint);
     }
 
+    public void onCustomHintStarted() {
+        mKeyguardIndicationController.showTransientIndication(R.string.custom_hint);
+    }
+
     public void onTrackingStopped(boolean expand) {
         if (mState == StatusBarState.KEYGUARD || mState == StatusBarState.SHADE_LOCKED) {
             if (!expand && !mUnlockMethodCache.canSkipBouncer()) {
@@ -3783,7 +3863,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             return;
         }
         if (!mNotificationPanel.canCameraGestureBeLaunched(
-                mStatusBarKeyguardViewManager.isShowing() && mExpandedVisible)) {
+                mStatusBarKeyguardViewManager.isShowing() && mExpandedVisible, source)) {
             if (DEBUG_CAMERA_LIFT) Slog.d(TAG, "Can't launch camera right now, mExpandedVisible: " +
                     mExpandedVisible);
             return;

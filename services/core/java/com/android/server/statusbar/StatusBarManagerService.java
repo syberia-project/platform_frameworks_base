@@ -425,13 +425,13 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
         }
 
         @Override
-        public boolean showShutdownUi(boolean isReboot, String reason) {
+        public boolean showShutdownUi(boolean isReboot, String reason, boolean rebootCustom) {
             if (!mContext.getResources().getBoolean(R.bool.config_showSysuiShutdown)) {
                 return false;
             }
             if (mBar != null) {
                 try {
-                    mBar.showShutdownUi(isReboot, reason);
+                    mBar.showShutdownUi(isReboot, reason, rebootCustom);
                     return true;
                 } catch (RemoteException ex) {}
             }
@@ -539,6 +539,66 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
             try {
                 mBar.animateExpandSettingsPanel(subPanel);
             } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void toggleRecentApps() {
+        enforceStatusBarService();
+
+        if (mBar != null) {
+            try {
+                mBar.toggleRecentApps();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void toggleSplitScreen() {
+        enforceStatusBarService();
+
+        if (mBar != null) {
+            try {
+                mBar.toggleSplitScreen();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void preloadRecentApps() {
+        enforceStatusBarService();
+
+        if (mBar != null) {
+            try {
+                mBar.preloadRecentApps();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void cancelPreloadRecentApps() {
+        enforceStatusBarService();
+
+        if (mBar != null) {
+            try {
+                mBar.cancelPreloadRecentApps();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void startAssist(Bundle args) {
+        enforceStatusBarService();
+
+        if (mBar != null) {
+            try {
+                mBar.startAssist(args);
+            } catch (RemoteException e) {
             }
         }
     }
@@ -680,6 +740,25 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
         if (mBar != null) {
             try {
                 mBar.toggleCameraFlashState(enable);
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    public void toggleCameraFlashOn() {
+        if (mBar != null) {
+            try {
+                mBar.toggleCameraFlashOn();
+            } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void toggleCameraFlashOff() {
+        if (mBar != null) {
+            try {
+                mBar.toggleCameraFlashOff();
             } catch (RemoteException ex) {
             }
         }
@@ -1146,7 +1225,7 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
      * Allows the status bar to reboot the device.
      */
     @Override
-    public void reboot(boolean safeMode) {
+    public void reboot(boolean safeMode, String reason) {
         enforceStatusBarService();
         long identity = Binder.clearCallingIdentity();
         try {
@@ -1155,8 +1234,7 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
                 if (safeMode) {
                     ShutdownThread.rebootSafeMode(getUiContext(), true);
                 } else {
-                    ShutdownThread.reboot(getUiContext(),
-                            PowerManager.SHUTDOWN_USER_REQUESTED, false);
+                    ShutdownThread.rebootCustom(getUiContext(), reason, false);
                 }
             });
         } finally {
