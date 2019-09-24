@@ -614,6 +614,31 @@ public class StatusBar extends SystemUI implements DemoMode,
     private ActivityIntentHelper mActivityIntentHelper;
     private ShadeController mShadeController;
 
+    private class StatusbarObserver extends ContentObserver {
+        StatusbarObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            if (mStatusBarWindow != null) {
+                mStatusBarWindow.updateSettings();
+            }
+        }
+    }
+
+    private StatusbarObserver mStatusbarObserver;
+
     @Override
     public void onActiveStateChanged(int code, int uid, String packageName, boolean active) {
         Dependency.get(MAIN_HANDLER).post(() -> {
@@ -799,6 +824,10 @@ public class StatusBar extends SystemUI implements DemoMode,
         int disabledFlags2 = result.mDisabledFlags2;
         Dependency.get(InitController.class).addPostInitTask(
                 () -> setUpDisableFlags(disabledFlags1, disabledFlags2));
+
+        mStatusbarObserver = new StatusbarObserver(mHandler);
+        mStatusbarObserver.observe();
+        mStatusbarObserver.update();
     }
 
     // ================================================================================
