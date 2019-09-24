@@ -711,8 +711,6 @@ public class AudioDeviceInventory {
                     + " due to command error " + res);
             return;
         }
-        // Reset A2DP suspend state each time a new sink is connected
-        AudioSystem.setParameters("A2dpSuspended=false");
         mConnectedDevices.put(
                 DeviceInfo.makeDeviceListKey(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP, address),
                 new DeviceInfo(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP, name,
