@@ -26,5 +26,11 @@
     <!-- advanced reboot system -->
     <string name="reboot_system_title">Перезагрузка системы</string>
     <string name="reboot_system_message">Перезагрузка системы\u2026</string>
+    
+    <!-- LiveDisplay strings -->
+    <string name="live_display_auto">Автоматический</string>
+    <string name="live_display_off">Выключен</string>
+    <string name="live_display_outdoor">На улице (яркое солнце)</string>
+
 </resources>
 
