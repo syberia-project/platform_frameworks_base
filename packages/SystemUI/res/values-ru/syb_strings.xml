@@ -34,4 +34,28 @@
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Проведите пальцем от иконки в сторону центра экрана</string>
+    
+    <!-- Reader mode QS tile -->
+    <string name="quick_settings_reading_mode">Режим чтения</string>
+    <string name="accessibility_quick_settings_reading_mode_on">Режим чтения вкл.</string>
+    <string name="accessibility_quick_settings_reading_mode_off">Режим чтения выкл.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_on">Режим чтения включен</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_off">Режим чтения выключен</string>
+
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Столбцы</string>
+    <string name="qs_menu_item_columns_landscape">Столбцы в альбомном режиме</string>
+    <string name="qs_menu_item_reset">Сброс</string>
+    <string name="qs_menu_item_titles">Показывать подписи</string>
+
+    <string name="omnijaws_service_error">Ошибка</string>
+    <string name="omnijaws_service_unkown">Нет данных о погоде</string>
+    <string name="omnijaws_service_error_long">Ошибка загрузки данных о погоде</string>
+    <string name="omnijaws_service_disabled">Сервис отключен</string>
+    <string name="omnijaws_detail_header">Погода</string>
+    <string name="omnijaws_label_default">Погода</string>
+    <string name="omnijaws_current_text">Сейчас</string>
+    <string name="omnijaws_package_not_available">OmniJaws осутствует</string>
+    <string name="omnijaws_service_last_update">Последнее обновление:</string>
+
 </resources>
