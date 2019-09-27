@@ -5088,6 +5088,14 @@ public final class Settings {
         private static final Validator DOUBLE_TAP_SLEEP_LOCKSCREEN_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
+        /**
+         * @hide
+         */
+        public static final String OMNI_SHOW_CPU_OVERLAY = "show_cpu_overlay";
+
+        /** @hide */
+        private static final Validator OMNI_SHOW_CPU_OVERLAY_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -5367,6 +5375,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(HEADS_UP_BLACKLIST_VALUES);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
+            PRIVATE_SETTINGS.add(OMNI_SHOW_CPU_OVERLAY);
         }
 
         /**
@@ -5517,6 +5526,8 @@ public final class Settings {
             VALIDATORS.put(HEADS_UP_BLACKLIST_VALUES, HEADS_UP_BLACKLIST_VALUES_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, DOUBLE_TAP_SLEEP_GESTURE_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, DOUBLE_TAP_SLEEP_LOCKSCREEN_VALIDATOR);
+            VALIDATORS.put(OMNI_SHOW_CPU_OVERLAY,
+                    OMNI_SHOW_CPU_OVERLAY_VALIDATOR);
         }
 
         /**
