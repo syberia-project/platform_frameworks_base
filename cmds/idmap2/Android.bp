@@ -16,7 +16,6 @@ cc_defaults {
     name: "idmap2_defaults",
     tidy: true,
     tidy_checks: [
-        "modernize-*",
         "-modernize-avoid-c-arrays",
         "-modernize-use-trailing-return-type",
         "android-*",
