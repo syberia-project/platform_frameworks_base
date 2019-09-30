@@ -206,4 +206,10 @@
          from using specific sensors in order to stop battery drain -->
     <java-symbol type="array" name="config_blockPackagesSensorDrain" />
 
+    <!-- Whether device has physical tri state switch -->
+    <java-symbol type="bool" name="config_hasAlertSlider" />
+
+    <!-- The location of the devices physical tri state switch -->
+    <java-symbol type="integer" name="config_alertSliderLocation" />
+
 </resources>
