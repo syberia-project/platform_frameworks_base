@@ -59,6 +59,14 @@
         android:title="@string/status_bar_vpn" />
 
     <com.android.systemui.tuner.StatusBarSwitch
+        android:key="roaming"
+        android:title="@string/status_bar_roaming" />
+
+    <com.android.systemui.tuner.StatusBarSwitch
+        android:key="data_saver"
+        android:title="@string/status_bar_data_saver" />
+
+    <com.android.systemui.tuner.StatusBarSwitch
         android:key="rotate"
         android:title="@string/status_bar_settings_auto_rotation" />
 

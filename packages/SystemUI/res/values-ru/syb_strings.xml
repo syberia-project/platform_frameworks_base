@@ -54,4 +54,7 @@
     <string name="qs_data_switch_changed_1">Используется SIM 1 для передачи данных</string>
     <string name="qs_data_switch_changed_2">Используется SIM 2 для передачи данных</string>
 
+    <string name="status_bar_data_saver">Экономия трафика</string>
+    <string name="status_bar_roaming">Роуминг</string>
+
 </resources>
