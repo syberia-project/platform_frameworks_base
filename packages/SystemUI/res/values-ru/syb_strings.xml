@@ -60,5 +60,6 @@
 
     <!-- StatusBar tuner icons -->
     <string name="status_bar_roaming">Роуминг</string>
+    <string name="status_bar_data_disabled">Крестик при отключенных данных</string>
 
 </resources>
