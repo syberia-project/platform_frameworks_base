@@ -55,6 +55,10 @@
         android:title="@string/quick_settings_cellular_detail_title" />
 
     <com.android.systemui.tuner.TunerSwitch
+        android:key="data_disabled"
+        android:title="@string/status_bar_data_disabled" />
+
+    <com.android.systemui.tuner.TunerSwitch
         android:key="volte"
         android:title="@string/status_bar_volte" />
 
