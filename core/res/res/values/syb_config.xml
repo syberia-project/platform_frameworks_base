@@ -100,6 +100,10 @@
 
     <!-- Component name of the combo network location provider. -->
     <string name="config_comboNetworkLocationProvider" translatable="false">@null</string>
+    
+    <!-- Controls the size of the back gesture bottom inset to
+         avoid conflicting with the navigation gesture area -->
+    <dimen name="config_backGestureBottomInset">@dimen/navigation_bar_frame_height</dimen>
 
 </resources>
 
