@@ -132,7 +132,7 @@ public class EdgeBackGestureHandler implements DisplayListener {
     private final int mFingerOffset;
 
 
-    private final int mNavBarHeight;
+    private final int mBottomInset;
 
     private final PointF mDownPoint = new PointF();
     private boolean mThresholdCrossed = false;
@@ -172,7 +172,7 @@ public class EdgeBackGestureHandler implements DisplayListener {
         mLongPressTimeout = Math.min(MAX_LONG_PRESS_TIMEOUT,
                 ViewConfiguration.getLongPressTimeout());
 
-        mNavBarHeight = res.getDimensionPixelSize(R.dimen.navigation_bar_frame_height);
+        mBottomInset = res.getDimensionPixelSize(com.android.internal.R.dimen.config_backGestureBottomInset);
         mMinArrowPosition = res.getDimensionPixelSize(R.dimen.navigation_edge_arrow_min_y);
         mFingerOffset = res.getDimensionPixelSize(R.dimen.navigation_edge_finger_offset);
         updateCurrentUserResources(res);
@@ -305,7 +305,7 @@ public class EdgeBackGestureHandler implements DisplayListener {
     }
 
     private boolean isWithinTouchRegion(int x, int y) {
-        if (y > (mDisplaySize.y - Math.max(mImeHeight, mNavBarHeight))) {
+        if (y > (mDisplaySize.y - Math.max(mImeHeight, mBottomInset))) {
             return false;
         }
 
