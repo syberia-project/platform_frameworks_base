@@ -5091,6 +5091,14 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String NAV_BAR_GESTURAL_HIDE_NAV = "nav_bar_gestural_hide_nav";
+
+        /** @hide */
+        private static final Validator NAV_BAR_GESTURAL_HIDE_NAV_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
+         */
         public static final String OMNI_SHOW_CPU_OVERLAY = "show_cpu_overlay";
 
         /** @hide */
@@ -5202,6 +5210,7 @@ public final class Settings {
             HEADS_UP_BLACKLIST_VALUES,
             DOUBLE_TAP_SLEEP_GESTURE,
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
+            NAV_BAR_GESTURAL_HIDE_NAV,
         };
 
         /**
@@ -5376,6 +5385,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
             PRIVATE_SETTINGS.add(OMNI_SHOW_CPU_OVERLAY);
+            PRIVATE_SETTINGS.add(NAV_BAR_GESTURAL_HIDE_NAV);
         }
 
         /**
@@ -5528,6 +5538,7 @@ public final class Settings {
             VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, DOUBLE_TAP_SLEEP_LOCKSCREEN_VALIDATOR);
             VALIDATORS.put(OMNI_SHOW_CPU_OVERLAY,
                     OMNI_SHOW_CPU_OVERLAY_VALIDATOR);
+            VALIDATORS.put(NAV_BAR_GESTURAL_HIDE_NAV, NAV_BAR_GESTURAL_HIDE_NAV_VALIDATOR);
         }
 
         /**
