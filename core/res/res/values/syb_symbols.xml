@@ -105,5 +105,5 @@
   <java-symbol type="bool" name="config_defaultAntiFlicker" />
 
     <!-- Whether to disable Night Light on Udfps keyguard -->
-    <bool name="config_udfpsDisableNightLight">false</bool>
+    <java-symbol type="bool" name="config_udfpsDisableNightLight" />
 </resources>
