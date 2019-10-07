@@ -102,5 +102,6 @@ public class SystemSettings {
         Settings.System.QS_SHOW_BATTERY_ESTIMATE,
         Settings.System.STATUS_BAR_BATTERY_STYLE,
         Settings.System.FULLSCREEN_GESTURES,
+        Settings.System.DOZE_ON_CHARGE,
     };
 }
