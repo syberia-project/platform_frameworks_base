@@ -53,8 +53,6 @@ import com.android.systemui.shared.system.ActivityManagerWrapper;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.util.NotificationChannels;
 
-import com.syberia.internal.util.NavBarUtils;
-
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -293,9 +291,6 @@ public class NavigationModeController implements Dumpable {
         if (mRestoreGesturalNavBarMode.get(userId)) {
             // Restore the gestural state if necessary
             setModeOverlay(NAV_BAR_MODE_GESTURAL_OVERLAY, USER_CURRENT);
-            if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
-                NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
-            }
             mRestoreGesturalNavBarMode.put(userId, false);
         }
     }
@@ -328,9 +323,6 @@ public class NavigationModeController implements Dumpable {
                 + " contextUser=" + mCurrentUserContext.getUserId());
 
         setModeOverlay(NAV_BAR_MODE_3BUTTON_OVERLAY, USER_CURRENT);
-        if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
-            NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, false);
-        }
         showNotification(mCurrentUserContext, R.string.notification_content_system_nav_changed);
         mCurrentUserContext.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
                 .edit().putBoolean(PREFS_SWITCHED_FROM_GESTURE_NAV_KEY, true).apply();
