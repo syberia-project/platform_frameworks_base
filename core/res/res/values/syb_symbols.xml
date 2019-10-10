@@ -105,7 +105,10 @@
     <java-symbol type="string" name="gaming_mode_enabled_toast" />
     <java-symbol type="string" name="gaming_mode_disabled_toast" />
 
-   <!-- Whether to show a custom view for FOD -->
-   <java-symbol type="bool" name="config_needCustomFODView" />
+    <!-- Whether to show a custom view for FOD -->
+    <java-symbol type="bool" name="config_needCustomFODView" />
+
+    <!-- Ambiant Pulse Light -->
+    <java-symbol type="integer" name="config_AmbiantPulseLightColor" />
 
 </resources>
