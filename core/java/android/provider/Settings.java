@@ -5379,6 +5379,7 @@ public final class Settings {
                 ANY_STRING_VALIDATOR;
 
         /**
+        /**
         * Really full 100 battery charging color
         * @hide
         */
@@ -5388,6 +5389,16 @@ public final class Settings {
                 ANY_STRING_VALIDATOR;
 
          /**
+         * Whether to show media art on lockscreen
+         * Boolean setting. 0 = off, 1 = on.
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
+
+        /** @hide */
+        public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5702,6 +5713,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_MEDIUM_COLOR);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_FULL_COLOR);
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_REALLYFULL_COLOR);
+            PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
         }
 
         /**
@@ -5871,6 +5883,7 @@ public final class Settings {
             VALIDATORS.put(BATTERY_LIGHT_MEDIUM_COLOR, BATTERY_LIGHT_MEDIUM_COLOR_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_FULL_COLOR, BATTERY_LIGHT_FULL_COLOR_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_REALLYFULL_COLOR, BATTERY_LIGHT_REALLYFULL_COLOR_VALIDATOR);
+            VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
         }
 
         /**
