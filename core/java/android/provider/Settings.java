@@ -5546,7 +5546,7 @@ public final class Settings {
          * @hide
          */
         public static final String WFD_LEGACY_VIDEO_MODE = "wfd_legacy_video_mode";
-        
+
         /**
          * Change quick settings tiles animation style
          *
@@ -5699,6 +5699,12 @@ public final class Settings {
          * @hide
          */
         public static final String RIGHT_VERTICAL_BACK_SWIPE_APP_ACTIVITY_ACTION = "right_vertical_back_swipe_app_activity_action";
+
+        /**
+        * Use doubletap as doze pulse triggers
+        * @hide
+        */
+        public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
