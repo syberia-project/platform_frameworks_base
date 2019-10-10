@@ -190,7 +190,6 @@ public final class Choreographer {
     private int mMotionEventType = -1;
     private boolean mConsumedMove = false;
     private boolean mConsumedDown = false;
-    private boolean mIsVsyncScheduled = false;
     /**
      * Contains information about the current frame for jank-tracking,
      * mainly timings of key events along with a bit of metadata about
@@ -641,43 +640,38 @@ public final class Choreographer {
         if (!mFrameScheduled) {
             mFrameScheduled = true;
             if (OPTS_INPUT) {
-                if ((!mIsVsyncScheduled) &&
-                    ((System.nanoTime() - mLastFrameTimeNanos) > mFrameIntervalNanos)) {
-                    Trace.traceBegin(Trace.TRACE_TAG_VIEW, "scheduleFrameLocked-mMotionEventType:"
-                                     + mMotionEventType + " mTouchMoveNum:" + mTouchMoveNum
-                                     + " mConsumedDown:" + mConsumedDown + " mConsumedMove:"
-                                     + mConsumedMove);
-                    Trace.traceEnd(Trace.TRACE_TAG_VIEW);
-                    synchronized(this) {
-                        switch(mMotionEventType) {
-                            case MOTION_EVENT_ACTION_DOWN:
-                                mConsumedMove = false;
-                                if (!mConsumedDown) {
-                                    Message msg = mHandler.obtainMessage(MSG_DO_FRAME);
-                                    msg.setAsynchronous(true);
-                                    mHandler.sendMessageAtFrontOfQueue(msg);
-                                    mConsumedDown = true;
-                                    return;
-                                }
-                                break;
-                            case MOTION_EVENT_ACTION_MOVE:
-                                mConsumedDown = false;
-                                if ((mTouchMoveNum == 1) && !mConsumedMove) {
-                                    Message msg = mHandler.obtainMessage(MSG_DO_FRAME);
-                                    msg.setAsynchronous(true);
-                                    mHandler.sendMessageAtFrontOfQueue(msg);
-                                    mConsumedMove = true;
-                                    return;
-                                }
-                                break;
-                            case MOTION_EVENT_ACTION_UP:
-                            case MOTION_EVENT_ACTION_CANCEL:
-                                mConsumedMove = false;
-                                mConsumedDown = false;
-                                break;
-                            default:
-                                break;
-                        }
+                Trace.traceBegin(Trace.TRACE_TAG_VIEW, "scheduleFrameLocked-mMotionEventType:" + mMotionEventType + " mTouchMoveNum:" + mTouchMoveNum
+                                    + " mConsumedDown:" + mConsumedDown + " mConsumedMove:" + mConsumedMove);
+                Trace.traceEnd(Trace.TRACE_TAG_VIEW);
+                synchronized(this) {
+                    switch(mMotionEventType) {
+                        case MOTION_EVENT_ACTION_DOWN:
+                            mConsumedMove = false;
+                            if (!mConsumedDown) {
+                                Message msg = mHandler.obtainMessage(MSG_DO_FRAME);
+                                msg.setAsynchronous(true);
+                                mHandler.sendMessageAtFrontOfQueue(msg);
+                                mConsumedDown = true;
+                                return;
+                            }
+                            break;
+                        case MOTION_EVENT_ACTION_MOVE:
+                            mConsumedDown = false;
+                            if ((mTouchMoveNum == 1) && !mConsumedMove) {
+                                Message msg = mHandler.obtainMessage(MSG_DO_FRAME);
+                                msg.setAsynchronous(true);
+                                mHandler.sendMessageAtFrontOfQueue(msg);
+                                mConsumedMove = true;
+                                return;
+                            }
+                            break;
+                        case MOTION_EVENT_ACTION_UP:
+                        case MOTION_EVENT_ACTION_CANCEL:
+                            mConsumedMove = false;
+                            mConsumedDown = false;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -719,7 +713,6 @@ public final class Choreographer {
     void doFrame(long frameTimeNanos, int frame) {
         final long startNanos;
         synchronized (mLock) {
-            mIsVsyncScheduled = false;
             if (!mFrameScheduled) {
                 return; // no work to do
             }
@@ -886,7 +879,6 @@ public final class Choreographer {
     @UnsupportedAppUsage
     private void scheduleVsyncLocked() {
         mDisplayEventReceiver.scheduleVsync();
-        mIsVsyncScheduled = true;
     }
 
     private boolean isRunningOnLooperThreadLocked() {
