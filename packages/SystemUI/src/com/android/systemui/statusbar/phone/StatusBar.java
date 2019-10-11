@@ -650,11 +650,11 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private void updateNavigationBarVisibility() {
         if (mDisplayId == Display.DEFAULT_DISPLAY && mWindowManagerService != null) {
-            boolean forcedVisibility = mNeedsNavigationBar || Settings.System.getIntForUser(
+            boolean wantsNavbar = mNeedsNavigationBar && Settings.System.getIntForUser(
                 mContext.getContentResolver(), Settings.System.FORCE_SHOW_NAVBAR,
-                 0, UserHandle.USER_CURRENT) == 1;
+                 1, UserHandle.USER_CURRENT) == 1;
             boolean hasNavbar = getNavigationBarView() != null;
-            if (forcedVisibility) {
+            if (wantsNavbar) {
                 if (!hasNavbar) {
                     mNavigationBarController.onDisplayReady(mDisplayId,
                             mNavigationBarSystemUiVisibility);
