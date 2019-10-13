@@ -25,6 +25,12 @@ LOCAL_REQUIRED_MODULES := \
     DisplayCutoutEmulationHoleOverlay \
 	DisplayCutoutEmulationTallOverlay \
 	DisplayCutoutEmulationWaterfallOverlay \
+	FontAclonicaSourceOverlay \
+	FontAmaranteSourceOverlay \
+	FontBariolSourceOverlay \
+	FontCagliostroSourceOverlay \
+	FontCoolstorySourceOverlay \
+	FontLGSmartGothicSourceOverlay \
 	FontNotoSerifSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
@@ -56,6 +62,9 @@ LOCAL_REQUIRED_MODULES := \
 	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
 	IconPackRoundedThemePickerOverlay \
+	FontRosemarySourceOverlay \
+	FontSonySketchSourceOverlay \
+	FontSurferSourceOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
