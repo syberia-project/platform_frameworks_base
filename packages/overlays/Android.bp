@@ -90,7 +90,16 @@ phony {
         "IconShapeStretchedOverlay",
         "IconPackOutlineAndroidOverlay",
         "IconPackOutlineSettingsOverlay",
-        "IconPackOutlineSystemUIOverlay"
+        "IconPackOutlineSystemUIOverlay",
+        "FontAclonicaSourceOverlay",
+        "FontAmaranteSourceOverlay",
+        "FontBariolSourceOverlay",
+        "FontCagliostroSourceOverlay",
+        "FontCoolstorySourceOverlay",
+        "FontLGSmartGothicSourceOverlay",
+        "FontRosemarySourceOverlay",
+        "FontSonySketchSourceOverlay",
+        "FontSurferSourceOverlay"
     ],
 }
 
