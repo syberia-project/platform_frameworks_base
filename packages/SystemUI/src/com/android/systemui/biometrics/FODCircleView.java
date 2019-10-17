@@ -125,16 +125,7 @@ public class FODCircleView extends ImageView implements OnTouchListener, Configu
             super.onDreamingStateChanged(dreaming);
             mIsDreaming = dreaming;
             mIsInsideCircle = false;
-            if (dreaming) {
-                mBurnInProtectionTimer = new Timer();
-                mBurnInProtectionTimer.schedule(new BurnInProtectionTask(), 0, 60 * 1000);
-            } else if (mBurnInProtectionTimer != null) {
-                mBurnInProtectionTimer.cancel();
-            }
-            if (mIsViewAdded) {
-                resetPosition();
-                invalidate();
-            }
+            setIcon();
         }
 
         @Override
@@ -145,6 +136,7 @@ public class FODCircleView extends ImageView implements OnTouchListener, Configu
                 mIsDreaming = false;
 	    }
             mIsInsideCircle = false;
+            setIcon();
         }
 
         @Override
@@ -485,7 +477,7 @@ public class FODCircleView extends ImageView implements OnTouchListener, Configu
                 throw new IllegalArgumentException("Unknown rotation: " + rotation);
         }
 
-        if (mIsDreaming) {
+        if (mIsDreaming && !mIsPulsing) {
             mParams.x += mDreamingOffsetX;
             mParams.y += mDreamingOffsetY;
         }
@@ -524,6 +516,20 @@ public class FODCircleView extends ImageView implements OnTouchListener, Configu
             mWindowManager.updateViewLayout(this, mParams);
         } catch (IllegalArgumentException e) {
             // do nothing
+        }
+    }
+
+    private void setIcon() {
+        if (mIsDreaming) {
+            mBurnInProtectionTimer = new Timer();
+            mBurnInProtectionTimer.schedule(new BurnInProtectionTask(), 0, 60 * 1000);
+        } else if (mBurnInProtectionTimer != null) {
+            mBurnInProtectionTimer.cancel();
+        }
+
+        if (mIsViewAdded) {
+            resetPosition();
+            invalidate();
         }
     }
 
