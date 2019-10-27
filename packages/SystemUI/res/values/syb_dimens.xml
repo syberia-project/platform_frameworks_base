@@ -32,4 +32,7 @@
     <!-- Sets a custom extra padding for the QS icons and statusbar date -->
     <dimen name="qs_items_padding">8dp</dimen>
 
+    <!-- Width of the battery icon in the status bar when set to circle style. -->
+    <dimen name="status_bar_battery_icon_circle_width">14.5dp</dimen>
+
 </resources>
