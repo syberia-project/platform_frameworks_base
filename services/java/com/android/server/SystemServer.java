@@ -505,6 +505,8 @@ public final class SystemServer implements Dumpable {
     /** Start the ISensorManager service. This is a blocking call and can take time. */
     private static native void startISensorManagerService();
 
+    public boolean safeMode = false;
+
     /**
      * Start the memtrack proxy service.
      */
@@ -1712,7 +1714,10 @@ public final class SystemServer implements Dumpable {
 
         // Before things start rolling, be sure we have decided whether
         // we are in safe mode.
-        final boolean safeMode = wm.detectSafeMode();
+
+        if(wm != null) {
+            safeMode = wm.detectSafeMode();
+        }
         if (safeMode) {
             // If yes, immediately turn on the global setting for airplane mode.
             // Note that this does not send broadcasts at this stage because
