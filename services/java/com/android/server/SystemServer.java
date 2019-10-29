@@ -162,6 +162,7 @@ import com.android.server.os.SchedulingPolicyService;
 import com.android.server.people.PeopleService;
 import com.android.server.permission.access.AccessCheckingService;
 import com.android.server.pocket.PocketService;
+import com.android.server.pocket.PocketBridgeService;
 import com.android.server.pm.ApexManager;
 import com.android.server.pm.ApexSystemServiceInfo;
 import com.android.server.pm.BackgroundInstallControlService;
@@ -2569,7 +2570,7 @@ public final class SystemServer implements Dumpable {
             mSystemServiceManager.startService(CrossProfileAppsService.class);
             t.traceEnd();
 
-            traceBeginAndSlog("StartPocketService");
+            t.traceBegin("StartPocketService");
             mSystemServiceManager.startService(PocketService.class);
             t.traceEnd();
 
@@ -2584,6 +2585,13 @@ public final class SystemServer implements Dumpable {
             t.traceBegin("StartBackgroundInstallControlService");
             mSystemServiceManager.startService(BackgroundInstallControlService.class);
             t.traceEnd();
+
+            if (!context.getResources().getString(
+                    com.android.internal.R.string.config_pocketBridgeSysfsInpocket).isEmpty()) {
+                t.traceBegin("StartPocketBridgeService");
+                mSystemServiceManager.startService(PocketBridgeService.class);
+                t.traceEnd();
+            }
         }
 
         t.traceBegin("StartMediaProjectionManager");
