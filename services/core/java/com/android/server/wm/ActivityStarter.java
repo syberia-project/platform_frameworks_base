@@ -188,6 +188,7 @@ class ActivityStarter {
     private boolean mNoAnimation;
     private boolean mKeepCurTransition;
     private boolean mAvoidMoveToFront;
+    private boolean mFrozeTaskList;
 
     // We must track when we deliver the new intent since multiple code paths invoke
     // {@link #deliverNewIntent}. This is due to early returns in the code path. This flag is used
@@ -487,6 +488,7 @@ class ActivityStarter {
         mNoAnimation = starter.mNoAnimation;
         mKeepCurTransition = starter.mKeepCurTransition;
         mAvoidMoveToFront = starter.mAvoidMoveToFront;
+        mFrozeTaskList = starter.mFrozeTaskList;
 
         mVoiceSession = starter.mVoiceSession;
         mVoiceInteractor = starter.mVoiceInteractor;
@@ -1097,6 +1099,14 @@ class ActivityStarter {
 
     void postStartActivityProcessing(ActivityRecord r, int result,
             ActivityStack startedActivityStack) {
+        if (!ActivityManager.isStartResultSuccessful(result)) {
+            if (mFrozeTaskList) {
+                // If we specifically froze the task list as part of starting an activity, then
+                // reset the frozen list state if it failed to start. This is normally otherwise
+                // called when the freeze-timeout has elapsed.
+                mSupervisor.mRecentTasks.resetFreezeTaskListReorderingOnTimeout();
+            }
+        }
         if (ActivityManager.isStartResultFatalError(result)) {
             return;
         }
@@ -1489,6 +1499,14 @@ class ActivityStarter {
                 mLaunchParams.hasPreferredDisplay() ? mLaunchParams.mPreferredDisplayId
                         : DEFAULT_DISPLAY;
 
+        // If requested, freeze the task list
+        if (mOptions != null && mOptions.freezeRecentTasksReordering()
+                && mSupervisor.mRecentTasks.isCallerRecents(r.launchedFromUid)
+                && !mSupervisor.mRecentTasks.isFreezeTaskListReorderingSet()) {
+            mFrozeTaskList = true;
+            mSupervisor.mRecentTasks.setFreezeTaskListReordering();
+        }
+
         // Do not start home activity if it cannot be launched on preferred display. We are not
         // doing this in ActivityStackSupervisor#canPlaceEntityOnDisplay because it might
         // fallback to launch on other displays.
@@ -1785,6 +1803,7 @@ class ActivityStarter {
         mNoAnimation = false;
         mKeepCurTransition = false;
         mAvoidMoveToFront = false;
+        mFrozeTaskList = false;
 
         mVoiceSession = null;
         mVoiceInteractor = null;
@@ -1989,8 +2008,8 @@ class ActivityStarter {
             // Also put noDisplay activities in the source task. These by itself can be placed
             // in any task/stack, however it could launch other activities like ResolverActivity,
             // and we want those to stay in the original task.
-            if ((mStartActivity.isResolverActivity() || mStartActivity.noDisplay) && mSourceRecord != null
-                    && mSourceRecord.inFreeformWindowingMode())  {
+            if ((mStartActivity.isResolverOrDelegateActivity() || mStartActivity.noDisplay)
+                    && mSourceRecord != null && mSourceRecord.inFreeformWindowingMode()) {
                 mAddingToTask = true;
             }
         }
@@ -2317,12 +2336,12 @@ class ActivityStarter {
         // isLockTaskModeViolation fails below.
 
         if (mReuseTask == null) {
+            final boolean toTop = !mLaunchTaskBehind && !mAvoidMoveToFront;
             final TaskRecord task = mTargetStack.createTaskRecord(
                     mSupervisor.getNextTaskIdForUserLocked(mStartActivity.mUserId),
                     mNewTaskInfo != null ? mNewTaskInfo : mStartActivity.info,
                     mNewTaskIntent != null ? mNewTaskIntent : mIntent, mVoiceSession,
-                    mVoiceInteractor, !mLaunchTaskBehind /* toTop */, mStartActivity, mSourceRecord,
-                    mOptions);
+                    mVoiceInteractor, toTop, mStartActivity, mSourceRecord, mOptions);
             addOrReparentStartingActivity(task, "setTaskFromReuseOrCreateNewTask - mReuseTask");
             updateBounds(mStartActivity.getTaskRecord(), mLaunchParams.mBounds);
 
