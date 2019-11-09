@@ -1309,7 +1309,7 @@ public class NotificationPanelView extends PanelView implements
             mConflictingQsExpansionGesture = false;
         }
         if (action == MotionEvent.ACTION_DOWN && isFullyCollapsed()
-                && mQsExpansionEnabled) {
+                && mQsExpansionEnabled && !isQsSecureExpandDisabled()) {
             mTwoFingerQsExpandPossible = true;
         }
         if (mTwoFingerQsExpandPossible && isOpenQsEvent(event)
@@ -1519,8 +1519,8 @@ public class NotificationPanelView extends PanelView implements
         mLastOverscroll = 0f;
         mQsExpansionFromOverscroll = false;
         setQsExpansion(mQsExpansionHeight);
-        flingSettings(!mQsExpansionEnabled && open ? 0f : velocity,
-                open && mQsExpansionEnabled ? FLING_EXPAND : FLING_COLLAPSE,
+        flingSettings((!mQsExpansionEnabled || isQsSecureExpandDisabled()) && open ? 0f : velocity,
+                open && (mQsExpansionEnabled && !isQsSecureExpandDisabled()) ? FLING_EXPAND : FLING_COLLAPSE,
                 new Runnable() {
                     @Override
                     public void run() {
@@ -2540,7 +2540,7 @@ public class NotificationPanelView extends PanelView implements
         if (mQsExpanded) {
             flingSettings(0 /* vel */, FLING_COLLAPSE, null /* onFinishRunnable */,
                     true /* isClick */);
-        } else if (mQsExpansionEnabled) {
+        } else if (mQsExpansionEnabled && !isQsSecureExpandDisabled()) {
             mLockscreenGestureLogger.write(MetricsEvent.ACTION_SHADE_QS_TAP, 0, 0);
             flingSettings(0 /* vel */, FLING_EXPAND, null /* onFinishRunnable */,
                     true /* isClick */);
