@@ -2,6 +2,12 @@
 <resources>
     <!-- Weather condition icon  -->
     <dimen name="weather_icon_size">24dp</dimen>
+
+    <!-- Weather tile forecast icons  -->
+    <dimen name="ForecastImageSize">50dp</dimen>
+    <dimen name="TemperatureTextMarginTop">5dp</dimen>
+    <dimen name="ForecastItemsMarginVertical">10dp</dimen>
+
     <dimen name="analog_clock_width">100dp</dimen>
     <dimen name="analog_clock_height">100dp</dimen>
     <dimen name="digital_clock_two_line_spacing">-10dp</dimen>
