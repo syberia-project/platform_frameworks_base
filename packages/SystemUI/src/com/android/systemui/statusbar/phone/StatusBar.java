@@ -3951,6 +3951,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.SHOW_BACK_ARROW_GESTURE),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -3966,6 +3969,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setGamingMode();
             updateDoubleTapGestures();
             setPulseOnNewTracks();
+            setHideArrowForBackGesture();
         }
     }
 
@@ -4001,6 +4005,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.GAMING_MODE_HEADSUP_TOGGLE, 1,
                 UserHandle.USER_CURRENT) == 1;
         mNotificationInterruptionStateProvider.setGamingPeekMode(mGamingModeActivated && mHeadsUpDisabled);
+    }
+
+    private void setHideArrowForBackGesture() {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().updateBackArrowForGesture();
+        }
     }
 
     public int getWakefulnessState() {
