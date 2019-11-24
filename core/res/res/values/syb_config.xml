@@ -19,7 +19,7 @@
     <!-- The list of components which should be forced to be enabled. -->
     <string-array name="config_forceEnabledComponents" translatable="false">
     </string-array>
-
+  
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
     <bool name="config_notifyClientOnFingerprintCancelSuccess">false</bool>
 
@@ -53,6 +53,9 @@
 
     <!-- Whether device has dash charging support -->
     <bool name="config_hasDashCharger">false</bool>
+
+    <!-- Whether to setup scaled brightness or not -->
+    <bool name="config_Scalebrightness">false</bool>
 
     <!-- Button backlight -->
     <integer name="config_buttonBrightnessSettingDefault">255</integer>

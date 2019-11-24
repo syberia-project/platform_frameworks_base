@@ -33,7 +33,8 @@ public class LightsService extends SystemService {
     static final boolean DEBUG = false;
 
     final LightImpl mLights[] = new LightImpl[LightsManager.LIGHT_ID_COUNT];
-
+    private final Context mContext;
+    private final boolean mScaleBrightness;
     private final class LightImpl extends Light {
 
         private final IBinder mDisplayToken;
@@ -89,7 +90,12 @@ public class LightsService extends SystemService {
                 } else {
                     int color = brightness & 0x000000ff;
                     color = 0xff000000 | (color << 16) | (color << 8) | color;
+                    if(mScaleBrightness){
+                      setLightLocked(brightness * 2047 / 255, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
+                    }
+                   else{
                     setLightLocked(color, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
+                    }
                 }
             }
         }
@@ -206,10 +212,12 @@ public class LightsService extends SystemService {
 
     public LightsService(Context context) {
         super(context);
-
+        mContext = context;
         for (int i = 0; i < LightsManager.LIGHT_ID_COUNT; i++) {
             mLights[i] = new LightImpl(context, i);
         }
+       mScaleBrightness= mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_Scalebrightness);
     }
 
     @Override
