@@ -194,6 +194,9 @@ public class NavigationModeController implements Dumpable {
                 + mCurrentUserContext.getUserId());
 
         setModeOverlay(NAV_BAR_MODE_GESTURAL_OVERLAY, USER_CURRENT);
+        if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
+                NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
+        }
         return true;
     }
 
@@ -371,15 +374,15 @@ public class NavigationModeController implements Dumpable {
                     || mCurrentUserContext.getSystemService(DevicePolicyManager.class)
                     .getUserProvisioningState() == STATE_USER_UNMANAGED) {
                 setGestureModeOverlayForMainLauncher();
-                if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
-                    NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
-                }
             } else {
                 if (DEBUG) {
                     Log.d(TAG, "Not restoring to gesture nav for managed user");
                 }
             }
             mRestoreGesturalNavBarMode.put(userId, false);
+            if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
+                NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
+            }
         }
     }
 
