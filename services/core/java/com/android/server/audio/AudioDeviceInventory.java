@@ -319,14 +319,9 @@ public class AudioDeviceInventory {
                 return;
             }
 
-            boolean wasMuted = false;
 
             if (event == BtHelper.EVENT_ACTIVE_DEVICE_CHANGE) {
                 // Device is connected
-
-                Log.i(TAG, "Mute the stream before reconfigure");
-                mDeviceBroker.postAccessoryPlugMediaMute(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP);
-                wasMuted = true;
 
                 if (a2dpVolume != -1) {
                     mDeviceBroker.postSetVolumeIndexOnDevice(AudioSystem.STREAM_MUSIC,
@@ -352,7 +347,7 @@ public class AudioDeviceInventory {
                         -1 /* a2dpVolume */);
             }
 
-            if (wasMuted && event == BtHelper.EVENT_ACTIVE_DEVICE_CHANGE) {
+            if (event == BtHelper.EVENT_ACTIVE_DEVICE_CHANGE) {
                 Log.i(TAG, "Unmute the stream after reconfigure");
                 mDeviceBroker.postAccessoryPlugMediaUnmute(AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP);
             }

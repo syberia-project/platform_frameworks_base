@@ -278,7 +278,6 @@ public class AudioService extends IAudioService.Stub
     private static final int MSG_OBSERVE_DEVICES_FOR_ALL_STREAMS = 27;
     private static final int MSG_HDMI_VOLUME_CHECK = 28;
     private static final int MSG_PLAYBACK_CONFIG_CHANGE = 29;
-    private static final int MSG_ACCESSORY_PLUG_MEDIA_MUTE = 30;
     // start of messages handled under wakelock
     //   these messages can only be queued, i.e. sent with queueMsgUnderWakeLock(),
     //   and not with sendMsg(..., ..., SENDMSG_QUEUE, ...)
@@ -4620,11 +4619,6 @@ public class AudioService extends IAudioService.Stub
                 newDevice, 0, null, 0);
     }
 
-    /*package*/ void postAccessoryPlugMediaMute(int newDevice) {
-        sendMsg(mAudioHandler, MSG_ACCESSORY_PLUG_MEDIA_MUTE, SENDMSG_QUEUE,
-                newDevice, 0, null, 0);
-    }
-
     private void onAccessoryPlugMediaUnmute(int newDevice) {
         if (DEBUG_VOL) {
             Log.i(TAG, String.format("onAccessoryPlugMediaUnmute newDevice=%d [%s]",
@@ -4641,24 +4635,6 @@ public class AudioService extends IAudioService.Stub
                         newDevice, AudioSystem.getOutputDeviceName(newDevice)));
             }
             mStreamStates[AudioSystem.STREAM_MUSIC].mute(false);
-        }
-    }
-
-    private void onAccessoryPlugMediaMute(int newDevice) {
-
-       if (DEBUG_VOL) {
-            Log.i(TAG, String.format("onAccessoryPlugMediaMute newDevice=%d [%s]",
-                    newDevice, AudioSystem.getOutputDeviceName(newDevice)));
-       }
-        if (mNm.getZenMode() != Settings.Global.ZEN_MODE_NO_INTERRUPTIONS
-                && (newDevice & DEVICE_MEDIA_UNMUTED_ON_PLUG) != 0
-                && !mStreamStates[AudioSystem.STREAM_MUSIC].mIsMuted
-                && (newDevice & AudioSystem.getDevicesForStream(AudioSystem.STREAM_MUSIC)) != 0) {
-            if (DEBUG_VOL) {
-                Log.i(TAG, String.format(" onAccessoryPlugMediaMute muting device=%d [%s]",
-                        newDevice, AudioSystem.getOutputDeviceName(newDevice)));
-            }
-            mStreamStates[AudioSystem.STREAM_MUSIC].mute(true);
         }
     }
 
@@ -5647,10 +5623,6 @@ public class AudioService extends IAudioService.Stub
 
                 case MSG_ACCESSORY_PLUG_MEDIA_UNMUTE:
                     onAccessoryPlugMediaUnmute(msg.arg1);
-                    break;
-
-                case MSG_ACCESSORY_PLUG_MEDIA_MUTE:
-                    onAccessoryPlugMediaMute(msg.arg1);
                     break;
 
                 case MSG_PERSIST_MUSIC_ACTIVE_MS:
