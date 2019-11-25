@@ -414,10 +414,6 @@ import com.android.internal.annotations.GuardedBy;
         mAudioService.postAccessoryPlugMediaUnmute(device);
     }
 
-    /*package*/ void postAccessoryPlugMediaMute(int device) {
-        mAudioService.postAccessoryPlugMediaMute(device);
-    }
-
     /*package*/ int getVssVolumeForDevice(int streamType, int device) {
         return mAudioService.getVssVolumeForDevice(streamType, device);
     }
