@@ -357,6 +357,10 @@
     <protected-broadcast android:name="com.android.systemui.action.ACTION_LAUNCH_MEDIA_OUTPUT_BROADCAST_DIALOG" />
     <protected-broadcast android:name="com.android.systemui.STARTED" />
 
+    <!-- DataSwitch tile -->
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+
+    <!-- Custom permissions -->
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
 
     <!-- Smartspace -->
