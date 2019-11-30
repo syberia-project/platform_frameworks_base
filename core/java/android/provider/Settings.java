@@ -5726,15 +5726,20 @@ public final class Settings {
          * Whether to show media album art on keyguard
          * @hide
          */
-        @Readable
         public static final String KEYGAURD_MEDIA_ART = "keygaurd_media_art";
 
         /**
          * Whether to show battery estimates in QS
          * @hide
          */
-        @Readable
         public static final String QS_SHOW_BATTERY_ESTIMATE = "qs_show_battery_estimate";
+
+        /**
+         * Style of battery to show.
+         *
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to

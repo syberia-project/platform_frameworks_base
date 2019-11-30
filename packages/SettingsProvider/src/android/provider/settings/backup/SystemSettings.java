@@ -100,5 +100,6 @@ public class SystemSettings {
         Settings.System.FLASHLIGHT_ON_CALL_RATE,
         Settings.System.KEYGAURD_MEDIA_ART,
         Settings.System.QS_SHOW_BATTERY_ESTIMATE,
+        Settings.System.STATUS_BAR_BATTERY_STYLE,
     };
 }

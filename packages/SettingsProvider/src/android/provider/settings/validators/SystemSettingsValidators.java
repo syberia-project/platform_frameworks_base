@@ -218,5 +218,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.FLASHLIGHT_ON_CALL_RATE, new InclusiveIntegerRangeValidator(1, 5));
         VALIDATORS.put(System.KEYGAURD_MEDIA_ART, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.QS_SHOW_BATTERY_ESTIMATE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.STATUS_BAR_BATTERY_STYLE, new InclusiveIntegerRangeValidator(0, 2));
     }
 }
