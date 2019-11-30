@@ -70,6 +70,15 @@
         android:key="zen"
         android:title="@string/quick_settings_dnd_label" />
 
+    <com.android.systemui.tuner.StatusBarSwitch
+        android:icon="@*android:drawable/ic_battery"
+        android:key="battery"
+        android:title="@string/battery" />
+
+    <com.android.systemui.tuner.StatusBarSwitch
+        android:key="alarm_clock"
+        android:title="@string/status_bar_alarm" />
+
     <!-- secure -->
 
     <com.android.systemui.tuner.StatusBarSwitch
