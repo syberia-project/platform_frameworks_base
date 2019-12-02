@@ -373,7 +373,7 @@ public class NotificationInterruptionStateProvider {
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("messaging") ||
                 notificationPackageName.contains("clock");
-        return mLessBoringHeadsUp && mSkipHeadsUp && !isImportantHeadsUp;
+        return (mLessBoringHeadsUp || mSkipHeadsUp) && !isImportantHeadsUp;
     }
 
     /**
