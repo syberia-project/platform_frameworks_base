@@ -61,6 +61,7 @@
     <!-- StatusBar tuner icons -->
     <string name="status_bar_roaming">Роуминг</string>
     <string name="status_bar_data_disabled">Крестик при отключенных данных</string>
+    <string name="status_bar_location">Местоположение</string>
 
     <!-- Caffeine QS tile -->
     <string name="quick_settings_caffeine_label">Кофеин</string>
