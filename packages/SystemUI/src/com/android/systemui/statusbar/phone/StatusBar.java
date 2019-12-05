@@ -635,34 +635,6 @@ public class StatusBar extends SystemUI implements DemoMode,
     private ActivityIntentHelper mActivityIntentHelper;
     private ShadeController mShadeController;
 
-    private class StatusbarObserver extends ContentObserver {
-        StatusbarObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
-                    false, this, UserHandle.USER_ALL);
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
-                    false, this, UserHandle.USER_ALL);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            update();
-        }
-
-        public void update() {
-            if (mStatusBarWindow != null) {
-                mStatusBarWindow.updateSettings();
-            }
-        }
-    }
-
-    private StatusbarObserver mStatusbarObserver;
-
     @Override
     public void onActiveStateChanged(int code, int uid, String packageName, boolean active) {
         Dependency.get(MAIN_HANDLER).post(() -> {
@@ -852,9 +824,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         Dependency.get(InitController.class).addPostInitTask(
                 () -> setUpDisableFlags(disabledFlags1, disabledFlags2));
 
-        mStatusbarObserver = new StatusbarObserver(mHandler);
-        mStatusbarObserver.observe();
-        mStatusbarObserver.update();
     }
 
     // ================================================================================
@@ -3933,6 +3902,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.GAMING_MODE_HEADSUP_TOGGLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -3943,9 +3918,15 @@ public class StatusBar extends SystemUI implements DemoMode,
             setHeadsUpBlacklist();
             setUseLessBoringHeadsUp();
             setGamingMode();
+            updateDoubleTapGestures();
         }
     }
 
+    private void updateDoubleTapGestures() {
+        if (mStatusBarWindow != null) {
+            mStatusBarWindow.updateSettings();
+        }
+    }
 
     private void setHeadsUpStoplist() {
         if (mPresenter != null)
