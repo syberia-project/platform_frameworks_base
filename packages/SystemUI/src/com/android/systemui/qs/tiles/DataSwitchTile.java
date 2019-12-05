@@ -40,6 +40,7 @@ import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.logging.QSLogger;
+import com.android.systemui.qs.pipeline.domain.interactor.PanelInteractor;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -54,6 +55,8 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
     private MyCallStateListener mPhoneStateListener;
     private boolean mRegistered = false;
     private int mSimCount = 0;
+    private final PanelInteractor mPanelInteractor;
+
     BroadcastReceiver mSimReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "mSimReceiver:onReceive");
@@ -73,6 +76,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
         }
     }
 
+
     @Inject
     public DataSwitchTile(
             QSHost host,
@@ -83,13 +87,15 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
             MetricsLogger metricsLogger,
             StatusBarStateController statusBarStateController,
             ActivityStarter activityStarter,
-            QSLogger qsLogger
+            QSLogger qsLogger,
+            PanelInteractor panelInteractor
     ) {
         super(host, uiEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
         mSubscriptionManager = SubscriptionManager.from(host.getContext());
         mTelephonyManager = TelephonyManager.from(host.getContext());
         mPhoneStateListener = new MyCallStateListener();
+        mPanelInteractor = panelInteractor;
     }
 
     @Override
@@ -156,6 +162,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
                     mContext.getString(R.string.qs_data_switch_toast_1),
                     Toast.LENGTH_LONG).show();
         } else {
+            mPanelInteractor.collapsePanels();
             AsyncTask.execute(new Runnable() {
                 public final void run() {
                     toggleMobileDataEnabled();
