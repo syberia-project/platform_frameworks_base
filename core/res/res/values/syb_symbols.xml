@@ -74,8 +74,11 @@
     <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
     <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
 
-    <!-- Whether device has dash charging support -->
-    <java-symbol type="bool" name="config_hasDashCharger" />
+  <!-- Whether device has dash charging support -->
+  <java-symbol type="bool" name="config_hasDashCharger" />
+
+  <!-- Whether device has warp charging support -->
+  <java-symbol type="bool" name="config_hasWarpCharger" />
 
   <!-- LiveDisplay -->
   <java-symbol type="string" name="live_display_title" />
