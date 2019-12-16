@@ -6588,6 +6588,17 @@ public final class Settings {
         public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
 
         /**
+         * Whether to blink flashlight for incoming calls
+         * 0 = Disabled (Default)
+         * 1 = Blink flashlight only in Ringer mode
+         * 2 = Blink flashlight only when ringer is not audible
+         * 3 = Blink flashlight always regardless of ringer mode
+         * @hide
+         */
+        @Readable
+        public static final String FLASHLIGHT_ON_CALL = "flashlight_on_call";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -6738,6 +6749,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(GLOBAL_ACTIONS_MAX_COLUMNS);
             PRIVATE_SETTINGS.add(GLOBAL_ACTIONS_MAX_ROWS);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
+            PRIVATE_SETTINGS.add(FLASHLIGHT_ON_CALL);
         }
 
         /**
