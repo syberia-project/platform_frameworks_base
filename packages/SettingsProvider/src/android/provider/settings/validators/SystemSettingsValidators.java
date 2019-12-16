@@ -240,5 +240,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.GLOBAL_ACTIONS_USERS, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.GLOBAL_ACTIONS_MAX_COLUMNS, NON_NEGATIVE_INTEGER_VALIDATOR);
         VALIDATORS.put(System.GLOBAL_ACTIONS_MAX_ROWS, NON_NEGATIVE_INTEGER_VALIDATOR);
+        VALIDATORS.put(System.FLASHLIGHT_ON_CALL, new InclusiveIntegerRangeValidator(0, 3));
     }
 }
