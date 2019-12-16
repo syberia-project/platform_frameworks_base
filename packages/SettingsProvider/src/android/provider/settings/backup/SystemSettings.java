@@ -102,13 +102,11 @@ public class SystemSettings {
         Settings.System.CAMERA_FLASH_NOTIFICATION,
         Settings.System.SCREEN_FLASH_NOTIFICATION,
         Settings.System.SCREEN_FLASH_NOTIFICATION_COLOR,
-<<<<<<< HEAD
         Settings.System.PEAK_REFRESH_RATE,
         Settings.System.MIN_REFRESH_RATE,
         Settings.System.NOTIFICATION_COOLDOWN_ENABLED,
         Settings.System.NOTIFICATION_COOLDOWN_ALL,
         Settings.System.NOTIFICATION_COOLDOWN_VIBRATE_UNLOCKED,
-=======
         Settings.System.GLOBAL_ACTIONS_AIRPLANE,
         Settings.System.GLOBAL_ACTIONS_EMERGENCY,
         Settings.System.GLOBAL_ACTIONS_FLASHLIGHT,
@@ -120,6 +118,6 @@ public class SystemSettings {
         Settings.System.GLOBAL_ACTIONS_USERS,
         Settings.System.GLOBAL_ACTIONS_MAX_COLUMNS,
         Settings.System.GLOBAL_ACTIONS_MAX_ROWS,
->>>>>>> 18bf5dd2e549 (Global Actions with Advanced Reboot [1/3])
+        Settings.System.FLASHLIGHT_ON_CALL,
     };
 }
