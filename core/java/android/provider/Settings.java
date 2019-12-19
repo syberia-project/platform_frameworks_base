@@ -5574,6 +5574,15 @@ public final class Settings {
         /** @hide */
         private static final Validator PULSE_AMBIENT_AUTO_COLOR_VALIDATOR = BOOLEAN_VALIDATOR;
 
+        /**
+         * Duration of Ambient edge light in seconds
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_DURATION = "pulse_ambient_light_duration";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_DURATION_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
 
         /** @hide */
         public static final String BACK_GESTURE_HEIGHT = "back_gesture_height";
@@ -5726,6 +5735,7 @@ public final class Settings {
             LESS_BORING_HEADS_UP,
             PULSE_AMBIENT_LIGHT,
             PULSE_AMBIENT_AUTO_COLOR,
+            PULSE_AMBIENT_LIGHT_DURATION,
             PULSE_AMBIENT_LIGHT_COLOR,
             BACK_GESTURE_HEIGHT,
         };
@@ -5926,6 +5936,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(HEADS_UP_TIMEOUT);
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_DURATION);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_COLOR);
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_AUTO_COLOR);
             PRIVATE_SETTINGS.add(DISPLAY_CUTOUT_HIDDEN);
@@ -6107,6 +6118,7 @@ public final class Settings {
             VALIDATORS.put(LESS_BORING_HEADS_UP, LESS_BORING_HEADS_UP_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_LIGHT, PULSE_AMBIENT_LIGHT_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_LIGHT_COLOR, PULSE_AMBIENT_LIGHT_COLOR_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_DURATION, PULSE_AMBIENT_LIGHT_DURATION_VALIDATOR);
             VALIDATORS.put(PULSE_AMBIENT_AUTO_COLOR, PULSE_AMBIENT_AUTO_COLOR_VALIDATOR);
             VALIDATORS.put(DISPLAY_CUTOUT_HIDDEN, DISPLAY_CUTOUT_HIDDEN_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
