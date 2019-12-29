@@ -101,7 +101,9 @@ phony {
         "FontSonySketchSourceOverlay",
         "FontSurferSourceOverlay",
         "FontOneplusSlateSource",
-        "FontSamsungOneSourceOverlay"
+        "FontSamsungOneSourceOverlay",
+        "FontGoogleSansSourceOverlay",
+        "FontComicSansSourceOverlay"
     ],
 }
 
