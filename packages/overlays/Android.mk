@@ -33,6 +33,8 @@ LOCAL_REQUIRED_MODULES := \
     FontLGSmartGothicSourceOverlay \
     FontNotoSerifSourceOverlay \
     FontRosemarySourceOverlay \
+    FontOneplusSlateSource \
+    FontSamsungOneSourceOverlay \
     FontSonySketchSourceOverlay \
     FontSurferSourceOverlay \
     IconPackCircularAndroidOverlay \
