@@ -62,7 +62,9 @@ LOCAL_REQUIRED_MODULES := \
 	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
 	IconPackRoundedThemePickerOverlay \
+	FontOneplusSlateSource \
 	FontRosemarySourceOverlay \
+	FontSamsungOneSourceOverlay \
 	FontSonySketchSourceOverlay \
 	FontSurferSourceOverlay \
 	NavigationBarMode3ButtonOverlay \
