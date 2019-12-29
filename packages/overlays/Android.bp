@@ -99,7 +99,9 @@ phony {
         "FontLGSmartGothicSourceOverlay",
         "FontRosemarySourceOverlay",
         "FontSonySketchSourceOverlay",
-        "FontSurferSourceOverlay"
+        "FontSurferSourceOverlay",
+        "FontOneplusSlateSource",
+        "FontSamsungOneSourceOverlay"
     ],
 }
 
