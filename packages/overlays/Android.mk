@@ -31,8 +31,10 @@ LOCAL_REQUIRED_MODULES := \
     FontCagliostroSourceOverlay \
     FontComicSansSourceOverlay \
     FontCoolstorySourceOverlay \
+    FontFifa2018SourceOverlay \
     FontGoogleSansSourceOverlay \
     FontLGSmartGothicSourceOverlay \
+    FontNokiaPureSourceOverlay \
     FontNotoSerifSourceOverlay \
     FontRosemarySourceOverlay \
     FontOneplusSlateSource \

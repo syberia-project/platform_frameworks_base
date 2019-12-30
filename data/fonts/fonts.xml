@@ -407,6 +407,35 @@
     <alias name="fantasy" to="comicsans" />
     <alias name="ITC Stone Serif" to="comicsans" />
 
+    <family name="nokiapure">
+        <font weight="400" style="normal">NokiaPure-Regular.ttf</font>
+    </family>
+    <alias name="nokiapure-semi-bold" to="nokiapure" weight="600" />
+    <alias name="nokiapure-bold" to="nokiapure" weight="700" />
+    <alias name="times" to="nokiapure" />
+    <alias name="times new roman" to="nokiapure" />
+    <alias name="palatino" to="nokiapure" />
+    <alias name="georgia" to="nokiapure" />
+    <alias name="baskerville" to="nokiapure" />
+    <alias name="goudy" to="nokiapure" />
+    <alias name="fantasy" to="nokiapure" />
+    <alias name="ITC Stone Serif" to="nokiapure" />
+
+    <family name="fifa2018">
+        <font weight="400" style="normal">Fifa_2018.ttf</font>
+    </family>
+
+    <alias name="fifa2018-semi-bold" to="nokiapure" weight="600" />
+    <alias name="fifa2018-bold" to="nokiapure" weight="700" />
+    <alias name="times" to="fifa2018" />
+    <alias name="times new roman" to="fifa2018" />
+    <alias name="palatino" to="fifa2018" />
+    <alias name="georgia" to="fifa2018" />
+    <alias name="baskerville" to="fifa2018" />
+    <alias name="goudy" to="fifa2018" />
+    <alias name="fantasy" to="fifa2018" />
+    <alias name="ITC Stone Serif" to="fifa2018" />
+
     <family name="googlesans">
         <font weight="400" style="normal">GoogleSans-Regular.ttf</font>
         <font weight="400" style="italic">GoogleSans-Italic.ttf</font>
