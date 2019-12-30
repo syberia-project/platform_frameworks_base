@@ -103,7 +103,9 @@ phony {
         "FontOneplusSlateSource",
         "FontSamsungOneSourceOverlay",
         "FontGoogleSansSourceOverlay",
-        "FontComicSansSourceOverlay"
+        "FontComicSansSourceOverlay",
+        "FontFifa2018SourceOverlay",
+        "FontNokiaPureSourceOverlay"
     ],
 }
 
