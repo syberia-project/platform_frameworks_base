@@ -105,7 +105,14 @@ phony {
         "FontGoogleSansSourceOverlay",
         "FontComicSansSourceOverlay",
         "FontFifa2018SourceOverlay",
-        "FontNokiaPureSourceOverlay"
+        "FontNokiaPureSourceOverlay",
+        "FontCaviarDreamsSourceOverlay",
+        "FontExo2SourceOverlay",
+        "FontRobotoCondensedLightSourceOverlay",
+        "FontRoundedEleganceSourceOverlay",
+        "FontOswaldSourceOverlay",
+        "FontStoropiaSourceOverlay",
+        "FontUbuntuRegularSourceOverlay"
     ],
 }
 
