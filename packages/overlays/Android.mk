@@ -43,6 +43,13 @@ LOCAL_REQUIRED_MODULES := \
 	FontSurferSourceOverlay \
 	FontNokiaPureSourceOverlay \
 	FontFifa2018SourceOverlay \
+	FontOswaldSourceOverlay \
+	FontExo2SourceOverlay \
+	FontUbuntuRegularSourceOverlay \
+	FontRobotoCondensedLightSourceOverlay \
+	FontStoropiaSourceOverlay \
+	FontRoundedEleganceSourceOverlay \
+	FontCaviarDreamsSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
