@@ -29,18 +29,25 @@ LOCAL_REQUIRED_MODULES := \
     FontAmaranteSourceOverlay \
     FontBariolSourceOverlay \
     FontCagliostroSourceOverlay \
+    FontCaviarDreamsSourceOverlay \
     FontComicSansSourceOverlay \
     FontCoolstorySourceOverlay \
+    FontExo2SourceOverlay \
     FontFifa2018SourceOverlay \
     FontGoogleSansSourceOverlay \
     FontLGSmartGothicSourceOverlay \
     FontNokiaPureSourceOverlay \
     FontNotoSerifSourceOverlay \
+    FontRobotoCondensedLightSourceOverlay \
     FontRosemarySourceOverlay \
+    FontRoundedEleganceSourceOverlay \
     FontOneplusSlateSource \
+    FontOswaldSourceOverlay \
     FontSamsungOneSourceOverlay \
     FontSonySketchSourceOverlay \
+    FontStoropiaSourceOverlay \
     FontSurferSourceOverlay \
+    FontUbuntuRegularSourceOverlay \
     IconPackCircularAndroidOverlay \
     IconPackCircularLauncherOverlay \
     IconPackCircularSettingsOverlay \

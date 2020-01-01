@@ -425,8 +425,8 @@
         <font weight="400" style="normal">Fifa_2018.ttf</font>
     </family>
 
-    <alias name="fifa2018-semi-bold" to="nokiapure" weight="600" />
-    <alias name="fifa2018-bold" to="nokiapure" weight="700" />
+    <alias name="fifa2018-semi-bold" to="fifa2018" weight="600" />
+    <alias name="fifa2018-bold" to="fifa2018" weight="700" />
     <alias name="times" to="fifa2018" />
     <alias name="times new roman" to="fifa2018" />
     <alias name="palatino" to="fifa2018" />
@@ -435,6 +435,104 @@
     <alias name="goudy" to="fifa2018" />
     <alias name="fantasy" to="fifa2018" />
     <alias name="ITC Stone Serif" to="fifa2018" />
+
+    <family name="oswald">
+        <font weight="400" style="normal">Oswald.ttf</font>
+    </family>
+    <alias name="oswald-semi-bold" to="oswald" weight="600" />
+    <alias name="oswald-bold" to="oswald" weight="700" />
+    <alias name="times" to="oswald" />
+    <alias name="times new roman" to="oswald" />
+    <alias name="palatino" to="oswald" />
+    <alias name="georgia" to="oswald" />
+    <alias name="baskerville" to="oswald" />
+    <alias name="goudy" to="oswald" />
+    <alias name="fantasy" to="oswald" />
+    <alias name="ITC Stone Serif" to="oswald" />
+
+    <family name="exo2">
+        <font weight="400" style="normal">Exo2.otf</font>
+    </family>
+    <alias name="exo2-semi-bold" to="exo2" weight="600" />
+    <alias name="exo2-bold" to="exo2" weight="700" />
+    <alias name="times" to="exo2" />
+    <alias name="times new roman" to="exo2" />
+    <alias name="palatino" to="exo2" />
+    <alias name="georgia" to="exo2" />
+    <alias name="baskerville" to="exo2" />
+    <alias name="goudy" to="exo2" />
+    <alias name="fantasy" to="exo2" />
+    <alias name="ITC Stone Serif" to="exo2" />
+
+    <family name="ubunturegular">
+        <font weight="400" style="normal">UbuntuRegular.ttf</font>
+    </family>
+    <alias name="ubuntu_regular-semi-bold" to="ubuntu_regular" weight="600" />
+    <alias name="ubuntu_regular-bold" to="ubuntu_regular" weight="700" />
+    <alias name="times" to="ubuntu_regular" />
+    <alias name="times new roman" to="ubuntu_regular" />
+    <alias name="palatino" to="ubuntu_regular" />
+    <alias name="georgia" to="ubuntu_regular" />
+    <alias name="baskerville" to="ubuntu_regular" />
+    <alias name="goudy" to="ubuntu_regular" />
+    <alias name="fantasy" to="ubuntu_regular" />
+    <alias name="ITC Stone Serif" to="ubuntu_regular" />
+
+    <family name="robotocondensedlight">
+        <font weight="400" style="normal">RobotoCondensedLight.ttf</font>
+    </family>
+    <alias name="roboto_condensed_light-semi-bold" to="roboto_condensed_light" weight="600" />
+    <alias name="roboto_condensed_light-bold" to="roboto_condensed_light" weight="700" />
+    <alias name="times" to="roboto_condensed_light" />
+    <alias name="times new roman" to="roboto_condensed_light" />
+    <alias name="palatino" to="roboto_condensed_light" />
+    <alias name="georgia" to="roboto_condensed_light" />
+    <alias name="baskerville" to="roboto_condensed_light" />
+    <alias name="goudy" to="roboto_condensed_light" />
+    <alias name="fantasy" to="roboto_condensed_light" />
+    <alias name="ITC Stone Serif" to="roboto_condensed_light" />
+
+    <family name="storopia">
+        <font weight="400" style="normal">Storopia.ttf</font>
+    </family>
+    <alias name="storopia-semi-bold" to="storopia" weight="600" />
+    <alias name="storopia-bold" to="storopia" weight="700" />
+    <alias name="times" to="storopia" />
+    <alias name="times new roman" to="storopia" />
+    <alias name="palatino" to="storopia" />
+    <alias name="georgia" to="storopia" />
+    <alias name="baskerville" to="storopia" />
+    <alias name="goudy" to="storopia" />
+    <alias name="fantasy" to="storopia" />
+    <alias name="ITC Stone Serif" to="storopia" />
+
+    <family name="roundedelegance">
+        <font weight="400" style="normal">RoundedElegance.ttf</font>
+    </family>
+    <alias name="rounded_elegance-semi-bold" to="rounded_elegance" weight="600" />
+    <alias name="rounded_elegance-bold" to="rounded_elegance" weight="700" />
+    <alias name="times" to="rounded_elegance" />
+    <alias name="times new roman" to="rounded_elegance" />
+    <alias name="palatino" to="rounded_elegance" />
+    <alias name="georgia" to="rounded_elegance" />
+    <alias name="baskerville" to="rounded_elegance" />
+    <alias name="goudy" to="rounded_elegance" />
+    <alias name="fantasy" to="rounded_elegance" />
+    <alias name="ITC Stone Serif" to="rounded_elegance" />
+
+    <family name="caviardreams">
+        <font weight="400" style="normal">CaviarDreams.ttf</font>
+    </family>
+    <alias name="caviar_dreams-semi-bold" to="caviar_dreams" weight="600" />
+    <alias name="caviar_dreams-bold" to="caviar_dreams" weight="700" />
+    <alias name="times" to="caviar_dreams" />
+    <alias name="times new roman" to="caviar_dreams" />
+    <alias name="palatino" to="caviar_dreams" />
+    <alias name="georgia" to="caviar_dreams" />
+    <alias name="baskerville" to="caviar_dreams" />
+    <alias name="goudy" to="caviar_dreams" />
+    <alias name="fantasy" to="caviar_dreams" />
+    <alias name="ITC Stone Serif" to="caviar_dreams" />
 
     <family name="googlesans">
         <font weight="400" style="normal">GoogleSans-Regular.ttf</font>
