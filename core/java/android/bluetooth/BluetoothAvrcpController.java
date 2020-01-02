@@ -231,6 +231,25 @@ public final class BluetoothAvrcpController implements BluetoothProfile {
         if (service == null) Log.w(TAG, "Proxy not attached to service");
     }
 
+    /**
+     * Get Supported features for Remote.
+     */
+    public int getSupportedFeatures(BluetoothDevice device) {
+        Log.d(TAG, "getSupportedFeatures dev = " + device);
+        final IBluetoothAvrcpController service =
+                getService();
+        if (service != null && isEnabled()) {
+            try {
+                return service.getSupportedFeatures(device);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Error talking to BT service in getSupportedFeatures()", e);
+                return 0;
+            }
+       }
+       if (service == null) Log.w(TAG, "Proxy not attached to service");
+       return 0;
+    }
+
     private boolean isEnabled() {
         return mAdapter.getState() == BluetoothAdapter.STATE_ON;
     }
