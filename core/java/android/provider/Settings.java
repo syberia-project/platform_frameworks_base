@@ -5154,18 +5154,6 @@ public final class Settings {
         public static final String AUTO_ANSWER_CALL_KEY = "auto_answer_call_key";
 
         /**
-         * Whether allowing pocket service to register sensors and dispatch informations.
-         *   0 = disabled
-         *   1 = enabled
-         * @author Carlo Savignano
-         * @hide
-         */
-        public static final String POCKET_JUDGE = "pocket_judge";
-
-        /** @hide */
-        public static final Validator POCKET_JUDGE_VALIDATOR = BOOLEAN_VALIDATOR;
-
-        /**
          * Battery style
          * @hide
          */
@@ -5929,7 +5917,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
             PRIVATE_SETTINGS.add(NAV_BAR_GESTURAL_HIDE_NAV);
-            PRIVATE_SETTINGS.add(POCKET_JUDGE);
             PRIVATE_SETTINGS.add(LOCK_SHOW_STATUS_BAR);
             PRIVATE_SETTINGS.add(NOTIFICATION_GUTS_KILL_APP_BUTTON);
             PRIVATE_SETTINGS.add(SCREEN_OFF_ANIMATION);
@@ -6111,7 +6098,6 @@ public final class Settings {
             VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, DOUBLE_TAP_SLEEP_GESTURE_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, DOUBLE_TAP_SLEEP_LOCKSCREEN_VALIDATOR);
             VALIDATORS.put(NAV_BAR_GESTURAL_HIDE_NAV, NAV_BAR_GESTURAL_HIDE_NAV_VALIDATOR);
-            VALIDATORS.put(POCKET_JUDGE, POCKET_JUDGE_VALIDATOR);
             VALIDATORS.put(LOCK_SHOW_STATUS_BAR,LOCK_SHOW_STATUS_BAR_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_GUTS_KILL_APP_BUTTON, NOTIFICATION_GUTS_KILL_APP_BUTTON_VALIDATOR);
             VALIDATORS.put(SCREEN_OFF_ANIMATION, SCREEN_OFF_ANIMATION_VALIDATOR);
