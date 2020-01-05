@@ -197,4 +197,8 @@
 
     <java-symbol type="array" name="config_vendorPlatformSignatures" />
 
+    <!-- Light / Regular style fonts -->
+    <java-symbol type="string" name="config_lightFontFamily" />
+    <java-symbol type="string" name="config_regularFontFamily" />
+
 </resources>
