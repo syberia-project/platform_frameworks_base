@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clock_title_two_line_digital" translatable="false">Vertical</string>
+    <string name="clock_title_one_line_digital" translatable="false">Digital</string>
+</resources>
