@@ -36,7 +36,7 @@
             style="@style/NavigationBarButton"
             systemui:componentNames="com.android.car.carlauncher/.CarLauncher"
             systemui:icon="@drawable/car_ic_overview"
-            systemui:intent="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;launchFlags=0x14000000;end"
+            systemui:intent="intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;launchFlags=0x24000000;end"
             systemui:longIntent="intent:#Intent;action=com.google.android.demandspace.START;end"
             systemui:selectedIcon="@drawable/car_ic_overview_selected"
             systemui:useMoreIcon="false"
