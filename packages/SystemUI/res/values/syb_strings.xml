@@ -175,4 +175,8 @@
     <string name="quick_settings_locale_label">Language</string>
     <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
 
+    <!-- Lock icon -->
+    <string name="tuner_keyguard_show_lock_icon_title">Show lock status</string>
+    <string name="tuner_keyguard_show_lock_icon_summary">Show current lock status icon on top</string>
+
 </resources>
