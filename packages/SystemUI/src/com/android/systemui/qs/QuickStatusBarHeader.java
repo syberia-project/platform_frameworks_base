@@ -260,6 +260,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 android.R.attr.colorForeground);
         float intensity = getColorIntensity(colorForeground);
         int fillColor = mDualToneHandler.getSingleColor(intensity);
+        int fillColorWhite = getContext().getResources().getColor(android.R.color.white);
 
         // Set light text on the header icons because they will always be on a black background
         applyDarkness(R.id.clock, tintArea, 0, DarkIconDispatcher.DEFAULT_ICON_TINT);
@@ -277,6 +278,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
         // Tint for the battery icons are handled in setupHost()
         mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
+        mBatteryRemainingIcon.updateColors(fillColorWhite, fillColorWhite, fillColorWhite);
         // Don't need to worry about tuner settings for this icon
         mBatteryRemainingIcon.setIgnoreTunerUpdates(true);
         mBatteryRemainingIcon.setPercentShowMode(BatteryMeterView.MODE_ON);
@@ -688,7 +690,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 android.R.attr.colorForeground);
         float intensity = getColorIntensity(colorForeground);
         int fillColor = mDualToneHandler.getSingleColor(intensity);
-        mBatteryRemainingIcon.onDarkChanged(tintArea, intensity, fillColor);
     }
 
     public void setCallback(Callback qsPanelCallback) {
