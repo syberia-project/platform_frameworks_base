@@ -236,8 +236,46 @@ public class FODCircleView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (!mIsCircleShowing) {
-            canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprintBackground);
+        super.onDraw(canvas);
+
+        if (mIsCircleShowing) {
+            if (getFODPressedState() == 0) {
+                //canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprint);
+                setImageResource(R.drawable.fod_icon_pressed);
+            } else if (getFODPressedState() == 1) {
+                //canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprint);
+                setImageResource(R.drawable.fod_icon_pressed_white);
+            } else if (getFODPressedState() == 2) {
+                canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprint);
+            }
+        }
+    }
+
+    private int getFODPressedState() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.FOD_PRESSED_STATE, 0);
+    }
+
+    private void setFODPressedState() {
+        int fodpressed = getFODPressedState();
+
+        if (fodpressed == 0) {
+            setImageResource(R.drawable.fod_icon_pressed);
+        } else if (fodpressed == 1) {
+            setImageResource(R.drawable.fod_icon_pressed_white);
+        } else if (fodpressed == 2) {
+            setImageDrawable(null);
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if (mIsCircleShowing) {
+            dispatchPress();
+        } else {
+            dispatchRelease();
         }
         super.onDraw(canvas);
     }
@@ -329,7 +367,7 @@ public class FODCircleView extends ImageView {
         setDim(true);
         dispatchPress();
 
-        setImageDrawable(null);
+        setFODPressedState();
         invalidate();
     }
 
