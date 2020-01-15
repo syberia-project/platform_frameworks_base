@@ -37,4 +37,6 @@
     <!-- The CPU temperature divider, if needed -->
     <integer name="config_cpuTempDivider" translatable="false">1</integer>
 
+    <!-- Whether the binned brightness sensor reports a value of 0 on proximity near events -->
+    <bool name="doze_brightness_sensor_reports_proximity" translatable="false">true</bool>
 </resources>
