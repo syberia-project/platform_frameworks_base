@@ -1,5 +1,6 @@
 package com.android.server.wm;
 
+import android.app.ActivityManager;
 import static android.app.ActivityManager.START_SUCCESS;
 import static android.app.ActivityManager.START_TASK_TO_FRONT;
 import static android.app.ActivityManager.processStateAmToProto;
@@ -791,8 +792,15 @@ class ActivityMetricsLogger {
 
         Log.i(TAG, sb.toString());
 
-        int isGame = mLaunchedActivity.isAppInfoGame();
         if (mUxPerf !=  null) {
+            int isGame;
+
+            if (ActivityManager.isLowRamDeviceStatic()) {
+                isGame = mLaunchedActivity.isAppInfoGame();
+            } else {
+                isGame = (mUxPerf.perfGetFeedback(BoostFramework.VENDOR_FEEDBACK_WORKLOAD_TYPE,
+                                        mLaunchedActivity.packageName) == BoostFramework.WorkloadType.GAME) ? 1 : 0;
+            }
             mUxPerf.perfUXEngine_events(BoostFramework.UXE_EVENT_GAME, 0, info.packageName, isGame);
         }
 
