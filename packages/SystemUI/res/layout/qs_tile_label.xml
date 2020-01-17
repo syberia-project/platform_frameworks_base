@@ -61,7 +61,7 @@
             android:layout_width="18dp"
             android:layout_height="match_parent"
             android:src="@drawable/qs_dual_tile_caret"
-            android:tint="?android:attr/textColorPrimary"
+            android:tint="?android:attr/colorAccent"
             android:visibility="gone" />
     </LinearLayout>
 
