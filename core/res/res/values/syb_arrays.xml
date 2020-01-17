@@ -24,6 +24,7 @@
         <item>restart</item>
         <item>reboot_recovery</item>
         <item>reboot_bootloader</item>
+	<item>reboot_hot</item>
     </string-array>
 
     <!-- LiveDisplay -->
@@ -77,5 +78,7 @@
         <item>@string/accessibility_quick_settings_live_display_changed_night</item>
         <item>@string/accessibility_quick_settings_live_display_changed_outdoor</item>
     </string-array>
+    
+    
 
 </resources>
