@@ -35,6 +35,11 @@ public class NavBarUtils {
                 Settings.System.NAV_BAR_GESTURAL_HIDE_NAV, 0, userId) == 1;
     }
 
+    public static boolean isBackHapticEnabled(Context context, int userId) {
+        return Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.BACK_GESTURE_HAPTIC, 0, userId) == 1;
+    }
+
     public static boolean setGesturalNavBarHiddenOverlay(IOverlayManager mOverlayManager, int userId, boolean state) {
         try {
             if (state) {

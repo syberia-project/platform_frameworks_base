@@ -5590,6 +5590,12 @@ public final class Settings {
         /** @hide */
         private static final Validator BACK_GESTURE_HEIGHT_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
+        /** @hide */
+        public static final String BACK_GESTURE_HAPTIC = "back_gesture_haptic";
+
+        /** @hide */
+        private static final Validator BACK_GESTURE_HAPTIC_VALIDATOR = BOOLEAN_VALIDATOR;
+
         /**
          * Display cutout
          * @hide
@@ -5762,6 +5768,7 @@ public final class Settings {
             PULSE_AMBIENT_LIGHT_DURATION,
             PULSE_AMBIENT_LIGHT_COLOR,
             BACK_GESTURE_HEIGHT,
+            BACK_GESTURE_HAPTIC,
         };
 
         /**
@@ -5965,6 +5972,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PULSE_AMBIENT_AUTO_COLOR);
             PRIVATE_SETTINGS.add(DISPLAY_CUTOUT_HIDDEN);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
+            PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(TOAST_ICON);
         }
@@ -6148,6 +6156,7 @@ public final class Settings {
             VALIDATORS.put(PULSE_AMBIENT_AUTO_COLOR, PULSE_AMBIENT_AUTO_COLOR_VALIDATOR);
             VALIDATORS.put(DISPLAY_CUTOUT_HIDDEN, DISPLAY_CUTOUT_HIDDEN_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
+            VALIDATORS.put(BACK_GESTURE_HAPTIC, BACK_GESTURE_HAPTIC_VALIDATOR);
         }
 
         /**
