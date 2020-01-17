@@ -28,13 +28,14 @@
     <string name="global_action_reboot_sub">Система</string>
     <string name="global_action_reboot_recovery">Рекавери</string>
     <string name="global_action_reboot_bootloader">Загрузчик</string>
+    <string name="global_action_reboot_hot">SystemUI</string>
 
     <string name="lockscreen_default">По умолчанию</string>
     <string name="lockscreen_hidden">Нет</string>
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Проведите пальцем от иконки в сторону центра экрана</string>
-    
+
     <!-- Reader mode QS tile -->
     <string name="quick_settings_reading_mode">Режим чтения</string>
     <string name="accessibility_quick_settings_reading_mode_on">Режим чтения вкл.</string>

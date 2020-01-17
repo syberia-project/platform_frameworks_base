@@ -48,6 +48,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
@@ -144,6 +145,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
     private static final String GLOBAL_ACTION_KEY_REBOOT_RECOVERY = "reboot_recovery";
     private static final String GLOBAL_ACTION_KEY_REBOOT_BOOTLOADER = "reboot_bootloader";
     private static final String GLOBAL_ACTION_KEY_TORCH = "torch";
+    private static final String GLOBAL_ACTION_KEY_REBOOT_HOT = "reboot_hot";
 
     private final Context mContext;
     private final GlobalActionsManager mWindowManagerFuncs;
@@ -488,6 +490,8 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                 mItems.add(new RebootRecoveryAction());
             } else if (GLOBAL_ACTION_KEY_REBOOT_BOOTLOADER.equals(actionKey)) {
                 mItems.add(new RebootBootloaderAction());
+	    } else if (GLOBAL_ACTION_KEY_REBOOT_HOT.equals(actionKey)) {
+                mItems.add(new RebootHotAction());
             } else {
                 Log.e(TAG, "Invalid global action key " + actionKey);
             }
@@ -719,6 +723,32 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         @Override
         public void onPress() {
             mWindowManagerFuncs.reboot(false, PowerManager.REBOOT_BOOTLOADER);
+        }
+    }
+
+    private final class RebootHotAction extends SinglePressAction {
+        private RebootHotAction() {
+            super(com.android.systemui.R.drawable.ic_restart_hot, com.android.systemui.R.string.global_action_reboot_hot);
+        }
+
+        @Override
+        public boolean showDuringKeyguard() {
+            return true;
+        }
+
+        @Override
+        public boolean showDuringRestrictedKeyguard() {
+            return false;
+        }
+
+        @Override
+        public boolean showBeforeProvisioning() {
+            return true;
+        }
+
+        @Override
+        public void onPress() {
+            Process.killProcess(Process.myPid());
         }
     }
 
