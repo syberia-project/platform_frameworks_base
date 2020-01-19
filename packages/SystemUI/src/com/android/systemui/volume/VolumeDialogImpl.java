@@ -1634,10 +1634,14 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
 
     protected void dismissH(int reason) {
         Trace.beginSection("VolumeDialogImpl#dismissH");
-
-        Log.i(TAG, "mDialog.dismiss() reason: " + Events.DISMISS_REASONS[reason]
-                + " from: " + Debug.getCaller());
-
+        // Avoid multiple animation calls on touch spams.
+        if (!mShowing) {
+            return;
+        }
+        if (D.BUG) {
+            Log.d(TAG, "mDialog.dismiss() reason: " + Events.DISMISS_REASONS[reason]
+                    + " from: " + Debug.getCaller());
+        }
         mHandler.removeMessages(H.DISMISS);
         mHandler.removeMessages(H.SHOW);
         if (mIsAnimatingDismiss) {
