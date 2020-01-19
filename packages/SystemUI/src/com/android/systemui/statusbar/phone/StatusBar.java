@@ -4057,7 +4057,6 @@ public class StatusBar extends SystemUI implements DemoMode,
             mNotificationInterruptStateProvider.setHeadsUpBlacklist();
     }
 
-
     private void setUseLessBoringHeadsUp() {
         boolean lessBoringHeadsUp = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.LESS_BORING_HEADS_UP, 0,
@@ -4092,6 +4091,13 @@ public class StatusBar extends SystemUI implements DemoMode,
      */
     public boolean isScreenFullyOff() {
         return mScreenLifecycle.getScreenState() == ScreenLifecycle.SCREEN_OFF;
+    }
+
+    @Override
+    public void setBlockedGesturalNavigation(boolean blocked) {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().setBlockedGesturalNavigation(blocked);
+        }
     }
 
     @Override
