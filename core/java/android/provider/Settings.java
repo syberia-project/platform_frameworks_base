@@ -5829,15 +5829,20 @@ public final class Settings {
          public static final String STATUSBAR_CLOCK_DATE_POSITION = "statusbar_clock_date_position";
 
          /**
-          * show carrier in statusbar. The value is
-          * int (1: Show or 0: Hide).
-          */
-         public static final String STATUS_BAR_CARRIER = "status_bar_carrier";
+         * Status bar carrier label
+         * 0: Hide
+         * 1: Display on keyguard status bar
+         * 2: Display on normal status bar
+         * 3: Enabled for both
+         * @hide
+         */
+        public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
 
-         /**
-          * custom carrier label. The value is
-          * String.
-          */
+        /**
+         * custom carrier label. The value is
+         * String.
+         * @hide
+         */
          public static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
 
         /**
