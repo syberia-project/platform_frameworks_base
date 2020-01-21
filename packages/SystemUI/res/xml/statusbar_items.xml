@@ -59,10 +59,6 @@
         android:title="@string/status_bar_data_disabled" />
 
     <com.android.systemui.tuner.TunerSwitch
-        android:key="volte"
-        android:title="@string/status_bar_volte" />
-
-    <com.android.systemui.tuner.TunerSwitch
         android:key="roaming"
         android:title="@string/status_bar_roaming" />
 
