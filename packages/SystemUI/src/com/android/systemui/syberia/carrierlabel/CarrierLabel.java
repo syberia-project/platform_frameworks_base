@@ -74,7 +74,7 @@ public class CarrierLabel extends TextView implements DarkReceiver {
         if (!mAttached) {
             mAttached = true;
             IntentFilter filter = new IntentFilter();
-            filter.addAction(TelephonyIntents.SPN_STRINGS_UPDATED_ACTION);
+            filter.addAction(TelephonyManager.ACTION_SERVICE_PROVIDERS_UPDATED);
             filter.addAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
             mContext.registerReceiver(mIntentReceiver, filter, null, getHandler());
         }
@@ -99,12 +99,12 @@ public class CarrierLabel extends TextView implements DarkReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (TelephonyIntents.SPN_STRINGS_UPDATED_ACTION.equals(action)
+            if (TelephonyManager.ACTION_SERVICE_PROVIDERS_UPDATED.equals(action)
                     || Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED.equals(action)) {
-                        updateNetworkName(intent.getBooleanExtra(TelephonyIntents.EXTRA_SHOW_SPN, true),
-                        intent.getStringExtra(TelephonyIntents.EXTRA_SPN),
-                        intent.getBooleanExtra(TelephonyIntents.EXTRA_SHOW_PLMN, false),
-                        intent.getStringExtra(TelephonyIntents.EXTRA_PLMN));
+                        updateNetworkName(intent.getBooleanExtra(TelephonyManager.EXTRA_SHOW_SPN, true),
+                        intent.getStringExtra(TelephonyManager.EXTRA_SPN),
+                        intent.getBooleanExtra(TelephonyManager.EXTRA_SHOW_PLMN, false),
+                        intent.getStringExtra(TelephonyManager.EXTRA_PLMN));
                 isCN = SyberiaUtils.isChineseLanguage();
             }
         }
