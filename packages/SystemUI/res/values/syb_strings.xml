@@ -71,7 +71,6 @@
     <string name="omnijaws_service_last_update">Last update:</string>
 
     <!-- StatusBar tuner icons -->
-    <string name="status_bar_volte">VoLTE</string>
     <string name="status_bar_roaming">Roaming</string>
     <string name="status_bar_data_disabled">Crosses when data is disabled</string>
 
