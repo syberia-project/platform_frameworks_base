@@ -1113,8 +1113,10 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public void updateBlurVisibility() {
-
-        int QSBlurAlpha = Math.round(255.0f * mNotificationPanel.getExpandedFraction());
+        int QSUserAlpha = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.QS_BACKGROUND_BLUR_ALPHA, 100);
+        int QSBlurAlpha = Math.round(255.0f *
+                mNotificationPanel.getExpandedFraction() * (float)((float) QSUserAlpha / 100.0));
 
         if (QSBlurAlpha > 0 && !blurperformed && !mIsKeyguard && isQSBlurEnabled()) {
             Bitmap bittemp = ImageUtilities.blurImage(mContext, ImageUtilities.screenshotSurface(mContext));
@@ -3992,6 +3994,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_MEDIA_BLUR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_BACKGROUND_BLUR_ALPHA),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -4008,6 +4013,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateDoubleTapGestures();
             setPulseOnNewTracks();
             setHideArrowForBackGesture();
+	    updateBlurVisibility();
             if (mMediaManager != null) {
                 mMediaManager.setLockScreenMediaBlurLevel();
             }
