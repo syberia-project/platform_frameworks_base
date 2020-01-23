@@ -14,13 +14,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<com.android.keyguard.clock.TypographicClock
+<com.android.keyguard.clock.ClockLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/type_clock"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="50dp"
-    android:textAlignment="viewStart"
-    style="@style/widget_big"
-    android:textSize="40dp"
-    />
+    android:layout_height="match_parent" >
+       <com.android.keyguard.clock.TypographicClock
+            android:id="@+id/type_clock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingBottom="@dimen/title_clock_padding"
+            android:textAlignment="viewStart"
+            style="@style/widget_big"
+            android:textSize="40dp" />
+</com.android.keyguard.clock.ClockLayout>
