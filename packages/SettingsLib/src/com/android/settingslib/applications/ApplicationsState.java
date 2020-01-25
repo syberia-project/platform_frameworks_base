@@ -1825,7 +1825,7 @@ public class ApplicationsState {
 
         @Override
         public boolean filterApp(AppEntry entry) {
-            return !Arrays.asList(OverlayUtils.AllPackages).contains(entry.info.packageName);
+            return !hasFlag(entry.info.privateFlags, ApplicationInfo.PRIVATE_FLAG_IS_RESOURCE_OVERLAY);
         }
     };
 
