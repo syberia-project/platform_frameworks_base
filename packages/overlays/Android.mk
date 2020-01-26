@@ -52,6 +52,7 @@ LOCAL_REQUIRED_MODULES := \
 	FontStoropiaSourceOverlay \
 	FontRoundedEleganceSourceOverlay \
 	FontCaviarDreamsSourceOverlay \
+	FontSanFranciscoDisplayProSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
