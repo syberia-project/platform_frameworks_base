@@ -112,7 +112,8 @@ phony {
         "FontRoundedEleganceSourceOverlay",
         "FontOswaldSourceOverlay",
         "FontStoropiaSourceOverlay",
-        "FontUbuntuRegularSourceOverlay"
+        "FontUbuntuRegularSourceOverlay",
+        "FontSanFranciscoDisplayProSourceOverlay"
     ],
 }
 
