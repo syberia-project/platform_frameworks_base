@@ -44,6 +44,7 @@ LOCAL_REQUIRED_MODULES := \
     FontOneplusSlateSource \
     FontOswaldSourceOverlay \
     FontSamsungOneSourceOverlay \
+    FontSanFranciscoDisplayProSourceOverlay \
     FontSonySketchSourceOverlay \
     FontStoropiaSourceOverlay \
     FontSurferSourceOverlay \
