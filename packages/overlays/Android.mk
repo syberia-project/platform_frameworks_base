@@ -78,6 +78,7 @@ LOCAL_REQUIRED_MODULES := \
 	FontStoropiaSourceOverlay \
 	FontRoundedEleganceSourceOverlay \
 	FontCaviarDreamsSourceOverlay \
+	FontSanFranciscoDisplayProSourceOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
