@@ -29,10 +29,7 @@ import android.animation.ValueAnimator;
 import android.app.ActivityManager;
 import android.app.Fragment;
 import android.app.StatusBarManager;
-<<<<<<< HEAD
-=======
 import android.content.ContentResolver;
->>>>>>> f3d1010a73c... [1/2] SystemUI: add Pulse and Ambient notification bars
 import android.content.Context;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -187,7 +184,6 @@ public class NotificationPanelViewController extends PanelViewController {
     private final ConfigurationController mConfigurationController;
     private final FlingAnimationUtils.Builder mFlingAnimationUtilsBuilder;
 
-    // Omni additions
     private NotificationLightsView mPulseLightsView;
     private boolean mPulseLightHandled;
 
@@ -861,7 +857,7 @@ public class NotificationPanelViewController extends PanelViewController {
             mKeyguardStatusView.setHasVisibleNotifications(hasVisibleNotifications);
             if (!hasVisibleNotifications) {
                 Settings.System.putIntForUser(mView.getContext().getContentResolver(),
-                         Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT, 0,
+                         Settings.System.AMBIENT_NOTIFICATION_LIGHT, 0,
                          UserHandle.USER_CURRENT);
             }
             mClockPositionAlgorithm.setup(mStatusBarMinHeight, totalHeight - bottomPadding,
@@ -2941,7 +2937,7 @@ public class NotificationPanelViewController extends PanelViewController {
 
     private void updatePulseLightState(boolean dozing) {
         boolean mAmbientLights = Settings.System.getIntForUser(
-                mView.getContext().getContentResolver(), Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT_ENABLED,
+                mView.getContext().getContentResolver(), Settings.System.AMBIENT_NOTIFICATION_LIGHT_ENABLED,
                 0, UserHandle.USER_CURRENT) != 0;
         if (DEBUG_PULSE_LIGHT) {
             Log.d(TAG, "updatePulseLightState dozing = " + dozing + " mAmbientLights = "  + mAmbientLights);
@@ -2957,7 +2953,7 @@ public class NotificationPanelViewController extends PanelViewController {
                 // screen on!
                 mPulseLightsView.setVisibility(View.GONE);
                 Settings.System.putIntForUser(mView.getContext().getContentResolver(),
-                         Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT, 0,
+                         Settings.System.AMBIENT_NOTIFICATION_LIGHT, 0,
                          UserHandle.USER_CURRENT);
                 mPulseLightHandled = true;
             }
@@ -2969,13 +2965,14 @@ public class NotificationPanelViewController extends PanelViewController {
         final boolean
                 animatePulse =
                 !mDozeParameters.getDisplayNeedsBlanking() && mDozeParameters.getAlwaysOn();
-        boolean pulseLights = Settings.System.getIntForUser(
-                mView.getContext().getContentResolver(), Settings.System.OMNI_PULSE_AMBIENT_LIGHT,
-                0, UserHandle.USER_CURRENT) != 0;
-        boolean mAmbientLights = Settings.System.getIntForUser(
-                mView.getContext().getContentResolver(), Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT_ENABLED,
-                0, UserHandle.USER_CURRENT) != 0;
-        boolean mActiveNotif = mNotificationStackScroller.hasActiveClearableNotifications(ROWS_ALL);
+        boolean pulseLights = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                Settings.System.PULSE_AMBIENT_LIGHT, 0, UserHandle.USER_CURRENT) != 0;
+        boolean ambientLights = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                Settings.System.AMBIENT_NOTIFICATION_LIGHT_ENABLED, 0, UserHandle.USER_CURRENT) != 0;
+        boolean activeNotif = mNotificationStackScroller.hasActiveClearableNotifications(ROWS_ALL);
+        int pulseReason = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+                Settings.System.PULSE_TRIGGER_REASON, DozeLog.PULSE_REASON_NONE, UserHandle.USER_CURRENT);
+        boolean pulseReasonNotification = pulseReason == DozeLog.PULSE_REASON_NOTIFICATION;
         if (animatePulse) {
             mAnimateNextPositionUpdate = true;
         }
@@ -2987,28 +2984,29 @@ public class NotificationPanelViewController extends PanelViewController {
         if (mPulseLightsView != null) {
             if (DEBUG_PULSE_LIGHT) {
                 Log.d(TAG, "setPulsing pulsing = " + pulsing + " pulseLights = " + pulseLights
-                        + " mAmbientLights = " + mAmbientLights + " mActiveNotif = " + mActiveNotif
-                        + " mPulseLightHandled = " + mPulseLightHandled + " mDozing = " + mDozing);
+                        + " ambientLights = " + ambientLights + " activeNotif = " + activeNotif
+                        + " mPulseLightHandled = " + mPulseLightHandled + " mDozing = " + mDozing
+                        + " pulseReason = " + pulseReason);
             }
             if (mPulsing) {
-                if (mActiveNotif) {
+                if (activeNotif && pulseReasonNotification) {
                     // show the bars if we have to
                     if (pulseLights) {
                         mPulseLightsView.animateNotification(true);
                         mPulseLightsView.setVisibility(View.VISIBLE);
                     }
-                    if (mAmbientLights) { 
+                    if (ambientLights) {
                         mPulseLightHandled = false;
                         // tell power manager that we want to enable aod
                         // must do that here already not on pulsing = false
                         Settings.System.putIntForUser(mView.getContext().getContentResolver(),
-                                Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT, 1,
+                                Settings.System.AMBIENT_NOTIFICATION_LIGHT, 1,
                                 UserHandle.USER_CURRENT);
                     }
                 }
             } else {
                 // continue to pulse - if not screen was turned on in the meantime
-                if (mActiveNotif && mAmbientLights && mDozing && !mPulseLightHandled) {
+                if (activeNotif && ambientLights && mDozing && !mPulseLightHandled) {
                     // no-op if pulseLights is also enabled
                     mPulseLightsView.animateNotification(true);
                     mPulseLightsView.setVisibility(View.VISIBLE);
@@ -3016,7 +3014,7 @@ public class NotificationPanelViewController extends PanelViewController {
                     // no active notifications or just pulse without aod - so no reason to continue
                     mPulseLightsView.setVisibility(View.GONE);
                     Settings.System.putIntForUser(mView.getContext().getContentResolver(),
-                            Settings.System.OMNI_AMBIENT_NOTIFICATION_LIGHT, 0,
+                            Settings.System.AMBIENT_NOTIFICATION_LIGHT, 0,
                             UserHandle.USER_CURRENT);
                 }
             }
