@@ -4560,9 +4560,6 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-<<<<<<< HEAD
-         * @hide
-=======
          * Screen stabilization parameters
          * @hide
          */
@@ -4577,11 +4574,7 @@ public final class Settings {
         public static final String STABILIZATION_VELOCITY_AMPLITUDE = "stabilization_velocity_amplitude";
 
         /**
-         * IMPORTANT: If you add a new public settings you also have to add it to
-         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
-         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
-         * the setting value. See an example above.
->>>>>>> 0dc9d617a85c... Screen Stabiization [1/3]
+	 * @hide
          */
         public static final String ADVANCED_REBOOT = "advanced_reboot";
 
@@ -5403,6 +5396,17 @@ public final class Settings {
                 ANY_INTEGER_VALIDATOR;
 
         /**
+         * Number of times to repeat animations of Ambient edge light
+         * 0 is infinite
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_REPEAT_COUNT = "pulse_ambient_light_repeat_count";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_REPEAT_COUNT_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
          * Whether the battery light should be enabled (if hardware supports it)
          * The value is boolean (1 or 0).
          * @hide
@@ -5837,6 +5841,7 @@ public final class Settings {
             PULSE_AMBIENT_LIGHT_COLOR,
             BACK_GESTURE_HEIGHT,
             BACK_GESTURE_HAPTIC,
+            PULSE_AMBIENT_LIGHT_REPEAT_COUNT,
         };
 
         /**
@@ -6046,6 +6051,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
             PRIVATE_SETTINGS.add(SWAP_VOLUME_BUTTONS);
             PRIVATE_SETTINGS.add(TOAST_ICON);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_REPEAT_COUNT);
         }
 
         /**
@@ -6231,6 +6237,7 @@ public final class Settings {
             VALIDATORS.put(DISPLAY_CUTOUT_HIDDEN, DISPLAY_CUTOUT_HIDDEN_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HAPTIC, BACK_GESTURE_HAPTIC_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_REPEAT_COUNT, PULSE_AMBIENT_LIGHT_REPEAT_COUNT_VALIDATOR);
         }
 
         /**
