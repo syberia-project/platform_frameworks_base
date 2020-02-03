@@ -1470,6 +1470,7 @@ public class WindowManagerService extends IWindowManager.Stub
         final int callingPid = Binder.getCallingPid();
         final long origId = Binder.clearCallingIdentity();
         final int type = attrs.type;
+        final boolean suspended = mPmInternal.isPackageSuspended(attrs.packageName, UserHandle.getUserId(session.mUid));
 
         synchronized (mGlobalLock) {
             if (!mDisplayReady) {
@@ -1755,9 +1756,6 @@ public class WindowManagerService extends IWindowManager.Stub
             win.mSession.onWindowAdded(win);
             mWindowMap.put(client.asBinder(), win);
             win.initAppOpsState();
-
-            final boolean suspended = mPmInternal.isPackageSuspended(win.getOwningPackage(),
-                    UserHandle.getUserId(win.getOwningUid()));
             win.setHiddenWhileSuspended(suspended);
 
             final boolean hideSystemAlertWindows = !mHidingNonSystemOverlayWindows.isEmpty();
