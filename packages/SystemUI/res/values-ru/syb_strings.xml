@@ -162,5 +162,10 @@
     <string name="quick_settings_stabilization_off">Стабилизация экрана отключена</string>
     <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
     <string name="quick_settings_stabilization_on">Стабилизация экрана включена</string>
+    <string name="low_label">Низкая</string>
+    <string name="high_label">Высокая</string>
+    <string name="stabilization_velocity_friction">Фрикционная скорость</string>
+    <string name="stabilization_velocity_amplitude">Амплитуда скорости</string>
+    <string name="stabilization_position_friction">Фрикционная позиция</string>
 
 </resources>

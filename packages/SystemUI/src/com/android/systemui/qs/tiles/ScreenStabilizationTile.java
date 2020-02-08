@@ -5,15 +5,15 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.SystemProperties;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.provider.Settings;
-import android.provider.Settings.System;
-import android.widget.Switch;
 import android.service.quicksettings.Tile;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
@@ -21,19 +21,51 @@ import com.android.systemui.R;
 import com.android.systemui.plugins.qs.QSIconView;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
 import com.android.systemui.qs.QSHost;
+import com.android.systemui.plugins.qs.DetailAdapter;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
+
+import javax.inject.Inject;
 
 /** Quick settings tile: Enable/Disable ScreenStabilization **/
 public class ScreenStabilizationTile extends QSTileImpl<BooleanState> {
-    private ScreenStabilizationObserver mScreenStabilizationObserver;
+
     private boolean mListening;
+    private ContentResolver mResolver;
     private boolean mScbStabEnable;
     private final Icon mIcon = ResourceIcon.get(R.drawable.ic_screen_stabilization_enabled);
 
+    private final ScreenStabilizationDetailAdapter mDetailAdapter;
+
+    private final SeekBar.OnSeekBarChangeListener mSeekBarListener = new SeekBar.OnSeekBarChangeListener() {
+
+        @Override
+        public void onProgressChanged (SeekBar seekBar, int progress, boolean fromUser) {
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            final int id = seekBar.getId();
+            if (id == R.id.stabilization_velocity_friction_seekbar) {
+                updateValuesFloat(seekBar.getProgress(), false);
+            } else if (id == R.id.stabilization_velocity_amplitude_seekbar) {
+                updateValuesInt(seekBar.getProgress());
+            } else if (id == R.id.stabilization_position_friction_seekbar) {
+                updateValuesFloat(seekBar.getProgress(), true);
+            }
+        }
+    };
+
+    @Inject
     public ScreenStabilizationTile(QSHost host) {
         super(host);
-        mScreenStabilizationObserver = new ScreenStabilizationObserver(new Handler());
-        mScreenStabilizationObserver.register();
+        mResolver = mContext.getContentResolver();
+        mDetailAdapter = (ScreenStabilizationDetailAdapter) createDetailAdapter();
     }
 
     @Override
@@ -51,20 +83,34 @@ public class ScreenStabilizationTile extends QSTileImpl<BooleanState> {
     }
 
     @Override
+    public DetailAdapter getDetailAdapter() {
+        return mDetailAdapter;
+    }
+
+    @Override
+    protected DetailAdapter createDetailAdapter() {
+        return new ScreenStabilizationDetailAdapter();
+    }
+
+    @Override
     public Intent getLongClickIntent() {
         return null;
     }
 
     @Override
+    protected void handleLongClick() {
+        showDetail(true);
+    }
+
+    @Override
     protected void handleClick() {
-        ContentResolver resolver = mContext.getContentResolver();
-        MetricsLogger.action(mContext, getMetricsCategory(), !mState.value);
-        Settings.System.putInt(resolver, Settings.System.STABILIZATION_ENABLE, (Settings.System.getInt(resolver, Settings.System.STABILIZATION_ENABLE, 0) == 1) ? 0:1);
+        Settings.System.putInt(mResolver, Settings.System.STABILIZATION_ENABLE, (Settings.System.getInt(mResolver, Settings.System.STABILIZATION_ENABLE, 0) == 1) ? 0:1);
+        refreshState();
     }
 
     @Override
     protected void handleSecondaryClick() {
-        handleClick();
+        handleLongClick();
     }
 
     @Override
@@ -74,9 +120,6 @@ public class ScreenStabilizationTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        /*final Drawable mEnable = mContext.getDrawable(R.drawable.ic_screen_stabilization_enabled);
-        final Drawable mDisable = mContext.getDrawable(R.drawable.ic_screen_stabilization_disabled);
-        state.value = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.STABILIZATION_ENABLE, 0) == 1);*/
         mScbStabEnable = (Settings.System.getIntForUser(
                 mContext.getContentResolver(), Settings.System.STABILIZATION_ENABLE,
                          0, UserHandle.USER_CURRENT) == 1);
@@ -115,25 +158,137 @@ public class ScreenStabilizationTile extends QSTileImpl<BooleanState> {
         }
     }
 
-    private class ScreenStabilizationObserver extends ContentObserver {
-	private ContentResolver mResolver;
-        ScreenStabilizationObserver(Handler handler) {
-            super(handler);
-	    mResolver = mContext.getContentResolver();
-        }
+    private class ScreenStabilizationDetailAdapter implements DetailAdapter {
+        private SeekBar mVelocityFriction;
+        private SeekBar mVelocityAmplitude;
+        private SeekBar mPositionFriction;
 
-        public void register() {
-            mResolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STABILIZATION_ENABLE),
-                    false, this, UserHandle.USER_ALL);
-            refreshState();
+        @Override
+        public int getMetricsCategory() {
+            return MetricsEvent.QS_CUSTOM;
         }
 
         @Override
-        public void onChange(boolean selfChange) {
+        public CharSequence getTitle() {
+            return mContext.getString(R.string.quick_settings_stabilization_label);
+        }
+
+        @Override
+        public Boolean getToggleState() {
+            return mState.value;
+        }
+
+        @Override
+        public Intent getSettingsIntent() {
+            return null;
+        }
+
+        @Override
+        public void setToggleState(boolean state) {
+            Settings.System.putIntForUser(mResolver, Settings.System.STABILIZATION_ENABLE, state ? 1 : 0, UserHandle.USER_CURRENT);
             refreshState();
+            if (!state) {
+                showDetail(false);
+            }
+        }
+
+        @Override
+        public View createDetailView(Context context, View convertView, ViewGroup parent) {
+            final View view = convertView != null ? convertView : LayoutInflater.from(context).inflate(
+                            R.layout.screen_stabilization_panel, parent, false);
+
+            if (convertView == null) {
+                mVelocityFriction = (SeekBar) view.findViewById(R.id.stabilization_velocity_friction_seekbar);
+                mVelocityFriction.setOnSeekBarChangeListener(mSeekBarListener);
+
+                mVelocityAmplitude = (SeekBar) view.findViewById(R.id.stabilization_velocity_amplitude_seekbar);
+                mVelocityAmplitude.setOnSeekBarChangeListener(mSeekBarListener);
+
+                mPositionFriction = (SeekBar) view.findViewById(R.id.stabilization_position_friction_seekbar);
+                mPositionFriction.setOnSeekBarChangeListener(mSeekBarListener);
+            }
+
+            refreshFloat(Settings.System.getFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_FRICTION, 0.1f, UserHandle.USER_CURRENT), mVelocityFriction);
+            refreshFloat(Settings.System.getFloatForUser(mResolver, Settings.System.STABILIZATION_POSITION_FRICTION, 0.1f, UserHandle.USER_CURRENT), mPositionFriction);
+            refreshInt(Settings.System.getIntForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 8000, UserHandle.USER_CURRENT), mVelocityAmplitude);
+
+            return view;
+        }
+
+        private void refreshFloat(float progress, SeekBar pref) {
+            if (progress < 0.02f) {
+                pref.setProgress(1);
+            } else if (progress < 0.06f ) {
+                pref.setProgress(2);
+            } else if (progress < 0.11f) {
+                pref.setProgress(3);
+            } else if (progress < 0.21f) {
+                pref.setProgress(4);
+            } else if (progress < 0.31f) {
+                pref.setProgress(5);
+            }
+        }
+
+        private void refreshInt(int progress, SeekBar pref) {
+            switch (progress) {
+                case 4000:
+                    pref.setProgress(1);
+                    break;
+                case 6000:
+                    pref.setProgress(2);
+                    break;
+                case 8000:
+                    pref.setProgress(3);
+                    break;
+                case 10000:
+                    pref.setProgress(4);
+                    break;
+                case 12000:
+                    pref.setProgress(5);
+                    break;
+            }
+        }
+    }
+
+    private void updateValuesFloat(int progress, boolean isPosition) {
+        final String key = isPosition ? Settings.System.STABILIZATION_POSITION_FRICTION : Settings.System.STABILIZATION_VELOCITY_FRICTION;
+        switch (progress) {
+            case 1:
+                Settings.System.putFloatForUser(mResolver, key, 0.01f, UserHandle.USER_CURRENT);
+                break;
+            case 2:
+                Settings.System.putFloatForUser(mResolver, key, 0.05f, UserHandle.USER_CURRENT);
+                break;
+            case 3:
+                Settings.System.putFloatForUser(mResolver, key, 0.1f, UserHandle.USER_CURRENT);
+                break;
+            case 4:
+                Settings.System.putFloatForUser(mResolver, key, 0.2f, UserHandle.USER_CURRENT);
+                break;
+            case 5:
+                Settings.System.putFloatForUser(mResolver, key, 0.3f, UserHandle.USER_CURRENT);
+                break;
+        }
+    }
+
+    private void updateValuesInt(int progress) {
+        switch (progress) {
+            case 1:
+                Settings.System.putFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 4000, UserHandle.USER_CURRENT);
+                break;
+            case 2:
+                Settings.System.putFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 6000, UserHandle.USER_CURRENT);
+                break;
+            case 3:
+                Settings.System.putFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 8000, UserHandle.USER_CURRENT);
+                break;
+            case 4:
+                Settings.System.putFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 10000, UserHandle.USER_CURRENT);
+                break;
+            case 5:
+                Settings.System.putFloatForUser(mResolver, Settings.System.STABILIZATION_VELOCITY_AMPLITUDE, 12000, UserHandle.USER_CURRENT);
+                break;
         }
     }
 }
-
 
