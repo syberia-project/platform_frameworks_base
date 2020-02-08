@@ -61,5 +61,10 @@
     <string name="gaming_mode_enabled_toast">Игровой режим включен</string>
     <string name="gaming_mode_disabled_toast">Игровой режим выключен</string>
 
+    <!-- Accessibility text for the minimize window button -->
+    <string name="pip_button_text">Картинка в картинке</string>
+    <!-- Accessibility text for the minimize window button -->
+    <string name="minimize_button_text">Свернуть</string>
+
 </resources>
 

@@ -85,5 +85,10 @@
     <string name="gaming_mode_enabled_toast">Gaming mode turned on</string>
     <string name="gaming_mode_disabled_toast">Gaming mode turned off</string>
 
+    <!-- Accessibility text for the minimize window button -->
+    <string name="pip_button_text">Picture In Picture</string>
+    <!-- Accessibility text for the minimize window button -->
+    <string name="minimize_button_text">Minimize</string>
+
 </resources>
 
