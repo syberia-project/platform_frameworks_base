@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1fbca95_e2c5c402",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/ScreenStabilizationTile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-02-11T18:17:14Z",
+      "side": 1,
+      "message": "Wrong metrics",
+      "revId": "3e56d11592cb58f93d510469a245c08edfd110a5",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8",
+      "unresolved": true
+    }
+  ]
+}
