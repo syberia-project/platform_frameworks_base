@@ -129,7 +129,6 @@ public class DefaultBoldClockController implements ClockPlugin {
         ColorExtractor.GradientColors colors = mColorExtractor.getColors(
                 WallpaperManager.FLAG_LOCK);
         setColorPalette(colors.supportsDarkText(), colors.getColorPalette());
-        onTimeTick();
 
         return mRenderer.createPreview(previewView, width, height);
     }
@@ -165,6 +164,8 @@ public class DefaultBoldClockController implements ClockPlugin {
 
     @Override
     public void onTimeTick() {
+        mView.onTimeChanged();
+        mClock.refreshTime();
     }
 
     @Override
