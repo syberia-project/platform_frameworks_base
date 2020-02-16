@@ -5675,6 +5675,9 @@ public final class Settings {
          */
         public static final String FOD_ICON = "fod_icon";
 
+        /** @hide */
+        private static final Validator FOD_ICON_VALIDATOR = ANY_STRING_VALIDATOR;
+
         /**
          * Whether to vibrate on notifications
          * @hide
@@ -5974,6 +5977,10 @@ public final class Settings {
          */
         public static final String FOD_PRESSED_STATE = "fod_pressed_state";
 
+        /** @hide */
+        private static final Validator FOD_PRESSED_STATE_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -6114,6 +6121,8 @@ public final class Settings {
             TINT_QS_TILES,
             FORCE_SHOW_NAVBAR,
             NOTIFICATION_HEADERS,
+            FOD_ICON,
+            FOD_PRESSED_STATE,
         };
 
         /**
@@ -6524,6 +6533,8 @@ public final class Settings {
             VALIDATORS.put(TINT_QS_TILES, TINT_QS_TILES_VALIDATOR);
             VALIDATORS.put(FORCE_SHOW_NAVBAR, FORCE_SHOW_NAVBAR_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_HEADERS, NOTIFICATION_HEADERS_VALIDATOR);
+            VALIDATORS.put(FOD_ICON, FOD_ICON_VALIDATOR);
+            VALIDATORS.put(FOD_PRESSED_STATE, FOD_PRESSED_STATE_VALIDATOR);
         }
 
         /**
