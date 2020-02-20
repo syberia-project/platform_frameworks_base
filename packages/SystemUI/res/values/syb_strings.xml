@@ -186,4 +186,6 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Anti flicker</string>
 
+    <!-- Panic trigger to Global actions -->
+    <string name="global_action_panic">Panic trigger</string>
 </resources>
