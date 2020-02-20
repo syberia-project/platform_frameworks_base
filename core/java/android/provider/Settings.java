@@ -10345,6 +10345,12 @@ public final class Settings {
         public static final String WINDOW_MAGNIFICATION = "window_magnification";
 
         /**
+         * Whether the Panic button should be shown in the power menu.
+         * @hide
+         */
+        public static final String PANIC_IN_POWER_MENU = "panic_in_power_menu";
+
+        /**
          * Controls magnification mode when magnification is enabled via a system-wide
          * triple tap gesture or the accessibility shortcut.
          *
