@@ -3372,7 +3372,7 @@ public final class Settings {
             "bluetooth_discoverability";
 
         private static final Validator BLUETOOTH_DISCOVERABILITY_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 6);
 
         /**
          * Bluetooth discoverability timeout.  If this value is nonzero, then
@@ -5979,7 +5979,7 @@ public final class Settings {
 
         /** @hide */
         private static final Validator FOD_PRESSED_STATE_VALIDATOR =
-                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 6);
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
