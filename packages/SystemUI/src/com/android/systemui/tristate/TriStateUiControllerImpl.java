@@ -359,7 +359,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                         positionX = res.getDimensionPixelSize(R.dimen.tri_state_up_dialog_position_deep);
                         positionY = res.getDimensionPixelSize(R.dimen.tri_state_up_dialog_position)
                                 + res.getDimensionPixelSize(com.android.internal.R.dimen.status_bar_height);
-                        if (mIntentActionSupported) {
+                        if (mPosition >= 0) {
                             if (mPosition != POSITION_TOP) {
                                 if (mPosition != POSITION_MIDDLE) {
                                     if (mPosition == POSITION_BOTTOM) {
@@ -372,7 +372,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                                 positionY = res.getDimensionPixelSize(R.dimen.tri_state_middle_dialog_position)
                                     + res.getDimensionPixelSize(com.android.internal.R.dimen.status_bar_height);
                             }
-                        } else if (!mIntentActionSupported && mTriStateMode != MODE_SILENT) {
+                        } else if (mTriStateMode != MODE_SILENT) {
                             if (mTriStateMode != MODE_VIBRATE) {
                                 if (mTriStateMode == MODE_NORMAL) {
                                     positionY = res.getDimensionPixelSize(R.dimen.tri_state_down_dialog_position)
@@ -420,7 +420,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                         }
                         positionX = res.getDimensionPixelSize(R.dimen.tri_state_up_dialog_position_deep);
 
-                        if (mIntentActionSupported) {
+                        if (mPosition >= 0) {
                             if (mPosition != POSITION_TOP) {
                                 if (mPosition != POSITION_MIDDLE) {
                                     if (mPosition == POSITION_BOTTOM) {
@@ -435,7 +435,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                                 bg = R.drawable.dialog_tri_state_middle_bg;
                                 break;
                             }
-                        } else if (!mIntentActionSupported && mTriStateMode != MODE_SILENT) {
+                        } else if (mTriStateMode != MODE_SILENT) {
                             if (mTriStateMode != MODE_VIBRATE) {
                                 if (mTriStateMode == MODE_NORMAL) {
                                     positionY2 = res.getDimensionPixelSize(R.dimen.tri_state_down_dialog_position)
