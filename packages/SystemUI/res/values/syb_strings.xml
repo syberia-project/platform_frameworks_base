@@ -18,6 +18,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="statusbar_items_title">Statusbar icon</string>
+    <string name="status_bar_vpn">VPN</string>
 
     <!-- Advanced restart -->
     <string name="global_action_reboot">Перезагрузка</string>
