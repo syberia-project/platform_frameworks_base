@@ -73,6 +73,7 @@
     <!-- StatusBar tuner icons -->
     <string name="status_bar_roaming">Roaming</string>
     <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+    <string name="status_bar_vpn">VPN</string>
 
     <!-- Caffeine QS tile -->
     <string name="quick_settings_caffeine_label">Caffeine</string>
