@@ -41,7 +41,6 @@ import android.util.MathUtils;
 import android.util.Slog;
 import android.util.TimeUtils;
 
-import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.os.BackgroundThread;
 import com.android.server.EventLogTags;
 
@@ -216,9 +215,7 @@ class AutomaticBrightnessController {
     private IActivityTaskManager mActivityTaskManager;
     private PackageManager mPackageManager;
 
-    private final Injector mInjector;
-
-    AutomaticBrightnessController(Callbacks callbacks, Looper looper,
+    public AutomaticBrightnessController(Callbacks callbacks, Looper looper,
             SensorManager sensorManager, Sensor lightSensor, BrightnessMappingStrategy mapper,
             int lightSensorWarmUpTime, int brightnessMin, int brightnessMax, float dozeScaleFactor,
             int lightSensorRate, int initialLightSensorRate, long brighteningLightDebounceConfig,
@@ -226,24 +223,6 @@ class AutomaticBrightnessController {
             HysteresisLevels ambientBrightnessThresholds,
             HysteresisLevels screenBrightnessThresholds, long shortTermModelTimeout,
             PackageManager packageManager) {
-        this(new Injector(), callbacks, looper, sensorManager, lightSensor, mapper,
-                lightSensorWarmUpTime, brightnessMin, brightnessMax, dozeScaleFactor,
-                lightSensorRate, initialLightSensorRate, brighteningLightDebounceConfig,
-                darkeningLightDebounceConfig, resetAmbientLuxAfterWarmUpConfig,
-                ambientBrightnessThresholds, screenBrightnessThresholds, shortTermModelTimeout,
-                packageManager);
-    }
-
-    @VisibleForTesting
-    AutomaticBrightnessController(Injector injector, Callbacks callbacks, Looper looper,
-            SensorManager sensorManager, Sensor lightSensor, BrightnessMappingStrategy mapper,
-            int lightSensorWarmUpTime, int brightnessMin, int brightnessMax, float dozeScaleFactor,
-            int lightSensorRate, int initialLightSensorRate, long brighteningLightDebounceConfig,
-            long darkeningLightDebounceConfig, boolean resetAmbientLuxAfterWarmUpConfig,
-            HysteresisLevels ambientBrightnessThresholds,
-            HysteresisLevels screenBrightnessThresholds, long shortTermModelTimeout,
-            PackageManager packageManager) {
-        mInjector = injector;
         mCallbacks = callbacks;
         mSensorManager = sensorManager;
         mBrightnessMapper = mapper;
@@ -746,8 +725,8 @@ class AutomaticBrightnessController {
         float value = mBrightnessMapper.getBrightness(mAmbientLux, mForegroundAppPackageName,
                 mForegroundAppCategory);
 
-        int newScreenAutoBrightness = Math.round(clampScreenBrightness(
-                value * PowerManager.BRIGHTNESS_ON));
+        int newScreenAutoBrightness =
+                clampScreenBrightness(Math.round(value * PowerManager.BRIGHTNESS_ON));
 
         // If screenAutoBrightness is set, we should have screen{Brightening,Darkening}Threshold,
         // in which case we ignore the new screen brightness if it doesn't differ enough from the
@@ -771,10 +750,10 @@ class AutomaticBrightnessController {
             }
 
             mScreenAutoBrightness = newScreenAutoBrightness;
-            mScreenBrighteningThreshold = clampScreenBrightness(
-                    mScreenBrightnessThresholds.getBrighteningThreshold(newScreenAutoBrightness));
-            mScreenDarkeningThreshold = clampScreenBrightness(
-                    mScreenBrightnessThresholds.getDarkeningThreshold(newScreenAutoBrightness));
+            mScreenBrighteningThreshold =
+                    mScreenBrightnessThresholds.getBrighteningThreshold(newScreenAutoBrightness);
+            mScreenDarkeningThreshold =
+                    mScreenBrightnessThresholds.getDarkeningThreshold(newScreenAutoBrightness);
 
             if (sendUpdate) {
                 mCallbacks.updateBrightness();
@@ -782,7 +761,7 @@ class AutomaticBrightnessController {
         }
     }
 
-    private float clampScreenBrightness(float value) {
+    private int clampScreenBrightness(int value) {
         return MathUtils.constrain(value,
                 mScreenBrightnessRangeMinimum, mScreenBrightnessRangeMaximum);
     }
@@ -860,7 +839,7 @@ class AutomaticBrightnessController {
         }
         // The ActivityTaskManager's lock tends to get contended, so this is done in a background
         // thread and applied via this thread's handler synchronously.
-        mInjector.getBackgroundThreadHandler().post(new Runnable() {
+        BackgroundThread.getHandler().post(new Runnable() {
             public void run() {
                 try {
                     // The foreground app is the top activity of the focused tasks stack.
@@ -986,9 +965,6 @@ class AutomaticBrightnessController {
         private int mCount;
 
         public AmbientLightRingBuffer(long lightSensorRate, int ambientLightHorizon) {
-            if (lightSensorRate <= 0) {
-                throw new IllegalArgumentException("lightSensorRate must be above 0");
-            }
             mCapacity = (int) Math.ceil(ambientLightHorizon * BUFFER_SLACK / lightSensorRate);
             mRingLux = new float[mCapacity];
             mRingTime = new long[mCapacity];
@@ -1098,12 +1074,6 @@ class AutomaticBrightnessController {
                 index -= mCapacity;
             }
             return index;
-        }
-    }
-
-    public static class Injector {
-        public Handler getBackgroundThreadHandler() {
-            return BackgroundThread.getHandler();
         }
     }
 }

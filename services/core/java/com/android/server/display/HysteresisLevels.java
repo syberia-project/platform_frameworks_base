@@ -18,16 +18,13 @@ package com.android.server.display;
 
 import android.util.Slog;
 
-import com.android.internal.annotations.VisibleForTesting;
-
 import java.io.PrintWriter;
 import java.util.Arrays;
 
 /**
  * A helper class for handling access to illuminance hysteresis level values.
  */
-@VisibleForTesting
-public class HysteresisLevels {
+final class HysteresisLevels {
     private static final String TAG = "HysteresisLevels";
 
     // Default hysteresis constraints for brightening or darkening.
@@ -63,7 +60,7 @@ public class HysteresisLevels {
     /**
      * Return the brightening hysteresis threshold for the given value level.
      */
-    public float getBrighteningThreshold(float value) {
+    float getBrighteningThreshold(float value) {
         float brightConstant = getReferenceLevel(value, mBrighteningThresholds);
         float brightThreshold = value * (1.0f + brightConstant);
         if (DEBUG) {
@@ -76,7 +73,7 @@ public class HysteresisLevels {
     /**
      * Return the darkening hysteresis threshold for the given value level.
      */
-    public float getDarkeningThreshold(float value) {
+    float getDarkeningThreshold(float value) {
         float darkConstant = getReferenceLevel(value, mDarkeningThresholds);
         float darkThreshold = value * (1.0f - darkConstant);
         if (DEBUG) {
