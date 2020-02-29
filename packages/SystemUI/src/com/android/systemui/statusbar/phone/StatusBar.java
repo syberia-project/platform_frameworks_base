@@ -4118,8 +4118,17 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_BACKGROUND_BLUR_INTENSITY),
                     false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.Secure.getUriFor(
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.SYSUI_ROUNDED_FWVALS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LONG_BACK_SWIPE_TIMEOUT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LEFT_LONG_BACK_SWIPE_ACTION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RIGHT_LONG_BACK_SWIPE_ACTION),
                     false, this, UserHandle.USER_ALL);
         }
          @Override
@@ -4137,11 +4146,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateDoubleTapGestures();
             setPulseOnNewTracks();
             setHideArrowForBackGesture();
-	    updateCorners();
-	    updateBlurVisibility();
+            updateCorners();
+            updateBlurVisibility();
             if (mMediaManager != null) {
                 mMediaManager.setLockScreenMediaBlurLevel();
             }
+            setGestureNavOptions();
         }
     }
 
@@ -4182,6 +4192,12 @@ public class StatusBar extends SystemUI implements DemoMode,
     private void setHideArrowForBackGesture() {
         if (getNavigationBarView() != null) {
             getNavigationBarView().updateBackArrowForGesture();
+        }
+    }
+
+    private void setGestureNavOptions() {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().setLongSwipeOptions();
         }
     }
 

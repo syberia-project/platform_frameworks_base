@@ -44,6 +44,7 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.Region.Op;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -774,6 +775,11 @@ public class NavigationBarView extends FrameLayout implements
         WindowManagerWrapper.getInstance().setNavBarVirtualKeyHapticFeedbackEnabled(!showSwipeUpUI);
         getHomeButton().setAccessibilityDelegate(
                 showSwipeUpUI ? mQuickStepAccessibilityDelegate : null);
+    }
+
+
+    public void setLongSwipeOptions() {
+        mEdgeBackGestureHandler.setLongSwipeOptions();
     }
 
     /**
