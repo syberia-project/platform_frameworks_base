@@ -7431,5 +7431,8 @@ message MetricsEvent {
     // END OF AOSP CONSTANTS
 
     SYBERIA = 4200;
+
+    // Panel for Bluetooth
+    PANEL_BLUETOOTH = 9004;
   }
 }
