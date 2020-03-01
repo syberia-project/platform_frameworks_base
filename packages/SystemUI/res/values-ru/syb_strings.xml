@@ -37,4 +37,7 @@
     <!-- Content description indicating that tapping the element will allow deleting the screenshot [CHAR LIMIT=NONE] -->
     <string name="screenshot_delete_description">Скриншот удалён</string>
 
+    <string name="task_helper_app_killed">%1$s принудительно остановлено</string>
+    <string name="empty_app_killed">Приложение</string>
+
 </resources>
