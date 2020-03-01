@@ -94,6 +94,7 @@ import com.android.systemui.dagger.qualifiers.DisplayId;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.dagger.qualifiers.TestHarness;
 import com.android.systemui.shared.system.PackageManagerWrapper;
+import com.android.systemui.statusbar.policy.TaskHelper;
 
 import java.util.Optional;
 
@@ -553,4 +554,11 @@ public class FrameworkServicesModule {
     static SafetyCenterManager provideSafetyCenterManager(Context context) {
         return context.getSystemService(SafetyCenterManager.class);
     }
+
+    @Provides
+    @Singleton
+    public TaskHelper provideTaskHelper(Context context) {
+        return new TaskHelper(context);
+    }
+
 }
