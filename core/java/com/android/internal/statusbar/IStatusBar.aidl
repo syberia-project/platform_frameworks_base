@@ -372,4 +372,6 @@ oneway interface IStatusBar
      * Syberia
      */
     void toggleCameraFlash();
+
+    void killForegroundApp();
 }
