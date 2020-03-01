@@ -280,6 +280,8 @@
 
     <!-- DataSwitch tile -->
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <!-- Kill App Permission -->
+    <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
 
     <!-- Permission to broadcast doze intents -->
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
