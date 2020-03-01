@@ -234,4 +234,6 @@ interface IStatusBarService
      * Syberia
      */
     void toggleCameraFlash();
+
+    void killForegroundApp();
 }
