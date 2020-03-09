@@ -53,6 +53,14 @@ LOCAL_REQUIRED_MODULES := \
 	FontRoundedEleganceSourceOverlay \
 	FontCaviarDreamsSourceOverlay \
 	FontSanFranciscoDisplayProSourceOverlay \
+	FontDomkratSourceOverlay \
+	FontFakedesSourceOverlay \
+	FontHondaSourceOverlay \
+	FontHortensiaSourceOverlay \
+	FontMinusmanSourceOverlay \
+	FontNovaSourceOverlay \
+	FontTaurusSourceOverlay \
+	FontTechnicalSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
