@@ -32,12 +32,18 @@ LOCAL_REQUIRED_MODULES := \
     FontCaviarDreamsSourceOverlay \
     FontComicSansSourceOverlay \
     FontCoolstorySourceOverlay \
+    FontDomkratSourceOverlay \
     FontExo2SourceOverlay \
+    FontFakedesSourceOverlay \
     FontFifa2018SourceOverlay \
     FontGoogleSansSourceOverlay \
+    FontHondaSourceOverlay \
+    FontHortensiaSourceOverlay \
     FontLGSmartGothicSourceOverlay \
+    FontMinusmanSourceOverlay \
     FontNokiaPureSourceOverlay \
     FontNotoSerifSourceOverlay \
+    FontNovaSourceOverlay \
     FontRobotoCondensedLightSourceOverlay \
     FontRosemarySourceOverlay \
     FontRoundedEleganceSourceOverlay \
@@ -48,6 +54,8 @@ LOCAL_REQUIRED_MODULES := \
     FontSonySketchSourceOverlay \
     FontStoropiaSourceOverlay \
     FontSurferSourceOverlay \
+    FontTaurusSourceOverlay \
+    FontTechnicalSourceOverlay \
     FontUbuntuRegularSourceOverlay \
     IconPackCircularAndroidOverlay \
     IconPackCircularLauncherOverlay \
