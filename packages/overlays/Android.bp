@@ -113,7 +113,15 @@ phony {
         "FontOswaldSourceOverlay",
         "FontStoropiaSourceOverlay",
         "FontUbuntuRegularSourceOverlay",
-        "FontSanFranciscoDisplayProSourceOverlay"
+        "FontSanFranciscoDisplayProSourceOverlay",
+        "FontDomkratSourceOverlay",
+        "FontFakedesSourceOverlay",
+        "FontHondaSourceOverlay",
+        "FontHortensiaSourceOverlay",
+        "FontMinusmanSourceOverlay",
+        "FontNovaSourceOverlay",
+        "FontTaurusSourceOverlay",
+        "FontTechnicalSourceOverlay"
     ],
 }
 
