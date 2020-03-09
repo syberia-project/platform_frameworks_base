@@ -49,6 +49,14 @@ LOCAL_REQUIRED_MODULES := \
 	FontRoundedEleganceSourceOverlay \
 	FontCaviarDreamsSourceOverlay \
 	FontSanFranciscoDisplayProSourceOverlay \
+	FontDomkratSourceOverlay \
+	FontFakedesSourceOverlay \
+	FontHondaSourceOverlay \
+	FontHortensiaSourceOverlay \
+	FontMinusmanSourceOverlay \
+	FontNovaSourceOverlay \
+	FontTaurusSourceOverlay \
+	FontTechnicalSourceOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
