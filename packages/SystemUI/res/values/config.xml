@@ -114,7 +114,7 @@
 
     <!-- Tiles native to System UI. Order should match "quick_settings_tiles_default" -->
     <string name="quick_settings_tiles_stock" translatable="false">
-        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,location,dataswitch,hotspot,inversion,saver,sound,dark,work,cast,night,livedisplay,reading_mode,weather,screenrecord,reverse,aod,caffeine,reboot,screenshot,heads_up,cpuinfo,locale,vpn,lte,anti_flicker
+        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,location,dataswitch,hotspot,inversion,saver,sound,dark,work,cast,night,livedisplay,reading_mode,weather,screenrecord,reverse,aod,caffeine,reboot,screenshot,heads_up,cpuinfo,locale,vpn,lte,anti_flicker,fpsinfo
     </string>
 
     <!-- The tiles to display in QuickSettings -->
@@ -589,4 +589,7 @@
     <bool name="config_showNotificationForUnknownBatteryState">false</bool>
     <!-- content URL in a notification when ACTION_BATTERY_CHANGED.EXTRA_PRESENT field is false -->
     <string translatable="false" name="config_batteryStateUnknownUrl"></string>
+    <!-- FPSInfoService FPS node file path -->
+    <string name="config_fpsInfoSysNode" translatable="false"></string>
+
 </resources>
