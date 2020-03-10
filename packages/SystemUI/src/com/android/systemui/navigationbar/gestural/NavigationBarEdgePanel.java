@@ -153,6 +153,9 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
     private final float mBaseTranslation;
     private final float mArrowLength;
     private final float mArrowThickness;
+    private float mLongSwipeThreshold;
+    private boolean mAlmostLongSwipe;
+    private boolean mIsExtendedSwipe;
 
     /**
      * The minimum delta needed in movement for the arrow to change direction / stop triggering back
@@ -496,6 +499,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         mVelocityTracker.addMovement(event);
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                mAlmostLongSwipe = false;
                 mDragSlopPassed = false;
                 resetOnDown();
                 mStartX = event.getX();
@@ -555,6 +559,9 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         float x = (polarToCartX(mCurrentAngle) * mArrowLength);
         float y = (polarToCartY(mCurrentAngle) * mArrowLength);
         Path arrowPath = calculatePath(x,y);
+        if (mAlmostLongSwipe) {
+            arrowPath.addPath(calculatePath(x,y), mArrowThickness * 2.0f * (mIsLeftPanel ? 1 : -1), 0.0f);
+        }
         if (mShowProtection) {
             canvas.drawPath(arrowPath, mProtectionPaint);
         }
@@ -579,6 +586,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         mArrowPaddingEnd = res.getDimensionPixelSize(R.dimen.navigation_edge_panel_padding);
         mMinArrowPosition = res.getDimensionPixelSize(R.dimen.navigation_edge_arrow_min_y);
         mFingerOffset = res.getDimensionPixelSize(R.dimen.navigation_edge_finger_offset);
+        mLongSwipeThreshold = mDisplaySize.x * 0.45f;
     }
 
     private void updateArrowDirection() {
@@ -747,6 +755,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         float x = event.getX();
         float y = event.getY();
         float touchTranslation = MathUtils.abs(x - mStartX);
+        mAlmostLongSwipe = mIsExtendedSwipe && (touchTranslation > mLongSwipeThreshold);
         float yOffset = y - mStartY;
         float delta = touchTranslation - mPreviousTouchTranslation;
         if (Math.abs(delta) > 0) {
@@ -960,5 +969,10 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         pw.println("  mDesiredTranslation=" + mDesiredTranslation);
         pw.println("  mTranslationAnimation running=" + mTranslationAnimation.isRunning());
         mRegionSamplingHelper.dump(pw);
+    }
+
+    @Override
+    public void setLongSwipeEnabled(boolean enabled) {
+        mIsExtendedSwipe = enabled;
     }
 }
