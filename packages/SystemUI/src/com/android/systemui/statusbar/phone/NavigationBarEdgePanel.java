@@ -132,7 +132,9 @@ public class NavigationBarEdgePanel extends View {
     private final float mArrowLength;
     private final float mArrowThickness;
     private float mLongSwipeThreshold;
-    private boolean mTriggerLongSwipe;
+    private boolean mAlmostLongSwipe;
+    private int mBackSwipeType;
+    private Context mContext;
 
     /**
      * The minimum delta needed in movement for the arrow to change direction / stop triggering back
@@ -251,6 +253,8 @@ public class NavigationBarEdgePanel extends View {
     public NavigationBarEdgePanel(Context context) {
         super(context);
 
+        mContext = context;
+
         mVibratorHelper = Dependency.get(VibratorHelper.class);
 
         mDensity = context.getResources().getDisplayMetrics().density;
@@ -323,6 +327,7 @@ public class NavigationBarEdgePanel extends View {
         mSwipeThreshold = context.getResources()
                 .getDimension(R.dimen.navigation_edge_action_drag_threshold);
         setVisibility(GONE);
+        setExtendedSwipe();
     }
 
     @Override
@@ -399,7 +404,7 @@ public class NavigationBarEdgePanel extends View {
         mVelocityTracker.addMovement(event);
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN : {
-                mTriggerLongSwipe = false;
+                mAlmostLongSwipe = false;
                 mDragSlopPassed = false;
                 resetOnDown();
                 mStartX = event.getX();
@@ -449,7 +454,7 @@ public class NavigationBarEdgePanel extends View {
         float x = (polarToCartX(mCurrentAngle) * mArrowLength);
         float y = (polarToCartY(mCurrentAngle) * mArrowLength);
         Path arrowPath = calculatePath(x,y);
-        if (mTriggerLongSwipe) {
+        if (mAlmostLongSwipe) {
             arrowPath.addPath(calculatePath(x,y), mArrowThickness * 2.0f * (mIsLeftPanel ? 1 : -1), 0.0f);
         }
         if (mShowProtection) {
@@ -616,7 +621,7 @@ public class NavigationBarEdgePanel extends View {
         float x = event.getX();
         float y = event.getY();
         float touchTranslation = MathUtils.abs(x - mStartX);
-        mTriggerLongSwipe = touchTranslation > mLongSwipeThreshold;
+        mAlmostLongSwipe = (mBackSwipeType == 1) && (touchTranslation > mLongSwipeThreshold);
         float yOffset = y - mStartY;
         float delta = touchTranslation - mPreviousTouchTranslation;
         if (Math.abs(delta) > 0) {
@@ -768,5 +773,11 @@ public class NavigationBarEdgePanel extends View {
 
     private float dp(float dp) {
         return mDensity * dp;
+    }
+
+    public void setExtendedSwipe() {
+        mBackSwipeType = Settings.System.getIntForUser(mContext.getContentResolver(),
+            Settings.System.BACK_SWIPE_TYPE, 0,
+            UserHandle.USER_CURRENT);
     }
 }
