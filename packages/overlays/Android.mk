@@ -95,14 +95,18 @@ LOCAL_REQUIRED_MODULES := \
         IconPackOOSThemePickerOverlay \
         IconPackAcherusAndroidOverlay \
         IconPackAcherusSystemUIOverlay \
+        IconShapeCloudyOverlay \
         IconShapeCylinderOverlay \
+        IconShapeFlowerOverlay \
         IconShapeHeartOverlay \
         IconShapeHexagonOverlay \
         IconShapeLeafOverlay \
         IconShapePebbleOverlay \
+        IconShapeRoundedHexagonOverlay \
         IconShapeRoundedRectOverlay \
         IconShapeSquareOverlay \
         IconShapeSquircleOverlay \
+        IconShapeStretchedOverlay \
         IconShapeTaperedRectOverlay \
         IconShapeTeardropOverlay \
         IconShapeVesselOverlay \
