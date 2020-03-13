@@ -5091,33 +5091,6 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-         * Wheter to show network traffic indicator in statusbar
-         * @hide
-         */
-        public static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
-        /** @hide */
-        private static final Validator NETWORK_TRAFFIC_STATE_VALIDATOR =
-                BOOLEAN_VALIDATOR;
-
-        /**
-         * Network traffic inactivity threshold (default is 1 kBs)
-         * @hide
-         */
-        public static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
-         /** @hide */
-        private static final Validator NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD_VALIDATOR =
-                ANY_INTEGER_VALIDATOR;
-
-        /**
-          * Whether to disable showing arrows in network traffic indicators
-          * @hide
-         */
-        public static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
-         /** @hide */
-        private static final Validator NETWORK_TRAFFIC_HIDEARROW_VALIDATOR =
-                ANY_INTEGER_VALIDATOR;
-
-        /**
          * Applications list where heasdup should't show
          *
          * @hide
@@ -5881,9 +5854,6 @@ public final class Settings {
             POWERMENU_LOGOUT,
             POWERMENU_LOCKSCREEN,
             POWERMENU_TORCH,
-            NETWORK_TRAFFIC_STATE,
-            NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD,
-            NETWORK_TRAFFIC_HIDEARROW,
             HEADS_UP_STOPLIST_VALUES,
             HEADS_UP_BLACKLIST_VALUES,
             DOUBLE_TAP_SLEEP_GESTURE,
@@ -6091,9 +6061,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_FOURG);
             PRIVATE_SETTINGS.add(SHOW_VOLTE_ICON);
             PRIVATE_SETTINGS.add(VOLTE_ICON_STYLE);
-            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_STATE);
-            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
-            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_HIDEARROW);
             PRIVATE_SETTINGS.add(HEADS_UP_STOPLIST_VALUES);
             PRIVATE_SETTINGS.add(HEADS_UP_BLACKLIST_VALUES);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
@@ -6280,9 +6247,6 @@ public final class Settings {
             VALIDATORS.put(POWERMENU_LOGOUT, POWERMENU_LOGOUT_VALIDATOR);
             VALIDATORS.put(POWERMENU_LOCKSCREEN, POWERMENU_LOCKSCREEN_VALIDATOR);
             VALIDATORS.put(POWERMENU_TORCH, POWERMENU_TORCH_VALIDATOR);
-            VALIDATORS.put(NETWORK_TRAFFIC_STATE, NETWORK_TRAFFIC_STATE_VALIDATOR);
-            VALIDATORS.put(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD_VALIDATOR);
-            VALIDATORS.put(NETWORK_TRAFFIC_HIDEARROW, NETWORK_TRAFFIC_HIDEARROW_VALIDATOR);
             VALIDATORS.put(HEADS_UP_STOPLIST_VALUES, HEADS_UP_STOPLIST_VALUES_VALIDATOR);
             VALIDATORS.put(HEADS_UP_BLACKLIST_VALUES, HEADS_UP_BLACKLIST_VALUES_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, DOUBLE_TAP_SLEEP_GESTURE_VALIDATOR);
