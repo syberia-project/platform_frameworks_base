@@ -83,7 +83,11 @@ phony {
         "IconPackOOSSettingsOverlay",
         "IconPackOOSThemePickerOverlay",
         "IconPackAcherusAndroidOverlay",
-        "IconPackAcherusSystemUIOverlay"
+        "IconPackAcherusSystemUIOverlay",
+        "IconShapeCloudyOverlay",
+        "IconShapeFlowerOverlay",
+        "IconShapeRoundedHexagonOverlay",
+        "IconShapeStretchedOverlay"
     ],
 }
 
