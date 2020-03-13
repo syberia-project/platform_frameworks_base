@@ -28,4 +28,8 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Anti flicker</string>
 
+    <!-- Alert slide extras -->
+    <string name="volume_ringer_priority_only">Priority</string>
+    <string name="volume_ringer_alarms_only">Alarms</string>
+
 </resources>
