@@ -61,8 +61,6 @@ import com.android.systemui.UiOffloadThread;
 import com.android.systemui.shared.system.ActivityManagerWrapper;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 
-import com.syberia.internal.util.NavBarUtils;
-
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -189,9 +187,6 @@ public class NavigationModeController implements Dumpable {
         mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                 Settings.System.BACK_GESTURE_HAPTIC),
                 false, mSettingsObserver, UserHandle.USER_ALL);
-        mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                Settings.System.NAVIGATION_HANDLE_WIDTH),
-                false, mSettingsObserver, UserHandle.USER_ALL);
         IntentFilter preferredActivityFilter = new IntentFilter(ACTION_PREFERRED_ACTIVITY_CHANGED);
         mContext.registerReceiverAsUser(mReceiver, UserHandle.ALL, preferredActivityFilter, null,
                 null);
@@ -224,9 +219,6 @@ public class NavigationModeController implements Dumpable {
                 + mCurrentUserContext.getUserId());
 
         setModeOverlay(NAV_BAR_MODE_GESTURAL_OVERLAY, USER_CURRENT);
-        if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
-                NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
-        }
         return true;
     }
 
@@ -410,9 +402,6 @@ public class NavigationModeController implements Dumpable {
                 }
             }
             mRestoreGesturalNavBarMode.put(userId, false);
-            if (NavBarUtils.isGesturalNavBarHidden(mContext, USER_CURRENT)) {
-                NavBarUtils.setGesturalNavBarHiddenOverlay(mOverlayManager, USER_CURRENT, true);
-            }
         }
     }
 
