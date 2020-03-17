@@ -308,7 +308,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
 
         setKeepScreenOn(true);
 
-        updateDim();
         updateBoost();
         updateAlpha();
         dispatchPress();
@@ -326,7 +325,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         dispatchRelease();
 
         updateBoost();
-        updateDim();
         updateAlpha();
 
         setKeepScreenOn(false);
@@ -402,6 +400,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
 
         dispatchShow();
         setVisibility(View.VISIBLE);
+	updateDim();
     }
 
     public void hide() {
@@ -456,21 +455,16 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
     }
 
     private void updateDim() {
-        if (mIsCircleShowing) {
-            int dimAmount = 0;
-
-            IFingerprintInscreen daemon = getFingerprintInScreenDaemon();
-            try {
-                dimAmount = daemon.getDimAmount(mCurrentBrightness);
-            } catch (RemoteException e) {
-                return;
-            }
-
-            mParams.dimAmount = dimAmount / 255.0f;
-        } else {
-            mParams.dimAmount = 0.0f;
+        int dimAmount = 0;
+        mCurrentBrightness = Settings.System.getInt(mContext.getContentResolver(), "screen_brightness", 255);
+        IFingerprintInscreen daemon = getFingerprintInScreenDaemon();
+        try {
+            dimAmount = daemon.getDimAmount(mCurrentBrightness);
+        } catch (RemoteException e) {
+            return;
         }
 
+        mParams.dimAmount = dimAmount / 255.0f;
         mWindowManager.updateViewLayout(this, mParams);
     }
 
