@@ -4,6 +4,10 @@
     <dimen name="analog_clock_height">100dp</dimen>
     <dimen name="digital_clock_two_line_spacing">-10dp</dimen>
     <dimen name="clock_bottom_margin">8dp</dimen>
+
     <!-- Weather condition icon  -->
     <dimen name="weather_icon_size">24dp</dimen>
+
+    <!-- The minimum bottom margin of the keyguard security container -->
+    <dimen name="kg_security_container_min_bottom_margin">0dp</dimen>
 </resources>
