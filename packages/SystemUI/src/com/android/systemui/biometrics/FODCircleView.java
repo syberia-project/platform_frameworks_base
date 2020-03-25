@@ -41,6 +41,7 @@ import android.widget.ImageView;
 import com.android.keyguard.KeyguardUpdateMonitor;
 import com.android.keyguard.KeyguardUpdateMonitorCallback;
 import com.android.systemui.Dependency;
+import com.android.keyguard.KeyguardSecurityModel.SecurityMode;
 import com.android.systemui.R;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.statusbar.policy.ConfigurationController;
@@ -113,11 +114,16 @@ public class FODCircleView extends ImageView implements TunerService.Tunable, Co
         @Override
         public void onKeyguardBouncerChanged(boolean isBouncer) {
             mIsBouncer = isBouncer;
-
-            if (isBouncer) {
+            if (mUpdateMonitor.isFingerprintDetectionRunning()) {
+                final SecurityMode sm = mUpdateMonitor.getSecurityMode();
+                final boolean showOnBouncer = sm == SecurityMode.Pattern || sm == SecurityMode.PIN;
+                if (showOnBouncer || !isBouncer) {
+                    show();
+                } else {
+                    hide();
+                }
+            } else {
                 hide();
-            } else if (mUpdateMonitor.isFingerprintDetectionRunning()) {
-                show();
             }
         }
 
