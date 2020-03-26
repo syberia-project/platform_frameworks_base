@@ -650,6 +650,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
             mBlockNextEvent = true;
             mEdgePanel.resetOnDown();
             triggerAction(mIsOnLeftEdge);
+            if (mEdgeHaptic) {
+                    vibrateTick();
+            }
         }
     }
 
