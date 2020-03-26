@@ -104,11 +104,9 @@ public final class ActionUtils {
     public static final String BOOL = "bool";
     public static final String STRING = "string";
     public static final String ANIM = "anim";
-    public static final String INTENT_SCREENSHOT = "action_take_screenshot";
-    public static final String INTENT_REGION_SCREENSHOT = "action_take_region_screenshot";
 
     private static final String TAG = ActionUtils.class.getSimpleName();
-     private static final String SYSTEMUI_PACKAGE = "com.android.systemui";
+    private static final String SYSTEMUI_PACKAGE = "com.android.systemui";
 
     /**
      * Kills the top most / most recent user application, but leaves out the launcher.
@@ -937,9 +935,12 @@ public final class ActionUtils {
 
     // Screenshot
     public static void takeScreenshot(boolean full) {
+        final int type = full
+                ? WindowManager.TAKE_SCREENSHOT_FULLSCREEN
+                : WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
         IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
         try {
-            wm.sendCustomAction(new Intent(INTENT_SCREENSHOT));
+            wm.mokeeTakeScreenshot(type);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
