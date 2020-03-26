@@ -710,6 +710,9 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
     private void prepareForAction() {
         mBlockNextEvent = true;
         mEdgeBackPlugin.resetOnDown();
+            if (mEdgeHapticEnabled) {
+                    vibrateTick();
+            }
     }
 
     private void triggerAction(boolean isVertical) {
