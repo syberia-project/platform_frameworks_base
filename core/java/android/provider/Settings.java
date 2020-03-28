@@ -11984,6 +11984,7 @@ public final class Settings {
          * @hide
          */
         @Readable
+
         public static final String SCREEN_OFF_UDFPS_ENABLED = "screen_off_udfps_enabled";
         /**
          * Whether to show the brightness slider in quick settings panel.
@@ -12003,6 +12004,11 @@ public final class Settings {
          * @hide
          */
         public static final String QS_SHOW_AUTO_BRIGHTNESS = "qs_show_auto_brightness";
+        /**
+         * Face Unlock Method
+         * @hide
+         */
+        public static final String FACE_UNLOCK_METHOD = "face_unlock_method";
 
         /**
          * These entries are considered common between the personal and the managed profile,
