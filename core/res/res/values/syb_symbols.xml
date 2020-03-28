@@ -133,4 +133,7 @@
   <!-- Whether to handle audio direction changes between major call states -->
   <java-symbol type="bool" name="config_handleAudioDirectionChangesBetweenCallStateChanges" />
 
+  <!-- Enable face auth only when swiping security view -->
+  <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
+
 </resources>
