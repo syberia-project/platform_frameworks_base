@@ -1511,6 +1511,9 @@ public class StatusBar extends SystemUI implements DemoMode,
         mRunningTaskId = taskId;
         mIsLauncherShowing = taskComponentName.equals(mDefaultHome);
         mTaskComponentName = taskComponentName;
+        if (mMediaManager != null) {
+            mMediaManager.setRunningPackage(mTaskComponentName.getPackageName());
+        }
     }
 
     @Nullable
@@ -4263,6 +4266,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BACK_SWIPE_TYPE),
                     false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SHOW_MEDIA_HEADS_UP),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -4270,6 +4276,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                 updateCutoutOverlay();
             }
             update();
+	    } else if (uri.equals(Settings.System.getUriFor(Settings.System.SHOW_MEDIA_HEADS_UP))) {
+                setMediaHeadsup();
+            }
         }
          public void update() {
             setHeadsUpStoplist();
@@ -4280,11 +4289,18 @@ public class StatusBar extends SystemUI implements DemoMode,
             setPulseOnNewTracks();
             setHideArrowForBackGesture();
             updateCorners();
+	    setMediaHeadsup();
             updateBlurVisibility();
             if (mMediaManager != null) {
                 mMediaManager.setLockScreenMediaBlurLevel();
             }
             setGestureNavOptions();
+        }
+    }
+
+    private void setMediaHeadsup() {
+        if (mMediaManager != null) {
+            mMediaManager.setMediaHeadsup();
         }
     }
 

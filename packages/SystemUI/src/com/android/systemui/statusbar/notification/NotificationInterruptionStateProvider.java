@@ -40,6 +40,7 @@ import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.statusbar.NotificationPresenter;
 import com.android.systemui.statusbar.StatusBarState;
 import com.android.systemui.statusbar.notification.collection.NotificationEntry;
+import com.android.systemui.statusbar.phone.StatusBarNotificationPresenter;
 import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.HeadsUpManager;
 
@@ -247,14 +248,16 @@ public class NotificationInterruptionStateProvider {
             return false;
         }
 
-        if (entry.shouldSuppressPeek()) {
+        boolean isMediaPlayerNotification = isMediaPlayerNotification(entry);
+
+        if (entry.shouldSuppressPeek() /*|| (shouldSkipHeadsUp(sbn) && !isMediaPlayerNotification)*/) {
             if (DEBUG_HEADS_UP) {
                 Log.d(TAG, "No heads up: suppressed by DND: " + sbn.getKey());
             }
             return false;
         }
 
-        if (entry.importance < NotificationManager.IMPORTANCE_HIGH) {
+        if (!isMediaPlayerNotification && entry.importance < NotificationManager.IMPORTANCE_HIGH) {
             if (DEBUG_HEADS_UP) {
                 Log.d(TAG, "No heads up: unimportant notification: " + sbn.getKey());
             }
@@ -284,6 +287,10 @@ public class NotificationInterruptionStateProvider {
         }
 
         return true;
+    }
+
+    public boolean isMediaPlayerNotification(NotificationEntry entry) {
+        return ((StatusBarNotificationPresenter)mPresenter).isMediaPlayerNotification(entry);
     }
 
     /**
