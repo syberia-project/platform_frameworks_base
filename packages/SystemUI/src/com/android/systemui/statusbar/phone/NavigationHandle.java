@@ -114,6 +114,11 @@ public class NavigationHandle extends View implements ButtonInterface {
 
     private double getCustomWidth() {
         int userSelection = Settings.System.getInt(mResolver, "navigation_handle_width", 1);
+        if (userSelection == 0) {
+            NavigationBarView.setGesturalNavBarHiddenOverlay(true);
+        } else {
+            NavigationBarView.setGesturalNavBarHiddenOverlay(false);
+        }
         double finalWidth = 0.0;
         if (userSelection == 1) {
             finalWidth = mWidth;
