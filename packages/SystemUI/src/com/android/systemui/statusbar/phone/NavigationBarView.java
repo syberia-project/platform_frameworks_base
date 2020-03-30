@@ -37,6 +37,7 @@ import android.animation.ValueAnimator;
 import android.annotation.DrawableRes;
 import android.app.StatusBarManager;
 import android.content.Context;
+import android.content.om.IOverlayManager;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -45,6 +46,9 @@ import android.graphics.Region;
 import android.graphics.Region.Op;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -91,6 +95,9 @@ public class NavigationBarView extends FrameLayout implements
     final static boolean SLIPPERY_WHEN_DISABLED = true;
 
     final static boolean ALTERNATE_CAR_MODE_UI = false;
+
+    private static final String NAV_BAR_GESTURAL_HIDE_NAV_OVERLAY =
+            "com.android.internal.systemui.navbar.gestural.hide_nav";
 
     View mCurrentView = null;
     private View mVertical;
@@ -830,6 +837,21 @@ public class NavigationBarView extends FrameLayout implements
             mTintController.start();
         } else {
             mTintController.stop();
+        }
+    }
+
+    public static boolean setGesturalNavBarHiddenOverlay(boolean state) {
+        final IOverlayManager mOverlayManager = IOverlayManager.Stub.asInterface(
+                ServiceManager.getService(Context.OVERLAY_SERVICE));
+        try {
+            if (state) {
+                return mOverlayManager.setEnabledExclusiveInCategory(NAV_BAR_GESTURAL_HIDE_NAV_OVERLAY, UserHandle.USER_CURRENT);
+            } else {
+                return mOverlayManager.setEnabled(NAV_BAR_GESTURAL_HIDE_NAV_OVERLAY, false, UserHandle.USER_CURRENT);
+            }
+        } catch (RemoteException e) {
+               Log.e(TAG, "Failed to update hide gesture navbar overlay");
+               return false;
         }
     }
 
