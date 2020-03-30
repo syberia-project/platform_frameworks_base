@@ -30,9 +30,11 @@ import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.provider.Telephony.Sms;
 import android.service.dreams.IDreamManager;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
+import android.telecom.TelecomManager;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -73,15 +75,16 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
     private final ContentObserver mHeadsUpObserver;
     private HeadsUpManager mHeadsUpManager;
 
-    private boolean mLessBoringHeadsUp;
-    private boolean mSkipHeadsUp;
-
     ActivityManager mAm;
     private ArrayList<String> mStoplist = new ArrayList<String>();
     private ArrayList<String> mBlacklist = new ArrayList<String>();
 
     @VisibleForTesting
     protected boolean mUseHeadsUp = false;
+
+    private boolean mSkipHeadsUp = false;
+    private boolean mLessBoringHeadsUp = false;
+    private TelecomManager mTm;
 
     @Inject
     public NotificationInterruptStateProviderImpl(
@@ -96,6 +99,7 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
             HeadsUpManager headsUpManager,
             @Main Handler mainHandler) {
         mContext = context;
+        mTm = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
         mContentResolver = contentResolver;
         mPowerManager = powerManager;
         mDreamManager = dreamManager;
@@ -331,25 +335,6 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
         splitAndAddToArrayList(mBlacklist, blackString, "\\|");
     }
 
-    @Override
-    public void setUseLessBoringHeadsUp(boolean lessBoring) {
-        mLessBoringHeadsUp = lessBoring;
-    }
-
-    @Override
-    public void setGamingPeekMode(boolean skipHeadsUp) {
-        mSkipHeadsUp = skipHeadsUp;
-    }
-
-    private boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
-        boolean isImportantHeadsUp = false;
-        String notificationPackageName = sbn.getPackageName().toLowerCase();
-        isImportantHeadsUp = notificationPackageName.contains("dialer") ||
-                notificationPackageName.contains("messaging") ||
-                notificationPackageName.contains("clock");
-        return mLessBoringHeadsUp && !isImportantHeadsUp && mSkipHeadsUp;
-    }
-
     /**
      * Whether or not the notification should "pulse" on the user's display when the phone is
      * dozing.  This displays the ambient view of the notification.
@@ -395,6 +380,42 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void setUseLessBoringHeadsUp(boolean lessBoring) {
+        mLessBoringHeadsUp = lessBoring;
+    }
+
+    @Override
+    public void setGamingPeekMode(boolean skipHeadsUp) {
+        mSkipHeadsUp = skipHeadsUp;
+    }
+
+    public boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
+        String notificationPackageName = sbn.getPackageName();
+
+        // Gaming mode takes precedence since messaging headsup is intrusive
+        if (mSkipHeadsUp) {
+            boolean isNonInstrusive = notificationPackageName.equals(getDefaultDialerPackage(mTm))
+                    || notificationPackageName.toLowerCase().contains("clock");
+            return !mStatusBarStateController.isDozing() && mSkipHeadsUp && !isNonInstrusive;
+        }
+
+        boolean isLessBoring = notificationPackageName.equals(getDefaultDialerPackage(mTm))
+                || notificationPackageName.equals(getDefaultSmsPackage(mContext))
+                || notificationPackageName.toLowerCase().contains("clock");
+
+        return !mStatusBarStateController.isDozing() && mLessBoringHeadsUp && !isLessBoring;
+    }
+
+    private static String getDefaultSmsPackage(Context ctx) {
+        // for reference, there's also a new RoleManager api with getDefaultSmsPackage(context, userid) 
+        return Sms.getDefaultSmsPackage(ctx);
+    }
+
+    private static String getDefaultDialerPackage(TelecomManager tm) {
+        return tm != null ? tm.getDefaultDialerPackage() : "";
     }
 
     /**
