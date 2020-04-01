@@ -111,6 +111,9 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         mStatusBarStateController = statusBarStateController;
     }
 
+    // custom additions
+    private boolean mSecureExpandDisabled;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             Bundle savedInstanceState) {
@@ -390,7 +393,7 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         boolean onKeyguardAndExpanded = isKeyguardShowing() && !mShowCollapsedOnKeyguard;
         if (!mHeaderAnimating && !headerWillBeAnimating()) {
             getView().setTranslationY(
-                    onKeyguardAndExpanded
+                    (onKeyguardAndExpanded || mSecureExpandDisabled)
                             ? translationScaleY * mHeader.getHeight()
                             : headerTranslation);
         }
@@ -500,6 +503,9 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
 
     @Override
     public void animateHeaderSlidingIn(long delay) {
+        if (mSecureExpandDisabled) {
+            return;
+        }
         if (DEBUG) Log.d(TAG, "animateHeaderSlidingIn");
         // If the QS is already expanded we don't need to slide in the header as it's already
         // visible.
@@ -590,7 +596,12 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
 
     @Override
     public int getQsMinExpansionHeight() {
-        return mHeader.getHeight();
+        return mSecureExpandDisabled ? 0 : mHeader.getHeight();
+    }
+
+    @Override
+    public void setSecureExpandDisabled(boolean value) {
+        mSecureExpandDisabled = value;
     }
 
     @Override
