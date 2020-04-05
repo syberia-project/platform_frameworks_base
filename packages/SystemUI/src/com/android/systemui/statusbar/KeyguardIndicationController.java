@@ -415,42 +415,29 @@ public class KeyguardIndicationController implements StateListener,
             int userId = KeyguardUpdateMonitor.getCurrentUser();
             String trustGrantedIndication = getTrustGrantedIndication();
             String trustManagedIndication = getTrustManagedIndication();
-
-            String powerIndication = null;
-            if (mPowerPluggedIn) {
-                powerIndication = computePowerIndication();
-            }
-
             if (!mUserManager.isUserUnlocked(userId)) {
                 mTextView.switchIndication(com.android.internal.R.string.lockscreen_storage_locked);
                 mTextView.setTextColor(mInitialTextColorState);
             } else if (!TextUtils.isEmpty(mTransientIndication)) {
-                if (powerIndication != null) {
-                    mTextView.switchIndication(mTransientIndication + "\n" + powerIndication);
-                } else {
-                    mTextView.switchIndication(mTransientIndication);
-                }
+                mTextView.switchIndication(mTransientIndication);
                 mTextView.setTextColor(mTransientTextColorState);
             } else if (!TextUtils.isEmpty(trustGrantedIndication)
                     && mKeyguardUpdateMonitor.getUserHasTrust(userId)) {
-                if (powerIndication != null) {
-                    mTextView.switchIndication(trustGrantedIndication + "\n" + powerIndication);
-                } else {
-                    mTextView.switchIndication(trustGrantedIndication);
-                }
+                mTextView.switchIndication(trustGrantedIndication);
                 mTextView.setTextColor(mInitialTextColorState);
             } else if (!TextUtils.isEmpty(mAlignmentIndication)) {
                 mTextView.switchIndication(mAlignmentIndication);
                 mTextView.setTextColor(Utils.getColorError(mContext));
             } else if (mPowerPluggedIn) {
+                String indication = computePowerIndication();
                 if (DEBUG_CHARGING_SPEED) {
-                    powerIndication += ",  " + (mChargingWattage / 1000) + " mW";
+                    indication += ",  " + (mChargingWattage / 1000) + " mW";
                 }
                 mTextView.setTextColor(mInitialTextColorState);
                 if (animate) {
-                    animateText(mTextView, powerIndication);
+                    animateText(mTextView, indication);
                 } else {
-                    mTextView.switchIndication(powerIndication);
+                    mTextView.switchIndication(indication);
                 }
             } else if (!TextUtils.isEmpty(trustManagedIndication)
                     && mKeyguardUpdateMonitor.getUserTrustIsManaged(userId)
