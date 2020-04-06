@@ -50,6 +50,7 @@ import com.android.systemui.util.AlarmTimeout;
 import com.android.systemui.util.AsyncSensorManager;
 import com.android.systemui.util.ProximitySensor;
 import com.android.systemui.util.wakelock.WakeLock;
+import com.android.systemui.R;
 
 import java.io.PrintWriter;
 import java.util.List;
