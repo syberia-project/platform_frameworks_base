@@ -21,9 +21,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint.Style;
-import android.util.MathUtils;
+import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextClock;
 
 import com.android.internal.colorextraction.ColorExtractor;
 import com.android.systemui.R;
@@ -32,12 +34,13 @@ import com.android.systemui.plugins.ClockPlugin;
 
 import java.util.TimeZone;
 
-import static android.view.View.TEXT_ALIGNMENT_CENTER;
+import static com.android.systemui.statusbar.phone
+        .KeyguardClockPositionAlgorithm.CLOCK_USE_DEFAULT_Y;
 
 /**
- * Plugin for a custom Typographic clock face that displays the time in words.
+ * Plugin for the default clock face used only to provide a preview.
  */
-public class TypeClockAltController implements ClockPlugin {
+public class SamsungHighlightClockController implements ClockPlugin {
 
     /**
      * Resources used to get title and thumbnail.
@@ -55,116 +58,95 @@ public class TypeClockAltController implements ClockPlugin {
     private final SysuiColorExtractor mColorExtractor;
 
     /**
-     * Computes preferred position of clock.
-     */
-    private float mDarkAmount;
-    private final int mStatusBarHeight;
-    private final int mKeyguardLockPadding;
-    private final int mKeyguardLockHeight;
-    private final int mBurnInOffsetY;
-
-    /**
      * Renders preview from clock view.
      */
     private final ViewPreviewer mRenderer = new ViewPreviewer();
 
     /**
-     * Custom clock shown on AOD screen and behind stack scroller on lock.
+     * Root view of clock.
      */
-    private View mView;
-    private TypographicClock mTypeClock;
+    private ClockLayout mView;
 
     /**
-     * Small clock shown on lock screen above stack scroller.
+     * Text clock in preview view hierarchy.
      */
-    private TypographicClock mLockClock;
+    private TextClock mClock;
 
     /**
-     * Controller for transition into dark state.
+     * Accent color for the hour section
      */
-    private CrossFadeDarkController mDarkController;
+    private int mAccentColor;
 
     /**
-     * Create a TypeClockAltController instance.
+     * Create a DefaultClockController instance.
      *
      * @param res Resources contains title and thumbnail.
      * @param inflater Inflater used to inflate custom clock views.
      * @param colorExtractor Extracts accent color from wallpaper.
      * @param context A context.
      */
-    TypeClockAltController(Resources res, LayoutInflater inflater,
+    public SamsungHighlightClockController(Resources res, LayoutInflater inflater,
             SysuiColorExtractor colorExtractor) {
         mResources = res;
         mLayoutInflater = inflater;
         mColorExtractor = colorExtractor;
-        mStatusBarHeight = res.getDimensionPixelSize(R.dimen.status_bar_height);
-        mKeyguardLockPadding = res.getDimensionPixelSize(R.dimen.keyguard_lock_padding);
-        mKeyguardLockHeight = res.getDimensionPixelSize(R.dimen.keyguard_lock_height);
-        mBurnInOffsetY = res.getDimensionPixelSize(R.dimen.burn_in_prevention_offset_y);
     }
 
     private void createViews() {
-        mView = mLayoutInflater.inflate(R.layout.type_clock_alt, null);
-        mTypeClock = mView.findViewById(R.id.type_clock);
-
-        // For now, this view is used to hide the default digital clock.
-        // Need better transition to lock screen.
-        mLockClock = (TypographicClock) mLayoutInflater.inflate(R.layout.typographic_clock_alt, null);
-        mLockClock.setVisibility(View.GONE);
-
-        mDarkController = new CrossFadeDarkController(mView, mLockClock);
+        mView = (ClockLayout) mLayoutInflater
+                .inflate(R.layout.digital_clock_custom, null);
+        mClock = mView.findViewById(R.id.clock);
+        ColorExtractor.GradientColors colors = mColorExtractor.getColors(
+                WallpaperManager.FLAG_LOCK);
+        setColorPalette(colors.supportsDarkText(), colors.getColorPalette());
+        mClock.setFormat12Hour(Html.fromHtml("hh<br><font color=" + mAccentColor + ">mm</font>"));
+        mClock.setFormat24Hour(Html.fromHtml("kk<br><font color=" + mAccentColor + ">mm</font>"));
+        onTimeTick();
     }
 
     @Override
     public void onDestroyView() {
         mView = null;
-        mTypeClock = null;
-        mLockClock = null;
-        mDarkController = null;
+        mClock = null;
     }
 
     @Override
     public String getName() {
-        return "type_alt";
+        return "samsung_highlight";
     }
 
     @Override
     public String getTitle() {
-        return mResources.getString(R.string.clock_title_type_alt);
+        return mResources.getString(R.string.clock_title_samsung_accent);
     }
 
     @Override
     public Bitmap getThumbnail() {
-        return BitmapFactory.decodeResource(mResources, R.drawable.type_thumbnail);
+        return BitmapFactory.decodeResource(mResources, R.drawable.samsung_thumbnail);
     }
 
     @Override
     public Bitmap getPreview(int width, int height) {
 
-        // Use the big clock view for the preview
-        View view = getBigClockView();
+        View previewView = mLayoutInflater.inflate(R.layout.default_clock_preview, null);
+        TextClock previewTime = previewView.findViewById(R.id.time);
+        TextClock previewDate = previewView.findViewById(R.id.date);
 
         // Initialize state of plugin before generating preview.
-        setDarkAmount(1f);
-        setTextColor(Color.WHITE);
+        previewTime.setTextColor(Color.WHITE);
+        previewDate.setTextColor(Color.WHITE);
         ColorExtractor.GradientColors colors = mColorExtractor.getColors(
                 WallpaperManager.FLAG_LOCK);
         setColorPalette(colors.supportsDarkText(), colors.getColorPalette());
+        previewTime.setFormat12Hour(Html.fromHtml("hh<br><font color=" + mAccentColor + ">mm</font>"));
+        previewTime.setFormat24Hour(Html.fromHtml("kk<br><font color=" + mAccentColor + ">mm</font>"));
         onTimeTick();
 
-        return mRenderer.createPreview(view, width, height);
+        return mRenderer.createPreview(previewView, width, height);
     }
 
     @Override
     public View getView() {
-        if (mLockClock == null) {
-            createViews();
-        }
-        return mLockClock;
-    }
-
-    @Override
-    public View getBigClockView() {
         if (mView == null) {
             createViews();
         }
@@ -172,13 +154,13 @@ public class TypeClockAltController implements ClockPlugin {
     }
 
     @Override
+    public View getBigClockView() {
+        return null;
+    }
+
+    @Override
     public int getPreferredY(int totalHeight) {
-        // On AOD, clock needs to appear below the status bar with enough room for pixel shifting
-        int aodY = mStatusBarHeight + mKeyguardLockHeight + 2 * mKeyguardLockPadding
-                + mBurnInOffsetY + mTypeClock.getHeight() + (mTypeClock.getHeight() / 2);
-        // On lock screen, clock needs to appear below the lock icon
-        int lockY =  mStatusBarHeight + mKeyguardLockHeight + 2 * mKeyguardLockPadding + (mTypeClock.getHeight() / 2);
-        return (int) MathUtils.lerp(lockY, aodY, mDarkAmount);
+        return CLOCK_USE_DEFAULT_Y;
     }
 
     @Override
@@ -186,8 +168,7 @@ public class TypeClockAltController implements ClockPlugin {
 
     @Override
     public void setTextColor(int color) {
-        mTypeClock.setTextColor(color);
-        mLockClock.setTextColor(color);
+        mClock.setTextColor(color);
     }
 
     @Override
@@ -196,29 +177,20 @@ public class TypeClockAltController implements ClockPlugin {
             return;
         }
         final int color = colorPalette[Math.max(0, colorPalette.length - 5)];
-        mTypeClock.setClockColor(color);
-        mLockClock.setClockColor(color);
+        mAccentColor = color;
     }
 
     @Override
     public void onTimeTick() {
-        mTypeClock.onTimeChanged();
-        mLockClock.onTimeChanged();
     }
 
     @Override
     public void setDarkAmount(float darkAmount) {
-        mDarkAmount = darkAmount;
-        if (mDarkController != null) {
-            mDarkController.setDarkAmount(darkAmount);
-        }
+        mView.setDarkAmount(darkAmount);
     }
 
     @Override
-    public void onTimeZoneChanged(TimeZone timeZone) {
-        mTypeClock.onTimeZoneChanged(timeZone);
-        mLockClock.onTimeZoneChanged(timeZone);
-    }
+    public void onTimeZoneChanged(TimeZone timeZone) {}
 
     @Override
     public boolean shouldShowStatusArea() {
