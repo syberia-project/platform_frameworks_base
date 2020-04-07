@@ -34,7 +34,7 @@
             android:format24Hour="mm"
             style="@style/widget_big"
             android:textColor="?attr/wallpaperTextColor"
-            android:textSize="56sp" />
+            android:textSize="48sp" />
 
     </LinearLayout>
 </com.android.keyguard.clock.ClockLayout>

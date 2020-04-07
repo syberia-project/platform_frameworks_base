@@ -112,4 +112,6 @@
         <item>Пятьдесят Девять</item>
     </string-array>
 
+    <string name="date_long_title_today">Сегодня %s</string>
+
 </resources>
