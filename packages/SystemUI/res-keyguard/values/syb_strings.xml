@@ -8,4 +8,7 @@
 
     <!-- Spectrum Analog clock -->
     <string name="clock_title_spectrum" translatable="false">Spectrum</string>
+
+    <string name="clock_title_mnml_box" translatable="false">MNML\'s Box</string>
+    <string name="clock_title_mnml_minimal" translatable="false">MNML\'s Minimal</string>
 </resources>
