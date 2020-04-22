@@ -405,7 +405,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
                     updateTelephonyCapable((boolean) msg.obj);
                     break;
                 case MSG_POCKET_STATE_CHANGED:
-                    updateFingerprintListeningState();
+                    updateBiometricListeningState();
                     break;
                 default:
                     super.handleMessage(msg);
@@ -1776,7 +1776,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
                 && !mSwitchingUser && !isFaceDisabled(user) && becauseCannotSkipBouncer
                 && !mKeyguardGoingAway && mFaceSettingEnabledForUser.get(user) && !mLockIconPressed
                 && strongAuthAllowsScanning && mIsPrimaryUser
-                && !mSecureCameraLaunched;
+                && !mSecureCameraLaunched && !mIsDeviceInPocket;
     }
 
     /**
