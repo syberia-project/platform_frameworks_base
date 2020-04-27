@@ -1279,6 +1279,10 @@ public class SurfaceView extends View implements ViewRootImpl.SurfaceChangedCall
 
     private void setParentSpaceRectangle(Rect position, long frameNumber) {
         final ViewRootImpl viewRoot = getViewRootImpl();
+        if (!viewRoot.mSurface.isValid()) {
+            return;
+        }
+
         final boolean useBLAST = viewRoot.isDrawingToBLASTTransaction();
         final SurfaceControl.Transaction t = useBLAST ? viewRoot.getBLASTSyncTransaction() :
             mRtTransaction;
