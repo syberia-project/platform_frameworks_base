@@ -1024,6 +1024,9 @@ public class EdgeBackGestureHandler extends CurrentUserTracker
             case 13: // Kill app
                 SyberiaUtils.killForegroundApp();
                 break;
+            case 14: // Switch recent app
+                ActionUtils.switchToLastApp(mContext);
+                break;
         }
     }
 
