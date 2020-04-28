@@ -66,6 +66,7 @@ import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
 
 import com.android.internal.util.hwkeys.ActionUtils;
+import com.android.internal.util.hwkeys.ActionHandler;
 import com.android.internal.util.syberia.SyberiaUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.R;
@@ -747,6 +748,9 @@ public class EdgeBackGestureHandler implements DisplayListener {
                 break;
             case 13: // Kill app
                 ActionUtils.killForegroundApp();
+                break;
+            case 14: // Switch recent app
+                ActionUtils.switchToLastApp(mContext);
                 break;
         }
     }
