@@ -5942,6 +5942,15 @@ public final class Settings {
         public static final String DOZE_ON_CHARGE_NOW = "doze_on_charge_now";
 
         /**
+         * Whether to use tint on QS tiles
+         * @hide
+         */
+        public static final String TINT_QS_TILES = "tint_qs_tiles";
+
+        private static final Validator TINT_QS_TILES_VALIDATOR = BOOLEAN_VALIDATOR;
+
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6078,6 +6087,7 @@ public final class Settings {
             NAVIGATION_HANDLE_WIDTH,
             SENSOR_BLOCK,
             DOZE_ON_CHARGE,
+            TINT_QS_TILES,
         };
 
         /**
@@ -6484,6 +6494,7 @@ public final class Settings {
             VALIDATORS.put(NAVIGATION_HANDLE_WIDTH, NAVIGATION_HANDLE_WIDTH_VALIDATOR);
             VALIDATORS.put(SENSOR_BLOCK, SENSOR_BLOCK_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
+            VALIDATORS.put(TINT_QS_TILES, TINT_QS_TILES_VALIDATOR);
         }
 
         /**
