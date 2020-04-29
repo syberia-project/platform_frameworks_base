@@ -5949,6 +5949,14 @@ public final class Settings {
 
         private static final Validator NOTIFICATION_HEADERS_VALIDATOR = BOOLEAN_VALIDATOR;
 
+        /**
+         * Whether to use tint on QS tiles
+         * @hide
+         */
+        public static final String TINT_QS_TILES = "tint_qs_tiles";
+
+        private static final Validator TINT_QS_TILES_VALIDATOR = BOOLEAN_VALIDATOR;
+
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -6088,6 +6096,7 @@ public final class Settings {
             SENSOR_BLOCK,
             DOZE_ON_CHARGE,
             NOTIFICATION_HEADERS,
+            TINT_QS_TILES,
         };
 
         /**
@@ -6495,6 +6504,7 @@ public final class Settings {
             VALIDATORS.put(SENSOR_BLOCK, SENSOR_BLOCK_VALIDATOR);
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_HEADERS, NOTIFICATION_HEADERS_VALIDATOR);
+            VALIDATORS.put(TINT_QS_TILES, TINT_QS_TILES_VALIDATOR);
         }
 
         /**
