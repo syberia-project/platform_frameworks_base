@@ -4275,6 +4275,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SHOW_MEDIA_HEADS_UP),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TINT_QS_TILES),
+                    false, this, UserHandle.USER_ALL);
         }
          @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -4282,6 +4285,10 @@ public class StatusBar extends SystemUI implements DemoMode,
                 updateCutoutOverlay();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.SHOW_MEDIA_HEADS_UP))) {
                 setMediaHeadsup();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.TINT_QS_TILES))) {
+                if (mQSPanel != null) {
+                    mQSPanel.getHost().reloadAllTiles();
+                }
             }
             update();
         }

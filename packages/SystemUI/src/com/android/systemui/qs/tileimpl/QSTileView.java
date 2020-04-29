@@ -26,6 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import android.os.UserHandle;
+import android.provider.Settings;
+
 import com.android.settingslib.Utils;
 import com.android.systemui.FontSizeUtils;
 import com.android.systemui.R;
@@ -49,6 +52,7 @@ public class QSTileView extends QSTileBaseView {
     private ColorStateList mColorLabelDefault;
     private ColorStateList mColorLabelActive;
     private ColorStateList mColorLabelUnavailable;
+    protected static boolean mTintEnabled;
 
     public QSTileView(Context context, QSIconView icon) {
         this(context, icon, false);
@@ -56,6 +60,7 @@ public class QSTileView extends QSTileBaseView {
 
     public QSTileView(Context context, QSIconView icon, boolean collapsedView) {
         super(context, icon, collapsedView);
+        updateTintEnabled();
 
         setClipChildren(false);
         setClipToPadding(false);
@@ -75,6 +80,19 @@ public class QSTileView extends QSTileBaseView {
 
     TextView getLabel() {
         return mLabel;
+    }
+
+    public static boolean getTintEnabled() {
+        return mTintEnabled;
+    }
+
+    public static void setTintEnabled(boolean enabled) {
+        mTintEnabled = enabled;
+    }
+
+    private void updateTintEnabled() {
+        mTintEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.TINT_QS_TILES, 1, UserHandle.USER_CURRENT) == 1;
     }
 
     @Override
@@ -127,9 +145,9 @@ public class QSTileView extends QSTileBaseView {
         }
         if (!Objects.equals(mSecondLine.getText(), state.secondaryLabel)) {
 
-            if (state.state == Tile.STATE_ACTIVE) {
+            if (state.state == Tile.STATE_ACTIVE && mTintEnabled) {
                 mSecondLine.setTextColor(mColorLabelActive);
-            } else if (state.state == Tile.STATE_INACTIVE) {
+            } else if (state.state == Tile.STATE_INACTIVE || !mTintEnabled) {
                 mSecondLine.setTextColor(mColorLabelDefault);
             }
 
@@ -138,10 +156,10 @@ public class QSTileView extends QSTileBaseView {
                     : View.VISIBLE);
         }
 
-        if (state.state == Tile.STATE_ACTIVE) {
+        if (state.state == Tile.STATE_ACTIVE && mTintEnabled) {
             mLabel.setTextColor(mColorLabelActive);
             mExpandIndicator.setImageTintList(mColorLabelActive);
-        } else if (state.state == Tile.STATE_INACTIVE) {
+        } else if (state.state == Tile.STATE_INACTIVE || !mTintEnabled) {
             mLabel.setTextColor(mColorLabelDefault);
             mExpandIndicator.setImageTintList(mColorLabelDefault);
         }
