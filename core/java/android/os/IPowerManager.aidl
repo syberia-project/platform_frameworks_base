@@ -63,7 +63,6 @@ interface IPowerManager
     @UnsupportedAppUsage
     void reboot(boolean confirm, String reason, boolean wait);
     void rebootSafeMode(boolean confirm, boolean wait);
-    void rebootCustom(boolean confirm, String reason, boolean wait);
     void shutdown(boolean confirm, String reason, boolean wait);
     void crash(String message);
     int getLastShutdownReason();
@@ -86,4 +85,7 @@ interface IPowerManager
 
     // update the uids being synchronized by network socket request manager
     void updateBlockedUids(int uid, boolean isBlocked);
+
+    // Custom API
+    void rebootCustom(boolean confirm, String reason, boolean wait);
 }
