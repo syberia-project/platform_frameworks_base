@@ -244,12 +244,8 @@ public final class Zygote {
         resetNicePriority();
         int pid = nativeForkAndSpecialize(
                 uid, gid, gids, runtimeFlags, rlimits, mountExternal, seInfo, niceName, fdsToClose,
-<<<<<<< HEAD
-                fdsToIgnore, startChildZygote, instructionSet, appDataDir);
-        // Enable tracing as soon as possible for the child process.
-=======
                 fdsToIgnore, startChildZygote, instructionSet, appDataDir, isTopApp);
->>>>>>> 364f2500e53... Start process of next activity with top priority in advance
+        // Enable tracing as soon as possible for the child process.
         if (pid == 0) {
             Zygote.disableExecuteOnly(targetSdkVersion);
             Trace.setTracingEnabled(true, runtimeFlags);
