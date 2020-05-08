@@ -918,7 +918,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (mMediaOutputView.getChildCount() == 1) {
             // This means there are no external devices connected
             removeAllMediaOutputRows();
->>>>>>> 2986e8a9e1f... SystemUI: Redesign volume dialog
         }
     }
 
