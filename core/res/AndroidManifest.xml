@@ -360,6 +360,7 @@
     <protected-broadcast android:name="com.android.server.wifi.wakeup.OPEN_WIFI_SETTINGS" />
     <protected-broadcast android:name="com.android.server.wifi.wakeup.TURN_OFF_WIFI_WAKE" />
     <protected-broadcast android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+    <protected-broadcast android:name="com.qualcomm.qti.net.wifi.WIFI_NETWORK_DISCONNECTION" />
     <protected-broadcast android:name="android.net.wifi.WIFI_AP_STATE_CHANGED" />
     <protected-broadcast android:name="android.net.wifi.WIFI_CREDENTIAL_CHANGED" />
     <protected-broadcast android:name="android.net.wifi.WIFI_SCAN_AVAILABLE" />

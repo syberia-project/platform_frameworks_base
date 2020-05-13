@@ -221,6 +221,19 @@ public class WifiManager {
     public static final String EXTRA_SCAN_AVAILABLE = "scan_enabled";
 
     /**
+    *
+    * see wifi network disconnection arg 1
+    * @hide
+    **/
+    public static final String  EXTRA_WIFI_NETWORK_DISCONNECTION_ARG1 = "network_disconnection_arg1";
+    /**
+    *
+    * see wifi network disconnection arg 2
+    * @hide
+    **/
+    public static final String  EXTRA_WIFI_NETWORK_DISCONNECTION_ARG2 = "network_disconnection_arg2";
+
+    /**
      * Broadcast intent action indicating that the credential of a Wi-Fi network
      * has been changed. One extra provides the ssid of the network. Another
      * extra provides the event type, whether the credential is saved or forgot.
