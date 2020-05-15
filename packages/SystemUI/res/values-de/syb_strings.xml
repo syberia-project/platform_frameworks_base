@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2018-2019 Syberia Project
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="global_action_reboot">Neustart</string>
+  <string name="global_action_reboot_more">Neustarten\u2026</string>
+  <string name="global_action_reboot_sub">System</string>
+  <string name="global_action_reboot_recovery">Recovery</string>
+  <string name="global_action_reboot_bootloader">Bootloader</string>
+  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Schnellladen (<xliff:g id="charging_time_left" example="4 Stunden und 2 Minuten">%s</xliff:g> bis zur vollständigen Aufladung)</string>
+  <string name="keyguard_plugged_in_dash_charging">Schnellladen</string>
+  <string name="statusbar_items_title">Statusleistensymbol</string>
+  <string name="status_bar_location">Standort</string>
+  <string name="lockscreen_default">Standard</string>
+  <string name="lockscreen_hidden">Nichts</string>
+  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+  <string name="custom_hint">Zum starten vom Symbol weg wischen</string>
+  <!-- Reader mode QS tile -->
+  <string name="quick_settings_reading_mode">Lesemodus</string>
+  <string name="accessibility_quick_settings_reading_mode_on">Lesemodus aktiviert.</string>
+  <string name="accessibility_quick_settings_reading_mode_off">Lesemodus deaktiviert.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_on">Spielmodus ist eingeschaltet.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_off">Spielmodus ist ausgeschaltet.</string>
+  <!-- QS Config -->
+  <string name="qs_menu_item_columns">Spalten</string>
+  <string name="qs_menu_item_columns_landscape">Spalten (Querformat)</string>
+  <string name="qs_menu_item_columns_three">3</string>
+  <string name="qs_menu_item_columns_four">4</string>
+  <string name="qs_menu_item_columns_five">5</string>
+  <string name="qs_menu_item_columns_six">6</string>
+  <string name="qs_menu_item_columns_seven">7</string>
+  <string name="qs_menu_item_columns_eight">8</string>
+  <string name="qs_menu_item_columns_nine">9</string>
+  <string name="qs_menu_item_reset">Zurücksetzen</string>
+  <string name="qs_menu_item_titles">Beschriftungen anzeigen</string>
+  <string name="tuner_quick_settings">Schnelleinstellungen</string>
+  <string name="tuner_show_brightness_new">Helligkeitsregler anzeigen</string>
+  <string name="tuner_brightness_position_bottom">Helligkeitsregler unten anzeigen</string>
+  <string name="omnijaws_service_error">Fehler</string>
+  <string name="omnijaws_service_unkown">Keine Wetterdaten</string>
+  <string name="omnijaws_service_error_long">Fehler beim Laden der Wetterdaten</string>
+  <string name="omnijaws_service_disabled">Dienst ist deaktiviert</string>
+  <string name="omnijaws_detail_header">Wetter</string>
+  <string name="omnijaws_label_default">Wetter</string>
+  <string name="omnijaws_current_text">Jetzt</string>
+  <string name="omnijaws_package_not_available">OmniJaws nicht verfügbar</string>
+  <string name="omnijaws_service_last_update">Zuletzt aktualisiert:</string>
+  <!-- StatusBar tuner icons -->
+  <string name="status_bar_roaming">Roaming</string>
+  <string name="status_bar_data_disabled">Kreuz, wenn mobile Daten deaktiviert sind</string>
+  <string name="status_bar_vpn">VPN</string>
+  <!-- Caffeine QS tile -->
+  <string name="quick_settings_caffeine_label">Koffein</string>
+  <string name="accessibility_quick_settings_caffeine_off">Koffein deaktiviert.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Koffein aktiviert.</string>
+  <!-- Sound QS tile -->
+  <string name="quick_settings_sound_label">Ton</string>
+  <string name="quick_settings_sound_ring">Klingeln</string>
+  <string name="quick_settings_sound_vibrate">Vibration</string>
+  <string name="quick_settings_sound_dnd">Bitte nicht stören</string>
+  <!-- Reboot/Recovery/PowerOff QS tile -->
+  <string name="quick_settings_reboot_label">Neustart</string>
+  <string name="quick_settings_reboot_recovery_label">Recovery</string>
+  <string name="quick_settings_poweroff_label">Ausschalten</string>
+  <!-- Kill button in notification guts -->
+  <string name="force_stop_dlg_title">Beenden erzwingen?</string>
+  <string name="force_stop_dlg_text">Das Beenden der App zu erzwingen kann zu unerwünschtem Verhalten führen.</string>
+  <string name="dlg_ok">@android:string/ok</string>
+  <string name="dlg_cancel">@android:string/cancel</string>
+  <string name="guts_force_close_app">App schließen</string>
+  <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_location_battery_saving">Standortdienste: Energiesparmodus.</string>
+  <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_location_gps_only">Standortdienste: Nur Sensoren.</string>
+  <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_location_high_accuracy">Standortdienste: Hohe Genauigkeit.</string>
+  <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_location_battery_saving_label">Energiesparmodus</string>
+  <string name="quick_settings_location_battery_saving_label_twoline">Energie\nsparen</string>
+  <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_location_gps_only_label">Nur Gerät</string>
+  <string name="quick_settings_location_gps_only_label_twoline">Nur\nGerät</string>
+  <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_location_high_accuracy_label">Hohe Genauigkeit</string>
+  <string name="quick_settings_location_high_accuracy_label_twoline">Hohe\nGenauigkeit</string>
+  <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_location_detail_title">Standort</string>
+  <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_location_detail_menu_title">Modus:</string>
+  <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
+  <string name="quick_settings_location_detail_mode_high_accuracy_title">Hohe Genauigkeit</string>
+  <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
+  <string name="quick_settings_location_detail_mode_battery_saving_title">Energiesparmodus</string>
+  <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
+  <string name="quick_settings_location_detail_mode_sensors_only_title">Nur Gerät</string>
+  <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
+  <string name="quick_settings_location_detail_mode_high_accuracy_description">GPS, WLAN, Bluetooth oder Mobilfunknetze zur Standortbestimmung nutzen</string>
+  <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
+  <string name="quick_settings_location_detail_mode_battery_saving_description">WLAN, Bluetooth oder Mobilfunknetze zur Standortbestimmung nutzen</string>
+  <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
+  <string name="quick_settings_location_detail_mode_sensors_only_description">GPS zur Standortbestimmung nutzen</string>
+  <!-- Heads up snooze toast -->
+  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s </xliff:g> - Pop-Up-Benachrichtigungen für 1 Minute deaktiviert.</string>
+  <string name="heads_up_snooze_message"><xliff:g id="string">%s </xliff:g> - Pop-Up Benachrichtigungen sind für <xliff:g id="number">%d </xliff:g> Minuten deaktiviert.</string>
+  <!-- Gaming mode -->
+  <string name="gaming_mode_not_enabled">Spielmodus ist in den Einstellungen deaktiviert</string>
+  <string name="quick_settings_gaming_mode_label">Spielmodus</string>
+  <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_gaming_mode_disabled">Spielmodus deaktiviert.</string>
+  <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
+  <string name="accessibility_quick_settings_gaming_mode_enabled">Spielmodus aktiviert.</string>
+  <!-- DataSwitch Tile -->
+  <string name="qs_data_switch_label">Daten-SIM wechseln</string>
+  <string name="qs_data_switch_toast_0">Keine SIM-Karte eingelegt</string>
+  <string name="qs_data_switch_toast_1">Derzeit ist nur eine SIM-Karte eingelegt</string>
+  <string name="qs_data_switch_changed_1">SIM 1 wird für Mobile Daten verwendet</string>
+  <string name="qs_data_switch_changed_2">SIM 2 wird für mobile Daten verwendet</string>
+  <!-- AOD QS tile -->
+  <string name="quick_settings_aod_label">Always-On-Display</string>
+  <!-- CPUInfo tile -->
+  <string name="quick_settings_cpuinfo_label">CPU-Informationen</string>
+  <string name="accessibility_quick_settings_cpuinfo_off">CPU-Informationen deaktiviert</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">CPU-Informationen aktiviert</string>
+  <!-- Sync QS Tile -->
+  <string name="quick_settings_sync_label">Synchronisieren</string>
+  <string name="accessibility_quick_settings_sync_off">Synchronisation deaktiviert</string>
+  <string name="accessibility_quick_settings_sync_on">Synchronisation aktiviert</string>
+  <string name="accessibility_quick_settings_sync_changed_off">Synchronisation ausgeschaltet</string>
+  <string name="accessibility_quick_settings_sync_changed_on">Synchronisation eingeschaltet</string>
+  <!-- LTE QS Tile -->
+  <string name="qs_lte_label">LTE</string>
+  <string name="lte_on">LTE aktiviert </string>
+  <string name="lte_off">LTE deaktiviert</string>
+  <!-- Language toggle tile -->
+  <string name="quick_settings_locale_label">Sprache</string>
+  <string name="quick_settings_locale_more_locales_toast">Bitte fügen Sie mehr als eine Sprache hinzu, um die Umschaltfunktion zu aktivieren</string>
+  <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_stabilization_label">Bildschirmstabilisierung</string>
+  <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_stabilization_off">Bildschirmstabilisierung deaktiviert</string>
+  <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
+  <string name="quick_settings_stabilization_on">Bildschirmstabilisierung aktiviert</string>
+  <string name="low_label">Niedrig</string>
+  <string name="high_label">Viel</string>
+  <string name="stabilization_velocity_friction">Spannungsgeschwindigkeit</string>
+  <string name="stabilization_velocity_amplitude">Spannungsamplitude</string>
+  <string name="stabilization_position_friction">Spannungsposition</string>
+  <!--Immersive mode tile -->
+  <string name="quick_settings_immersive_tile">Vollbildmodus</string>
+  <string name="quick_settings_immersive_tile_off">Vollbildmodus deaktiviert</string>
+  <string name="quick_settings_immersive_tile_statusbar">Immersive Statusleiste</string>
+  <string name="quick_settings_immersive_tile_navbar">Immersive Navigationsleiste</string>
+  <string name="quick_settings_immersive_tile_full">Vollständige Immersion</string>
+  <!-- FPS Info tile -->
+  <string name="quick_settings_fpsinfo_label">FPS-Anzeige</string>
+  <string name="accessibility_quick_settings_fpsinfo_off">FPS-Anzeige deaktiviert</string>
+  <string name="accessibility_quick_settings_fpsinfo_on">FPS-Anzeige aktiviert</string>
+  <!-- Long swipe gesture actions -->
+  <string name="app_picker_dialog_title">App auswählen</string>
+  <string name="active_edge_app_select_title">App auswählen</string>
+  <string name="active_edge_activity_select_title">Tätigkeit wählen</string>
+  <string name="recents_app_killed">Anwendung beendet</string>
+  <string name="nope_cant_kill">Launcher kann nicht beendet werden</string>
+</resources>

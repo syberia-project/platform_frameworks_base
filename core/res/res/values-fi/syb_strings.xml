@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (c) 2018-2019 Syberia Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
+         when the user asks to reboot. [CHAR LIMIT=NONE] -->
+    <string name="reboot_confirm">Haluatko käynnistää uudelleen?</string>
+    <string name="reboot_title">Käynnistä uudelleen</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Käynnistä bootloader-tilaan</string>
+    <string name="reboot_to_bootloader_message">Käynnistetään bootloader-tilaan</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Käynnistä recovery-tilaan</string>
+    <string name="reboot_to_recovery_message">Käynnistetään recovery-tilaan</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Uudelleenkäynnistä järjestelmä</string>
+    <string name="reboot_system_message">Uudelleenkäynnistetään järjestelmää</string>
+    <!-- LiveDisplay strings -->
+    <string name="live_display_auto">Automaattinen</string>
+    <string name="live_display_auto_summary">Säädä automaattisesti näytön värilämpötilaa auringonlaskun ja -nousun mukaan</string>
+    <string name="live_display_off">Pois päältä</string>
+    <string name="live_display_off_summary">Poista kaikki säädöt käytöstä</string>
+    <string name="live_display_day">Päivä</string>
+    <string name="live_display_day_summary">Käytä vain päivä-asetuksia</string>
+    <string name="live_display_night">Yö</string>
+    <string name="live_display_night_summary">Käytä vain yö-asetuksia</string>
+    <string name="live_display_outdoor">Ulkoilma (kirkas aurinko)</string>
+    <string name="live_display_outdoor_summary">Käytä vain ulkoilman asetuksia</string>
+    <string name="live_display_hint">LiveDisplay auttaa vähentämään silmien rasitusta ja auttaa sinua paremmin nukahtamaan yöllä. Kokeile napsauttamalla tätä!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay pois päältä.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: automaattinen.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: päivä-tila.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: yö-tila.</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: ulkoilmatila.</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay pois päältä.</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay asetettu automaattitilaan.</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay asetettu päivä-tilaan.</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay asetettu yö-tilaan.</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay asetettu ulkoilma-tilaan.</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Sallii sovelluksen teeskennellä olemaan jokin muu sovellus. Haitalliset sovellukset voi käyttää tätä päästäkseen käsiksi yksityistietoihin. Anna tämä käyttöoikeus vain, jos olet aivan varma!</string>
+    <!-- Pocket Lock -->
+    <string name="pocket_lock_message_long_press">Avaa lukitus pitämällä virtapainike pohjassa</string>
+    <!-- AOKP custom system animations -->
+    <string name="animation_fade">Häipyä</string>
+    <string name="animation_slide_right">Liu\'uta oikealle</string>
+    <string name="animation_slide_left">Liu\'uta vasemmalle</string>
+    <string name="animation_slide_right_no_fade">Liu\'uta oikealle (Ei häivytystä)</string>
+    <string name="animation_slide_left_no_fade">Liu\'uta vasemmalle (Ei häivytystä)</string>
+    <string name="animation_slide_up">Liu\'uta alhaalle</string>
+    <string name="animation_slide_down">Liu\'uta ylhäälle</string>
+    <string name="animation_default">Oletus</string>
+    <string name="animation_translucent">Läpikuultava</string>
+    <string name="animation_grow_shrink">Kasvaa ja kutistua (Ylös)</string>
+    <string name="animation_grow_shrink_center">Kasvaa ja kutistua (Keskeltä)</string>
+    <string name="animation_grow_shrink_bottom">Kasvaa ja kutistua (alhaalta)</string>
+    <string name="animation_grow_shrink_left">Kasvaa ja kutistua (Vasen)</string>
+    <string name="animation_grow_shrink_right">Kasvaa ja kutistua (Oikea)</string>
+    <string name="animation_random">Satunnainen</string>
+    <string name="action_null">Tyhjä</string>
+    <string name="animation_ethans">Ethan</string>
+    <!-- Gaming mode -->
+    <string name="notification_channel_gaming">Pelitila</string>
+    <string name="gaming_mode_notification_title">Pelitila käytössä</string>
+    <string name="gaming_mode_notification_content">Napauta pois päältä Pelitila</string>
+    <string name="gaming_mode_enabled_toast">Pelitila päällä</string>
+    <string name="gaming_mode_disabled_toast">Pelitila pois päältä</string>
+</resources>
