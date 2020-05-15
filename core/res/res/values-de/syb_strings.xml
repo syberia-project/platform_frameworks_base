@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (c) 2018-2019 Syberia Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
+         when the user asks to reboot. [CHAR LIMIT=NONE] -->
+    <string name="reboot_confirm">Möchten Sie neustarten?</string>
+    <string name="reboot_title">Neustart</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Neustart in den Bootloader</string>
+    <string name="reboot_to_bootloader_message">Neustart in den Bootloader</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Neustart in den Recoverymodus</string>
+    <string name="reboot_to_recovery_message">Neustart in den Recoverymodus</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">System neustarten</string>
+    <string name="reboot_system_message">System wird neugestartet</string>
+    <!-- LiveDisplay strings -->
+    <string name="live_display_auto">Automatisch</string>
+    <string name="live_display_auto_summary">Farbtemperatur des Bildschirms nach Sonnenaufgang und Sonnenuntergang automatisch anpassen</string>
+    <string name="live_display_off">Aus</string>
+    <string name="live_display_off_summary">Alle Anpassungen deaktivieren</string>
+    <string name="live_display_day">Tag</string>
+    <string name="live_display_day_summary">Nur Tag-Modus verwenden</string>
+    <string name="live_display_night">Nacht</string>
+    <string name="live_display_night_summary">Nur Nacht-Modus verwenden</string>
+    <string name="live_display_outdoor">Draußenmodus (helle Sonne)</string>
+    <string name="live_display_outdoor_summary">Nur Draußeneinstellungen verwenden</string>
+    <string name="live_display_hint">LiveDisplay entlastet Ihre Augen und lässt Sie nachts besser schlafen. Klicken Sie hier, um es auszuprobieren!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay aus.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: Automatischer Modus.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: Tag-Modus.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: Nacht-Modus.</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: Draußen-Modus.</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay ausgeschaltet.</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay auf Automatisch geschaltet.</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay auf Tag-Modus geändert.</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay auf Nacht-Modus geändert.</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay auf Draußen-Modus geändert.</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Paketsignatur vortäuschen</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Erlaubt einer App, eine andere zu imitieren. Böswillige Anwendungen erhalten möglicherweise ihre persönlichen Daten. Erteilen Sie diese Berechtigung mit Bedacht!</string>
+    <!-- Pocket Lock -->
+    <string name="pocket_lock_message_long_press">Zum Entsperren Power-Taste drücken und halten</string>
+    <!-- AOKP custom system animations -->
+    <string name="animation_fade">Überblenden</string>
+    <string name="animation_slide_right">Von rechts einblenden</string>
+    <string name="animation_slide_left">Von links einblenden</string>
+    <string name="animation_slide_right_no_fade">Von rechts einblenden (ohne Verblassen)</string>
+    <string name="animation_slide_left_no_fade">Von links einblenden (ohne Verblassen)</string>
+    <string name="animation_slide_up">Von unten einblenden</string>
+    <string name="animation_slide_down">Von oben einblenden</string>
+    <string name="animation_default">Standard</string>
+    <string name="animation_translucent">Transparent</string>
+    <string name="animation_grow_shrink">Wachsend (Oben)</string>
+    <string name="animation_grow_shrink_center">Wachsend (Mittig)</string>
+    <string name="animation_grow_shrink_bottom">Wachsend (Unten)</string>
+    <string name="animation_grow_shrink_left">Wachsend (Links)</string>
+    <string name="animation_grow_shrink_right">Wachsend (Rechts)</string>
+    <string name="animation_random">Zufällig</string>
+    <string name="action_null">Leer</string>
+    <string name="animation_ethans">Ethans</string>
+    <!-- Gaming mode -->
+    <string name="notification_channel_gaming">Spielmodus</string>
+    <string name="gaming_mode_notification_title">Spielmodus aktiviert</string>
+    <string name="gaming_mode_notification_content">Tippen, um den Spielmodus auszuschalten</string>
+    <string name="gaming_mode_enabled_toast">Spielmodus ist eingeschaltet</string>
+    <string name="gaming_mode_disabled_toast">Spielmodus ist ausgeschaltet</string>
+</resources>
