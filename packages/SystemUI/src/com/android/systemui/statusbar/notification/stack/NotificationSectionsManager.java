@@ -49,26 +49,21 @@ class NotificationSectionsManager implements StackScrollAlgorithm.SectionProvide
 
     private boolean mInitialized = false;
     private SectionHeaderView mGentleHeader;
-    private SectionHeaderView mAlertHeader;
     private boolean mGentleHeaderVisible = false;
-    private boolean mAlertHeaderVisible = false;
-    private boolean mShowHeaders;
     @Nullable private ExpandableNotificationRow mFirstGentleNotif;
-    @Nullable private ExpandableNotificationRow mFirstAlertNotif;
+    @Nullable private View.OnClickListener mOnClearGentleNotifsClickListener;
 
     NotificationSectionsManager(
             NotificationStackScrollLayout parent,
             ActivityStarter activityStarter,
             StatusBarStateController statusBarStateController,
             ConfigurationController configurationController,
-            boolean useMultipleSections,
-            boolean showHeaders) {
+            boolean useMultipleSections) {
         mParent = parent;
         mActivityStarter = activityStarter;
         mStatusBarStateController = statusBarStateController;
         mConfigurationController = configurationController;
         mUseMultipleSections = useMultipleSections;
-        mShowHeaders = showHeaders;
     }
 
     /** Must be called before use. */
@@ -81,42 +76,43 @@ class NotificationSectionsManager implements StackScrollAlgorithm.SectionProvide
         mConfigurationController.addCallback(mConfigurationListener);
     }
 
-    void reinflateViews(LayoutInflater layoutInflater) {
-        mGentleHeader = reinflateView(layoutInflater, mGentleHeader,
-                R.string.notification_section_header_gentle);
-        mAlertHeader = reinflateView(layoutInflater, mAlertHeader,
-                R.string.notification_section_header_alerting);
-    }
-
     /**
      * Reinflates the entire notification header, including all decoration views.
      */
-    SectionHeaderView reinflateView(LayoutInflater layoutInflater,
-            SectionHeaderView sectionHeader, int labelId) {
+    void reinflateViews(LayoutInflater layoutInflater) {
         int oldPos = -1;
-        if (sectionHeader != null) {
-            if (sectionHeader.getTransientContainer() != null) {
-                sectionHeader.getTransientContainer().removeView(sectionHeader);
-            } else if (sectionHeader.getParent() != null) {
-                oldPos = mParent.indexOfChild(sectionHeader);
-                mParent.removeView(sectionHeader);
+        if (mGentleHeader != null) {
+            if (mGentleHeader.getTransientContainer() != null) {
+                mGentleHeader.getTransientContainer().removeView(mGentleHeader);
+            } else if (mGentleHeader.getParent() != null) {
+                oldPos = mParent.indexOfChild(mGentleHeader);
+                mParent.removeView(mGentleHeader);
             }
         }
 
-        sectionHeader = (SectionHeaderView) layoutInflater.inflate(
+        mGentleHeader = (SectionHeaderView) layoutInflater.inflate(
                 R.layout.status_bar_notification_section_header, mParent, false);
-        sectionHeader.setLabelText(mParent.getContext().getResources().getString(labelId));
+        mGentleHeader.setOnHeaderClickListener(this::onGentleHeaderClick);
+        mGentleHeader.setOnClearAllClickListener(this::onClearGentleNotifsClick);
 
         if (oldPos != -1) {
-            mParent.addView(sectionHeader, oldPos);
+            mParent.addView(mGentleHeader, oldPos);
         }
+    }
 
-        return sectionHeader;
+    /** Listener for when the "clear all" buttton is clciked on the gentle notification header. */
+    void setOnClearGentleNotifsClickListener(View.OnClickListener listener) {
+        mOnClearGentleNotifsClickListener = listener;
+    }
+
+    /** Must be called whenever the UI mode changes (i.e. when we enter night mode). */
+    void onUiModeChanged() {
+        mGentleHeader.onUiModeChanged();
     }
 
     @Override
     public boolean beginsSection(View view) {
-        return view == getFirstLowPriorityChild() || view == getFirstHighPriorityChild();
+        return view == getFirstLowPriorityChild();
     }
 
     /**
@@ -124,77 +120,67 @@ class NotificationSectionsManager implements StackScrollAlgorithm.SectionProvide
      * bookkeeping and adds/moves/removes section headers if appropriate.
      */
     void updateSectionBoundaries() {
-        if (!mUseMultipleSections || !mShowHeaders) {
+        if (!mUseMultipleSections) {
             return;
         }
 
         mFirstGentleNotif = null;
-        mGentleHeaderVisible = adjustHeaderVisibilityAndPosition(
-                getFirstNotificationCategoryIndex(true), mGentleHeader, mGentleHeaderVisible);
+        int firstGentleNotifIndex = -1;
 
-        mFirstAlertNotif = null;
-        mAlertHeaderVisible = adjustHeaderVisibilityAndPosition(
-                getFirstNotificationCategoryIndex(false), mAlertHeader, mAlertHeaderVisible);
-    }
-
-    private int getFirstNotificationCategoryIndex(boolean gentle) {
         final int n = mParent.getChildCount();
         for (int i = 0; i < n; i++) {
             View child = mParent.getChildAt(i);
             if (child instanceof ExpandableNotificationRow
                     && child.getVisibility() != View.GONE) {
                 ExpandableNotificationRow row = (ExpandableNotificationRow) child;
-                if (!gentle && row.getEntry().isTopBucket()) {
-                    mFirstAlertNotif = row;
-                    return i;
-                } else if (gentle && !row.getEntry().isTopBucket()) {
+                if (!row.getEntry().isTopBucket()) {
+                    firstGentleNotifIndex = i;
                     mFirstGentleNotif = row;
-                    return i;
+                    break;
                 }
             }
         }
 
-        return -1;
+        adjustGentleHeaderVisibilityAndPosition(firstGentleNotifIndex);
+
+        mGentleHeader.setAreThereDismissableGentleNotifs(
+                mParent.hasActiveClearableNotifications(ROWS_GENTLE));
     }
 
-    private boolean adjustHeaderVisibilityAndPosition(int firstNotifIndex,
-            SectionHeaderView sectionHeader, boolean headerCurrentlyVisible) {
-        final boolean showHeader = firstNotifIndex != -1
-                && mStatusBarStateController.getState() != StatusBarState.KEYGUARD;
-        final int currentHeaderIndex = mParent.indexOfChild(sectionHeader);
+    private void adjustGentleHeaderVisibilityAndPosition(int firstGentleNotifIndex) {
+        final boolean showGentleHeader =
+                firstGentleNotifIndex != -1
+                        && mStatusBarStateController.getState() != StatusBarState.KEYGUARD;
+        final int currentHeaderIndex = mParent.indexOfChild(mGentleHeader);
 
-        if (!showHeader) {
-            if (headerCurrentlyVisible) {
-                headerCurrentlyVisible = false;
-                mParent.removeView(sectionHeader);
-                sectionHeader.setVisible(false, false);
+        if (!showGentleHeader) {
+            if (mGentleHeaderVisible) {
+                mGentleHeaderVisible = false;
+                mParent.removeView(mGentleHeader);
             }
         } else {
-            if (!headerCurrentlyVisible) {
-                headerCurrentlyVisible = true;
+            if (!mGentleHeaderVisible) {
+                mGentleHeaderVisible = true;
                 // If the header is animating away, it will still have a parent, so detach it first
                 // TODO: We should really cancel the active animations here. This will happen
                 // automatically when the view's intro animation starts, but it's a fragile link.
-                if (sectionHeader.getTransientContainer() != null) {
-                    sectionHeader.getTransientContainer().removeTransientView(sectionHeader);
-                    sectionHeader.setTransientContainer(null);
+                if (mGentleHeader.getTransientContainer() != null) {
+                    mGentleHeader.getTransientContainer().removeTransientView(mGentleHeader);
+                    mGentleHeader.setTransientContainer(null);
                 }
-                mParent.addView(sectionHeader, firstNotifIndex);
-                sectionHeader.setVisible(true, false);
-            } else if (currentHeaderIndex != firstNotifIndex - 1) {
+                mParent.addView(mGentleHeader, firstGentleNotifIndex);
+            } else if (currentHeaderIndex != firstGentleNotifIndex - 1) {
                 // Relocate the header to be immediately before the first child in the section
-                int targetIndex = firstNotifIndex;
-                if (currentHeaderIndex < firstNotifIndex) {
+                int targetIndex = firstGentleNotifIndex;
+                if (currentHeaderIndex < firstGentleNotifIndex) {
                     // Adjust the target index to account for the header itself being temporarily
                     // removed during the position change.
                     targetIndex--;
                 }
 
-                mParent.changeViewPosition(sectionHeader, targetIndex);
+                mParent.changeViewPosition(mGentleHeader, targetIndex);
             }
         }
-
-        return headerCurrentlyVisible;
     }
 
     /**
@@ -247,11 +233,11 @@ class NotificationSectionsManager implements StackScrollAlgorithm.SectionProvide
 
     @Nullable
     private ActivatableNotificationView getFirstLowPriorityChild() {
-        return mFirstGentleNotif;
-    }
-
-    private ActivatableNotificationView getFirstHighPriorityChild() {
-        return mFirstAlertNotif;
+        if (mGentleHeaderVisible) {
+            return mGentleHeader;
+        } else {
+            return mFirstGentleNotif;
+        }
     }
 
     @Nullable
@@ -276,7 +262,21 @@ class NotificationSectionsManager implements StackScrollAlgorithm.SectionProvide
         @Override
         public void onLocaleListChanged() {
             mGentleHeader.reinflateContents();
-            mAlertHeader.reinflateContents();
         }
     };
+
+    private void onGentleHeaderClick(View v) {
+        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_SETTINGS);
+        mActivityStarter.startActivity(
+                intent,
+                true,
+                true,
+                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    }
+
+    private void onClearGentleNotifsClick(View v) {
+        if (mOnClearGentleNotifsClickListener != null) {
+            mOnClearGentleNotifsClickListener.onClick(v);
+        }
+    }
 }

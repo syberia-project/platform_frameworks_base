@@ -5966,15 +5966,6 @@ public final class Settings {
         public static final String DISMISS_ALL_BUTTON = "dismiss_all_button";
 
         /**
-         * Controls whether to show R style notification headers
-         * @hide
-         */
-        public static final String NOTIFICATION_HEADERS = "notification_headers";
-
-        private static final Validator NOTIFICATION_HEADERS_VALIDATOR = BOOLEAN_VALIDATOR;
-
-
-        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6113,7 +6104,6 @@ public final class Settings {
             DOZE_ON_CHARGE,
             TINT_QS_TILES,
             FORCE_SHOW_NAVBAR,
-            NOTIFICATION_HEADERS,
         };
 
         /**
@@ -6523,7 +6513,6 @@ public final class Settings {
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(TINT_QS_TILES, TINT_QS_TILES_VALIDATOR);
             VALIDATORS.put(FORCE_SHOW_NAVBAR, FORCE_SHOW_NAVBAR_VALIDATOR);
-            VALIDATORS.put(NOTIFICATION_HEADERS, NOTIFICATION_HEADERS_VALIDATOR);
         }
 
         /**
