@@ -14,10 +14,10 @@
 <resources>
     <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
          when the user asks to reboot. [CHAR LIMIT=NONE] -->
-    <string name="reboot_confirm">Do you want to reboot?</string>
-    <string name="reboot_title">Reboot</string>
+    <string name="reboot_confirm">您要現在重新啟動嗎？</string>
+    <string name="reboot_title">重開機</string>
     <!-- advanced reboot to bootloader. -->
-    <string name="reboot_to_bootloader_title">Reboot bootloader</string>
+    <string name="reboot_to_bootloader_title">重啟至 Bootloader</string>
     <string name="reboot_to_bootloader_message">Rebooting to bootloader\u2026</string>
     <!-- advanced reboot to recovery. -->
     <string name="reboot_to_recovery_title">Reboot recovery</string>
