@@ -15,29 +15,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="global_action_reboot">Restart</string>
-  <string name="global_action_reboot_more">Restart\u2026</string>
-  <string name="global_action_reboot_sub">System</string>
-  <string name="global_action_reboot_recovery">Recovery</string>
-  <string name="global_action_reboot_bootloader">Bootloader</string>
+  <string name="global_action_reboot">Yeniden başlat</string>
+  <string name="global_action_reboot_more">Yeniden başlat\u2026</string>
+  <string name="global_action_reboot_sub">Sistem</string>
+  <string name="global_action_reboot_recovery">Kurtarma Modu</string>
+  <string name="global_action_reboot_bootloader">Ön yükleyici</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
-  <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-  <string name="statusbar_items_title">Statusbar icon</string>
-  <string name="status_bar_location">Location</string>
-  <string name="lockscreen_default">Default</string>
-  <string name="lockscreen_hidden">None</string>
+  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Hızlı Şarj Oluyor (tam dolmasına <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> kaldı)</string>
+  <string name="keyguard_plugged_in_dash_charging">Hızlı Şarj</string>
+  <string name="statusbar_items_title">Durum çubuğu simgesi</string>
+  <string name="status_bar_location">Konum</string>
+  <string name="lockscreen_default">Varsayılan</string>
+  <string name="lockscreen_hidden">Hiçbiri</string>
   <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Swipe from icon to launch</string>
+  <string name="custom_hint">Başlatmak için simgeden kaydırın</string>
   <!-- Reader mode QS tile -->
-  <string name="quick_settings_reading_mode">Reading mode</string>
-  <string name="accessibility_quick_settings_reading_mode_on">Reading mode on.</string>
-  <string name="accessibility_quick_settings_reading_mode_off">Reading mode off.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_on">Reading mode turned on.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_off">Reading mode turned off.</string>
+  <string name="quick_settings_reading_mode">Okuma modu</string>
+  <string name="accessibility_quick_settings_reading_mode_on">Okuma modu açık.</string>
+  <string name="accessibility_quick_settings_reading_mode_off">Okuma modu kapalı.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_on">Okuma modu açıldı.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_off">Okuma modu kapatıldı.</string>
   <!-- QS Config -->
-  <string name="qs_menu_item_columns">Columns</string>
-  <string name="qs_menu_item_columns_landscape">Columns landscape</string>
+  <string name="qs_menu_item_columns">Sütunlar</string>
+  <string name="qs_menu_item_columns_landscape">Yatay modda sütunlar</string>
   <string name="qs_menu_item_columns_three">3</string>
   <string name="qs_menu_item_columns_four">4</string>
   <string name="qs_menu_item_columns_five">5</string>
@@ -45,134 +45,136 @@
   <string name="qs_menu_item_columns_seven">7</string>
   <string name="qs_menu_item_columns_eight">8</string>
   <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Reset</string>
-  <string name="qs_menu_item_titles">Show labels</string>
-  <string name="tuner_quick_settings">Quick settings</string>
-  <string name="tuner_show_brightness_new">Show brightness slider</string>
-  <string name="tuner_brightness_position_bottom">Brightness slider on bottom</string>
-  <string name="omnijaws_service_error">Error</string>
-  <string name="omnijaws_service_unkown">No weather data</string>
-  <string name="omnijaws_service_error_long">Error loading weather data</string>
-  <string name="omnijaws_service_disabled">Service is disabled</string>
-  <string name="omnijaws_detail_header">Weather</string>
-  <string name="omnijaws_label_default">Weather</string>
-  <string name="omnijaws_current_text">Now</string>
-  <string name="omnijaws_package_not_available">OmniJaws not available</string>
-  <string name="omnijaws_service_last_update">Last update:</string>
+  <string name="qs_menu_item_reset">Sıfırla</string>
+  <string name="qs_menu_item_titles">Etiketleri göster</string>
+  <string name="tuner_quick_settings">Hızlı ayarlar</string>
+  <string name="tuner_show_brightness_new">Parlaklık kaydırıcısını göster</string>
+  <string name="tuner_brightness_position_bottom">Parlaklık kaydırıcısı altta</string>
+  <string name="omnijaws_service_error">Hata</string>
+  <string name="omnijaws_service_unkown">Hava durumu verisi yok</string>
+  <string name="omnijaws_service_error_long">Hava durumu bilgisi yüklenemedi</string>
+  <string name="omnijaws_service_disabled">Servis devre dışı</string>
+  <string name="omnijaws_detail_header">Hava Durumu</string>
+  <string name="omnijaws_label_default">Hava Durumu</string>
+  <string name="omnijaws_current_text">Şu an</string>
+  <string name="omnijaws_package_not_available">OmniJaws mevcut değil</string>
+  <string name="omnijaws_service_last_update">Son güncelleme:</string>
   <!-- StatusBar tuner icons -->
-  <string name="status_bar_roaming">Roaming</string>
-  <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+  <string name="status_bar_roaming">Dolaşım</string>
+  <string name="status_bar_data_disabled">Mobil veri devre dışı bırakıldığında çarpı işareti göster</string>
   <string name="status_bar_vpn">VPN</string>
   <!-- Caffeine QS tile -->
-  <string name="quick_settings_caffeine_label">Caffeine</string>
-  <string name="accessibility_quick_settings_caffeine_off">Caffeine off.</string>
-  <string name="accessibility_quick_settings_caffeine_on">Caffeine on.</string>
+  <string name="quick_settings_caffeine_label">Kafein</string>
+  <string name="accessibility_quick_settings_caffeine_off">Kafein kapalı.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Kafein açık.</string>
   <!-- Sound QS tile -->
-  <string name="quick_settings_sound_label">Sound</string>
-  <string name="quick_settings_sound_ring">Ring</string>
-  <string name="quick_settings_sound_vibrate">Vibrate</string>
-  <string name="quick_settings_sound_dnd">Do not disturb</string>
+  <string name="quick_settings_sound_label">Ses</string>
+  <string name="quick_settings_sound_ring">Çal</string>
+  <string name="quick_settings_sound_vibrate">Titre</string>
+  <string name="quick_settings_sound_dnd">Rahatsız etme</string>
   <!-- Reboot/Recovery/PowerOff QS tile -->
-  <string name="quick_settings_reboot_label">Reboot</string>
-  <string name="quick_settings_reboot_recovery_label">Recovery</string>
-  <string name="quick_settings_poweroff_label">Power off</string>
+  <string name="quick_settings_reboot_label">Yeniden başlat</string>
+  <string name="quick_settings_reboot_recovery_label">Kurtarma Modu</string>
+  <string name="quick_settings_poweroff_label">Kapat</string>
   <!-- Kill button in notification guts -->
-  <string name="force_stop_dlg_title">Force stop?</string>
-  <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+  <string name="force_stop_dlg_title">Zorla kapatılsın mı?</string>
+  <string name="force_stop_dlg_text">Uygulamayı kapatmaya zorlamak, kararsız çalışmasına sebep olabilir.</string>
   <string name="dlg_ok">@android:string/ok</string>
   <string name="dlg_cancel">@android:string/cancel</string>
-  <string name="guts_force_close_app">Close App</string>
+  <string name="guts_force_close_app">Uygulamayı kapat</string>
   <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_battery_saving">Location reporting: battery saving mode.</string>
+  <string name="accessibility_quick_settings_location_battery_saving">Konum bildirimi: pil tasarrufu modu.</string>
   <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_gps_only">Location reporting: sensors only mode.</string>
+  <string name="accessibility_quick_settings_location_gps_only">Konum bildirimi: sadece sensörler modu.</string>
   <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_high_accuracy">Location reporting: high accuracy mode.</string>
+  <string name="accessibility_quick_settings_location_high_accuracy">Konum bildirimi: yüksek doğruluk modu.</string>
   <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_battery_saving_label">Battery saving</string>
-  <string name="quick_settings_location_battery_saving_label_twoline">Battery\nsaving</string>
+  <string name="quick_settings_location_battery_saving_label">Pil tasarrufu</string>
+  <string name="quick_settings_location_battery_saving_label_twoline">Pil\ntasarrufu</string>
   <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_gps_only_label">Device only</string>
-  <string name="quick_settings_location_gps_only_label_twoline">Device\nonly</string>
+  <string name="quick_settings_location_gps_only_label">Sadece cihaz</string>
+  <string name="quick_settings_location_gps_only_label_twoline">Sadece\ncihaz</string>
   <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
-  <string name="quick_settings_location_high_accuracy_label_twoline">High\naccuracy</string>
+  <string name="quick_settings_location_high_accuracy_label">Yüksek doğruluk</string>
+  <string name="quick_settings_location_high_accuracy_label_twoline">Yüksek\ndoğruluk</string>
   <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_title">Location</string>
+  <string name="quick_settings_location_detail_title">Konum</string>
   <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_menu_title">Select mode:</string>
+  <string name="quick_settings_location_detail_menu_title">Mod seç:</string>
   <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_title">High accuracy</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_title">Yüksek doğruluk</string>
   <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_title">Battery saving</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_title">Pil tasarrufu</string>
   <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_title">Device only</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_title">Sadece cihaz</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_description">Use GPS, Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_description">Konumu belirlemek için GPS, Wi\u2011Fi, Bluetooth veya hücresel ağlar kullan</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_description">Use Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_description">Konumu belirlemek için Wi\u2011Fi, Bluetooth veya hücresel ağlar kullan</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_description">Use GPS to determine location</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_description">Konumu belirlemek için GPS kullan</string>
   <!-- Heads up snooze toast -->
-  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for 1 minute.</string>
-  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
+  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Bildirim pencereleri 1 dakikalığına erteleniyor.</string>
+  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Bildirim pencereleri <xliff:g id="number">%d</xliff:g> dakikalığına erteleniyor.</string>
   <!-- Gaming mode -->
-  <string name="gaming_mode_not_enabled">Gaming mode is disabled in settings</string>
-  <string name="quick_settings_gaming_mode_label">Gaming mode</string>
+  <string name="gaming_mode_not_enabled">Oyun modu ayarlarda devre dışı bırakıldı</string>
+  <string name="quick_settings_gaming_mode_label">Oyun modu</string>
   <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
+  <string name="accessibility_quick_settings_gaming_mode_disabled">Oyun modu kapatıldı.</string>
   <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+  <string name="accessibility_quick_settings_gaming_mode_enabled">Oyun modu açıldı.</string>
   <!-- DataSwitch Tile -->
-  <string name="qs_data_switch_label">Switch data card</string>
-  <string name="qs_data_switch_toast_0">Currently no SIM card is inserted</string>
-  <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
-  <string name="qs_data_switch_changed_1">Using SIM 1 for Mobile data</string>
-  <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
+  <string name="qs_data_switch_label">Veri kartını değiştir</string>
+  <string name="qs_data_switch_toast_0">Şuan takılı SIM kart yok</string>
+  <string name="qs_data_switch_toast_1">Şuan sadece bir SIM kart takılı</string>
+  <string name="qs_data_switch_changed_1">Mobil veri için SIM 1 kullanılıyor</string>
+  <string name="qs_data_switch_changed_2">Mobil veri için SIM 2 kullanılıyor</string>
   <!-- AOD QS tile -->
-  <string name="quick_settings_aod_label">AOD</string>
+  <string name="quick_settings_aod_label">Her Zaman Açık Ekran</string>
   <!-- CPUInfo tile -->
-  <string name="quick_settings_cpuinfo_label">CPU Info</string>
-  <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
-  <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
+  <string name="quick_settings_cpuinfo_label">İşlemci Bilgisi</string>
+  <string name="accessibility_quick_settings_cpuinfo_off">İşlemci bilgisi kapalı</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">İşlemci bilgisi açık</string>
   <!-- Sync QS Tile -->
-  <string name="quick_settings_sync_label">Sync</string>
-  <string name="accessibility_quick_settings_sync_off">Sync off</string>
-  <string name="accessibility_quick_settings_sync_on">Sync on</string>
-  <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
-  <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+  <string name="quick_settings_sync_label">Senkronizasyon</string>
+  <string name="accessibility_quick_settings_sync_off">Senkronizasyon kapalı</string>
+  <string name="accessibility_quick_settings_sync_on">Senkronizasyon açık</string>
+  <string name="accessibility_quick_settings_sync_changed_off">Senkronizasyon kapatıldı</string>
+  <string name="accessibility_quick_settings_sync_changed_on">Senkronizasyon açıldı</string>
   <!-- LTE QS Tile -->
   <string name="qs_lte_label">LTE</string>
-  <string name="lte_on">LTE ON </string>
-  <string name="lte_off">LTE OFF</string>
+  <string name="lte_on">LTE AÇIK </string>
+  <string name="lte_off">LTE KAPALI</string>
   <!-- Language toggle tile -->
-  <string name="quick_settings_locale_label">Language</string>
-  <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+  <string name="quick_settings_locale_label">Dil</string>
+  <string name="quick_settings_locale_more_locales_toast">Geçiş işlevselliğinin etkin olması için lütfen birden fazla dil ekleyin</string>
   <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_label">Screen Stabilization</string>
+  <string name="quick_settings_stabilization_label">Ekran Sabitleme</string>
   <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_off">ScreenStabilization is disabled</string>
+  <string name="quick_settings_stabilization_off">Ekran Sabitleme kapatıldı</string>
   <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_on">ScreenStabilization is enabled</string>
-  <string name="low_label">Low</string>
-  <string name="high_label">High</string>
-  <string name="stabilization_velocity_friction">Velocity Friction</string>
-  <string name="stabilization_velocity_amplitude">Velocity Amplitude</string>
-  <string name="stabilization_position_friction">Position Friction</string>
+  <string name="quick_settings_stabilization_on">Ekran Sabitleme açıldı</string>
+  <string name="low_label">Düşük</string>
+  <string name="high_label">Yüksek</string>
+  <string name="stabilization_velocity_friction">Sürtünme hızı</string>
+  <string name="stabilization_velocity_amplitude">Hız Genliği</string>
+  <string name="stabilization_position_friction">Sürtünme Konumu</string>
   <!--Immersive mode tile -->
-  <string name="quick_settings_immersive_tile">Immersive mode</string>
-  <string name="quick_settings_immersive_tile_off">Immersive off</string>
-  <string name="quick_settings_immersive_tile_statusbar">Immersive statusbar</string>
-  <string name="quick_settings_immersive_tile_navbar">Immersive navbar</string>
-  <string name="quick_settings_immersive_tile_full">Immersive full</string>
+  <string name="quick_settings_immersive_tile">Tam Ekran Modu</string>
+  <string name="quick_settings_immersive_tile_off">Tam Ekran Modu kapalı</string>
+  <string name="quick_settings_immersive_tile_statusbar">Tam Ekran durum çubuğu</string>
+  <string name="quick_settings_immersive_tile_navbar">Tam Ekran gezinti çubuğu</string>
+  <string name="quick_settings_immersive_tile_full">Sürükleme dolu</string>
   <!-- FPS Info tile -->
-  <string name="quick_settings_fpsinfo_label">FPS Info</string>
-  <string name="accessibility_quick_settings_fpsinfo_off">FPS Info off</string>
-  <string name="accessibility_quick_settings_fpsinfo_on">FPS Info on</string>
+  <string name="quick_settings_fpsinfo_label">FPS bilgisi</string>
+  <string name="accessibility_quick_settings_fpsinfo_off">FPS bilgisi kapalı</string>
+  <string name="accessibility_quick_settings_fpsinfo_on">FPS bilgisi açık</string>
   <!-- Long swipe gesture actions -->
-  <string name="app_picker_dialog_title">Select an app</string>
-  <string name="active_edge_app_select_title">Select app</string>
-  <string name="active_edge_activity_select_title">Select activity</string>
-  <string name="recents_app_killed">App killed</string>
-  <string name="nope_cant_kill">Launcher cannot be killed</string>
+  <string name="app_picker_dialog_title">Bir uygulama seç</string>
+  <string name="active_edge_app_select_title">Uygulama seç</string>
+  <string name="active_edge_activity_select_title">Etkinlik seç</string>
+  <string name="recents_app_killed">Uygulama sonlandırıldı</string>
+  <string name="nope_cant_kill">Başlatıcı sonlandırılamaz</string>
+  <!-- Alerting notification header label -->
+  <string name="notification_section_header_alerting">Uyarı bildirimleri</string>
 </resources>

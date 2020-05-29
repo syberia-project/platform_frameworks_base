@@ -15,29 +15,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="global_action_reboot">Restart</string>
-  <string name="global_action_reboot_more">Restart\u2026</string>
-  <string name="global_action_reboot_sub">System</string>
+  <string name="global_action_reboot">重新启动</string>
+  <string name="global_action_reboot_more">重新启动\u2026</string>
+  <string name="global_action_reboot_sub">系统</string>
   <string name="global_action_reboot_recovery">Recovery</string>
-  <string name="global_action_reboot_bootloader">Bootloader</string>
+  <string name="global_action_reboot_bootloader">fasboot模式</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
-  <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-  <string name="statusbar_items_title">Statusbar icon</string>
-  <string name="status_bar_location">Location</string>
-  <string name="lockscreen_default">Default</string>
-  <string name="lockscreen_hidden">None</string>
+  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • 正在快速充电 (还需 <xliff:g id="charging_time_left">%s</xliff:g>充满)</string>
+  <string name="keyguard_plugged_in_dash_charging">正在快速充电</string>
+  <string name="statusbar_items_title">状态栏图标</string>
+  <string name="status_bar_location">位置信息服务</string>
+  <string name="lockscreen_default">默认</string>
+  <string name="lockscreen_hidden">无</string>
   <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Swipe from icon to launch</string>
+  <string name="custom_hint">滑动图标以启动</string>
   <!-- Reader mode QS tile -->
-  <string name="quick_settings_reading_mode">Reading mode</string>
-  <string name="accessibility_quick_settings_reading_mode_on">Reading mode on.</string>
-  <string name="accessibility_quick_settings_reading_mode_off">Reading mode off.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_on">Reading mode turned on.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_off">Reading mode turned off.</string>
+  <string name="quick_settings_reading_mode">阅读模式</string>
+  <string name="accessibility_quick_settings_reading_mode_on">开启阅读模式</string>
+  <string name="accessibility_quick_settings_reading_mode_off">关闭阅读模式</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_on">阅读模式已开启。</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_off">阅读模式已关闭</string>
   <!-- QS Config -->
-  <string name="qs_menu_item_columns">Columns</string>
-  <string name="qs_menu_item_columns_landscape">Columns landscape</string>
+  <string name="qs_menu_item_columns">列数</string>
+  <string name="qs_menu_item_columns_landscape">横屏列数</string>
   <string name="qs_menu_item_columns_three">3</string>
   <string name="qs_menu_item_columns_four">4</string>
   <string name="qs_menu_item_columns_five">5</string>
@@ -45,134 +45,136 @@
   <string name="qs_menu_item_columns_seven">7</string>
   <string name="qs_menu_item_columns_eight">8</string>
   <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Reset</string>
-  <string name="qs_menu_item_titles">Show labels</string>
-  <string name="tuner_quick_settings">Quick settings</string>
-  <string name="tuner_show_brightness_new">Show brightness slider</string>
-  <string name="tuner_brightness_position_bottom">Brightness slider on bottom</string>
-  <string name="omnijaws_service_error">Error</string>
-  <string name="omnijaws_service_unkown">No weather data</string>
-  <string name="omnijaws_service_error_long">Error loading weather data</string>
-  <string name="omnijaws_service_disabled">Service is disabled</string>
-  <string name="omnijaws_detail_header">Weather</string>
-  <string name="omnijaws_label_default">Weather</string>
-  <string name="omnijaws_current_text">Now</string>
-  <string name="omnijaws_package_not_available">OmniJaws not available</string>
-  <string name="omnijaws_service_last_update">Last update:</string>
+  <string name="qs_menu_item_reset">重置</string>
+  <string name="qs_menu_item_titles">显示名称</string>
+  <string name="tuner_quick_settings">快速设置</string>
+  <string name="tuner_show_brightness_new">显示亮度条</string>
+  <string name="tuner_brightness_position_bottom">在底部显示亮度条</string>
+  <string name="omnijaws_service_error">出错</string>
+  <string name="omnijaws_service_unkown">没有天气数据</string>
+  <string name="omnijaws_service_error_long">加载天气数据时出错</string>
+  <string name="omnijaws_service_disabled">服务已禁用</string>
+  <string name="omnijaws_detail_header">天气</string>
+  <string name="omnijaws_label_default">天气</string>
+  <string name="omnijaws_current_text">现在</string>
+  <string name="omnijaws_package_not_available">OmniJaws 不可用</string>
+  <string name="omnijaws_service_last_update">最新更新:</string>
   <!-- StatusBar tuner icons -->
-  <string name="status_bar_roaming">Roaming</string>
-  <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+  <string name="status_bar_roaming">漫游</string>
+  <string name="status_bar_data_disabled">当数据不可用时显示×号</string>
   <string name="status_bar_vpn">VPN</string>
   <!-- Caffeine QS tile -->
-  <string name="quick_settings_caffeine_label">Caffeine</string>
-  <string name="accessibility_quick_settings_caffeine_off">Caffeine off.</string>
-  <string name="accessibility_quick_settings_caffeine_on">Caffeine on.</string>
+  <string name="quick_settings_caffeine_label">保持亮屏</string>
+  <string name="accessibility_quick_settings_caffeine_off">保持亮屏关闭。</string>
+  <string name="accessibility_quick_settings_caffeine_on">保持亮屏开启。</string>
   <!-- Sound QS tile -->
-  <string name="quick_settings_sound_label">Sound</string>
-  <string name="quick_settings_sound_ring">Ring</string>
-  <string name="quick_settings_sound_vibrate">Vibrate</string>
-  <string name="quick_settings_sound_dnd">Do not disturb</string>
+  <string name="quick_settings_sound_label">提示音</string>
+  <string name="quick_settings_sound_ring">铃声</string>
+  <string name="quick_settings_sound_vibrate">震动</string>
+  <string name="quick_settings_sound_dnd">勿扰模式</string>
   <!-- Reboot/Recovery/PowerOff QS tile -->
-  <string name="quick_settings_reboot_label">Reboot</string>
+  <string name="quick_settings_reboot_label">重新启动</string>
   <string name="quick_settings_reboot_recovery_label">Recovery</string>
-  <string name="quick_settings_poweroff_label">Power off</string>
+  <string name="quick_settings_poweroff_label">关机</string>
   <!-- Kill button in notification guts -->
-  <string name="force_stop_dlg_title">Force stop?</string>
-  <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+  <string name="force_stop_dlg_title">强制停止？</string>
+  <string name="force_stop_dlg_text">强行停止某个应用可能会导致其出现异常。</string>
   <string name="dlg_ok">@android:string/ok</string>
   <string name="dlg_cancel">@android:string/cancel</string>
-  <string name="guts_force_close_app">Close App</string>
+  <string name="guts_force_close_app">关闭应用程序</string>
   <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_battery_saving">Location reporting: battery saving mode.</string>
+  <string name="accessibility_quick_settings_location_battery_saving">位置报告：省电模式。</string>
   <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_gps_only">Location reporting: sensors only mode.</string>
+  <string name="accessibility_quick_settings_location_gps_only">位置报告：仅限设备。</string>
   <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_high_accuracy">Location reporting: high accuracy mode.</string>
+  <string name="accessibility_quick_settings_location_high_accuracy">位置报告：高准确度模式。</string>
   <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_battery_saving_label">Battery saving</string>
-  <string name="quick_settings_location_battery_saving_label_twoline">Battery\nsaving</string>
+  <string name="quick_settings_location_battery_saving_label">省电模式</string>
+  <string name="quick_settings_location_battery_saving_label_twoline">省电模式</string>
   <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_gps_only_label">Device only</string>
-  <string name="quick_settings_location_gps_only_label_twoline">Device\nonly</string>
+  <string name="quick_settings_location_gps_only_label">仅设备</string>
+  <string name="quick_settings_location_gps_only_label_twoline">仅限\n设备</string>
   <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
-  <string name="quick_settings_location_high_accuracy_label_twoline">High\naccuracy</string>
+  <string name="quick_settings_location_high_accuracy_label">高精准度</string>
+  <string name="quick_settings_location_high_accuracy_label_twoline">高\n精确度</string>
   <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_title">Location</string>
+  <string name="quick_settings_location_detail_title">位置信息服务</string>
   <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_menu_title">Select mode:</string>
+  <string name="quick_settings_location_detail_menu_title">选择模式：</string>
   <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_title">High accuracy</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_title">高精准度</string>
   <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_title">Battery saving</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_title">省电模式</string>
   <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_title">Device only</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_title">仅设备</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_description">Use GPS, Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_description">使用 GPS、WLAN、蓝牙或移动网络确定位置</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_description">Use Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_description">使用 WLAN、蓝牙或移动网络确定位置</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_description">Use GPS to determine location</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_description">使用 GPS 确定位置</string>
   <!-- Heads up snooze toast -->
-  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for 1 minute.</string>
-  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
+  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - 浮动通知暂停 1 分钟</string>
+  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - 浮动通知暂停<xliff:g id="number">%d</xliff:g>分钟</string>
   <!-- Gaming mode -->
-  <string name="gaming_mode_not_enabled">Gaming mode is disabled in settings</string>
-  <string name="quick_settings_gaming_mode_label">Gaming mode</string>
+  <string name="gaming_mode_not_enabled">游戏模式在设置中被禁用</string>
+  <string name="quick_settings_gaming_mode_label">游戏模式</string>
   <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
+  <string name="accessibility_quick_settings_gaming_mode_disabled">游戏模式已关闭</string>
   <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+  <string name="accessibility_quick_settings_gaming_mode_enabled">游戏模式已开启</string>
   <!-- DataSwitch Tile -->
-  <string name="qs_data_switch_label">Switch data card</string>
-  <string name="qs_data_switch_toast_0">Currently no SIM card is inserted</string>
-  <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
-  <string name="qs_data_switch_changed_1">Using SIM 1 for Mobile data</string>
-  <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
+  <string name="qs_data_switch_label">切换数据卡</string>
+  <string name="qs_data_switch_toast_0">当前没有插入 SIM 卡</string>
+  <string name="qs_data_switch_toast_1">当前仅插入了一张 SIM 卡</string>
+  <string name="qs_data_switch_changed_1">设置卡1为数据卡</string>
+  <string name="qs_data_switch_changed_2">设置卡2为数据卡</string>
   <!-- AOD QS tile -->
-  <string name="quick_settings_aod_label">AOD</string>
+  <string name="quick_settings_aod_label">息屏显示</string>
   <!-- CPUInfo tile -->
-  <string name="quick_settings_cpuinfo_label">CPU Info</string>
-  <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
-  <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
+  <string name="quick_settings_cpuinfo_label">CPU 信息</string>
+  <string name="accessibility_quick_settings_cpuinfo_off">关闭 CPU 信息</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">开启 CPU 信息</string>
   <!-- Sync QS Tile -->
-  <string name="quick_settings_sync_label">Sync</string>
-  <string name="accessibility_quick_settings_sync_off">Sync off</string>
-  <string name="accessibility_quick_settings_sync_on">Sync on</string>
-  <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
-  <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+  <string name="quick_settings_sync_label">同步</string>
+  <string name="accessibility_quick_settings_sync_off">停用同步</string>
+  <string name="accessibility_quick_settings_sync_on">启用同步</string>
+  <string name="accessibility_quick_settings_sync_changed_off">同步已停用</string>
+  <string name="accessibility_quick_settings_sync_changed_on">同步已启用</string>
   <!-- LTE QS Tile -->
-  <string name="qs_lte_label">LTE</string>
-  <string name="lte_on">LTE ON </string>
-  <string name="lte_off">LTE OFF</string>
+  <string name="qs_lte_label">LTE网络</string>
+  <string name="lte_on">LTE 已开启 </string>
+  <string name="lte_off">LTE 已关闭</string>
   <!-- Language toggle tile -->
-  <string name="quick_settings_locale_label">Language</string>
-  <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+  <string name="quick_settings_locale_label">语言</string>
+  <string name="quick_settings_locale_more_locales_toast">请配置多种语言以启用切换语言功能</string>
   <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_label">Screen Stabilization</string>
+  <string name="quick_settings_stabilization_label">屏幕防抖</string>
   <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_off">ScreenStabilization is disabled</string>
+  <string name="quick_settings_stabilization_off">屏幕防抖已禁用</string>
   <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_on">ScreenStabilization is enabled</string>
-  <string name="low_label">Low</string>
-  <string name="high_label">High</string>
-  <string name="stabilization_velocity_friction">Velocity Friction</string>
-  <string name="stabilization_velocity_amplitude">Velocity Amplitude</string>
-  <string name="stabilization_position_friction">Position Friction</string>
+  <string name="quick_settings_stabilization_on">屏幕防抖已启用</string>
+  <string name="low_label">低</string>
+  <string name="high_label">高</string>
+  <string name="stabilization_velocity_friction">移动速度</string>
+  <string name="stabilization_velocity_amplitude">移动幅度</string>
+  <string name="stabilization_position_friction">移动位置</string>
   <!--Immersive mode tile -->
-  <string name="quick_settings_immersive_tile">Immersive mode</string>
-  <string name="quick_settings_immersive_tile_off">Immersive off</string>
-  <string name="quick_settings_immersive_tile_statusbar">Immersive statusbar</string>
-  <string name="quick_settings_immersive_tile_navbar">Immersive navbar</string>
-  <string name="quick_settings_immersive_tile_full">Immersive full</string>
+  <string name="quick_settings_immersive_tile">沉浸模式</string>
+  <string name="quick_settings_immersive_tile_off">沉浸模式已关闭</string>
+  <string name="quick_settings_immersive_tile_statusbar">沉浸式状态栏</string>
+  <string name="quick_settings_immersive_tile_navbar">沉浸式导航栏</string>
+  <string name="quick_settings_immersive_tile_full">全屏沉浸</string>
   <!-- FPS Info tile -->
-  <string name="quick_settings_fpsinfo_label">FPS Info</string>
-  <string name="accessibility_quick_settings_fpsinfo_off">FPS Info off</string>
-  <string name="accessibility_quick_settings_fpsinfo_on">FPS Info on</string>
+  <string name="quick_settings_fpsinfo_label">FPS 信息</string>
+  <string name="accessibility_quick_settings_fpsinfo_off">关闭 FPS 信息</string>
+  <string name="accessibility_quick_settings_fpsinfo_on">开启 FPS 信息</string>
   <!-- Long swipe gesture actions -->
-  <string name="app_picker_dialog_title">Select an app</string>
-  <string name="active_edge_app_select_title">Select app</string>
-  <string name="active_edge_activity_select_title">Select activity</string>
-  <string name="recents_app_killed">App killed</string>
-  <string name="nope_cant_kill">Launcher cannot be killed</string>
+  <string name="app_picker_dialog_title">选择一个应用</string>
+  <string name="active_edge_app_select_title">选择应用</string>
+  <string name="active_edge_activity_select_title">选择活动页面</string>
+  <string name="recents_app_killed">应用已被终止</string>
+  <string name="nope_cant_kill">启动器不能被终止</string>
+  <!-- Alerting notification header label -->
+  <string name="notification_section_header_alerting">Alerting notifications</string>
 </resources>
