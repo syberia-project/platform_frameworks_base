@@ -59,8 +59,6 @@ public class FODCircleView extends ImageView {
     private final int mDreamingMaxOffset;
     private final int mNavigationBarSize;
     private final boolean mShouldBoostBrightness;
-    private final Paint mPaintFingerprintBackground = new Paint();
-    private final Paint mPaintFingerprint = new Paint();
     private final WindowManager.LayoutParams mParams = new WindowManager.LayoutParams();
     private final WindowManager.LayoutParams mPressedParams = new WindowManager.LayoutParams();
     private final WindowManager mWindowManager;
@@ -94,7 +92,11 @@ public class FODCircleView extends ImageView {
         R.drawable.fod_icon_cpt_america_flat,
         R.drawable.fod_icon_cpt_america_flat_gray,
         R.drawable.fod_icon_dragon_black_flat,
+<<<<<<< HEAD
         R.drawable.fod_icon_evo,
+=======
+        R.drawable.fod_icon_future,
+>>>>>>> eebb205c5ea... FODCircleView: Clean up for correct FOD icon and Pressed Icon
         R.drawable.fod_icon_glow_circle,
         R.drawable.fod_icon_neon_arc,
         R.drawable.fod_icon_neon_arc_gray,
@@ -186,10 +188,6 @@ public class FODCircleView extends ImageView {
 
         Resources res = context.getResources();
 
-        mPaintFingerprint.setAntiAlias(true);
-
-        mPaintFingerprintBackground.setAntiAlias(true);
-
         mWindowManager = context.getSystemService(WindowManager.class);
 
         mNavigationBarSize = res.getDimensionPixelSize(R.dimen.navigation_bar_size);
@@ -218,7 +216,7 @@ public class FODCircleView extends ImageView {
             @Override
             protected void onDraw(Canvas canvas) {
                 if (mIsCircleShowing) {
-                    canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprint);
+                    setImageResource(PRESSED_STYLES[mPressedIcon]);
                 }
                 super.onDraw(canvas);
             }
@@ -240,21 +238,13 @@ public class FODCircleView extends ImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        if (!mIsCircleShowing) {
+            setImageResource(ICON_STYLES[mSelectedIcon]);
+        }
+
         if (mIsCircleShowing) {
             setImageResource(PRESSED_STYLES[mPressedIcon]);
         }
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (mIsCircleShowing) {
-            dispatchPress();
-        } else {
-            dispatchRelease();
-        }
-        super.onDraw(canvas);
     }
 
     @Override
@@ -342,15 +332,16 @@ public class FODCircleView extends ImageView {
         setKeepScreenOn(true);
 
         setDim(true);
-        dispatchPress();
 
+        dispatchPress();
+        updateStyle();
         setImageResource(PRESSED_STYLES[mPressedIcon]);
         invalidate();
     }
 
     public void hideCircle() {
         mIsCircleShowing = false;
-
+        updateStyle();
         setImageResource(ICON_STYLES[mSelectedIcon]);
         invalidate();
 
@@ -457,11 +448,11 @@ public class FODCircleView extends ImageView {
                 mWindowManager.updateViewLayout(mPressedView, mPressedParams);
             }
         } else {
-            mPressedParams.screenBrightness = 0.0f;
-            mPressedParams.dimAmount = 0.0f;
-            if (mPressedView.getParent() != null) {
-                mWindowManager.removeView(mPressedView);
-            }
+          mPressedParams.screenBrightness = 0.0f;
+          mPressedParams.dimAmount = 0.0f;
+          if (mPressedView.getParent() != null) {
+              mWindowManager.removeView(mPressedView);
+          }
         }
     }
 
