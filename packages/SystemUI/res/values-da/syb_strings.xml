@@ -15,29 +15,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="global_action_reboot">Restart</string>
-  <string name="global_action_reboot_more">Restart\u2026</string>
+  <string name="global_action_reboot">Gestart</string>
+  <string name="global_action_reboot_more">Genstart\u2026</string>
   <string name="global_action_reboot_sub">System</string>
   <string name="global_action_reboot_recovery">Recovery</string>
   <string name="global_action_reboot_bootloader">Bootloader</string>
   <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
-  <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-  <string name="statusbar_items_title">Statusbar icon</string>
-  <string name="status_bar_location">Location</string>
-  <string name="lockscreen_default">Default</string>
-  <string name="lockscreen_hidden">None</string>
+  <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash-opladning (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> indtil fuld)</string>
+  <string name="keyguard_plugged_in_dash_charging">Dash-opladning</string>
+  <string name="statusbar_items_title">Statusbjælkeikon</string>
+  <string name="status_bar_location">Placering</string>
+  <string name="lockscreen_default">Standard</string>
+  <string name="lockscreen_hidden">Ingen</string>
   <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Swipe from icon to launch</string>
+  <string name="custom_hint">Stryg fra ikon for at åbne</string>
   <!-- Reader mode QS tile -->
-  <string name="quick_settings_reading_mode">Reading mode</string>
-  <string name="accessibility_quick_settings_reading_mode_on">Reading mode on.</string>
-  <string name="accessibility_quick_settings_reading_mode_off">Reading mode off.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_on">Reading mode turned on.</string>
-  <string name="accessibility_quick_settings_reading_mode_changed_off">Reading mode turned off.</string>
+  <string name="quick_settings_reading_mode">Læsetilstand</string>
+  <string name="accessibility_quick_settings_reading_mode_on">Læsetilstand til.</string>
+  <string name="accessibility_quick_settings_reading_mode_off">Læsetilstand fra.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_on">Læsetilstand slået til.</string>
+  <string name="accessibility_quick_settings_reading_mode_changed_off">Læsetilstand slået fra.</string>
   <!-- QS Config -->
-  <string name="qs_menu_item_columns">Columns</string>
-  <string name="qs_menu_item_columns_landscape">Columns landscape</string>
+  <string name="qs_menu_item_columns">Kolonner</string>
+  <string name="qs_menu_item_columns_landscape">Kolonner liggende</string>
   <string name="qs_menu_item_columns_three">3</string>
   <string name="qs_menu_item_columns_four">4</string>
   <string name="qs_menu_item_columns_five">5</string>
@@ -45,123 +45,123 @@
   <string name="qs_menu_item_columns_seven">7</string>
   <string name="qs_menu_item_columns_eight">8</string>
   <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Reset</string>
-  <string name="qs_menu_item_titles">Show labels</string>
-  <string name="tuner_quick_settings">Quick settings</string>
-  <string name="tuner_show_brightness_new">Show brightness slider</string>
-  <string name="tuner_brightness_position_bottom">Brightness slider on bottom</string>
-  <string name="omnijaws_service_error">Error</string>
-  <string name="omnijaws_service_unkown">No weather data</string>
-  <string name="omnijaws_service_error_long">Error loading weather data</string>
-  <string name="omnijaws_service_disabled">Service is disabled</string>
-  <string name="omnijaws_detail_header">Weather</string>
-  <string name="omnijaws_label_default">Weather</string>
-  <string name="omnijaws_current_text">Now</string>
-  <string name="omnijaws_package_not_available">OmniJaws not available</string>
-  <string name="omnijaws_service_last_update">Last update:</string>
+  <string name="qs_menu_item_reset">Nulstil</string>
+  <string name="qs_menu_item_titles">Vis etiketter</string>
+  <string name="tuner_quick_settings">Hurtig indstillinger</string>
+  <string name="tuner_show_brightness_new">Vis lysstyrkeskyder</string>
+  <string name="tuner_brightness_position_bottom">Lysstyrkeskyder i bunden</string>
+  <string name="omnijaws_service_error">Fejl</string>
+  <string name="omnijaws_service_unkown">Ingen værdata</string>
+  <string name="omnijaws_service_error_long">Fejl under indlæsningen af vejrdata</string>
+  <string name="omnijaws_service_disabled">Tjenesten er deaktiveret</string>
+  <string name="omnijaws_detail_header">Vejr</string>
+  <string name="omnijaws_label_default">Vejr</string>
+  <string name="omnijaws_current_text">Nu</string>
+  <string name="omnijaws_package_not_available">OmniJaws ikke tilgængelig</string>
+  <string name="omnijaws_service_last_update">Seneste opdatering:</string>
   <!-- StatusBar tuner icons -->
-  <string name="status_bar_roaming">Roaming</string>
-  <string name="status_bar_data_disabled">Crosses when data is disabled</string>
+  <string name="status_bar_roaming">Roamer</string>
+  <string name="status_bar_data_disabled">Får et kryds, hvis data er deaktiveret</string>
   <string name="status_bar_vpn">VPN</string>
   <!-- Caffeine QS tile -->
-  <string name="quick_settings_caffeine_label">Caffeine</string>
-  <string name="accessibility_quick_settings_caffeine_off">Caffeine off.</string>
-  <string name="accessibility_quick_settings_caffeine_on">Caffeine on.</string>
+  <string name="quick_settings_caffeine_label">Koffein</string>
+  <string name="accessibility_quick_settings_caffeine_off">Koffein fra.</string>
+  <string name="accessibility_quick_settings_caffeine_on">Koffein til.</string>
   <!-- Sound QS tile -->
-  <string name="quick_settings_sound_label">Sound</string>
-  <string name="quick_settings_sound_ring">Ring</string>
-  <string name="quick_settings_sound_vibrate">Vibrate</string>
-  <string name="quick_settings_sound_dnd">Do not disturb</string>
+  <string name="quick_settings_sound_label">Lyd</string>
+  <string name="quick_settings_sound_ring">Opkaldslyd</string>
+  <string name="quick_settings_sound_vibrate">Vibrér</string>
+  <string name="quick_settings_sound_dnd">Forstyr ikke</string>
   <!-- Reboot/Recovery/PowerOff QS tile -->
-  <string name="quick_settings_reboot_label">Reboot</string>
+  <string name="quick_settings_reboot_label">Genstart</string>
   <string name="quick_settings_reboot_recovery_label">Recovery</string>
-  <string name="quick_settings_poweroff_label">Power off</string>
+  <string name="quick_settings_poweroff_label">Sluk</string>
   <!-- Kill button in notification guts -->
-  <string name="force_stop_dlg_title">Force stop?</string>
-  <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
-  <string name="dlg_ok">@android:string/ok</string>
-  <string name="dlg_cancel">@android:string/cancel</string>
-  <string name="guts_force_close_app">Close App</string>
+  <string name="force_stop_dlg_title">Gennemtving stop?</string>
+  <string name="force_stop_dlg_text">Gennemtvinges stop af en app, kan den fejlfungere.</string>
+  <string name="dlg_ok">\@android: streng/OK</string>
+  <string name="dlg_cancel">\@android: streng/Afbryd</string>
+  <string name="guts_force_close_app">Luk app</string>
   <!-- Content description of the location tile in quick settings when on, battery saving mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_battery_saving">Location reporting: battery saving mode.</string>
+  <string name="accessibility_quick_settings_location_battery_saving">Placeringsrapportering: Batterisparetilstand.</string>
   <!-- Content description of the location tile in quick settings when on, sensors only mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_gps_only">Location reporting: sensors only mode.</string>
+  <string name="accessibility_quick_settings_location_gps_only">Placeringsrapportering: Kun sensorer-tilstand.</string>
   <!-- Content description of the location tile in quick settings when on, high accuracy mode (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_location_high_accuracy">Location reporting: high accuracy mode.</string>
+  <string name="accessibility_quick_settings_location_high_accuracy">Placeringsrapportering: Høj nøjagtighed-tilstand.</string>
   <!-- QuickSettings: Location (On, low-power) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_battery_saving_label">Battery saving</string>
-  <string name="quick_settings_location_battery_saving_label_twoline">Battery\nsaving</string>
+  <string name="quick_settings_location_battery_saving_label">Batterisparer</string>
+  <string name="quick_settings_location_battery_saving_label_twoline">Batteribesparende</string>
   <!-- QuickSettings: Location (On, gps-only) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_gps_only_label">Device only</string>
-  <string name="quick_settings_location_gps_only_label_twoline">Device\nonly</string>
+  <string name="quick_settings_location_gps_only_label">Kun enhed</string>
+  <string name="quick_settings_location_gps_only_label_twoline">Kun\nenhed</string>
   <!-- QuickSettings: Location (On, high-accuracy) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_high_accuracy_label">High accuracy</string>
-  <string name="quick_settings_location_high_accuracy_label_twoline">High\naccuracy</string>
+  <string name="quick_settings_location_high_accuracy_label">Høj nøjagtighed</string>
+  <string name="quick_settings_location_high_accuracy_label_twoline">Høj\nnøjagtighed</string>
   <!-- QuickSettings: Location detail panel title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_title">Location</string>
+  <string name="quick_settings_location_detail_title">Placering</string>
   <!-- QuickSettings: Location detail panel menu title [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_location_detail_menu_title">Select mode:</string>
+  <string name="quick_settings_location_detail_menu_title">Vælg tilstand:</string>
   <!-- [CHAR LIMIT=30] Location detail panel, high accuracy location mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_title">High accuracy</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_title">Høj nøjagtighed</string>
   <!-- [CHAR LIMIT=30] Location detail panel, battery saving location mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_title">Battery saving</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_title">Batterisparer</string>
   <!-- [CHAR LIMIT=30] Location detail panel, device only location mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_title">Device only</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_title">Kun enhed</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for high accuracy mode -->
-  <string name="quick_settings_location_detail_mode_high_accuracy_description">Use GPS, Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_high_accuracy_description">Benyt GPS, Wi\u2011Fi, Bluetooth eller mobildata til placeringbestemmelse</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for battery saving mode -->
-  <string name="quick_settings_location_detail_mode_battery_saving_description">Use Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+  <string name="quick_settings_location_detail_mode_battery_saving_description">Benyt Wi\u2011Fi, Bluetooth eller mobilnetværk til placeringsbestemmelse</string>
   <!-- [CHAR LIMIT=130] Location detail panel, description for sensors only mode -->
-  <string name="quick_settings_location_detail_mode_sensors_only_description">Use GPS to determine location</string>
+  <string name="quick_settings_location_detail_mode_sensors_only_description">Benyt GPS til placeringsbestemmelse</string>
   <!-- Heads up snooze toast -->
-  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for 1 minute.</string>
-  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
+  <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s </xliff:g> - Peeking-notifikationer er på pause i 1 minut.</string>
+  <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking-notifikationer er på pause i <xliff:g id="number">%d</xliff:g> minutter.</string>
   <!-- Gaming mode -->
-  <string name="gaming_mode_not_enabled">Gaming mode is disabled in settings</string>
-  <string name="quick_settings_gaming_mode_label">Gaming mode</string>
+  <string name="gaming_mode_not_enabled">Spiltilstand er deaktiveret i Indstillinger</string>
+  <string name="quick_settings_gaming_mode_label">Spiltilstand</string>
   <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
+  <string name="accessibility_quick_settings_gaming_mode_disabled">Spiltilstand slået fra.</string>
   <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-  <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+  <string name="accessibility_quick_settings_gaming_mode_enabled">Spiltilstand slået til.</string>
   <!-- DataSwitch Tile -->
-  <string name="qs_data_switch_label">Switch data card</string>
-  <string name="qs_data_switch_toast_0">Currently no SIM card is inserted</string>
-  <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
-  <string name="qs_data_switch_changed_1">Using SIM 1 for Mobile data</string>
-  <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
+  <string name="qs_data_switch_label">Skift datakort</string>
+  <string name="qs_data_switch_toast_0">Pt. intet SIM-kort isat</string>
+  <string name="qs_data_switch_toast_1">Pt. kun ét SIM-kort isat</string>
+  <string name="qs_data_switch_changed_1">Benytter SIM 1 til Mobildata</string>
+  <string name="qs_data_switch_changed_2">Benytter SIM 2 til Mobildata</string>
   <!-- AOD QS tile -->
   <string name="quick_settings_aod_label">AOD</string>
   <!-- CPUInfo tile -->
-  <string name="quick_settings_cpuinfo_label">CPU Info</string>
-  <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
-  <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
+  <string name="quick_settings_cpuinfo_label">CPU-info</string>
+  <string name="accessibility_quick_settings_cpuinfo_off">CPU-info fra</string>
+  <string name="accessibility_quick_settings_cpuinfo_on">CPU-info til</string>
   <!-- Sync QS Tile -->
-  <string name="quick_settings_sync_label">Sync</string>
-  <string name="accessibility_quick_settings_sync_off">Sync off</string>
-  <string name="accessibility_quick_settings_sync_on">Sync on</string>
-  <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
-  <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+  <string name="quick_settings_sync_label">Synk</string>
+  <string name="accessibility_quick_settings_sync_off">Synkr. fra</string>
+  <string name="accessibility_quick_settings_sync_on">Synk til</string>
+  <string name="accessibility_quick_settings_sync_changed_off">Synk slået fra</string>
+  <string name="accessibility_quick_settings_sync_changed_on">Synk slået til</string>
   <!-- LTE QS Tile -->
   <string name="qs_lte_label">LTE</string>
-  <string name="lte_on">LTE ON </string>
-  <string name="lte_off">LTE OFF</string>
+  <string name="lte_on">LTE TIL </string>
+  <string name="lte_off">LTE FRA</string>
   <!-- Language toggle tile -->
-  <string name="quick_settings_locale_label">Language</string>
-  <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+  <string name="quick_settings_locale_label">Sprog</string>
+  <string name="quick_settings_locale_more_locales_toast">Opsæt flere sprog for at aktivere omskiftningsfunktionalitet</string>
   <!-- QuickSettings: ScreenStabilization tile [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_label">Screen Stabilization</string>
+  <string name="quick_settings_stabilization_label">Skærmstabilisering</string>
   <!-- QuickSettings: ScreenStabilization (off) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_off">ScreenStabilization is disabled</string>
+  <string name="quick_settings_stabilization_off">Skærmstabilisering er deaktiveret</string>
   <!-- QuickSettings: ScreenStabilization (on) [CHAR LIMIT=NONE] -->
-  <string name="quick_settings_stabilization_on">ScreenStabilization is enabled</string>
-  <string name="low_label">Low</string>
-  <string name="high_label">High</string>
-  <string name="stabilization_velocity_friction">Velocity Friction</string>
-  <string name="stabilization_velocity_amplitude">Velocity Amplitude</string>
-  <string name="stabilization_position_friction">Position Friction</string>
+  <string name="quick_settings_stabilization_on">Skærmstabilisering er aktiveret</string>
+  <string name="low_label">Lav</string>
+  <string name="high_label">Høj</string>
+  <string name="stabilization_velocity_friction">Hastighedsfriktion</string>
+  <string name="stabilization_velocity_amplitude">Hastighedsområde</string>
+  <string name="stabilization_position_friction">Positionsfriktion</string>
   <!--Immersive mode tile -->
-  <string name="quick_settings_immersive_tile">Immersive mode</string>
-  <string name="quick_settings_immersive_tile_off">Immersive off</string>
+  <string name="quick_settings_immersive_tile">Fuldskærmstilstand</string>
+  <string name="quick_settings_immersive_tile_off">Fuld skærm fra</string>
   <string name="quick_settings_immersive_tile_statusbar">Immersive statusbar</string>
   <string name="quick_settings_immersive_tile_navbar">Immersive navbar</string>
   <string name="quick_settings_immersive_tile_full">Immersive full</string>
