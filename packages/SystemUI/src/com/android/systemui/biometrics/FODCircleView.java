@@ -220,27 +220,15 @@ public class FODCircleView extends ImageView {
 
         mWindowManager.addView(this, mParams);
 
-        updateStyle();
+
         updatePosition();
+
         hide();
 
         mLockPatternUtils = new LockPatternUtils(mContext);
 
         mUpdateMonitor = KeyguardUpdateMonitor.getInstance(context);
         mUpdateMonitor.registerCallback(mMonitorCallback);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        if (!mIsCircleShowing) {
-            setImageResource(ICON_STYLES[mSelectedIcon]);
-        }
-
-        if (mIsCircleShowing) {
-            setImageResource(PRESSED_STYLES[mPressedIcon]);
-        }
     }
 
     @Override
@@ -330,7 +318,7 @@ public class FODCircleView extends ImageView {
         setDim(true);
 
         dispatchPress();
-        updateStyle();
+
         setImageResource(PRESSED_STYLES[mPressedIcon]);
         invalidate();
     }
@@ -407,11 +395,6 @@ public class FODCircleView extends ImageView {
 
         mPressedParams.x = mParams.x = x;
         mPressedParams.y = mParams.y = y;
-
-        if (mIsDreaming) {
-            mParams.x += mDreamingOffsetX;
-            mParams.y += mDreamingOffsetY;
-        }
 
         mWindowManager.updateViewLayout(this, mParams);
 
