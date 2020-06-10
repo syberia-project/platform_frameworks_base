@@ -4614,6 +4614,13 @@ public final class Settings {
         /** @hide */
         public static final Validator BUTTON_BRIGHTNESS_VALIDATOR = NON_NEGATIVE_INTEGER_VALIDATOR;
 
+	/**
+         * The amount of time in milliseconds before the device goes to sleep or begins
+         * to dream after a period of inactivity in the keyguard.
+         * @hide
+         */
+        public static final String LOCKSCREEN_TIMEOUT = "lockscreen_timeout";
+
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
