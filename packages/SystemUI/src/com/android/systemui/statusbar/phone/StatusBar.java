@@ -601,6 +601,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     private @TransitionMode int mStatusBarMode;
 
     private ViewMediatorCallback mKeyguardViewMediatorCallback;
+    private VolumePluginManager mVolumePluginManager;
     private final ScrimController mScrimController;
     protected DozeScrimController mDozeScrimController;
     private final Executor mUiBgExecutor;
@@ -1052,6 +1053,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         mKeyguardManager = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
         mWallpaperSupported =
                 mContext.getSystemService(WallpaperManager.class).isWallpaperSupported();
+
+        mVolumePluginManager = new VolumePluginManager(mContext, mHandler);
 
         // Connect in to the status bar manager service
         mCommandQueue.addCallback(this);
