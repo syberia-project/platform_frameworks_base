@@ -6073,6 +6073,12 @@ public final class Settings {
         public static final String NOTIFICATION_MATERIAL_DISMISS = "notification_material_dismiss";
 
         /**
+         * Holds current enabled volume panel implementation
+         * @hide
+         */
+        public static final String SYSTEMUI_PLUGIN_VOLUME = "systemui_plugin_volume";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -6271,6 +6277,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(FP_WAKE_UNLOCK);
             PRIVATE_SETTINGS.add(STATUSBAR_ICONS_STYLE);
             PRIVATE_SETTINGS.add(INCALL_FEEDBACK_VIBRATE);
+            PRIVATE_SETTINGS.add(SYSTEMUI_PLUGIN_VOLUME);
         }
 
         /**
