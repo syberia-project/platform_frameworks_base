@@ -1149,8 +1149,6 @@ public class NetworkControllerImpl extends BroadcastReceiver
         public String patternOfCarrierSpecificDataIcon = "";
         public long nrIconDisplayGracePeriodMs;
 
-        boolean showVowifiIcon = false;
-
         /**
          * Mapping from NR 5G status string to an integer. The NR 5G status string should match
          * those in carrier config.
@@ -1206,7 +1204,6 @@ public class NetworkControllerImpl extends BroadcastReceiver
                         b.getInt(CarrierConfigManager.KEY_5G_ICON_DISPLAY_GRACE_PERIOD_SEC_INT),
                         config);
             }
-            config.showVowifiIcon = res.getBoolean(R.bool.config_display_vowifi);
 
             return config;
         }
