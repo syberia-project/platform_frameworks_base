@@ -28,6 +28,4 @@
     <bool name="config_statusBarBurnInProtection">false</bool>
     <integer name="config_shift_interval">60</integer>
 
-    <bool name="config_display_vowifi">true</bool>
-
 </resources>
