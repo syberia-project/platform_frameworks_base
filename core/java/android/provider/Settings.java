@@ -5341,6 +5341,16 @@ public final class Settings {
         /** @hide */
         public static final Validator VOLTE_ICON_STYLE_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
+        /**
+         * Whether to show VoWiFi icon or not
+         * @hide
+         */
+        public static final String VOWIFI_ICON = "vowifi_icon";
+
+        /** @hide */
+        public static final Validator VOWIFI_ICON_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+
         /** @hide */
         public static final Validator SHOW_FOURG_VALIDATOR = BOOLEAN_VALIDATOR;
        /**
@@ -6453,6 +6463,7 @@ public final class Settings {
             VALIDATORS.put(SHOW_FOURG, SHOW_FOURG_VALIDATOR);
             VALIDATORS.put(SHOW_VOLTE_ICON, SHOW_VOLTE_ICON_VALIDATOR);
             VALIDATORS.put(VOLTE_ICON_STYLE, VOLTE_ICON_STYLE_VALIDATOR);
+            VALIDATORS.put(VOWIFI_ICON, VOWIFI_ICON_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             VALIDATORS.put(DEVICE_PROXI_CHECK_ENABLED,
                     DEVICE_PROXI_CHECK_ENABLED_VALIDATOR);

@@ -120,6 +120,9 @@ public class MobileSignalController extends SignalController<
     // Volte Icon Style
     private int mVoLTEstyle;
 
+    // VoWiFi Icon
+    private int mVoWiFiIcon;
+
     // TODO: Reduce number of vars passed in, if we have the NetworkController, probably don't
     // need listener lists anymore.
     public MobileSignalController(Context context, Config config, boolean hasMobileData,
@@ -209,6 +212,9 @@ public class MobileSignalController extends SignalController<
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.VOLTE_ICON_STYLE),
                   false,this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.VOWIFI_ICON),
+                  false,this, UserHandle.USER_ALL);
            updateSettings();
         }
 
@@ -233,6 +239,9 @@ public class MobileSignalController extends SignalController<
                 Settings.System.VOLTE_ICON_STYLE, 0,
                 UserHandle.USER_CURRENT);
 
+        mVoWiFiIcon = Settings.System.getIntForUser(resolver,
+                Settings.System.VOWIFI_ICON, 0,
+                UserHandle.USER_CURRENT);
         mapIconSets();
         updateTelephony();
         notifyListeners();
@@ -439,8 +448,7 @@ public class MobileSignalController extends SignalController<
 
     private int getVolteResId() {
         int resId = 0;
-
-        if (mCurrentState.imsRegistered && mVoLTEicon) {
+        if (mCurrentState.imsRegistered && mVoLTEicon && (mVoWiFiIcon < 2)) {
             switch(mVoLTEstyle) {
                 // VoLTE
                 case 1:
@@ -570,7 +578,7 @@ public class MobileSignalController extends SignalController<
         int volteIcon = isVolteSwitchOn() ? getVolteResId() : 0;
 
         MobileIconGroup vowifiIconGroup = getVowifiIconGroup();
-        if ( mConfig.showVowifiIcon && vowifiIconGroup != null ) {
+        if ( vowifiIconGroup != null && (mVoWiFiIcon >= 1) ) {
             typeIcon = vowifiIconGroup.mDataType;
             statusIcon = new IconState(true,
                     mCurrentState.enabled && !mCurrentState.airplaneMode? statusIcon.icon : 0,
