@@ -1768,6 +1768,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
                     mIsAnimatingDismiss = false;
 
                     hideRingerDrawer();
+                    mController.notifyVisible(false);
                 }, 50));
         if (!shouldSlideInVolumeTray()) {
             animator.translationX(getTranslationForPanelLocation() * mDialogView.getWidth() / 2.0f);
