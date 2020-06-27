@@ -20,22 +20,6 @@
         <item quantity="other"><annotation name="color">Сейчас</annotation>\n^1\n^2</item>
     </plurals>
 
-    <!-- Hour displayed in words on the typographic clock face. [CHAR LIMIT=12] -->
-    <string-array name="type_clock_hours_12">
-        <item>Двенадцать</item>
-        <item>Один</item>
-        <item>Два</item>
-        <item>Три</item>
-        <item>Четыре</item>
-        <item>Пять</item>
-        <item>Шесть</item>
-        <item>Семь</item>
-        <item>Восемь</item>
-        <item>Девять</item>
-        <item>Десять</item>
-        <item>Одиннадцать</item>
-    </string-array>
-
     <string-array name="type_clock_hours_24">
         <item>Ноль</item>
         <item>Один</item>
