@@ -64,7 +64,7 @@ public class TypographicClock extends TextView {
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
         mResources = context.getResources();
         h24 = DateFormat.is24HourFormat(getContext());
-        if (!h24) mHours = mResources.getStringArray(R.array.type_clock_hours_12);
+        if (!h24) mHours = mResources.getStringArray(R.array.type_clock_hours);
             else mHours = mResources.getStringArray(R.array.type_clock_hours_24);
         mMinutes = mResources.getStringArray(R.array.type_clock_minutes);
         mAccentColor = mResources.getColor(R.color.typeClockAccentColor, null);
@@ -78,7 +78,7 @@ public class TypographicClock extends TextView {
         mTime.setTimeInMillis(System.currentTimeMillis());
         setContentDescription(DateFormat.format(mDescFormat, mTime));
         if (!h24) {
-             mHours = mResources.getStringArray(R.array.type_clock_hours_12);
+             mHours = mResources.getStringArray(R.array.type_clock_hours);
              hour = mTime.get(Calendar.HOUR) % 12;
         } else {
              mHours = mResources.getStringArray(R.array.type_clock_hours_24);

@@ -428,7 +428,7 @@ number">%d</xliff:g> remaining attempts before SIM becomes permanently unusable.
     </plurals>
 
     <!-- Hour displayed in words on the typographic clock face. [CHAR LIMIT=12] -->
-    <string-array name="type_clock_hours_12">
+    <string-array name="type_clock_hours">
         <item>Twelve</item>
         <item>One</item>
         <item>Two</item>
