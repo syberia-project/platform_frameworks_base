@@ -51,6 +51,7 @@ import com.android.systemui.statusbar.phone.ConfigurationControllerImpl;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DataSaverController;
 import com.android.systemui.statusbar.policy.NetworkController;
+import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.util.leak.LeakDetector;
 
 import javax.inject.Named;
@@ -211,5 +212,12 @@ public class DependencyProvider {
     @Provides
     public PackageManagerWrapper providePackageManagerWrapper() {
         return PackageManagerWrapper.getInstance();
+    }
+
+    @Singleton
+    @Provides
+    public TaskHelper provideTaskHelper(Context context,
+            @Named(MAIN_HANDLER_NAME) Handler mainHandler) {
+        return new TaskHelper(context, mainHandler);
     }
 }
