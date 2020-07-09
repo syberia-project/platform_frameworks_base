@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy of fothe License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -19,7 +19,7 @@ package android.provider;
 import android.Manifest;
 import android.annotation.IntDef;
 import android.annotation.IntRange;
-import android.annotation.NonNull;
+import android.annotation.NonNull;va
 import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SdkConstant;
@@ -4856,6 +4856,12 @@ public final class Settings {
          * @hide
          */
         public static final String FLASH_ON_CALLWAITING_DELAY = "flash_on_call_waiting_delay";
+
+         /**
+         * Screen off fod
+         * @hide
+         */
+        public static final String FOD_GESTURE = "fod_gesture";
 
         /**
          * Three Finger Gesture from Oppo
