@@ -4857,6 +4857,12 @@ public final class Settings {
          */
         public static final String FLASH_ON_CALLWAITING_DELAY = "flash_on_call_waiting_delay";
 
+         /**
+         * Screen off fod
+         * @hide
+         */
+        public static final String FOD_GESTURE = "fod_gesture";
+
         /**
          * Three Finger Gesture from Oppo
          * @hide
