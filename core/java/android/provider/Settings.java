@@ -4621,6 +4621,15 @@ public final class Settings {
          */
         public static final String LOCKSCREEN_TIMEOUT = "lockscreen_timeout";
 
+         /**
+         * Screen off fod
+         * @hide
+         */
+        public static final String FOD_GESTURE = "fod_gesture";
+
+        /** @hide */
+        public static final Validator FOD_GESTURE_VALIDATOR = BOOLEAN_VALIDATOR;
+
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
