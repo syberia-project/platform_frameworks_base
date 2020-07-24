@@ -14,7 +14,7 @@
 <resources>
     <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
          when the user asks to reboot. [CHAR LIMIT=NONE] -->
-    <string name="reboot_confirm">Chcesz teraz zrestartować telefon?</string>
+    <string name="reboot_confirm">Chcesz zrestartować telefon?</string>
     <string name="reboot_title">Uruchom ponownie</string>
     <!-- advanced reboot to bootloader. -->
     <string name="reboot_to_bootloader_title">Zrestartuj do bootloadera</string>
@@ -73,8 +73,8 @@
     <string name="animation_ethans">Ethans</string>
     <!-- Gaming mode -->
     <string name="notification_channel_gaming">Tryb gry</string>
-    <string name="gaming_mode_notification_title">Gaming mode enabled</string>
-    <string name="gaming_mode_notification_content">Tap to turn off Gaming mode</string>
-    <string name="gaming_mode_enabled_toast">Gaming mode turned on</string>
-    <string name="gaming_mode_disabled_toast">Gaming mode turned off</string>
+    <string name="gaming_mode_notification_title">Tryb gry włączony</string>
+    <string name="gaming_mode_notification_content">Dotknij, aby wyłączyć Tryb gry</string>
+    <string name="gaming_mode_enabled_toast">Tryb gry włączony</string>
+    <string name="gaming_mode_disabled_toast">Tryb gry wyłączony</string>
 </resources>

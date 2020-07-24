@@ -56,11 +56,11 @@
     <!-- AOKP custom system animations -->
     <string name="animation_fade">Desvanecer</string>
     <string name="animation_slide_right">Slide in right</string>
-    <string name="animation_slide_left">Slide in left</string>
-    <string name="animation_slide_right_no_fade">Slide in right (No fade)</string>
-    <string name="animation_slide_left_no_fade">Slide in left (No fade)</string>
-    <string name="animation_slide_up">Slide in bottom</string>
-    <string name="animation_slide_down">Slide in top</string>
+    <string name="animation_slide_left">Deslizar a la izquierda</string>
+    <string name="animation_slide_right_no_fade">Deslizar a la derecha (Sin Desvanecerse)</string>
+    <string name="animation_slide_left_no_fade">Deslizado hacia la izquierda (Sin Desvanecer)</string>
+    <string name="animation_slide_up">Deslizar hacia abajo</string>
+    <string name="animation_slide_down">Deslizar hacia arriba</string>
     <string name="animation_default">Por defecto</string>
     <string name="animation_translucent">Translúcido</string>
     <string name="animation_grow_shrink">Grow in (Top)</string>
