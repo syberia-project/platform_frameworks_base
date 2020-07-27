@@ -7437,7 +7437,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
-    private boolean satisfiesMobileNetworkDataCheck(NetworkCapabilities agentNc) {
+    public boolean satisfiesMobileNetworkDataCheck(NetworkCapabilities agentNc) {
         if (agentNc != null && agentNc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
             if((agentNc.hasCapability(NET_CAPABILITY_EIMS) &&
                  (mSubscriptionManager != null &&

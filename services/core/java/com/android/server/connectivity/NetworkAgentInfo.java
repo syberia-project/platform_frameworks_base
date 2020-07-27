@@ -538,6 +538,15 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo> {
             Log.wtf(TAG, this.name() + ": request " + request.requestId + " already lingered");
         }
         final long expiryMs = now + duration;
+        final long oldExpiryMs = mLingerTimers.isEmpty() ? 0 : mLingerTimers.last().expiryMs;
+
+        if(!mConnService.satisfiesMobileNetworkDataCheck(networkCapabilities) &&
+                oldExpiryMs > expiryMs) {
+            if (VDBG) Log.d(TAG, "Network on non DDS should not linger for more than 5 sec."
+                    + "Removing the existing linger timers.");
+            mLingerTimers.clear();
+        }
+
         LingerTimer timer = new LingerTimer(request, expiryMs);
         if (VDBG) Log.d(TAG, "Adding LingerTimer " + timer + " to " + this.name());
         mLingerTimers.add(timer);
