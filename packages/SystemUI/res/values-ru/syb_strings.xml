@@ -142,4 +142,7 @@
     <string name="volume_ringer_dnd">Не беспокоить</string>
     <string name="tristate_flashlight">Фонарик</string>
 
+    <!-- Anti flicker QS tile -->
+    <string name="quick_settings_anti_flicker">Подавление мерцания</string>
+
 </resources>
