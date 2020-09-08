@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2018-2020 Syberia Project
+<!--  Copyright (C) 2018-2022 Syberia Project
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,5 +43,8 @@
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time" formatted="false"><xliff:g id="percentage">%2$s</xliff:g> • Dash зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полной)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash зарядка</string>
+
+    <!-- Anti flicker QS tile -->
+    <string name="quick_settings_anti_flicker">Подавление мерцания</string>
 
 </resources>
