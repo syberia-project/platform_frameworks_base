@@ -11,11 +11,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
          when the user asks to reboot. [CHAR LIMIT=NONE] -->
-    <string name="reboot_confirm">Do you want to reboot?</string>
-    <string name="reboot_title">Reboot</string>
+    <string name="reboot_confirm">Wil je opnieuw opstarten?</string>
+    <string name="reboot_title">Opnieuw opstarten</string>
     <!-- advanced reboot to bootloader. -->
     <string name="reboot_to_bootloader_title">Reboot bootloader</string>
     <string name="reboot_to_bootloader_message">Rebooting to bootloader\u2026</string>
@@ -28,19 +28,19 @@
     <!-- LiveDisplay strings -->
     <string name="live_display_auto">Automatic</string>
     <string name="live_display_auto_summary">Automatically adjust color temperature of screen after sunset and sunrise</string>
-    <string name="live_display_off">Off</string>
+    <string name="live_display_off">Uit</string>
     <string name="live_display_off_summary">Disable all adjustments</string>
-    <string name="live_display_day">Day</string>
+    <string name="live_display_day">Dag</string>
     <string name="live_display_day_summary">Use day settings only</string>
-    <string name="live_display_night">Night</string>
+    <string name="live_display_night">Nacht</string>
     <string name="live_display_night_summary">Use night settings only</string>
     <string name="live_display_outdoor">Outdoor (bright sun)</string>
     <string name="live_display_outdoor_summary">Use outdoor settings only</string>
     <string name="live_display_hint">LiveDisplay can help reduce eyestrain and help you sleep at night. Click here to try it out!</string>
     <string name="accessibility_quick_settings_live_display_off">LiveDisplay off.</string>
-    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: auto mode.</string>
-    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: day mode.</string>
-    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: night mode.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: automatische modus.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: dagmodus.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: nachtmodus.</string>
     <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: outdoor mode.</string>
     <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay turned off.</string>
     <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay changed to auto mode.</string>
@@ -61,15 +61,15 @@
     <string name="animation_slide_left_no_fade">Slide in left (No fade)</string>
     <string name="animation_slide_up">Slide in bottom</string>
     <string name="animation_slide_down">Slide in top</string>
-    <string name="animation_default">Default</string>
+    <string name="animation_default">Standaard</string>
     <string name="animation_translucent">Translucent</string>
     <string name="animation_grow_shrink">Grow in (Top)</string>
     <string name="animation_grow_shrink_center">Grow in (Center)</string>
     <string name="animation_grow_shrink_bottom">Grow in (Bottom)</string>
     <string name="animation_grow_shrink_left">Grow in (Left)</string>
     <string name="animation_grow_shrink_right">Grow in (Right)</string>
-    <string name="animation_random">Random</string>
-    <string name="action_null">Blank</string>
+    <string name="animation_random">Willekeurig</string>
+    <string name="action_null">Leeg</string>
     <string name="animation_ethans">Ethans</string>
     <!-- Gaming mode -->
     <string name="notification_channel_gaming">Gaming mode</string>
@@ -77,4 +77,11 @@
     <string name="gaming_mode_notification_content">Tap to turn off Gaming mode</string>
     <string name="gaming_mode_enabled_toast">Gaming mode turned on</string>
     <string name="gaming_mode_disabled_toast">Gaming mode turned off</string>
+    <!-- Title of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgrouplab_fake_package_signature">Spoof package signature</string>
+    <!-- Description of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgroupdesc_fake_package_signature">allow to spoof package signature</string>
+    <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
+    <string name="permgrouprequest_fake_package_signature">Allow
+        &lt;b&gt;<xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b&gt; to spoof package signature?</string>
 </resources>

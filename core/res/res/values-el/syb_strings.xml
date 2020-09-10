@@ -11,7 +11,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Reboot Confirmation Dialog.  Message in the confirmation dialog
          when the user asks to reboot. [CHAR LIMIT=NONE] -->
     <string name="reboot_confirm">Θέλετε να κάνετε επανεκκίνηση;</string>
@@ -21,10 +21,10 @@
     <string name="reboot_to_bootloader_message">Γίνεται επανεκκίνηση σε περιβάλλον εκκίνησης\u2026</string>
     <!-- advanced reboot to recovery. -->
     <string name="reboot_to_recovery_title">Επανεκκινήστε την ανάκτηση</string>
-    <string name="reboot_to_recovery_message">Επανεκκίνηση σε ανάκτηση \ u2026</string>
+    <string name="reboot_to_recovery_message">Επανεκκίνηση σε ανάκτηση \u2026</string>
     <!-- advanced reboot system -->
     <string name="reboot_system_title">Επανεκκινήστε το σύστημα</string>
-    <string name="reboot_system_message">Επανεκκίνηση συστήματος \ u2026</string>
+    <string name="reboot_system_message">Επανεκκίνηση συστήματος \u2026</string>
     <!-- LiveDisplay strings -->
     <string name="live_display_auto">Αυτόματα</string>
     <string name="live_display_auto_summary">Ρυθμίστε αυτόματα τη θερμοκρασία χρώματος της οθόνης μετά το ηλιοβασίλεμα και την ανατολή του ηλίου</string>
@@ -77,4 +77,11 @@
     <string name="gaming_mode_notification_content">Πατήστε για απενεργοποίηση της λειτουργίας παιχνιδιού</string>
     <string name="gaming_mode_enabled_toast">Η λειτουργία παιχνιδιού ενεργοποιήθηκε</string>
     <string name="gaming_mode_disabled_toast">Η λειτουργία παιχνιδιού απενεργοποιήθηκε</string>
+    <!-- Title of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgrouplab_fake_package_signature">Spoof package signature</string>
+    <!-- Description of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgroupdesc_fake_package_signature">allow to spoof package signature</string>
+    <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
+    <string name="permgrouprequest_fake_package_signature">Allow
+        &lt;b&gt;<xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b&gt; to spoof package signature?</string>
 </resources>

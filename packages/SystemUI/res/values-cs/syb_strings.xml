@@ -137,8 +137,8 @@
   <string name="accessibility_quick_settings_cpuinfo_on">Informace o CPU zapnuty</string>
   <!-- Sync QS Tile -->
   <string name="quick_settings_sync_label">Synchronizace</string>
-  <string name="accessibility_quick_settings_sync_off">Synch. vyp</string>
-  <string name="accessibility_quick_settings_sync_on">Synch. zap</string>
+  <string name="accessibility_quick_settings_sync_off">Synch. vyp.</string>
+  <string name="accessibility_quick_settings_sync_on">Synch. zap.</string>
   <string name="accessibility_quick_settings_sync_changed_off">Synchronizace vypnuta</string>
   <string name="accessibility_quick_settings_sync_changed_on">Synchronizace zapnuta</string>
   <!-- LTE QS Tile -->
@@ -173,8 +173,8 @@
   <string name="app_picker_dialog_title">Vybrat aplikaci</string>
   <string name="active_edge_app_select_title">Vybrat aplikaci</string>
   <string name="active_edge_activity_select_title">Vybrat aktivitu</string>
-  <string name="recents_app_killed">Aplikace ukončena</string>
-  <string name="nope_cant_kill">Spouštěč nelze ukončit</string>
+  <string name="task_helper_app_killed">%1$s force stopped</string>
+  <string name="empty_app_killed">App</string>
   <!-- Alerting notification header label -->
   <string name="notification_section_header_alerting">Výstrahy a oznámení</string>
   <!-- Text to use when the number in a notification info is too large
