@@ -31,6 +31,7 @@ import java.io.FileDescriptor
 import java.io.PrintWriter
 import javax.inject.Inject
 import javax.inject.Singleton
+import android.util.Log
 
 @Singleton
 open class KeyguardBypassController : Dumpable {
@@ -127,7 +128,7 @@ open class KeyguardBypassController : Dumpable {
         isStrongBiometric: Boolean
     ): Boolean {
         if (bypassEnabledBiometric) {
-            val can = canBypass()
+            val can = biometricSourceType != BiometricSourceType.FACE || canBypass()
             if (!can && (isPulseExpanding || qSExpanded)) {
                 pendingUnlock = PendingUnlock(biometricSourceType, isStrongBiometric)
             }
