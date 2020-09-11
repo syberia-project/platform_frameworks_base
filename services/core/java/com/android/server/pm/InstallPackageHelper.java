@@ -226,6 +226,16 @@ final class InstallPackageHelper {
     private final PackageManagerServiceInjector mInjector;
     private final UpdateOwnershipHelper mUpdateOwnershipHelper;
 
+    private Signature[] mVendorPlatformSignatures = new Signature[0];
+
+    private static Signature[] createSignatures(String[] hexBytes) {
+        Signature[] sigs = new Signature[hexBytes.length];
+        for (int i = 0; i < sigs.length; i++) {
+            sigs[i] = new Signature(hexBytes[i]);
+        }
+        return sigs;
+    }
+
     // TODO(b/198166813): remove PMS dependency
     InstallPackageHelper(PackageManagerService pm,
                          AppDataHelper appDataHelper,
@@ -247,6 +257,8 @@ final class InstallPackageHelper {
         mPackageAbiHelper = pm.mInjector.getAbiHelper();
         mSharedLibraries = pm.mInjector.getSharedLibrariesImpl();
         mUpdateOwnershipHelper = pm.mInjector.getUpdateOwnershipHelper();
+        mVendorPlatformSignatures = createSignatures(mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_vendorPlatformSignatures));
     }
 
     /**
@@ -3983,7 +3995,7 @@ final class InstallPackageHelper {
         final int newScanFlags = adjustScanFlags(scanFlags, installedPkgSetting, disabledPkgSetting,
                 user, parsedPackage);
         ScanPackageUtils.applyPolicy(parsedPackage, newScanFlags,
-                mPm.getPlatformPackage(), isUpdatedSystemApp);
+                mPm.getPlatformPackage(), isUpdatedSystemApp, mVendorPlatformSignatures);
 
         synchronized (mPm.mLock) {
             assertPackageIsValid(parsedPackage, parseFlags, newScanFlags);
@@ -4046,7 +4058,7 @@ final class InstallPackageHelper {
                         null, parseFlags, scanFlags,
                         initialScanRequest.mIsPlatformPackage, user, null);
                 ScanPackageUtils.applyPolicy(parsedPackage, scanFlags,
-                        mPm.getPlatformPackage(), true);
+                        mPm.getPlatformPackage(), true, mVendorPlatformSignatures);
                 final ScanResult scanResult =
                         ScanPackageUtils.scanPackageOnlyLI(request, mPm.mInjector,
                                 mPm.mFactoryTest, -1L);
@@ -4145,9 +4157,9 @@ final class InstallPackageHelper {
         // APK verification can be skipped during certificate collection, only if the file is in a
         // verified partition.
         final boolean skipVerify = scanSystemPartition;
-        ScanPackageUtils.collectCertificatesLI(pkgSetting, parsedPackage,
+        ScanPackageUtils.collectCertificatesLI(pkgSetting, parsedPackage, mPm.getPlatformPackage(),
                 mPm.getSettingsVersionForPackage(parsedPackage), forceCollect, skipVerify,
-                mPm.isPreNMR1Upgrade());
+                mPm.isPreNMR1Upgrade(), mVendorPlatformSignatures);
 
         // Reset profile if the application version is changed
         maybeClearProfilesForUpgradesLI(pkgSetting, parsedPackage);

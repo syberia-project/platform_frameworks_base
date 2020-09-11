@@ -422,6 +422,13 @@ public class PackageManagerServiceUtils {
         return compareSignatureArrays(sd1.getSignatures(), sd2.getSignatures());
     }
 
+    /**
+     * Same as compareSignatures but use Signature as recieving values
+     */
+    public static int compareSignaturesActual(Signature[] s1, Signature[] s2) {
+        return compareSignatureArrays(s1, s2);
+    }
+
     static int compareSignatureArrays(Signature[] s1, Signature[] s2) {
         if (s1 == null) {
             return s2 == null

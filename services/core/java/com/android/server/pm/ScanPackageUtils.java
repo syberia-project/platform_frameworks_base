@@ -45,6 +45,7 @@ import static com.android.server.pm.PackageManagerService.SCAN_NO_DEX;
 import static com.android.server.pm.PackageManagerService.SCAN_UPDATE_TIME;
 import static com.android.server.pm.PackageManagerService.TAG;
 import static com.android.server.pm.PackageManagerServiceUtils.compareSignatures;
+import static com.android.server.pm.PackageManagerServiceUtils.compareSignaturesActual;
 import static com.android.server.pm.PackageManagerServiceUtils.compressedFileExists;
 import static com.android.server.pm.PackageManagerServiceUtils.deriveAbiOverride;
 import static com.android.server.pm.PackageManagerServiceUtils.getLastModifiedTime;
@@ -54,6 +55,7 @@ import android.annotation.Nullable;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.SharedLibraryInfo;
+import android.content.pm.Signature;
 import android.content.pm.SigningDetails;
 import android.content.pm.parsing.result.ParseResult;
 import android.content.pm.parsing.result.ParseTypeImpl;
@@ -864,7 +866,8 @@ final class ScanPackageUtils {
      */
     public static void applyPolicy(ParsedPackage parsedPackage,
             final @PackageManagerService.ScanFlags int scanFlags,
-            @Nullable AndroidPackage platformPkg, boolean isUpdatedSystemApp) {
+            @Nullable AndroidPackage platformPkg, boolean isUpdatedSystemApp,
+            Signature[] vendorPlatformSignatures) {
         // TODO: In the real APIs, an updated system app is always a system app, but that may not
         //  hold true during scan because PMS doesn't propagate the SCAN_AS_SYSTEM flag for the data
         //  directory. This tries to emulate that behavior by using either the flag or the boolean,
@@ -918,7 +921,10 @@ final class ScanPackageUtils {
                         || (platformPkg != null && compareSignatures(
                         platformPkg.getSigningDetails(),
                         parsedPackage.getSigningDetails()
-                ) == PackageManager.SIGNATURE_MATCH))
+                ) == PackageManager.SIGNATURE_MATCH)
+                        || signedWithVendorSignatures(
+                        vendorPlatformSignatures,
+                        parsedPackage.getSigningDetails().getSignatures()))
         );
 
         if (!isSystemApp) {
@@ -980,8 +986,9 @@ final class ScanPackageUtils {
     }
 
     public static void collectCertificatesLI(PackageSetting ps, ParsedPackage parsedPackage,
-            Settings.VersionInfo settingsVersionForPackage, boolean forceCollect,
-            boolean skipVerify, boolean isPreNMR1Upgrade)
+            AndroidPackage platformPackage, Settings.VersionInfo settingsVersionForPackage,
+            boolean forceCollect, boolean skipVerify, boolean isPreNMR1Upgrade,
+            Signature[] vendorPlatformSignatures)
             throws PackageManagerException {
         // When upgrading from pre-N MR1, verify the package time stamp using the package
         // directory and not the APK file.
@@ -1002,6 +1009,9 @@ final class ScanPackageUtils {
                 // if the package appears to be unchanged.
                 parsedPackage.setSigningDetails(
                         new SigningDetails(ps.getSigningDetails()));
+                setVendorSignatures(parsedPackage,
+                    platformPackage, vendorPlatformSignatures,
+                    ps.getSigningDetails().getSignatures());
                 return;
             }
 
@@ -1022,9 +1032,39 @@ final class ScanPackageUtils {
                         result.getErrorCode(), result.getErrorMessage(), result.getException());
             }
             parsedPackage.setSigningDetails(result.getResult());
+            setVendorSignatures(parsedPackage,
+                platformPackage, vendorPlatformSignatures,
+                result.getResult().getSignatures());
         } finally {
             Trace.traceEnd(TRACE_TAG_PACKAGE_MANAGER);
         }
+    }
+
+    private static boolean signedWithVendorSignatures(
+        Signature[] vendorPlatformSignatures,
+        Signature[] signatures
+    ) {
+        return ((compareSignaturesActual(
+                vendorPlatformSignatures,
+                signatures
+        ) == PackageManager.SIGNATURE_MATCH))
+    }
+
+    private static void setVendorSignatures(
+        ParsedPackage parsedPackage,
+        AndroidPackage platformPackage,
+        Signature[] vendorPlatformSignatures,
+        Signature[] signatures
+    ) {
+        if (!signedWithVendorSignatures(vendorPlatformSignatures, signatures)
+            || (platformPackage == null)) return;
+
+        // Overwrite package signature with our platform signature
+        // if the signature is the vendor's platform signature
+        Slog.i(TAG, "Overwriting vendor package "
+                + parsedPackage.getPackageName()
+                + " signature details with platform signature details");
+        parsedPackage.setSigningDetails(platformPackage.getSigningDetails());
     }
 
     public static void setInstantAppForUser(PackageManagerServiceInjector injector,
