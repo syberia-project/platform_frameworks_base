@@ -308,8 +308,6 @@ public abstract class PanelViewController {
     }
 
     private void startOpening(MotionEvent event) {
-        runPeekAnimation(INITIAL_OPENING_PEEK_DURATION, getOpeningHeight(),
-                false /* collapseWhenFinished */);
         notifyBarPanelExpansionChanged();
         maybeVibrateOnOpening();
 
@@ -404,18 +402,6 @@ public abstract class PanelViewController {
             mUpdateFlingOnLayout = expand && mPanelClosedOnDown && !mHasLayoutedSinceDown;
             if (mUpdateFlingOnLayout) {
                 mUpdateFlingVelocity = vel;
-            }
-        } else if (mPanelClosedOnDown && !mHeadsUpManager.hasPinnedHeadsUp() && !mTracking
-                && !mStatusBar.isBouncerShowing()
-                && !mKeyguardStateController.isKeyguardFadingAway()) {
-            long timePassed = SystemClock.uptimeMillis() - mDownTime;
-            if (timePassed < ViewConfiguration.getLongPressTimeout() && !mDoubleTapToSleepEnabled) {
-                // Lets show the user that he can actually expand the panel
-                runPeekAnimation(
-                        PEEK_ANIMATION_DURATION, getPeekHeight(), true /* collapseWhenFinished */);
-            } else {
-                // We need to collapse the panel since we peeked to the small height.
-                mView.postOnAnimation(mPostCollapseRunnable);
             }
         } else if (!mStatusBar.isBouncerShowing() && !mDoubleTapToSleepEnabled) {
             boolean expands = onEmptySpaceClick(mInitialTouchX);
