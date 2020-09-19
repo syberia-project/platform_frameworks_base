@@ -100,6 +100,7 @@ LOCAL_REQUIRED_MODULES := \
 	IconShapeVesselOverlay \
 	IconShapeHeartOverlay \
 	IconShapeSquareOverlay \
+	NavigationBarMode2ButtonOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
 	NavigationBarModeGesturalOverlayNarrowBack \
