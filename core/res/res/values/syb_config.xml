@@ -122,4 +122,6 @@
          Used to decide if we show pulse settings -->
     <bool name="config_ledCanPulse">true</bool>
 
+    <!-- Whether to show a custom view for FOD -->
+    <bool name="config_needCustomFODView">false</bool>
 </resources>
