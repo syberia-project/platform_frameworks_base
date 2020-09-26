@@ -43,4 +43,6 @@
   <!-- Power menu -->
   <java-symbol type="array" name="config_rebootActionsList" />
 
+  <!-- Whether to show a custom view for FOD -->
+  <java-symbol type="bool" name="config_needCustomFODView" />
 </resources>
