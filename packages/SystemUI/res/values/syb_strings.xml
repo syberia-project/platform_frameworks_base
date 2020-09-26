@@ -21,21 +21,21 @@
     <string name="status_bar_vpn">VPN</string>
 
     <!-- Advanced restart -->
-    <string name="global_action_reboot">Перезагрузка</string>
-    <string name="global_action_reboot_system">Система</string>
-    <string name="global_action_reboot_progress">Перезагрузка\u2026</string>
+    <string name="global_action_reboot">Restart</string>
+    <string name="global_action_reboot_system">System</string>
+    <string name="global_action_reboot_progress">Restarting\u2026</string>
     <string name="global_action_reboot_recovery">Recovery</string>
-    <string name="global_action_reboot_recovery_progress">Перезагрузка в recovery\u2026</string>
+    <string name="global_action_reboot_recovery_progress">Restarting to recovery mode\u2026</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
-    <string name="global_action_reboot_bootloader_progress">Перезагрузка в bootloader\u2026</string>
-    <string name="global_action_reboot_fastboot">Fastboot</string>
-    <string name="global_action_reboot_fastboot_progress">Перезагрузка в fastboot\u2026</string>
-    <string name="global_action_settings">Настройки</string>
-    <string name="global_action_screenshot">Снимок экрана</string>
-    <string name="global_action_screenrecord">Запись экрана</string>
-    <string name="global_action_flashlight">Фонарик</string>
+    <string name="global_action_reboot_bootloader_progress">Restarting to bootloader mode\u2026</string>
+    <string name="global_action_reboot_fastboot">Fastbootd</string>
+    <string name="global_action_reboot_fastboot_progress">Restarting to fastbootd mode\u2026</string>
+    <string name="global_action_settings">Settings</string>
+    <string name="global_action_screenshot">Screenshot</string>
+    <string name="global_action_screenrecord">Screenrecord</string>
+    <string name="global_action_flashlight">Flashlight</string>
 
     <!-- Label for current user in power menu options dialog -->
-    <string name="global_action_current_user">Текущий пользователь</string>
+    <string name="global_action_current_user">Current</string>
 
 </resources>
