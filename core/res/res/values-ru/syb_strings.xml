@@ -16,5 +16,10 @@
     <!-- Pocket Lock --> 
     <string name="pocket_lock_message_long_press">Удерживайте кнопку питания для разблокировки</string>
 
+    <!-- LiveDisplay strings -->
+    <string name="live_display_auto">Автоматический</string>
+    <string name="live_display_off">Выключен</string>
+    <string name="live_display_outdoor">На улице (яркое солнце)</string>
+
 </resources>
 
