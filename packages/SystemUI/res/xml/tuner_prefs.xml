@@ -54,7 +54,6 @@
             android:key="cameratoggle"
             android:title="@string/quick_settings_camera_label" />
 
-        <!-- nfc -->
         <!-- tty -->
         <!-- speakerphone -->
 
