@@ -238,6 +238,10 @@ public class TileLayout extends ViewGroup implements QSTileLayout {
                 column *  (mCellWidth + mCellMarginHorizontal);
     }
 
+    public int getNumColumns() {
+        return mColumns;
+    }
+
     @Override
     public int getNumVisibleTiles() {
         return mRecords.size();

@@ -178,6 +178,7 @@ import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper.Snoo
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.QSFragment;
 import com.android.systemui.qs.QSPanel;
+import com.android.systemui.qs.QuickQSPanel;
 import com.android.systemui.recents.Recents;
 import com.android.systemui.recents.ScreenPinningRequest;
 import com.android.systemui.shared.plugins.PluginManager;
@@ -415,6 +416,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // settings
     private QSPanel mQSPanel;
+    private QuickQSPanel mQuickQSPanel;
 
     KeyguardIndicationController mKeyguardIndicationController;
 
@@ -1254,6 +1256,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 if (qs instanceof QSFragment) {
                     mQSPanel = ((QSFragment) qs).getQsPanel();
                     mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
+                    mQuickQSPanel = ((QSFragment) qs).getQuickQsPanel();
                 }
             });
         }
@@ -3037,11 +3040,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (mQSPanel != null) {
             mQSPanel.updateResources();
         }
-
         if (mStatusBarWindowController != null) {
             mStatusBarWindowController.refreshStatusBarHeight();
         }
-
+        if (mQuickQSPanel != null) {
+            mQuickQSPanel.updateResources();
+        }
         if (mStatusBarView != null) {
             mStatusBarView.updateResources();
         }
