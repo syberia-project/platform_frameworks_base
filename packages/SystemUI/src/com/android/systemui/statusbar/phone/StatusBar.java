@@ -34,6 +34,7 @@ import static com.android.systemui.Dependency.TIME_TICK_HANDLER_NAME;
 import static com.android.systemui.charging.WirelessChargingLayout.UNKNOWN_BATTERY_LEVEL;
 import static com.android.systemui.keyguard.WakefulnessLifecycle.WAKEFULNESS_ASLEEP;
 import static com.android.systemui.statusbar.NotificationLockscreenUserManager.PERMISSION_SELF;
+import static com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout.ROWS_ALL;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_LIGHTS_OUT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_LIGHTS_OUT_TRANSPARENT;
 import static com.android.systemui.statusbar.phone.BarTransitions.MODE_OPAQUE;
@@ -110,6 +111,7 @@ import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.DateTimeView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -274,8 +276,9 @@ import dagger.Lazy;
 /** */
 public class StatusBar extends SystemUI implements
         ActivityStarter,
-        LifecycleOwner, PackageChangedListener {
-
+        LifecycleOwner,
+        PackageChangedListener,
+        TunerService.Tunable {
     public static final boolean MULTIUSER_DEBUG = false;
 
     protected static final int MSG_DISMISS_KEYBOARD_SHORTCUTS_MENU = 1027;
@@ -283,6 +286,13 @@ public class StatusBar extends SystemUI implements
     // Should match the values in PhoneWindowManager
     public static final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
     static public final String SYSTEM_DIALOG_REASON_SCREENSHOT = "screenshot";
+
+    private static final String NOTIFICATION_MATERIAL_DISMISS =
+            "system:" + Settings.System.NOTIFICATION_MATERIAL_DISMISS;
+    private static final String NOTIFICATION_MATERIAL_DISMISS_STYLE =
+            "system:" + Settings.System.NOTIFICATION_MATERIAL_DISMISS_STYLE;
+    private static final String NOTIFICATION_MATERIAL_DISMISS_BGSTYLE =
+            "system:" + Settings.System.NOTIFICATION_MATERIAL_DISMISS_BGSTYLE;
 
     private static final String BANNER_ACTION_CANCEL =
             "com.android.systemui.statusbar.banner_action_cancel";
@@ -598,6 +608,12 @@ public class StatusBar extends SystemUI implements
     private final ScreenPinningRequest mScreenPinningRequest;
 
     private final MetricsLogger mMetricsLogger;
+
+    private ImageButton mDismissAllButton;
+    private int mClearAllBgColorStyle;
+    private int mClearAllBgStyle;
+    private int mClearAllButtonStyle;
+    private boolean mShowDimissButton;
 
     // ensure quick settings is disabled until the current user makes it through the setup wizard
     @VisibleForTesting
@@ -972,6 +988,10 @@ public class StatusBar extends SystemUI implements
         mStatusBarStateController.addCallback(mStateListener,
                 SysuiStatusBarStateController.RANK_STATUS_BAR);
 
+        mTunerService.addTunable(this, NOTIFICATION_MATERIAL_DISMISS);
+        mTunerService.addTunable(this, NOTIFICATION_MATERIAL_DISMISS_STYLE);
+        mTunerService.addTunable(this, NOTIFICATION_MATERIAL_DISMISS_BGSTYLE);
+
         mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         mDreamManager = IDreamManager.Stub.asInterface(
                 ServiceManager.checkService(DreamService.DREAM_SERVICE));
@@ -1170,6 +1190,8 @@ public class StatusBar extends SystemUI implements
         mNotificationShadeWindowViewController.setService(this, mNotificationShadeWindowController);
         mNotificationShadeWindowView.setOnTouchListener(getStatusBarWindowTouchListener());
         mWallpaperController.setRootView(mNotificationShadeWindowView);
+        mDismissAllButton = mNotificationShadeWindowView.findViewById(R.id.clear_notifications);
+        updateDismissAllButton();
 
         // TODO: Deal with the ugliness that comes from having some of the statusbar broken out
         // into fragments, but the rest here, it leaves some awkward lifecycle and whatnot.
@@ -1458,6 +1480,80 @@ public class StatusBar extends SystemUI implements
         filter.addAction(NotificationPanelViewController.CANCEL_NOTIFICATION_PULSE_ACTION);
         mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, filter, null, UserHandle.ALL);
         mGameSpaceManager.observe();
+    }
+
+    public void updateDismissAllVisibility(boolean visible) {
+        if (mDismissAllButton == null) return;
+        if (!mShowDimissButton || !mStackScrollerController.hasActiveClearableNotifications(ROWS_ALL)
+                     || !visible || mState == StatusBarState.KEYGUARD || mQSPanelController.isExpanded()) {
+            mDismissAllButton.setAlpha(0);
+            mDismissAllButton.getBackground().setAlpha(0);
+            mDismissAllButton.setVisibility(View.GONE);
+        } else {
+            mDismissAllButton.setVisibility(View.VISIBLE);
+            int alpha = Math.round(mNotificationPanelViewController.getExpandedFraction() * 255.0f);
+            mDismissAllButton.setAlpha(alpha);
+            mDismissAllButton.getBackground().setAlpha(alpha);
+        }
+    }
+
+    public void updateDismissAllButton() {
+        if (mDismissAllButton == null) return;
+        switch (mClearAllButtonStyle) {
+            case 1:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon1);
+                break;
+            case 2:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon2);
+                break;
+            case 3:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon3);
+                break;
+            case 4:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon4);
+                break;
+            case 5:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon5);
+                break;
+            case 6:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon6);
+                break;
+            case 7:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon7);
+                break;
+            case 8:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon8);
+                break;
+            case 9:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon9);
+                break;
+            default:
+                mDismissAllButton.setImageResource(R.drawable.dismiss_all_icon);
+                break;
+        }
+        mDismissAllButton.setElevation(mContext.getResources().getDimension(R.dimen.dismiss_all_button_elevation));
+        mDismissAllButton.setColorFilter(mContext.getColor(R.color.notif_pill_text));
+        switch (mClearAllBgStyle) {
+            case 1:
+                mDismissAllButton.setBackground(mContext.getTheme().getDrawable(R.drawable.dismiss_all_background1));
+                break;
+            case 2:
+                mDismissAllButton.setBackground(mContext.getTheme().getDrawable(R.drawable.dismiss_all_background2));
+                break;
+            case 3:
+                mDismissAllButton.setBackground(mContext.getTheme().getDrawable(R.drawable.dismiss_all_background3));
+                break;
+            case 4:
+                mDismissAllButton.setBackground(mContext.getTheme().getDrawable(R.drawable.dismiss_all_background4));
+                break;
+            default:
+                mDismissAllButton.setBackground(mContext.getTheme().getDrawable(R.drawable.dismiss_all_background));
+                break;
+        }
+    }
+
+    public View getDismissAllButton() {
+        return mDismissAllButton;
     }
 
     protected QS createDefaultQSFragment() {
@@ -4293,6 +4389,31 @@ public class StatusBar extends SystemUI implements
     public NotificationPanelViewController getPanelController() {
         return mNotificationPanelViewController;
     }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case NOTIFICATION_MATERIAL_DISMISS:
+                mShowDimissButton =
+                        TunerService.parseIntegerSwitch(newValue, false);
+                updateDismissAllVisibility(true);
+                updateDismissAllButton();
+                break;
+            case NOTIFICATION_MATERIAL_DISMISS_STYLE:
+                mClearAllButtonStyle =
+                        TunerService.parseInteger(newValue, 0);
+                updateDismissAllButton();
+                break;
+            case NOTIFICATION_MATERIAL_DISMISS_BGSTYLE:
+                mClearAllBgStyle =
+                        TunerService.parseInteger(newValue, 0);
+                updateDismissAllButton();
+                break;
+            default:
+                break;
+         }
+    }
+
     // End Extra BaseStatusBarMethods.
 
     public NotificationGutsManager getGutsManager() {
@@ -4489,6 +4610,9 @@ public class StatusBar extends SystemUI implements
 
                 @Override
                 public void onStateChanged(int newState) {
+                    if (mState != newState) {
+                        updateDismissAllVisibility(newState != StatusBarState.KEYGUARD);
+                    }
                     mState = newState;
                     updateReportRejectedTouchVisibility();
                     mDozeServiceHost.updateDozing();
