@@ -44,10 +44,6 @@
     with active proximity sensor event listener -->
     <bool name="config_proxiSensorWakupCheck">false</bool>
 
-    <!-- The list of components which should be automatically disabled. -->
-    <string-array name="config_disabledComponents" translatable="false">
-    </string-array>
-
     <!-- Defines the sysfs attribute path used by pocket bridge
          to communicate pocket state to the pocket judge kernel driver. -->
     <string name="config_pocketBridgeSysfsInpocket"></string>
