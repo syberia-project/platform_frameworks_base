@@ -2475,7 +2475,6 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         private boolean mShowing;
         private float mScrimAlpha;
         private ResetOrientationData mResetOrientationData;
-        private boolean mHadTopUi;
         private final NotificationShadeWindowController mNotificationShadeWindowController;
         private final NotificationShadeDepthController mDepthController;
         private final SysUiState mSysUiState;
@@ -2743,8 +2742,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         public void show() {
             super.show();
             mShowing = true;
-            mHadTopUi = mNotificationShadeWindowController.getForceHasTopUi();
-            mNotificationShadeWindowController.setForceHasTopUi(true);
+            mNotificationShadeWindowController.setRequestTopUi(true, TAG);
             mSysUiState.setFlag(SYSUI_STATE_GLOBAL_ACTIONS_SHOWING, true)
                     .commitUpdate(mContext.getDisplayId());
 
@@ -2845,7 +2843,7 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             dismissOverflow(true);
             dismissPowerOptions(true);
             if (mControlsUiController != null) mControlsUiController.hide();
-            mNotificationShadeWindowController.setForceHasTopUi(mHadTopUi);
+            mNotificationShadeWindowController.setRequestTopUi(false, TAG);
             mDepthController.updateGlobalDialogVisibility(0, null /* view */);
             mSysUiState.setFlag(SYSUI_STATE_GLOBAL_ACTIONS_SHOWING, false)
                     .commitUpdate(mContext.getDisplayId());
