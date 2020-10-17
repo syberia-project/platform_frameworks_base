@@ -16,6 +16,7 @@
 
 package android.provider.settings.validators;
 
+import static android.provider.settings.validators.SettingsValidators.ANY_INTEGER_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.ANY_STRING_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.BOOLEAN_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.COMPONENT_NAME_VALIDATOR;
@@ -218,5 +219,6 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.NOTIFICATION_PULSE, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.AOD_NOTIFICATION_PULSE, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.NOTIFICATION_PULSE_ACCENT, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.AOD_NOTIFICATION_PULSE_TIMEOUT, ANY_INTEGER_VALIDATOR);
     }
 }
