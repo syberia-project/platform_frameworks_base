@@ -5435,6 +5435,19 @@ public final class Settings {
          */
         public static final String GAMING_MODE_DYNAMIC_STATE = "gaming_mode_dynamic_state";
 
+
+        /**
+         * Disable dashboard conditions in settings
+         * @hide
+         */
+        public static final String ENABLE_CONDITIONS = "enable_conditions";
+
+        /**
+         * Disable dashboard suggestions in settings
+         * @hide
+         */
+        public static final String ENABLE_SUGGESTIONS = "enable_suggestions";
+
         /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
@@ -5613,6 +5626,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_QUICKBAR_COLUMNS);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
+            PRIVATE_SETTINGS.add(ENABLE_CONDITIONS);
+            PRIVATE_SETTINGS.add(ENABLE_SUGGESTIONS);
         }
 
         /**
