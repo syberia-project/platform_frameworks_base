@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.os.Trace;
 import android.provider.DeviceConfig;
 import android.provider.DeviceConfig.OnPropertiesChangedListener;
@@ -92,7 +93,8 @@ public final class CachedAppOptimizer {
 
     // Defaults for phenotype flags.
     @VisibleForTesting static final Boolean DEFAULT_USE_COMPACTION = false;
-    @VisibleForTesting static final Boolean DEFAULT_USE_FREEZER = false;
+    @VisibleForTesting static final Boolean DEFAULT_USE_FREEZER = SystemProperties.getBoolean(
+                    "persist.device_config.use_cgroup_freezer", false);
     @VisibleForTesting static final int DEFAULT_COMPACT_ACTION_1 = COMPACT_ACTION_FILE_FLAG;
     @VisibleForTesting static final int DEFAULT_COMPACT_ACTION_2 = COMPACT_ACTION_FULL_FLAG;
     @VisibleForTesting static final long DEFAULT_COMPACT_THROTTLE_1 = 5_000;
