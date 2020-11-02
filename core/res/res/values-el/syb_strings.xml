@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (c) 2018-2020 Syberia Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Pocket Lock -->
+    <string name="pocket_lock_message_long_press">Πατήστε και κρατήστε πατημένο το κουμπί λειτουργίας για ξεκλείδωμα</string>
+    <!-- LiveDisplay strings -->
+    <string name="live_display_auto">Αυτόματα</string>
+    <string name="live_display_auto_summary">Ρυθμίστε αυτόματα τη θερμοκρασία χρώματος της οθόνης μετά το ηλιοβασίλεμα και την ανατολή του ηλίου</string>
+    <string name="live_display_off">Ανενεργό</string>
+    <string name="live_display_off_summary">Απενεργοποιήστε όλες τις προσαρμογές</string>
+    <string name="live_display_day">Ημέρα</string>
+    <string name="live_display_day_summary">Χρησιμοποιήστε μόνο ρυθμίσεις ημέρας</string>
+    <string name="live_display_night">Νύχτα</string>
+    <string name="live_display_night_summary">Χρησιμοποιήστε μόνο ρυθμίσεις νύχτας</string>
+    <string name="live_display_outdoor">Υπαίθριος (λαμπερός ήλιος)</string>
+    <string name="live_display_outdoor_summary">Χρησιμοποιήστε μόνο εξωτερικές ρυθμίσεις</string>
+    <string name="live_display_hint">Το LiveDisplay μπορεί να βοηθήσει στη μείωση της κόπωσης των ματιών και να σας βοηθήσει να κοιμηθείτε το βράδυ. Κάντε κλικ εδώ για να το δοκιμάσετε!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay ανενεργό.</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay: αυτόματη λειτουργία.</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay: λειτουργία ημέρας.</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay: λειτουργία νύχτας.</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay: λειτουργία εξωτερικού χώρου.</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay απενεργοποιημένο.</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">Το LiveDisplay άλλαξε σε αυτόματη λειτουργία.</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">Το LiveDisplay άλλαξε σε λειτουργία ημέρας.</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">Το LiveDisplay άλλαξε σε λειτουγία νύχτας.</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">Το LiveDisplay άλλαξε σε λειτουργία εξωτερικού χώρου.</string>
+    <!-- MicroG -->
+    <string name="permlab_fakePackageSignature">Ψευδής υπογραφή πακέτου</string>
+    <!-- Description of an application permission, listed so the user can choose whether
+         they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Legitimate uses include an emulator pretending to be what it emulates. Grant this permission with caution only!</string>
+    <!-- Title of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgrouplab_fake_package_signature">Ψευδής υπογραφή πακέτου</string>
+    <!-- Description of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permgroupdesc_fake_package_signature">επιτρέπει την ψευδή υπογραφή πακέτου</string>
+    <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
+    <string name="permgrouprequest_fake_package_signature">&lt;b&gt;<xliff:g id="εφαρμογή_ονομα" παράδειγμα="Gmail">%1$s</xliff:g>&lt;/b&gt;να πλαστογραφηθεί η υπογραφή του πακέτου;</string>
+    <!-- Gaming mode -->
+    <string name="notification_channel_gaming">Λειτουργία παιχνιδιού</string>
+    <string name="gaming_mode_notification_title">Η λειτουργία παιχνιδιού ενεργοποιήθηκε</string>
+    <string name="gaming_mode_notification_content">Πατήστε για απενεργοποίηση της λειτουργίας παιχνιδιού</string>
+    <string name="gaming_mode_enabled_toast">Η λειτουργία παιχνιδιού ενεργοποιήθηκε</string>
+    <string name="gaming_mode_disabled_toast">Η λειτουργία παιχνιδιού απενεργοποιήθηκε</string>
+</resources>
