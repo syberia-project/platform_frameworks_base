@@ -47,6 +47,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.util.IconDrawableFactory;
 import android.util.Log;
@@ -724,6 +725,14 @@ public class ApplicationsState {
                 Log.i(TAG, "Creating AppEntry for " + info.packageName);
             }
             entry = new AppEntry(mContext, info, mCurId++);
+            try {
+                entry.overlayTargetPackageName =
+                    mIpm.getPackageInfo(info.packageName,
+                                        mUm.isUserAdmin(userId)
+                                        ? mAdminRetrieveFlags : mRetrieveFlags,
+                                        userId).overlayTarget;
+            } catch (RemoteException rex) {
+            }
             mEntriesMap.get(userId).put(info.packageName, entry);
             mAppEntries.add(entry);
         } else if (entry.info != info) {
@@ -1573,6 +1582,7 @@ public class ApplicationsState {
         // Need to synchronize on 'this' for the following.
         public ApplicationInfo info;
         public Drawable icon;
+        public String overlayTargetPackageName;
         public String sizeStr;
         public String internalSizeStr;
         public String externalSizeStr;
@@ -1931,6 +1941,47 @@ public class ApplicationsState {
                         || info.info.category == ApplicationInfo.CATEGORY_GAME;
             }
             return isGame;
+        }
+    };
+
+    /**
+     * ResourceOverlayFilter filters AppEntry:s by Runtime Resource Overlays.
+     */
+    public static class ResourceOverlayFilter implements AppFilter {
+        public enum ListType {
+            APPLICATIONS_LIST,
+            OVERLAYS_LIST
+        };
+
+        private final String mTargetPackage;
+        private final boolean mShow;
+        private final ListType mListType;
+
+        public ResourceOverlayFilter(String pkgName, boolean show, ListType listType) {
+            mTargetPackage = pkgName;
+            mShow = show;
+            mListType = listType;
+        }
+
+        @Override
+        public void init() {
+        }
+
+        @Override
+        public boolean filterApp(ApplicationsState.AppEntry info) {
+            boolean result;
+            synchronized (info.info) {
+                result = info.info.isResourceOverlay();
+                if (result) {
+                    if (!TextUtils.isEmpty(mTargetPackage)) {
+                        result &= mTargetPackage.equals(info.overlayTargetPackageName);
+                    }
+                    result &= mShow;
+                } else {
+                    result = (mListType == ListType.APPLICATIONS_LIST);
+                }
+            }
+            return result;
         }
     };
 
