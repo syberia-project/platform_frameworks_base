@@ -103,4 +103,17 @@
     <string name="accessibility_quick_settings_gaming_mode_enabled">Η λειτουργία παιχνιδιού ενεργοποιήθηκε.</string>
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">Πληροφορίες επεξεργαστη</string>
+    <!-- Language toggle tile -->
+    <string name="quick_settings_locale_label">Language</string>
+    <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+    <!-- Name of the camera status bar icon. -->
+    <string name="status_bar_camera">Camera</string>
+    <!-- Name of the location status bar icon. -->
+    <string name="status_bar_location">Location</string>
+    <!-- Name of the microphone status bar icon. -->
+    <string name="status_bar_microphone">Microphone</string>
+    <!-- Kill button in notification guts -->
+    <string name="force_stop_dlg_title">Force stop?</string>
+    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
+    <string name="guts_force_close_app">Close App</string>
 </resources>

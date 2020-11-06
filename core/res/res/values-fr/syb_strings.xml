@@ -40,7 +40,7 @@
     <string name="permlab_fakePackageSignature">Imiter la signature du paquet </string>
     <!-- Description of an application permission, listed so the user can choose whether
          they want to allow the application to do this. -->
-    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Legitimate uses include an emulator pretending to be what it emulates. Grant this permission with caution only!</string>
+    <string name="permdesc_fakePackageSignature">Permet à l\'application de faire semblant d\'être une autre application. Des applications malveillantes peuvent être en mesure de l\'utiliser pour accéder aux données d\'application privées. Les utilisations légitimes incluent un émulateur prétendant être ce qu\'il émule. N\'accordez cette autorisation qu\'avec prudence!</string>
     <!-- Title of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permgrouplab_fake_package_signature">Imiter la signature du paquet </string>
     <!-- Description of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
@@ -54,4 +54,22 @@
     <string name="gaming_mode_notification_content">Appuyez pour désactiver le mode jeu </string>
     <string name="gaming_mode_enabled_toast">Mode jeu activé  </string>
     <string name="gaming_mode_disabled_toast">Mode jeu désactivé </string>
+    <!-- AOKP custom system animations -->
+    <string name="animation_fade">Fade</string>
+    <string name="animation_slide_right">Slide in right</string>
+    <string name="animation_slide_left">Slide in left</string>
+    <string name="animation_slide_right_no_fade">Slide in right (No fade)</string>
+    <string name="animation_slide_left_no_fade">Slide in left (No fade)</string>
+    <string name="animation_slide_up">Slide in bottom</string>
+    <string name="animation_slide_down">Slide in top</string>
+    <string name="animation_default">Default</string>
+    <string name="animation_translucent">Translucent</string>
+    <string name="animation_grow_shrink">Grow in (Top)</string>
+    <string name="animation_grow_shrink_center">Grow in (Center)</string>
+    <string name="animation_grow_shrink_bottom">Grow in (Bottom)</string>
+    <string name="animation_grow_shrink_left">Grow in (Left)</string>
+    <string name="animation_grow_shrink_right">Grow in (Right)</string>
+    <string name="animation_random">Random</string>
+    <string name="action_null">Blank</string>
+    <string name="animation_ethans">Ethans</string>
 </resources>
