@@ -224,22 +224,30 @@ public interface BluetoothProfile {
      */
     public int BROADCAST = 24;
 
+    /**
+     * VCP
+     * @hide
+     */
+    public static final int VCP = 25;
+
    /**
      * BC_PROFILE
      * @hide
      */
-    public static final int BC_PROFILE = 25;
+    public static final int BC_PROFILE = 26;
+
     /**
    /**
      * PC_PROFILE
      * @hide
      */
-    public static final int PC_PROFILE = 26;
+    public static final int PC_PROFILE = 27;
+
    /**
      * CC_SERVER
      * @hide
      */
-    public static final int CC_SERVER = 27;
+    public static final int CC_SERVER = 28;
 
    /**
      * MCP_SERVER
@@ -453,6 +461,8 @@ public interface BluetoothProfile {
                 return "HEARING_AID";
             case BROADCAST:
                 return "BROADCAST";
+            case VCP:
+                return "VCP";
             default:
                 return "UNKNOWN_PROFILE";
         }
