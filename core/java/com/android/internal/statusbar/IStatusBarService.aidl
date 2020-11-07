@@ -241,4 +241,5 @@ interface IStatusBarService
     void toggleSplitScreen();
     void preloadRecentApps();
     void cancelPreloadRecentApps();
+    void startAssist(in Bundle args);
 }
