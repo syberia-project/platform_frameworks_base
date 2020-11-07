@@ -418,8 +418,7 @@
             android:exported="false"
             android:permission="com.android.systemui.permission.SELF" />
 
-        <!-- started from PhoneWindowManager
-             TODO: Should have an android:permission attribute -->
+        <!-- started from PhoneWindowManager -->
         <service android:name=".screenshot.TakeScreenshotService"
             android:permission="com.android.systemui.permission.SELF"
             android:process=":screenshot"
