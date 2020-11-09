@@ -113,7 +113,4 @@
          Used to decide if we show pulse settings -->
     <bool name="config_ledCanPulse">true</bool>
 
-    <!-- Default value for Ambiant Pulse light color -->
-    <integer name="config_ambientNotificationDefaultColor">0xFF3980FF</integer>
-
 </resources>
