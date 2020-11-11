@@ -66,7 +66,7 @@ public class VibratorHelper {
     public void vibrate(final int effectId) {
         if (mHapticFeedbackEnabled) {
             AsyncTask.execute(() ->
-                    mVibrator.vibrate(VibrationEffect.get(effectId, false /* fallback */),
+                    mVibrator.vibrate(VibrationEffect.get(effectId, true /* fallback */),
                             STATUS_BAR_VIBRATION_ATTRIBUTES));
         }
     }
