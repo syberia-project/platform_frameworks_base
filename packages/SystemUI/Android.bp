@@ -73,8 +73,8 @@ android_library {
         "jsr330",
         "vendor.lineage.biometrics.fingerprint.inscreen-V1.0-java",
         "faceunlock_utils",
-        "tensorflowlite_java"
-        "airbnb-lottie",
+        "tensorflowlite_java",
+        "airbnb-lottie"
     ],
     manifest: "AndroidManifest.xml",
 
@@ -151,7 +151,7 @@ android_library {
         "truth-prebuilt",
         "dagger2-2.19",
         "jsr330",
-        "airbnb-lottie",
+        "airbnb-lottie"
     ],
     libs: [
         "android.test.runner",
