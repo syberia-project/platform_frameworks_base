@@ -43,6 +43,7 @@ import androidx.dynamicanimation.animation.FloatPropertyCompat;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 
+import com.android.internal.policy.GestureNavigationSettingsObserver;
 import com.android.settingslib.Utils;
 import com.android.systemui.Dependency;
 import com.android.systemui.Interpolators;
@@ -57,11 +58,6 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
     private static final long COLOR_ANIMATION_DURATION_MS = 120;
     private static final long DISAPPEAR_FADE_ANIMATION_DURATION_MS = 80;
     private static final long DISAPPEAR_ARROW_ANIMATION_DURATION_MS = 100;
-
-    /**
-     * The time required since the first vibration effect to automatically trigger a click
-     */
-    private static final int GESTURE_DURATION_FOR_CLICK_MS = 400;
 
     /**
      * The size of the protection of the arrow in px. Only used if this is not background protected
@@ -206,8 +202,11 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
     private int mArrowStartColor;
     private int mCurrentArrowColor;
     private float mDisappearAmount;
-    private long mVibrationTime;
     private int mScreenSize;
+
+    private boolean mEdgeHapticEnabled;
+
+    private final GestureNavigationSettingsObserver mGestureNavigationSettingsObserver;
 
     private DynamicAnimation.OnAnimationEndListener mSetGoneEndListener
             = new DynamicAnimation.OnAnimationEndListener() {
@@ -267,6 +266,10 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         mWindowManager = context.getSystemService(WindowManager.class);
         mVibratorHelper = Dependency.get(VibratorHelper.class);
 
+        mGestureNavigationSettingsObserver = new GestureNavigationSettingsObserver(
+                context.getMainThreadHandler(), context, this::onNavigationSettingsChanged);
+
+        mGestureNavigationSettingsObserver.register();
         mDensity = context.getResources().getDisplayMetrics().density;
 
         mBaseTranslation = dp(BASE_TRANSLATION_DP);
@@ -347,6 +350,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
                     }
                 });
         mRegionSamplingHelper.setWindowVisible(true);
+        updateCurrentUserResources();
     }
 
     @Override
@@ -354,6 +358,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         mWindowManager.removeView(this);
         mRegionSamplingHelper.stop();
         mRegionSamplingHelper = null;
+        mGestureNavigationSettingsObserver.unregister();
     }
 
     @Override
@@ -479,6 +484,7 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateArrowDirection();
+        updateCurrentUserResources();
         loadDimens();
     }
 
@@ -595,11 +601,9 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
             mVelocityTracker = VelocityTracker.obtain();
         }
         mVelocityTracker.computeCurrentVelocity(1000);
-        // Only do the extra translation if we're not already flinging
-        boolean isSlow = Math.abs(mVelocityTracker.getXVelocity()) < 500;
-        if (isSlow
-                || SystemClock.uptimeMillis() - mVibrationTime >= GESTURE_DURATION_FOR_CLICK_MS) {
-            mVibratorHelper.vibrate(VibrationEffect.EFFECT_CLICK);
+
+        if (mEdgeHapticEnabled) {
+            mVibratorHelper.vibrate(VibrationEffect.EFFECT_TICK);
         }
 
         // Let's also snap the angle a bit
@@ -663,7 +667,6 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         updateAngle(false /* animate */);
         mPreviousTouchTranslation = 0;
         mTotalTouchDelta = 0;
-        mVibrationTime = 0;
         setDesiredVerticalTransition(0, false /* animated */);
     }
 
@@ -685,8 +688,6 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
         // Apply a haptic on drag slop passed
         if (!mDragSlopPassed && touchTranslation > mSwipeThreshold) {
             mDragSlopPassed = true;
-            mVibratorHelper.vibrate(VibrationEffect.EFFECT_TICK);
-            mVibrationTime = SystemClock.uptimeMillis();
 
             // Let's show the arrow and animate it in!
             mDisappearAmount = 0.0f;
@@ -841,4 +842,13 @@ public class NavigationBarEdgePanel extends View implements NavigationEdgeBackPl
     private float dp(float dp) {
         return mDensity * dp;
     }
+
+    private void updateCurrentUserResources() {
+        mEdgeHapticEnabled = mGestureNavigationSettingsObserver.getEdgeHaptic();
+    }
+
+    private void onNavigationSettingsChanged() {
+        updateCurrentUserResources();
+    }
+
 }
