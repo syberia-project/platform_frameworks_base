@@ -30,7 +30,6 @@ import android.graphics.Region;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.DisplayManager.DisplayListener;
 import android.hardware.input.InputManager;
-import android.os.AsyncTask;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemClock;
@@ -177,7 +176,6 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
     private int mSysUiFlags;
 
     private boolean mEdgeHapticEnabled;
-    private static final int HAPTIC_DURATION = 20;
 
     private final Vibrator mVibrator;
 
@@ -328,8 +326,7 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
     }
 
     private void vibrateTick() {
-            AsyncTask.execute(() ->
-                    mVibrator.vibrate(VibrationEffect.createOneShot(HAPTIC_DURATION, VibrationEffect.DEFAULT_AMPLITUDE)));
+        mVibrator.vibrate(VibrationEffect.EFFECT_TICK);
     }
 
     private void disposeInputChannel() {
