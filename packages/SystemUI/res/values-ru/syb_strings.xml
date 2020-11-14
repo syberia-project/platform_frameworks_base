@@ -89,4 +89,8 @@
     <!-- A toast message shown after successfully deleting a screen recording [CHAR LIMIT=NONE] -->
     <string name="screenrecord_delete_description">Запись экрана удалена</string>
 
+    <!-- Screenrecord QS tile -->
+    <string name="screenrecord_stopdot_label">Показывать точку остановки\nДлительное нажатие для перемещения</string>
+    <string name="screenrecord_lowquality_label">Более низкое качество для уменьшения размера файла</string>
+
 </resources>
