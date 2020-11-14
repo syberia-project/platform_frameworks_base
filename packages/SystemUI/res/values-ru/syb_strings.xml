@@ -136,4 +136,7 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Подавление мерцания</string>
 
+    <string name="screenrecord_stopdot_label">Показать точку остановки\nУдержание для перемещения</string>
+    <string name="screenrecord_lowquality_label">Ниже качество для меньшего размера файла</string>
+
 </resources>
