@@ -15,7 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="statusbar_items_title">Icône de la barre d\'état </string>
+    <string name="statusbar_items_title">Icônes de la barre d\'état</string>
     <string name="status_bar_vpn">VPN</string>
     <string name="status_bar_data_saver">Économiseur de données</string>
     <string name="status_bar_roaming">Itinérance</string>
@@ -59,7 +59,7 @@
     <string name="qs_menu_item_columns_auto">Automatique </string>
     <string name="qs_menu_item_titles">Afficher les libellés </string>
     <!-- DataSwitch Tile -->
-    <string name="qs_data_switch_label">Changer les données de carte SIM</string>
+    <string name="qs_data_switch_label">Switch data card to</string>
     <string name="qs_data_switch_toast_0">Aucune carte SIM n\'est présente</string>
     <string name="qs_data_switch_toast_1">Une seule carte SIM est présente</string>
     <string name="qs_data_switch_changed_1">SIM 1 utilisée pour les données mobiles</string>
@@ -104,16 +104,26 @@
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">Infos sur le processeur</string>
     <!-- Language toggle tile -->
-    <string name="quick_settings_locale_label">Language</string>
-    <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+    <string name="quick_settings_locale_label">Langue</string>
+    <string name="quick_settings_locale_more_locales_toast">Configurez, s\'il vous plaît, les langages multiples pour pouvoir basculer</string>
     <!-- Name of the camera status bar icon. -->
-    <string name="status_bar_camera">Camera</string>
+    <string name="status_bar_camera">Appareil photo</string>
     <!-- Name of the location status bar icon. -->
-    <string name="status_bar_location">Location</string>
+    <string name="status_bar_location">Géolocalisation </string>
     <!-- Name of the microphone status bar icon. -->
-    <string name="status_bar_microphone">Microphone</string>
+    <string name="status_bar_microphone">Micro</string>
     <!-- Kill button in notification guts -->
-    <string name="force_stop_dlg_title">Force stop?</string>
-    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
-    <string name="guts_force_close_app">Close App</string>
+    <string name="force_stop_dlg_title">Forcer l\'arrêt ?</string>
+    <string name="force_stop_dlg_text">Si vous forcez l\'arrêt d\'une application, cela peut provoquer son dysfonctionnement.</string>
+    <string name="guts_force_close_app">Fermer l\'application</string>
+    <!-- Name of the nfc status bar icon. -->
+    <string name="status_bar_nfc">NFC</string>
+    <!-- Accessibility label for nfc icon (not shown on screen) [CHAR LIMIT=NONE] -->
+    <string name="accessibility_status_bar_nfc">Nfc</string>
+    <!-- Partial screenshot -->
+    <string name="global_screenshot_selector_capture_description">Capture partial screenshot</string>
+    <string name="global_screenshot_selector_cancel_description">Cancel partial screenshot</string>
+    <!-- AOD QS tile -->
+    <string name="quick_settings_aod_label">AOD</string>
+    <string name="quick_settings_aod_off_powersave_label">AOD off\nBattery saver</string>
 </resources>
