@@ -59,7 +59,7 @@
     <string name="qs_menu_item_columns_auto">Automatic</string>
     <string name="qs_menu_item_titles">Εμφάνιση ετικετών</string>
     <!-- DataSwitch Tile -->
-    <string name="qs_data_switch_label">Εναλλαγή κάρτας δεδομένων</string>
+    <string name="qs_data_switch_label">Switch data card to</string>
     <string name="qs_data_switch_toast_0">Προς το παρόν δεν έχει εισαχθεί κάρτα SIM</string>
     <string name="qs_data_switch_toast_1">Προς το παρόν έχει εισαχθεί μόνο μία κάρτα SIM</string>
     <string name="qs_data_switch_changed_1">Χρήση SIM 1 για δεδομένα κινητής τηλεφωνίας</string>
@@ -116,4 +116,14 @@
     <string name="force_stop_dlg_title">Force stop?</string>
     <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
     <string name="guts_force_close_app">Close App</string>
+    <!-- Name of the nfc status bar icon. -->
+    <string name="status_bar_nfc">NFC</string>
+    <!-- Accessibility label for nfc icon (not shown on screen) [CHAR LIMIT=NONE] -->
+    <string name="accessibility_status_bar_nfc">Nfc</string>
+    <!-- Partial screenshot -->
+    <string name="global_screenshot_selector_capture_description">Capture partial screenshot</string>
+    <string name="global_screenshot_selector_cancel_description">Cancel partial screenshot</string>
+    <!-- AOD QS tile -->
+    <string name="quick_settings_aod_label">AOD</string>
+    <string name="quick_settings_aod_off_powersave_label">AOD off\nBattery saver</string>
 </resources>
