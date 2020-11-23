@@ -109,4 +109,12 @@
     <string name="force_stop_dlg_text">Если вы принудительно остановите приложение, оно может работать неправильно</string>
     <string name="guts_force_close_app">Закрыть приложение</string>
 
+    <!-- Long swipe gesture actions -->
+    <string name="app_picker_dialog_title">Выбор приложения</string>
+    <string name="active_edge_app_select_title">Выбор приложения</string>
+    <string name="active_edge_activity_select_title">Выбор активити</string>
+
+    <string name="task_helper_app_killed">%1$s принудительно остановлено</string>
+    <string name="empty_app_killed">Приложение</string>
+
 </resources>
