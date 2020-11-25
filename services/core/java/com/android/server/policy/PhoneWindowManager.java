@@ -1983,12 +1983,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     context, minHorizontal, maxHorizontal, minVertical, maxVertical, maxRadius);
         }
 
-        mHandler = new PolicyHandler();
         mSwipeToScreenshot = new SwipeToScreenshotListener(context, new SwipeToScreenshotListener.Callbacks() {
             @Override
             public void onSwipeThreeFinger() {
                 if (!mPocketLockShowing) {
-                    mHandler.post(mScreenshotRunnable);
+                    SyberiaUtils.takeScreenshot(true);
                 }
             }
         });
