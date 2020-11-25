@@ -59,7 +59,7 @@
     <string name="qs_menu_item_columns_auto">Automatique </string>
     <string name="qs_menu_item_titles">Afficher les libellés </string>
     <!-- DataSwitch Tile -->
-    <string name="qs_data_switch_label">Switch data card to</string>
+    <string name="qs_data_switch_label">Changer les données de carte SIM</string>
     <string name="qs_data_switch_toast_0">Aucune carte SIM n\'est présente</string>
     <string name="qs_data_switch_toast_1">Une seule carte SIM est présente</string>
     <string name="qs_data_switch_changed_1">SIM 1 utilisée pour les données mobiles</string>
@@ -119,11 +119,16 @@
     <!-- Name of the nfc status bar icon. -->
     <string name="status_bar_nfc">NFC</string>
     <!-- Accessibility label for nfc icon (not shown on screen) [CHAR LIMIT=NONE] -->
-    <string name="accessibility_status_bar_nfc">Nfc</string>
+    <string name="accessibility_status_bar_nfc">NFC</string>
     <!-- Partial screenshot -->
-    <string name="global_screenshot_selector_capture_description">Capture partial screenshot</string>
-    <string name="global_screenshot_selector_cancel_description">Cancel partial screenshot</string>
+    <string name="global_screenshot_selector_capture_description">Capture d\'écran partielle</string>
+    <string name="global_screenshot_selector_cancel_description">Annuler la capture d\'écran partielle</string>
     <!-- AOD QS tile -->
-    <string name="quick_settings_aod_label">AOD</string>
-    <string name="quick_settings_aod_off_powersave_label">AOD off\nBattery saver</string>
+    <string name="quick_settings_aod_label">Ecran permanent</string>
+    <string name="quick_settings_aod_off_powersave_label">AOD éteint\Économiseur de batterie</string>
+    <string name="task_helper_app_killed">%1$s force stopped</string>
+    <string name="empty_app_killed">App</string>
+    <string name="app_picker_dialog_title">Select an app</string>
+    <string name="active_edge_app_select_title">Select app</string>
+    <string name="active_edge_activity_select_title">Select activity</string>
 </resources>
