@@ -354,14 +354,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        if (!mIsCircleShowing) {
-            canvas.drawCircle(mSize / 2, mSize / 2, mSize / 2.0f, mPaintFingerprintBackground);
-        }
-        super.onDraw(canvas);
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getAxisValue(MotionEvent.AXIS_X);
         float y = event.getAxisValue(MotionEvent.AXIS_Y);
