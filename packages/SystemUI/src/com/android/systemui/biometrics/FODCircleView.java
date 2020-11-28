@@ -330,12 +330,16 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.FOD_ANIM),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FOD_ICON),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.FOD_ANIM))) {
+          if (uri.equals(Settings.System.getUriFor(
+              Settings.System.FOD_ANIM)) || uri.equals(Settings.System.getUriFor(
+              Settings.System.FOD_ICON))) {
                 updateStyle();
             }
         }
