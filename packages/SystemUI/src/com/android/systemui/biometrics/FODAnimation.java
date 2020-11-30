@@ -18,6 +18,7 @@ package com.android.systemui.biometrics;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.PixelFormat;
 import android.provider.Settings;
@@ -42,32 +43,35 @@ public class FODAnimation extends ImageView {
     private boolean mIsRecognizingAnimEnabled;
 
     private int mSelectedAnim;
-    private final int[] ANIMATION_STYLES = {
-        R.drawable.fod_miui_normal_recognizing_anim,
-        R.drawable.fod_miui_aod_recognizing_anim,
-        R.drawable.fod_miui_aurora_recognizing_anim,
-        R.drawable.fod_miui_aurora_cas_recognizing_anim,
-        R.drawable.fod_miui_light_recognizing_anim,
-        R.drawable.fod_miui_pop_recognizing_anim,
-        R.drawable.fod_miui_pulse_recognizing_anim,
-        R.drawable.fod_miui_pulse_recognizing_white_anim,
-        R.drawable.fod_miui_rhythm_recognizing_anim,
-        R.drawable.fod_miui_star_cas_recognizing_anim,
-        R.drawable.fod_op_cosmos_recognizing_anim,
-        R.drawable.fod_op_energy_recognizing_anim,
-        R.drawable.fod_op_mclaren_recognizing_anim,
-        R.drawable.fod_op_ripple_recognizing_anim,
-        R.drawable.fod_op_scanning_recognizing_anim,
-        R.drawable.fod_op_stripe_recognizing_anim,
-        R.drawable.fod_op_wave_recognizing_anim,
-        R.drawable.fod_pureview_dna_recognizing_anim,
-        R.drawable.fod_pureview_future_recognizing_anim,
-        R.drawable.fod_pureview_halo_ring_recognizing_anim,
-        R.drawable.fod_pureview_molecular_recognizing_anim,
-        R.drawable.fod_rog_fusion_recognizing_anim,
-        R.drawable.fod_rog_pulsar_recognizing_anim,
-        R.drawable.fod_rog_supernova_recognizing_anim,
+    private int[] ANIMATION_STYLES;
+    private String[] ANIMATION_STYLES_NAMES = {
+        "fod_miui_normal_recognizing_anim",
+        "fod_miui_aod_recognizing_anim",
+        "fod_miui_aurora_recognizing_anim",
+        "fod_miui_aurora_cas_recognizing_anim",
+        "fod_miui_light_recognizing_anim",
+        "fod_miui_pop_recognizing_anim",
+        "fod_miui_pulse_recognizing_anim",
+        "fod_miui_pulse_recognizing_white_anim",
+        "fod_miui_rhythm_recognizing_anim",
+        "fod_miui_star_cas_recognizing_anim",
+        "fod_op_cosmos_recognizing_anim",
+        "fod_op_energy_recognizing_anim",
+        "fod_op_mclaren_recognizing_anim",
+        "fod_op_ripple_recognizing_anim",
+        "fod_op_scanning_recognizing_anim",
+        "fod_op_stripe_recognizing_anim",
+        "fod_op_wave_recognizing_anim",
+        "fod_pureview_dna_recognizing_anim",
+        "fod_pureview_future_recognizing_anim",
+        "fod_pureview_halo_ring_recognizing_anim",
+        "fod_pureview_molecular_recognizing_anim",
+        "fod_rog_fusion_recognizing_anim",
+        "fod_rog_pulsar_recognizing_anim",
+        "fod_rog_supernova_recognizing_anim",
     };
+
+    private final String FOD_ANIMATIONS_PACKAGE = "com.syberia.fod.animations";
 
     public FODAnimation(Context context, int mPositionX, int mPositionY) {
         super(context);
@@ -92,7 +96,24 @@ public class FODAnimation extends ImageView {
         mIsRecognizingAnimEnabled = Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.FOD_RECOGNIZING_ANIMATION, 0) != 0;
 
+        loadAnimations(mContext);
         update(mIsRecognizingAnimEnabled);
+    }
+
+    private void loadAnimations(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            Resources mApkResources = pm.getResourcesForApplication(FOD_ANIMATIONS_PACKAGE);
+
+            final int size = ANIMATION_STYLES_NAMES.length;
+            for (int i = 0; i < size; i++) {
+                ANIMATION_STYLES[i] = mApkResources.getIdentifier
+                               (ANIMATION_STYLES_NAMES[i], "drawable", FOD_ANIMATIONS_PACKAGE);
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(boolean isEnabled) {
