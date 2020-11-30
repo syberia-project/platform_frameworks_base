@@ -700,7 +700,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
-    private boolean shouldUseHorizontalLayout() {
+    public boolean shouldUseHorizontalLayout() {
         return mUsingMediaPlayer && mMediaHost.getVisible()
                 && getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
@@ -709,6 +709,10 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
     protected boolean isHorizontalLayout() {
         return getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    boolean isMediaHostVisible() {
+        return mMediaHost.getVisible();
     }
 
     protected void reAttachMediaHost() {
