@@ -55,6 +55,8 @@ import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.tuner.TunerService;
 
+import com.android.internal.util.syberia.SyberiaUtils;
+
 import vendor.lineage.biometrics.fingerprint.inscreen.V1_0.IFingerprintInscreen;
 import vendor.lineage.biometrics.fingerprint.inscreen.V1_0.IFingerprintInscreenCallback;
 
@@ -106,6 +108,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
 
     private FODAnimation mFODAnimation;
     private boolean mIsRecognizingAnimEnabled;
+    private boolean mIsFodAnimationAvailable = false;
 
     private int mSelectedIcon;
     private final int[] ICON_STYLES = {
@@ -183,7 +186,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         public void onKeyguardVisibilityChanged(boolean showing) {
             mIsKeyguard = showing;
             updateStyle();
-            if (mFODAnimation != null) {
+            if (mIsFodAnimationAvailable && mFODAnimation != null) {
                 mFODAnimation.setAnimationKeyguard(mIsKeyguard);
             }
         }
@@ -201,7 +204,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
             } else {
                 hide();
             }
-            if (mFODAnimation != null) {
+            if (mIsFodAnimationAvailable && mFODAnimation != null) {
                 mFODAnimation.setAnimationKeyguard(mIsBouncer);
             }
         }
@@ -232,7 +235,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         @Override
         public void onBiometricHelp(int msgId, String helpString,
                 BiometricSourceType biometricSourceType) {
-            if (msgId == -1){ // Auth error
+            if (msgId == -1 && mIsFodAnimationAvailable) { // Auth error
                 mHandler.post(() -> mFODAnimation.hideFODanimation());
             }
         }
@@ -315,7 +318,13 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
 
         Dependency.get(TunerService.class).addTunable(this, FOD_GESTURE,
                 Settings.Secure.DOZE_ENABLED);
-        mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
+
+        mIsFodAnimationAvailable = SyberiaUtils.isPackageInstalled(context,
+                                    context.getResources().getString(
+                                    com.android.internal.R.string.config_fodAnimationPackage));
+        if (mIsFodAnimationAvailable) {
+            mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
+        }
     }
 
     private CustomSettingsObserver mCustomSettingsObserver = new CustomSettingsObserver(mHandler);
@@ -367,17 +376,23 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
 
         if (event.getAction() == MotionEvent.ACTION_DOWN && newIsInside) {
             showCircle();
-            mHandler.post(() -> mFODAnimation.showFODanimation());
+            if (mIsFodAnimationAvailable) {
+                mHandler.post(() -> mFODAnimation.showFODanimation());
+            }
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             hideCircle();
-            mHandler.post(() -> mFODAnimation.hideFODanimation());
+            if (mIsFodAnimationAvailable) {
+                mHandler.post(() -> mFODAnimation.hideFODanimation());
+            }
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             return true;
         }
 
-        mHandler.post(() -> mFODAnimation.hideFODanimation());
+        if (mIsFodAnimationAvailable) {
+            mHandler.post(() -> mFODAnimation.hideFODanimation());
+        }
         return false;
     }
 
@@ -496,7 +511,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
                 Settings.System.FOD_RECOGNIZING_ANIMATION, 0) != 0;
         mSelectedIcon = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.FOD_ICON, 0);
-        if (mFODAnimation != null) {
+        if (mIsFodAnimationAvailable && mFODAnimation != null) {
            mFODAnimation.update(mIsRecognizingAnimEnabled);
         }
     }
@@ -536,7 +551,9 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         if (mIsDreaming) {
             mParams.x += mDreamingOffsetX;
             mParams.y += mDreamingOffsetY;
-            mFODAnimation.updateParams(mParams.y);
+            if (mIsFodAnimationAvailable) {
+                mFODAnimation.updateParams(mParams.y);
+            }
         }
 
         mWindowManager.updateViewLayout(this, mParams);
