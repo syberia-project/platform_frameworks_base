@@ -67,7 +67,7 @@ import java.util.TimerTask;
 public class FODCircleView extends ImageView implements TunerService.Tunable {
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
     private static final String FOD_GESTURE = "system:" + Settings.System.FOD_GESTURE;
-    private static final int FADE_ANIM_DURATION = 250;
+    private static final int FADE_ANIM_DURATION = 125;
 
     private final int mPositionX;
     private final int mPositionY;
@@ -343,7 +343,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         mParams.format = PixelFormat.TRANSLUCENT;
 
         mParams.packageName = "android";
-        mParams.type = WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG;
+        mParams.type = WindowManager.LayoutParams.TYPE_DISPLAY_OVERLAY;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED |
