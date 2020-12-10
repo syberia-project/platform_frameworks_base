@@ -157,9 +157,27 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
                         PowerManager.WAKE_REASON_GESTURE, FODCircleView.class.getSimpleName()));
                 }
                 mPressPending = true;
-            } else {
-                mHandler.post(() -> showCircle());
             }
+
+            if (!mUpdateMonitor.isScreenOn()) {
+                // Keyguard is shown just after screen turning off
+                return;
+            }
+
+            if (mIsBouncer && !isPinOrPattern(mUpdateMonitor.getCurrentUser())) {
+                // Ignore show calls when Keyguard password screen is being shown
+                return;
+            }
+
+            if (mIsKeyguard && mUpdateMonitor.getUserCanSkipBouncer(mUpdateMonitor.getCurrentUser())) {
+                // Ignore show calls if user can skip bouncer
+                return;
+            }
+
+            if (mIsKeyguard && !mIsBiometricRunning) {
+                return;
+            }
+            mHandler.post(() -> showCircle());
         }
 
         @Override
@@ -348,8 +366,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
                 super.onDraw(canvas);
             }
         };
-        mPressedView.setImageResource(R.drawable.fod_icon_pressed);
-
         mWindowManager.addView(this, mParams);
 
         mCustomSettingsObserver.observe();
@@ -514,6 +530,8 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         if (mIsFodAnimationAvailable) {
             mHandler.post(() -> mFODAnimation.showFODanimation());
         }
+
+        mPressedView.setImageResource(R.drawable.fod_icon_pressed);
 
         setImageDrawable(null);
         invalidate();
