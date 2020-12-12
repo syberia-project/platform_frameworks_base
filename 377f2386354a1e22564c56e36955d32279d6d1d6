@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ff54ccd_be7f806f",
+        "filename": "packages/SystemUI/src/com/android/systemui/biometrics/FODCircleView.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000028
+      },
+      "writtenOn": "2020-12-12T01:40:37Z",
+      "side": 1,
+      "message": "Workaround for offscreen FOD for now.",
+      "revId": "377f2386354a1e22564c56e36955d32279d6d1d6",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8",
+      "unresolved": true
+    }
+  ]
+}
