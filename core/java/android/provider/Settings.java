@@ -5873,6 +5873,24 @@ public final class Settings {
          * @hide
          */
         public static final String INCREASING_RING_START_VOLUME = "increasing_ring_start_vol";
+        /**
+         * User definable value of pulse notification screen brightness
+         *
+         * @hide
+         */
+       public static final String PULSE_BRIGHTNESS = "pulse_brightness";
+
+       /**
+        * User definable value of aod screen brightness
+        *
+        * @hide
+        */
+       public static final String DOZE_BRIGHTNESS = "doze_brightness";
+
+       /**
+        * @hide
+        */
+       public static final String DOZE_BRIGHTNESS_FORCE = "doze_brightness_force";
 
         /**
          * Ramp up time (seconds) for increasing ring
@@ -6074,6 +6092,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_POSITION);
             PRIVATE_SETTINGS.add(DISPLAY_CUTOUT_HIDDEN);
+            PRIVATE_SETTINGS.add(PULSE_BRIGHTNESS);
+            PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS);
+            PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS_FORCE);
         }
 
         /**
