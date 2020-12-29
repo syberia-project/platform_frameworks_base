@@ -158,4 +158,7 @@
     <string name="active_edge_app_select_title">Select app</string>
     <string name="active_edge_activity_select_title">Select activity</string>
 
+    <string name="screenrecord_delete_label">Delete</string>
+    <string name="screenrecord_delete_description">Screen recording deleted</string>
+
 </resources>
