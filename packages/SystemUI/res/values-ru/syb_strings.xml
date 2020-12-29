@@ -58,11 +58,6 @@
     <string name="accessibility_quick_settings_cpuinfo_off">Информация о процессоре откл.</string>
     <string name="accessibility_quick_settings_cpuinfo_on">Информация о процессоре вкл.</string>
 
-    <!-- Label for notification action to delete a screen recording file [CHAR LIMIT=35] -->
-    <string name="screenrecord_delete_label">Удалить</string>
-    <!-- A toast message shown after successfully deleting a screen recording [CHAR LIMIT=NONE] -->
-    <string name="screenrecord_delete_description">Запись экрана удалена</string>
-
     <!-- Face Unlock -->
     <string name="face_unlock_recognizing">Распознаем лицо...</string>
 
@@ -87,5 +82,11 @@
     <string name="global_action_screenshot">Скриншот</string>
     <string name="global_action_screenrecord">Запись экрана</string>
     <string name="global_action_flashlight">Фонарик</string>
+
+    <!-- Screen record delete action -->
+    <!-- Label for notification action to delete a screen recording file [CHAR LIMIT=35] -->
+    <string name="screenrecord_delete_label">Удалить</string>
+    <!-- A toast message shown after successfully deleting a screen recording [CHAR LIMIT=NONE] -->
+    <string name="screenrecord_delete_description">Запись экрана удалена</string>
 
 </resources>
