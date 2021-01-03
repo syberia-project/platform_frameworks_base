@@ -79,6 +79,8 @@ import android.content.pm.IPackageManager;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.content.om.OverlayInfo;
+import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -103,6 +105,8 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.Trace;
 import android.os.UserHandle;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.UserManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -146,7 +150,7 @@ import com.android.internal.logging.UiEventLoggerImpl;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.RegisterStatusBarResult;
-import com.android.internal.statusbar.ThemeAccentUtils;
+import com.android.internal.statusbar.ThemesUtils;
 import com.android.internal.util.hwkeys.ActionConstants;
 import com.android.internal.util.hwkeys.ActionUtils;
 import com.android.internal.util.hwkeys.PackageMonitor;
@@ -779,6 +783,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.Secure.SYSUI_ROUNDED_FWVALS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SWITCH_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -793,6 +800,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                 updateCorners();
             } else if (uri.equals(Settings.System.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
                 updateRoundedFwvals();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.SWITCH_STYLE))) {
+                stockSwitchStyle();
+                updateSwitchStyle();
             }
             update();
         }
@@ -3942,8 +3952,18 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private void updateRoundedStyle() {
         mUiOffloadThread.execute(() -> {
-            ThemeAccentUtils.setRoundedStyle(mOverlayManager, mRoundedStyle, mContext.getUserId());
+            ThemesUtils.setRoundedStyle(mOverlayManager, mRoundedStyle, mContext.getUserId());
         });
+    }
+
+    public void updateSwitchStyle() {
+        int switchStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SWITCH_STYLE, 0, mContext.getUserId());
+        ThemesUtils.updateSwitchStyle(mOverlayManager, mContext.getUserId(), switchStyle);
+    }
+
+    public void stockSwitchStyle() {
+        ThemesUtils.stockSwitchStyle(mOverlayManager, mContext.getUserId());
     }
 
     private void updateDozingState() {
