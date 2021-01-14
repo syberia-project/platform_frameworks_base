@@ -10192,6 +10192,12 @@ public final class Settings {
                 "qs_show_brightness_slider";
 
         /**
+         * Whether to show QS brightness slider on bottom
+         * @hide
+         */
+        public static final String QS_BRIGHTNESS_POSITION_BOTTOM = "qs_brightness_position_bottom";
+
+        /**
          * @hide
          */
         public static final String ADVANCED_REBOOT = "advanced_reboot";
