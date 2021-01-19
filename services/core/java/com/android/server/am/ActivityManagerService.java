@@ -12379,7 +12379,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         if (!app.isPersistent() || app.isolated) {
             if (DEBUG_PROCESSES || DEBUG_CLEANUP) Slog.v(TAG_CLEANUP,
                     "Removing non-persistent process during cleanup: " + app);
-            if (!replacingPid) {
+            if (!replacingPid && allowRestart) {
                 mProcessList.removeProcessNameLocked(app.processName, app.uid, app);
             }
             mAtmInternal.clearHeavyWeightProcessIfEquals(app.getWindowProcessController());
