@@ -28,6 +28,7 @@ import static android.view.InsetsState.ITYPE_STATUS_BAR;
 import static android.view.InsetsState.containsType;
 import static android.view.WindowInsetsController.APPEARANCE_LOW_PROFILE_BARS;
 import static android.view.WindowInsetsController.APPEARANCE_OPAQUE_STATUS_BARS;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
 
 import static androidx.lifecycle.Lifecycle.State.RESUMED;
 
@@ -281,6 +282,10 @@ public class StatusBar extends SystemUI implements DemoMode,
     public static final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
     public static final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
     static public final String SYSTEM_DIALOG_REASON_SCREENSHOT = "screenshot";
+
+    private static final String LONG_OVERLAY_PKG = "com.custom.overlay.systemui.gestural.long";
+    private static final String MEDIUM_OVERLAY_PKG = "com.custom.overlay.systemui.gestural.medium";
+    private static final String HIDDEN_OVERLAY_PKG = "com.custom.overlay.systemui.gestural.hidden";
 
     private static final String BANNER_ACTION_CANCEL =
             "com.android.systemui.statusbar.banner_action_cancel";
@@ -1989,18 +1994,44 @@ public class StatusBar extends SystemUI implements DemoMode,
         updateTheme();
     }
 
+    private String getCurrentGesturalOverlayPackage() {
+        float gestureLenght = Settings.Secure.getFloat(mContext.getContentResolver(),
+                        Settings.Secure.GESTURE_NAVBAR_LENGTH, 1.0f);
+        String overlayPkg = NAV_BAR_MODE_GESTURAL_OVERLAY;
+        switch ((int)gestureLenght) {
+            case 0:
+                overlayPkg = HIDDEN_OVERLAY_PKG;
+                break;
+            case 2:
+                overlayPkg = MEDIUM_OVERLAY_PKG;
+                break;
+            case 3:
+                overlayPkg = LONG_OVERLAY_PKG;
+                break;
+        }
+        return overlayPkg;
+    }
+
     private void updateCutoutOverlay() {
+        final int userId = mContext.getUserId();
         boolean displayCutoutHidden = Settings.System.getIntForUser(mContext.getContentResolver(),
                         Settings.System.DISPLAY_CUTOUT_HIDDEN, 0, UserHandle.USER_CURRENT) == 1;
-        if (mDisplayCutoutHidden != displayCutoutHidden){
+        if (mDisplayCutoutHidden != displayCutoutHidden) {
             mDisplayCutoutHidden = displayCutoutHidden;
-                final IOverlayManager mOverlayManager = IOverlayManager.Stub.asInterface(
-                                ServiceManager.getService(Context.OVERLAY_SERVICE));
-                try {
-                    mOverlayManager.setEnabled("com.syberia.overlay.hidecutout",
-                                mDisplayCutoutHidden, mLockscreenUserManager.getCurrentUserId());
-                } catch (RemoteException ignored) {
-                }
+
+            try {
+                int navigationMode = Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                           Settings.Secure.NAVIGATION_MODE, 0, UserHandle.USER_CURRENT);
+                    if (navigationMode == 2 /* gestural */) {
+                         mOverlayManager.setEnabled(getCurrentGesturalOverlayPackage(), false, userId);
+                         mOverlayManager.setEnabled("com.syberia.overlay.hidecutout",
+                                     mDisplayCutoutHidden, userId);
+                         mOverlayManager.setEnabledExclusiveInCategory(getCurrentGesturalOverlayPackage(), userId);
+                    } else {
+                             mOverlayManager.setEnabled("com.syberia.overlay.hidecutout",
+                                        mDisplayCutoutHidden, userId);
+                    }
+            } catch (SecurityException | IllegalStateException | RemoteException e) { }
         }
     }
 
