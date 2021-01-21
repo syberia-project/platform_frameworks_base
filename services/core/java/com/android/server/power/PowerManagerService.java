@@ -120,6 +120,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.NoSuchElementException;
+
+import vendor.syberia.smartcharge.V1_0.ISmartCharge;
 
 /**
  * The power manager service is responsible for coordinating power management
@@ -662,6 +665,7 @@ public final class PowerManagerService extends SystemService
     }
 
     // Smart charging
+    private ISmartCharge mSmartCharge;
     private boolean mSmartChargingEnabled;
     private boolean mSmartChargingResetStats;
     private boolean mPowerInputSuspended = false;
@@ -669,9 +673,6 @@ public final class PowerManagerService extends SystemService
     private int mSmartChargingResumeLevel;
     private int mSmartChargingLevelDefaultConfig;
     private int mSmartChargingResumeLevelDefaultConfig;
-    private static String mPowerInputSuspendSysfsNode;
-    private static String mPowerInputSuspendValue;
-    private static String mPowerInputResumeValue;
 
     /**
      * All times are in milliseconds. These constants are kept synchronized with the system
@@ -1092,6 +1093,7 @@ public final class PowerManagerService extends SystemService
         Settings.System.putIntForUser(mContext.getContentResolver(),
                 Settings.System.AOD_NOTIFICATION_PULSE_ACTIVATED, 0, UserHandle.USER_CURRENT);
 
+
         synchronized (mLock) {
             mSystemReady = true;
             mAppOps = appOps;
@@ -1261,6 +1263,8 @@ public final class PowerManagerService extends SystemService
         filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DOCK_EVENT);
         mContext.registerReceiver(new DockReceiver(), filter, null, mHandler);
+
+        mSmartCharge = getSmartCharge();
     }
 
     @VisibleForTesting
@@ -1312,12 +1316,6 @@ public final class PowerManagerService extends SystemService
                 com.android.internal.R.integer.config_smartChargingBatteryLevel);
         mSmartChargingResumeLevelDefaultConfig = resources.getInteger(
                 com.android.internal.R.integer.config_smartChargingBatteryResumeLevel);
-        mPowerInputSuspendSysfsNode = resources.getString(
-                com.android.internal.R.string.config_SmartChargingSysfsNode);
-        mPowerInputSuspendValue = resources.getString(
-                com.android.internal.R.string.config_SmartChargingSuspendValue);
-        mPowerInputResumeValue = resources.getString(
-                com.android.internal.R.string.config_SmartChargingResumeValue);
         mSmartChargingResetStats = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
     }
@@ -2219,13 +2217,17 @@ public final class PowerManagerService extends SystemService
     }
 
     private void updateSmartChargingStatus() {
+        if (mSmartCharge == null) {
+            return;
+        }
+
         if (mPowerInputSuspended && (mBatteryLevel <= mSmartChargingResumeLevel) ||
             (mPowerInputSuspended && !mSmartChargingEnabled)) {
             try {
-                FileUtils.stringToFile(mPowerInputSuspendSysfsNode, mPowerInputResumeValue);
+                mSmartCharge.setChargingEnabled(true);
                 mPowerInputSuspended = false;
-            } catch (IOException e) {
-                Slog.e(TAG, "failed to write to " + mPowerInputSuspendSysfsNode);
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
             }
             return;
         }
@@ -2241,10 +2243,10 @@ public final class PowerManagerService extends SystemService
             }
 
             try {
-                FileUtils.stringToFile(mPowerInputSuspendSysfsNode, mPowerInputSuspendValue);
+                mSmartCharge.setChargingEnabled(false);
                 mPowerInputSuspended = true;
-            } catch (IOException e) {
-                    Slog.e(TAG, "failed to write to " + mPowerInputSuspendSysfsNode);
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -5906,4 +5908,17 @@ public final class PowerManagerService extends SystemService
             return interceptPowerKeyDownInternal(event);
         }
     }
+
+    private synchronized ISmartCharge getSmartCharge() {
+        try {
+            return ISmartCharge.getService();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        } catch (NoSuchElementException ex) {
+            // service not available
+        }
+
+        return null;
+    }
+
 }
