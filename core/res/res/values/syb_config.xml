@@ -131,8 +131,4 @@
     <!-- Default value for FOD animation package resources -->
     <string name="config_fodAnimationPackage" translatable="false">com.syberia.fod.animations</string>
 
-    <!-- Smart charging -->
-    <integer name="config_smartChargingBatteryLevel">80</integer>
-    <integer name="config_smartChargingBatteryResumeLevel">60</integer>
-
 </resources>
