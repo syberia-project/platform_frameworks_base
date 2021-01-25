@@ -5983,6 +5983,11 @@ public final class Settings {
         public static final String STATUSBAR_ICONS_STYLE = "statusbar_icons_style";
 
         /**
+         * @hide
+         */
+        public static final String USE_OLD_MOBILETYPE = "use_old_mobiletype";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -5994,7 +5999,7 @@ public final class Settings {
         public static final String[] LEGACY_RESTORE_SETTINGS = {
         };
 
-        /**
+       /**
          * These are all public system settings
          *
          * @hide
