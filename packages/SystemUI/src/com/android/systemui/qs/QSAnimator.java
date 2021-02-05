@@ -171,7 +171,7 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
         } else if (MOVE_FULL_ROWS.equals(key)) {
             mFullRows = TunerService.parseIntegerSwitch(newValue, true);
         } else if (QS_SHOW_BRIGHTNESS_SLIDER.equals(key)) {
-            mIsQuickQsBrightnessEnabled = TunerService.parseInteger(newValue, 0) > 1;
+            mIsQuickQsBrightnessEnabled = TunerService.parseIntegerSwitch(newValue, false);
         }
         updateAnimators();
     }
