@@ -48,6 +48,7 @@ import android.telephony.ServiceState;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.SubscriptionManager.OnSubscriptionsChangedListener;
+import com.android.internal.telephony.TelephonyIntents;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -86,6 +87,8 @@ public class NetworkControllerImpl extends BroadcastReceiver
     static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     // additional diagnostics, but not logspew
     static final boolean CHATTY =  Log.isLoggable(TAG + "Chat", Log.DEBUG);
+
+    private static final String IMS_STATUS_CHANGED = "android.intent.action.IMS_REGISTRATION_CHANGED";
 
     private static final int EMERGENCY_NO_CONTROLLERS = 0;
     private static final int EMERGENCY_FIRST_CONTROLLER = 100;
@@ -355,6 +358,8 @@ public class NetworkControllerImpl extends BroadcastReceiver
         filter.addAction(ConnectivityManager.INET_CONDITION_ACTION);
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         filter.addAction(CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED);
+        filter.addAction(IMS_STATUS_CHANGED);
+        filter.addAction(TelephonyIntents.ACTION_VOWIFI_ENABLED);
         mBroadcastDispatcher.registerReceiverWithHandler(this, filter, mReceiverHandler);
         mListening = true;
 
@@ -603,6 +608,10 @@ public class NetworkControllerImpl extends BroadcastReceiver
             case CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED:
                 mConfig = Config.readConfig(mContext);
                 mReceiverHandler.post(this::handleConfigurationChanged);
+                break;
+            case TelephonyIntents.ACTION_VOWIFI_ENABLED:
+            case IMS_STATUS_CHANGED:
+                updateImsIcon();
                 break;
             default:
                 int subId = intent.getIntExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX,
