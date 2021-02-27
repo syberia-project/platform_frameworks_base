@@ -65,5 +65,11 @@
     <string name="action_null">Пусто</string>
     <string name="animation_ethans">Ethans</string>
 
+    <!-- Pocket Lock -->
+    <string name="pocket_view_title">Карманный режим включен</string>
+    <string name="pocket_view_title_cancel">Чтобы активировать ваш телефон:</string>
+    <string name="pocket_view_top_tag_cancel">Не закрывайте синюю часть Вашего телефона и удалите любые загрязнения или пыль на этой синей части.</string>
+    <string name="pocket_view_top_tag_cancel2">Длительно удерживайте кнопку питания для принудительного выхода из карманного режима.</string>
+
 </resources>
 
