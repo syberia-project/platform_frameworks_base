@@ -159,11 +159,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
                 mPressPending = true;
             }
 
-            if (!mUpdateMonitor.isScreenOn()) {
-                // Keyguard is shown just after screen turning off
-                return;
-            }
-
             if (mIsBouncer && !isPinOrPattern(mUpdateMonitor.getCurrentUser())) {
                 // Ignore show calls when Keyguard password screen is being shown
                 return;
@@ -564,7 +559,7 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
             // Keyguard requires strong authentication (not biometrics)
             return;
         }
-        
+
         if (!mUpdateMonitor.isScreenOn() && !mFodGestureEnable) {
             // Keyguard is shown just after screen turning off
             return;
