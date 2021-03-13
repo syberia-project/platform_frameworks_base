@@ -32,6 +32,9 @@ import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OV
 
 import static androidx.lifecycle.Lifecycle.State.RESUMED;
 
+import static com.android.settingslib.display.BrightnessUtils.GAMMA_SPACE_MAX;
+import static com.android.settingslib.display.BrightnessUtils.convertGammaToLinearFloat;
+
 import static com.android.systemui.Dependency.TIME_TICK_HANDLER_NAME;
 import static com.android.systemui.charging.WirelessChargingLayout.UNKNOWN_BATTERY_LEVEL;
 import static com.android.systemui.keyguard.WakefulnessLifecycle.WAKEFULNESS_ASLEEP;
@@ -461,7 +464,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private DisplayManager mDisplayManager;
 
-    private int mMinBrightness;
+    private float mMinimumBacklight;
+    private float mMaximumBacklight;
     private int mInitialTouchX;
     private int mInitialTouchY;
     private int mLinger;
@@ -1157,8 +1161,11 @@ public class StatusBar extends SystemUI implements DemoMode,
         mNotificationShadeWindowViewController.setService(this, mNotificationShadeWindowController);
         mNotificationShadeWindowView.setOnTouchListener(getStatusBarWindowTouchListener());
 
-        mMinBrightness = context.getResources().getInteger(
-                com.android.internal.R.integer.config_screenBrightnessDim);
+        PowerManager pm = context.getSystemService(PowerManager.class);;
+        mMinimumBacklight = pm.getBrightnessConstraint(
+                PowerManager.BRIGHTNESS_CONSTRAINT_TYPE_MINIMUM);
+        mMaximumBacklight = pm.getBrightnessConstraint(
+                PowerManager.BRIGHTNESS_CONSTRAINT_TYPE_MAXIMUM);
 
         mQuickQsTotalHeight = context.getResources().getDimensionPixelSize(
             com.android.internal.R.dimen.quick_qs_total_height);
@@ -2487,6 +2494,88 @@ public class StatusBar extends SystemUI implements DemoMode,
         // the bouncer appear animation.
         if (!mStatusBarKeyguardViewManager.isShowing()) {
             WindowManagerGlobal.getInstance().trimMemory(ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN);
+        }
+    }
+
+    private void adjustBrightness(int x) {
+        mBrightnessChanged = true;
+        float raw = ((float) x) / getDisplayWidth();
+
+        // Add a padding to the brightness control on both sides to
+        // make it easier to reach min/max brightness
+        float padded = Math.min(1.0f - BRIGHTNESS_CONTROL_PADDING,
+                Math.max(BRIGHTNESS_CONTROL_PADDING, raw));
+        float value = (padded - BRIGHTNESS_CONTROL_PADDING) /
+                (1 - (2.0f * BRIGHTNESS_CONTROL_PADDING));
+        if (mAutomaticBrightness) {
+            float adj = (2 * value) - 1;
+            adj = Math.max(adj, -1);
+            adj = Math.min(adj, 1);
+            final float val = adj;
+            mDisplayManager.setTemporaryAutoBrightnessAdjustment(val);
+            AsyncTask.execute(new Runnable() {
+                public void run() {
+                    Settings.System.putFloatForUser(mContext.getContentResolver(),
+                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, val,
+                            UserHandle.USER_CURRENT);
+                }
+            });
+        } else {
+            final float val = convertGammaToLinearFloat(
+                    Math.round(value * GAMMA_SPACE_MAX),
+                    mMinimumBacklight, mMaximumBacklight);
+            mDisplayManager.setTemporaryBrightness(val);
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Settings.System.putFloatForUser(mContext.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS_FLOAT, val,
+                            UserHandle.USER_CURRENT);
+                }
+            });
+        }
+    }
+
+    private void brightnessControl(MotionEvent event) {
+        final int action = event.getAction();
+        final int x = (int) event.getRawX();
+        final int y = (int) event.getRawY();
+        mQuickQsTotalHeight = mContext.getResources().getDimensionPixelSize(
+                com.android.internal.R.dimen.quick_qs_total_height);
+        if (action == MotionEvent.ACTION_DOWN) {
+            if (y < mQuickQsTotalHeight) {
+                mLinger = 0;
+                mInitialTouchX = x;
+                mInitialTouchY = y;
+                mJustPeeked = true;
+                mHandler.removeCallbacks(mLongPressBrightnessChange);
+                mHandler.postDelayed(mLongPressBrightnessChange,
+                        BRIGHTNESS_CONTROL_LONG_PRESS_TIMEOUT);
+            }
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            if (y < mQuickQsTotalHeight && mJustPeeked) {
+                if (mLinger > BRIGHTNESS_CONTROL_LINGER_THRESHOLD) {
+                    adjustBrightness(x);
+                } else {
+                    final int xDiff = Math.abs(x - mInitialTouchX);
+                    final int yDiff = Math.abs(y - mInitialTouchY);
+                    final int touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
+                    if (xDiff > yDiff) {
+                        mLinger++;
+                    }
+                    if (xDiff > touchSlop || yDiff > touchSlop) {
+                        mHandler.removeCallbacks(mLongPressBrightnessChange);
+                    }
+                }
+            } else {
+                if (y > mQuickQsTotalHeight) {
+                    mJustPeeked = false;
+                }
+                mHandler.removeCallbacks(mLongPressBrightnessChange);
+            }
+        } else if (action == MotionEvent.ACTION_UP
+                || action == MotionEvent.ACTION_CANCEL) {
+            mHandler.removeCallbacks(mLongPressBrightnessChange);
         }
     }
 
@@ -4780,87 +4869,6 @@ public class StatusBar extends SystemUI implements DemoMode,
     @Override
     public void suppressAmbientDisplay(boolean suppressed) {
         mDozeServiceHost.setDozeSuppressed(suppressed);
-    }
-    private void adjustBrightness(int x) {
-        mBrightnessChanged = true;
-        float raw = ((float) x) / getDisplayWidth();
-
-        // Add a padding to the brightness control on both sides to
-        // make it easier to reach min/max brightness
-        float padded = Math.min(1.0f - BRIGHTNESS_CONTROL_PADDING,
-                Math.max(BRIGHTNESS_CONTROL_PADDING, raw));
-        float value = (padded - BRIGHTNESS_CONTROL_PADDING) /
-                (1 - (2.0f * BRIGHTNESS_CONTROL_PADDING));
-        if (mAutomaticBrightness) {
-            float adj = (2 * value) - 1;
-            adj = Math.max(adj, -1);
-            adj = Math.min(adj, 1);
-            final float val = adj;
-            mDisplayManager.setTemporaryAutoBrightnessAdjustment(val);
-            AsyncTask.execute(new Runnable() {
-                public void run() {
-                    Settings.System.putFloatForUser(mContext.getContentResolver(),
-                            Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, val,
-                            UserHandle.USER_CURRENT);
-                }
-            });
-        } else {
-            int newBrightness = mMinBrightness + (int) Math.round(value *
-                    (PowerManager.BRIGHTNESS_ON - mMinBrightness));
-            newBrightness = Math.min(newBrightness, PowerManager.BRIGHTNESS_ON);
-            newBrightness = Math.max(newBrightness, mMinBrightness);
-            final int val = newBrightness;
-            mDisplayManager.setTemporaryBrightness(val);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Settings.System.putIntForUser(mContext.getContentResolver(),
-                            Settings.System.SCREEN_BRIGHTNESS, val,
-                            UserHandle.USER_CURRENT);
-                }
-            });
-        }
-    }
-
-    private void brightnessControl(MotionEvent event) {
-        final int action = event.getAction();
-        final int x = (int) event.getRawX();
-        final int y = (int) event.getRawY();
-        if (action == MotionEvent.ACTION_DOWN) {
-            if (y < mQuickQsTotalHeight) {
-                mLinger = 0;
-                mInitialTouchX = x;
-                mInitialTouchY = y;
-                mJustPeeked = true;
-                mHandler.removeCallbacks(mLongPressBrightnessChange);
-                mHandler.postDelayed(mLongPressBrightnessChange,
-                        BRIGHTNESS_CONTROL_LONG_PRESS_TIMEOUT);
-            }
-        } else if (action == MotionEvent.ACTION_MOVE) {
-            if (y < mQuickQsTotalHeight && mJustPeeked) {
-                if (mLinger > BRIGHTNESS_CONTROL_LINGER_THRESHOLD) {
-                    adjustBrightness(x);
-                } else {
-                    final int xDiff = Math.abs(x - mInitialTouchX);
-                    final int yDiff = Math.abs(y - mInitialTouchY);
-                    final int touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
-                    if (xDiff > yDiff) {
-                        mLinger++;
-                    }
-                    if (xDiff > touchSlop || yDiff > touchSlop) {
-                        mHandler.removeCallbacks(mLongPressBrightnessChange);
-                    }
-                }
-            } else {
-                if (y > mQuickQsTotalHeight) {
-                    mJustPeeked = false;
-                }
-                mHandler.removeCallbacks(mLongPressBrightnessChange);
-            }
-        } else if (action == MotionEvent.ACTION_UP
-                || action == MotionEvent.ACTION_CANCEL) {
-            mHandler.removeCallbacks(mLongPressBrightnessChange);
-        }
     }
 
     private void setScreenBrightnessMode() {
