@@ -128,4 +128,12 @@
     <string name="vpn_credentials_password">Пароль</string>
     <string name="vpn_credentials_dialog_connect">Подключиться</string>
 
+    <!-- App Lock -->
+    <string name="applock_locked">&#160;заблокировано</string>
+    <string name="applock_fingerprint_face">, отпечаток пальца или лицо для разблокировки</string>
+    <string name="applock_face">&#160;или лицо для разблокировки</string>
+    <string name="applock_fingerprint">&#160;или отпечаток пальца для разблокировки</string>
+    <string name="applock_credential">&#160;для разблокировки</string>
+    <string name="applock_unlock">Разблокировано</string>
+
 </resources>
