@@ -136,4 +136,10 @@
     <string name="applock_credential">&#160;для разблокировки</string>
     <string name="applock_unlock">Разблокировано</string>
 
+    <!-- Alert slide extras -->
+    <string name="volume_ringer_priority_only">Приоритетные</string>
+    <string name="volume_ringer_alarms_only">Будильник</string>
+    <string name="volume_ringer_dnd">Не беспокоить</string>
+    <string name="tristate_flashlight">Фонарик</string>
+
 </resources>
