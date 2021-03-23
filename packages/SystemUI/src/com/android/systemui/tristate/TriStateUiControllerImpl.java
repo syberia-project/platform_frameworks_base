@@ -89,9 +89,7 @@ public class TriStateUiControllerImpl implements TriStateUiController,
     private static final int MODE_RING = 605;
     // Arbitrary value which hopefully doesn't conflict with upstream anytime soon
     private static final int MODE_SILENT = 620;
-    private static final int MODE_FLASHLIGHT_ON = 621;
-    private static final int MODE_FLASHLIGHT_OFF = 622;
-    private static final int MODE_FLASHLIGHT_BLINK = 623;
+    private static final int MODE_FLASHLIGHT = 621;
     private static final int MODE_BRIGHTNESS_BRIGHT = 630;
     private static final int MODE_BRIGHTNESS_DARK = 631;
     private static final int MODE_BRIGHTNESS_AUTO = 632;
@@ -386,17 +384,9 @@ public class TriStateUiControllerImpl implements TriStateUiController,
                         iconId = R.drawable.ic_qs_dnd_on;
                         textId = R.string.volume_ringer_dnd;
                         break;
-                    case MODE_FLASHLIGHT_ON:
+                    case MODE_FLASHLIGHT:
                         iconId = R.drawable.ic_tristate_flashlight;
-                        textId = R.string.tristate_flashlight_on;
-                        break;
-                    case MODE_FLASHLIGHT_OFF:
-                        iconId = R.drawable.ic_tristate_flashlight_off;
-                        textId = R.string.tristate_flashlight_off;
-                        break;
-                    case MODE_FLASHLIGHT_BLINK:
-                        iconId = R.drawable.ic_tristate_flashlight;
-                        textId = R.string.tristate_flashlight_blink;
+                        textId = R.string.tristate_flashlight;
                         break;
                     case MODE_BRIGHTNESS_BRIGHT:
                         iconId = R.drawable.ic_tristate_brightness_bright;
