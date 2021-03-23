@@ -19,4 +19,10 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Подавление мерцания</string>
 
+    <!-- Alert slide extras -->
+    <string name="volume_ringer_priority_only">Приоритетные</string>
+    <string name="volume_ringer_alarms_only">Будильник</string>
+    <string name="volume_ringer_dnd">Не беспокоить</string>
+    <string name="tristate_flashlight">Фонарик</string>
+
 </resources>
