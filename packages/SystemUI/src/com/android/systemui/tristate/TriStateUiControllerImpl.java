@@ -87,7 +87,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
     private static final int TRI_STATE_UI_POSITION_LEFT = 0;
     private static final int TRI_STATE_UI_POSITION_RIGHT = 1;
 
-    private static final long DIALOG_TIMEOUT = 2000;
+    private static final long DIALOG_TIMEOUT = 1500;
     private static final long DIALOG_DELAY = 300;
 
     private Context mContext;
@@ -163,8 +163,6 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
     private LayoutParams mWindowLayoutParams;
     private int mWindowType;
     private String mIntentAction;
-    private boolean mIntentActionSupported;
-    private boolean mSliderPositionChanged;
 
     private final BroadcastReceiver mSliderStateReceiver = new BroadcastReceiver() {
         @Override
@@ -175,19 +173,12 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                 Bundle extras = intent.getExtras();
                 mPosition = extras.getInt(EXTRA_SLIDER_POSITION);
                 mPositionValue = extras.getInt(EXTRA_SLIDER_POSITION_VALUE);
-                mHandler.sendEmptyMessage(MSG_DIALOG_DISMISS);
-                mHandler.sendEmptyMessage(MSG_STATE_CHANGE);
-                mSliderPositionChanged = true;
                 Log.d(TAG, "received slider position " + mPosition
                                     + " with value " + mPositionValue);
+                mTriStateMode = mPosition;
+                updateSliderModeChanged();
             }
 
-            if (mSliderPositionChanged || !mIntentActionSupported) {
-                mSliderPositionChanged = false;
-                if (mTriStateMode != -1) {
-                    mHandler.sendEmptyMessageDelayed(MSG_DIALOG_SHOW, (long) DIALOG_DELAY);
-               }
-            }
         }
     };
 
@@ -233,7 +224,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
             }
         };
         mIntentAction = context.getResources().getString(com.android.internal.R.string.config_alertSliderIntent);
-        mIntentActionSupported = mIntentAction != null && !mIntentAction.isEmpty();
+        boolean mIntentActionSupported = mIntentAction != null && !mIntentAction.isEmpty();
 
         IntentFilter filter = new IntentFilter();
         if (mIntentActionSupported)
@@ -297,6 +288,10 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
         mTriStateIcon = (ImageView) mDialog.findViewById(R.id.tri_state_icon);
         mTriStateText = (TextView) mDialog.findViewById(R.id.tri_state_text);
         updateTheme();
+    }
+
+    public void show() {
+        mHandler.obtainMessage(MSG_DIALOG_SHOW, 0, 0).sendToTarget();
     }
 
     private void registerOrientationListener(boolean enable) {
@@ -463,13 +458,22 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
                 mWindowLayoutParams.y = positionY2 - positionY;
                 mWindowLayoutParams.x = positionX - positionY;
                 mWindow.setAttributes(mWindowLayoutParams);
-                mHandler.sendEmptyMessageDelayed(MSG_RESET_SCHEDULE, DIALOG_TIMEOUT);
+                handleResetTimeout();
             }
+        }
+    }
+
+    private void updateSliderModeChanged() {
+        mHandler.obtainMessage(MSG_STATE_CHANGE, 0, 0).sendToTarget();
+        if (mTriStateMode != -1) {
+            show();
         }
     }
 
     private void handleShow() {
         mHandler.removeMessages(MSG_DIALOG_SHOW);
+        mHandler.removeMessages(MSG_DIALOG_DISMISS);
+        handleResetTimeout();
         if (!mShowing) {
             updateTheme();
             registerOrientationListener(true);
@@ -479,11 +483,11 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
             if (mListener != null) {
                 mListener.onTriStateUserActivity();
             }
-            mHandler.sendEmptyMessageDelayed(MSG_RESET_SCHEDULE, DIALOG_TIMEOUT);
         }
     }
 
     private void handleDismiss() {
+        mHandler.removeMessages(MSG_DIALOG_SHOW);
         mHandler.removeMessages(MSG_DIALOG_DISMISS);
         if (mShowing) {
             registerOrientationListener(false);
@@ -493,7 +497,6 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
     }
 
     private void handleStateChanged() {
-        mHandler.removeMessages(MSG_STATE_CHANGE);
         if (mPositionValue != mTriStateMode) {
             mTriStateMode = mPositionValue;
             updateTriStateLayout();
@@ -504,8 +507,8 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
     }
 
     public void handleResetTimeout() {
-        mHandler.removeMessages(MSG_RESET_SCHEDULE);
-        mHandler.sendEmptyMessage(MSG_DIALOG_DISMISS);
+        mHandler.removeMessages(MSG_DIALOG_DISMISS);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_DIALOG_DISMISS, MSG_RESET_SCHEDULE, 0), (long) DIALOG_TIMEOUT);
         if (mListener != null) {
             mListener.onTriStateUserActivity();
         }
@@ -513,7 +516,7 @@ public class TriStateUiControllerImpl implements ConfigurationController.Configu
 
     @Override
     public void onDensityOrFontScaleChanged() {
-        mHandler.sendEmptyMessage(MSG_DIALOG_DISMISS);
+        handleDismiss();
         initDialog();
         updateTriStateLayout();
     }
