@@ -46,7 +46,6 @@ public class ClockLayout extends FrameLayout {
     private int mBurnInPreventionOffsetY;
 
     private float mDarkAmount;
-    private boolean mBurnInProtection;
 
     public ClockLayout(Context context) {
         this(context, null);
@@ -93,9 +92,6 @@ public class ClockLayout extends FrameLayout {
     }
 
     private void positionChildren() {
-        if (!mBurnInProtection || mAnalogClock == null) {
-            return;
-        }
         final float offsetX = MathUtils.lerp(0f,
                 getBurnInOffset(mBurnInPreventionOffsetX * 2, true) - mBurnInPreventionOffsetX,
                 mDarkAmount);

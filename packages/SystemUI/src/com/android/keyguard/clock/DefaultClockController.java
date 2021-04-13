@@ -68,6 +68,11 @@ public class DefaultClockController implements ClockPlugin {
     private TextView mTextTime;
 
     /**
+     * Date showing below time in preview view hierarchy.
+     */
+    private TextView mTextDate;
+
+    /**
      * Create a DefaultClockController instance.
      *
      * @param res Resources contains title and thumbnail.
@@ -84,12 +89,14 @@ public class DefaultClockController implements ClockPlugin {
     private void createViews() {
         mView = mLayoutInflater.inflate(R.layout.default_clock_preview, null);
         mTextTime = mView.findViewById(R.id.time);
+        mTextDate = mView.findViewById(R.id.date);
     }
 
     @Override
     public void onDestroyView() {
         mView = null;
         mTextTime = null;
+        mTextDate = null;
     }
 
     @Override
@@ -148,6 +155,7 @@ public class DefaultClockController implements ClockPlugin {
     @Override
     public void setTextColor(int color) {
         mTextTime.setTextColor(color);
+        mTextDate.setTextColor(color);
     }
 
     @Override
