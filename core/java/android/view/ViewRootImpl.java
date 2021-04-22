@@ -2187,6 +2187,7 @@ public final class ViewRootImpl implements ViewParent,
                 mWindowAttributes.format);
             return;
         }
+        ScrollOptimizer.setBLASTBufferQueue(mBlastBufferQueue);
 
         // If the SurfaceControl has been updated, destroy and recreate the BBQ to reset the BQ and
         // BBQ states.
