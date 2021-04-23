@@ -141,15 +141,15 @@
     <string name="vpn_credentials_password">Heslo</string>
     <string name="vpn_credentials_dialog_connect">Připojit</string>
     <!-- App Lock -->
-    <string name="applock_locked">&#160;is locked</string>
-    <string name="applock_fingerprint_face">, fingerprint or your face to unlock</string>
-    <string name="applock_face">&#160;or your face to unlock</string>
-    <string name="applock_fingerprint">&#160;or your fingerprint to unlock</string>
-    <string name="applock_credential">&#160;to unlock</string>
-    <string name="applock_unlock">Unlock</string>
+    <string name="applock_locked">&#160;je uzamčena</string>
+    <string name="applock_fingerprint_face">, odemkněte otiskem prstu nebo obličejem</string>
+    <string name="applock_face">&#160;nebo odemkněte obličejem</string>
+    <string name="applock_fingerprint">&#160;nebo odemkněte otiskem prstu</string>
+    <string name="applock_credential">&#160;odemknout</string>
+    <string name="applock_unlock">Odemknout</string>
     <!-- Alert slide extras -->
-    <string name="volume_ringer_priority_only">Priority</string>
-    <string name="volume_ringer_alarms_only">Alarms</string>
-    <string name="volume_ringer_dnd">DnD</string>
-    <string name="tristate_flashlight">Torch</string>
+    <string name="volume_ringer_priority_only">Priorita</string>
+    <string name="volume_ringer_alarms_only">Budíky</string>
+    <string name="volume_ringer_dnd">Nerušit</string>
+    <string name="tristate_flashlight">Svítilna</string>
 </resources>
