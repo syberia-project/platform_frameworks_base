@@ -18,6 +18,7 @@ package com.android.systemui.statusbar
 
 import android.app.ActivityManager
 import android.content.res.Resources
+import android.os.RemoteException;
 import android.os.SystemProperties
 import android.util.MathUtils
 import android.view.SurfaceControl
@@ -99,7 +100,11 @@ open class BlurUtils @Inject constructor(
      * @return {@code true} when supported.
      */
     open fun supportsBlursOnWindows(): Boolean {
-        return blurSupportedSysProp && !blurDisabledSysProp && ActivityManager.isHighEndGfx()
+        var isUiBlurAvailable = false;
+            try {
+               isUiBlurAvailable = ActivityManager.getService().isUiBackgroundBlurAvailable()
+            } catch (e: RemoteException) { }
+        return !blurDisabledSysProp && ActivityManager.isHighEndGfx() && isUiBlurAvailable;
     }
 
     override fun dump(fd: FileDescriptor, pw: PrintWriter, args: Array<out String>) {

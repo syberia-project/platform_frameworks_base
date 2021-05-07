@@ -5903,6 +5903,13 @@ public final class Settings {
          * @hide
          */
         public static final String INCREASING_RING_START_VOLUME = "increasing_ring_start_vol";
+
+        /**
+         * Ramp up time (seconds) for increasing ring
+         * @hide
+         */
+        public static final String INCREASING_RING_RAMP_UP_TIME = "increasing_ring_ramp_up_time";
+
         /**
          * User definable value of pulse notification screen brightness
          *
@@ -5922,17 +5929,18 @@ public final class Settings {
         */
        public static final String DOZE_BRIGHTNESS_FORCE = "doze_brightness_force";
 
-        /**
-         * Ramp up time (seconds) for increasing ring
-         * @hide
-         */
-        public static final String INCREASING_RING_RAMP_UP_TIME = "increasing_ring_ramp_up_time";
 
         /**
          * Whether to show battery percent on ambient bottom
          * @hide
          */
         public static final String AMBIENT_BATTERY_PERCENT = "ambient_battery_percent";
+
+        /**
+         * Whether to use UI blur if supported by device
+         * @hide
+         */
+        public static final String UI_BACKGROUND_BLUR = "ui_background_blur";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
