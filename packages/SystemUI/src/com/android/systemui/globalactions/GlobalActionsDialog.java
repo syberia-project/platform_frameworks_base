@@ -49,6 +49,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.pm.UserInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -961,7 +962,8 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(panicPackage, PANIC_ACTIVITY));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if (mContext.getPackageManager().resolveActivity(intent, 0) != null) {
+            if (mContext.getPackageManager().resolveActivity(intent,
+                    PackageManager.MATCH_SYSTEM_ONLY) != null) {
                 PANIC_PACKAGE = panicPackage;
                 return true;
             }
@@ -1496,7 +1498,8 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(PANIC_PACKAGE, PANIC_ACTIVITY));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if (mContext.getPackageManager().resolveActivity(intent, 0) != null) {
+            if (mContext.getPackageManager().resolveActivity(intent,
+                    PackageManager.MATCH_SYSTEM_ONLY) != null) {
                 mContext.startActivity(intent);
             }
         }
@@ -1505,7 +1508,8 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(PANIC_PACKAGE, PANIC_SETTINGS));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if (mContext.getPackageManager().resolveActivity(intent, 0) != null) {
+            if (mContext.getPackageManager().resolveActivity(intent,
+                    PackageManager.MATCH_SYSTEM_ONLY) != null) {
                 mContext.startActivity(intent);
                 return true;
             } else {
