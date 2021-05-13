@@ -92,5 +92,6 @@
     <!-- Screenrecord QS tile -->
     <string name="screenrecord_stopdot_label">Показывать точку остановки\nДлительное нажатие для перемещения</string>
     <string name="screenrecord_lowquality_label">Более низкое качество для уменьшения размера файла</string>
+    <string name="screenrecord_longer_timeout_switch_label">Больший размер файла\nОграничение размера записи до 15 Гб</string>
 
 </resources>
