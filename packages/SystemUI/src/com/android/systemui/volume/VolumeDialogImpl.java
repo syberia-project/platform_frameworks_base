@@ -198,7 +198,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private boolean mLeftVolumeRocker;
 
     // Volume panel placement left or right
-    private boolean mHasAlertSlider;
     private boolean mVolumePanelOnLeft;
 
     private LocalMediaManager mLocalMediaManager;
@@ -228,7 +227,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         mShowActiveStreamOnly = showActiveStreamOnly();
         mHasSeenODICaptionsTooltip =
                 Prefs.getBoolean(context, Prefs.Key.HAS_SEEN_ODI_CAPTIONS_TOOLTIP, false);
-        mHasAlertSlider = mContext.getResources().getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
         mVolumePanelOnLeft = mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide);
         mVibrateOnSlider = mContext.getResources().getBoolean(R.bool.config_vibrateOnIconAnimation);
         mElevation = mContext.getResources().getDimension(R.dimen.volume_dialog_elevation);
@@ -367,7 +365,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (mRinger != null) {
             mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
             mZenIcon = mRinger.findViewById(R.id.dnd_icon);
-            Util.setVisOrGone(mRinger, !mHasAlertSlider);
+            Util.setVisOrGone(mRinger, true);
         }
 
         mODICaptionsView = mDialog.findViewById(R.id.odi_captions);
@@ -653,8 +651,8 @@ public class VolumeDialogImpl implements VolumeDialog,
             });
             mMediaButton.setOnClickListener(v -> {
                 int x = (int) (isLandscape() ? (mVolumePanelOnLeft ? (
-                        (mWidth + mSpacer) * (mHasAlertSlider ? 1 : 2) + mWidth / 2)
-                        : (mHasAlertSlider ? mWidth * 1.5 + mSpacer : mWidth / 2))
+                        (mWidth + mSpacer) * 2 + mWidth / 2)
+                        : mWidth / 2)
                         : (1.5 * mWidth + mSpacer));
                 int endRadius = (int) Math.hypot((isLandscape() ? 2.2 : 1.1) * (1.5 * mWidth +
                         mSpacer), mHeight);
@@ -1966,12 +1964,6 @@ public class VolumeDialogImpl implements VolumeDialog,
             if (mRow.ss == null) return;
             if (D.BUG) Log.d(TAG, AudioSystem.streamToString(mRow.stream)
                     + " onProgressChanged " + progress + " fromUser=" + fromUser);
-            if ((mRow.stream == STREAM_RING || mRow.stream == STREAM_NOTIFICATION) && mHasAlertSlider) {
-                if (mRow.ss.muted) {
-                    seekBar.setProgress(0);
-                    return;
-                }
-            }
             if (!fromUser) return;
             if (mRow.ss.levelMin > 0) {
                 final int minProgress = mRow.ss.levelMin * 100;
@@ -1981,15 +1973,6 @@ public class VolumeDialogImpl implements VolumeDialog,
                 }
             }
             final int userLevel = getImpliedLevel(seekBar, progress);
-
-            if ((mRow.stream == STREAM_RING || mRow.stream == STREAM_NOTIFICATION) && mHasAlertSlider) {
-                if (mRow.ss.level > mRow.ss.levelMin && userLevel == 0) {
-                    seekBar.setProgress((mRow.ss.levelMin + 1) * 100);
-                    Util.setText(mRow.header,
-                            Utils.formatPercentage(mRow.ss.levelMin + 1, mRow.ss.levelMax));
-                    return;
-                }
-            }
 
             Util.setText(mRow.header, Utils.formatPercentage(userLevel, mRow.ss.levelMax));
             if (mRow.ss.level != userLevel || mRow.ss.muted && userLevel > 0) {
