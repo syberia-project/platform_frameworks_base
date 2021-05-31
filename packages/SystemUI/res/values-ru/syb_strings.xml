@@ -145,4 +145,7 @@
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Подавление мерцания</string>
 
+    <!-- Sleep Mode -->
+    <string name="quick_settings_sleep_mode_label">Режим сна</string>
+
 </resources>

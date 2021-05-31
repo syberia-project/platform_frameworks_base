@@ -71,5 +71,11 @@
     <string name="pocket_view_top_tag_cancel">Не закрывайте синюю часть Вашего телефона и удалите любые загрязнения или пыль на этой синей части.</string>
     <string name="pocket_view_top_tag_cancel2">Длительно удерживайте кнопку питания для принудительного выхода из карманного режима.</string>
 
-</resources>
+    <!-- Sleep Mode -->
+    <string name="notification_channel_sleep">Режим сна</string>
+    <string name="sleep_mode_notification_title">Режим сна включен</string>
+    <string name="sleep_mode_notification_content">Нажмите чтобы выключить режим сна</string>
+    <string name="sleep_mode_enabled_toast">Режим сна включен</string>
+    <string name="sleep_mode_disabled_toast">Режим сна выключен</string>
 
+</resources>
