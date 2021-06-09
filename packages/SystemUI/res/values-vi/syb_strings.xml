@@ -141,15 +141,15 @@
     <string name="vpn_credentials_password">Mật khẩu</string>
     <string name="vpn_credentials_dialog_connect">Kết nối</string>
     <!-- App Lock -->
-    <string name="applock_locked">&#160;is locked</string>
-    <string name="applock_fingerprint_face">, fingerprint or your face to unlock</string>
-    <string name="applock_face">&#160;or your face to unlock</string>
-    <string name="applock_fingerprint">&#160;or your fingerprint to unlock</string>
-    <string name="applock_credential">&#160;to unlock</string>
-    <string name="applock_unlock">Unlock</string>
+    <string name="applock_locked">&#160;đã khóa</string>
+    <string name="applock_fingerprint_face">, vân tay hoặc khuôn mặt của bạn để mở khóa</string>
+    <string name="applock_face">&#160;hoặc khuôn mặt của bạn để mở khóa</string>
+    <string name="applock_fingerprint">&#160;hoặc vân tay của bạn để mở khóa</string>
+    <string name="applock_credential">&#160;để mở khóa</string>
+    <string name="applock_unlock">Mở khóa</string>
     <!-- Alert slide extras -->
-    <string name="volume_ringer_priority_only">Priority</string>
-    <string name="volume_ringer_alarms_only">Alarms</string>
+    <string name="volume_ringer_priority_only">Ưu tiên</string>
+    <string name="volume_ringer_alarms_only">Báo thức</string>
     <string name="volume_ringer_dnd">DnD</string>
-    <string name="tristate_flashlight">Torch</string>
+    <string name="tristate_flashlight">Đèn pin</string>
 </resources>

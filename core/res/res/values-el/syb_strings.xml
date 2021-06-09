@@ -73,10 +73,10 @@
     <string name="animation_ethans">Έθανς</string>
     <!-- Whether device supports an alt. ambient display -->
     <!-- Pocket Lock -->
-    <string name="pocket_view_title">Pocket mode is on</string>
-    <string name="pocket_view_title_cancel">To activate your phone:</string>
-    <string name="pocket_view_top_tag_cancel">Do not cover the blue area of your phone, and clean any dirt or dust off.</string>
-    <string name="pocket_view_top_tag_cancel2">Long press the power button to force quit pocket mode</string>
+    <string name="pocket_view_title">Η λειτουργία τσέπης είναι ενεργοποιημένη</string>
+    <string name="pocket_view_title_cancel">Για να ενεργοποιήσετε το τηλέφωνό σας:</string>
+    <string name="pocket_view_top_tag_cancel">Μην καλύπτετε την μπλε περιοχή του τηλεφώνου σας και καθαρίστε τυχόν βρωμιά ή σκόνη.</string>
+    <string name="pocket_view_top_tag_cancel2">Πατήστε παρατεταμένα το κουμπί τροφοδοσίας για εξαναγκασμό τερματισμού λειτουργίας τσέπης</string>
     <string name="pocket_view_top_tag_number1">1.\u0020</string>
     <string name="pocket_view_top_tag_number2">2.\u0020</string>
 </resources>

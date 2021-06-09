@@ -73,10 +73,10 @@
     <string name="animation_ethans">Ética</string>
     <!-- Whether device supports an alt. ambient display -->
     <!-- Pocket Lock -->
-    <string name="pocket_view_title">Pocket mode is on</string>
-    <string name="pocket_view_title_cancel">To activate your phone:</string>
-    <string name="pocket_view_top_tag_cancel">Do not cover the blue area of your phone, and clean any dirt or dust off.</string>
-    <string name="pocket_view_top_tag_cancel2">Long press the power button to force quit pocket mode</string>
+    <string name="pocket_view_title">Modo bolso está ativado</string>
+    <string name="pocket_view_title_cancel">Ativar seu telefone:</string>
+    <string name="pocket_view_top_tag_cancel">Não cubra a área azul do seu telefone, limpe qualquer sujeira ou poeira.</string>
+    <string name="pocket_view_top_tag_cancel2">Pressione e segure o botão liga/desliga para forçar a saída do modo bolso</string>
     <string name="pocket_view_top_tag_number1">1.\u0020</string>
     <string name="pocket_view_top_tag_number2">2.\u0020</string>
 </resources>
