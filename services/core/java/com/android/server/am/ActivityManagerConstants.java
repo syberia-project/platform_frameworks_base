@@ -121,8 +121,8 @@ final class ActivityManagerConstants extends ContentObserver {
     private static final boolean DEFAULT_PROCESS_START_ASYNC = true;
     private static final long DEFAULT_MEMORY_INFO_THROTTLE_TIME = 5*60*1000;
     private static final long DEFAULT_TOP_TO_FGS_GRACE_DURATION = 15 * 1000;
+    private static final int DEFAULT_PENDINGINTENT_ERROR_THRESHOLD = 5000;
     private static final int DEFAULT_PENDINGINTENT_WARNING_THRESHOLD = 2000;
-
     // Flag stored in the DeviceConfig API.
     /**
      * Maximum number of cached processes.
@@ -336,6 +336,12 @@ final class ActivityManagerConstants extends ContentObserver {
      * warning logs if the number goes beyond this threshold.
      */
     public int PENDINGINTENT_WARNING_THRESHOLD =  DEFAULT_PENDINGINTENT_WARNING_THRESHOLD;
+
+    /**
+     * The threshold for the amount of PendingIntent for each UID, there will be
+     * security exceptions if the number goes beyond this threshold.
+     */
+    public int PENDINGINTENT_ERROR_THRESHOLD = DEFAULT_PENDINGINTENT_ERROR_THRESHOLD;
 
     /**
      * Component names of the services which will keep critical code path of the host warm

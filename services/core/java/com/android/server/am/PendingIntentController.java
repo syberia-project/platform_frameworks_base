@@ -162,8 +162,8 @@ public class PendingIntentController {
                 return rec;
             }
             rec = new PendingIntentRecord(this, key, callingUid);
-            mIntentSenderRecords.put(key, rec.ref);
             incrementUidStatLocked(rec);
+            mIntentSenderRecords.put(key, rec.ref);
             return rec;
         }
     }
@@ -411,7 +411,8 @@ public class PendingIntentController {
 
     /**
      * Increment the number of the PendingIntentRecord for the given uid, log a warning
-     * if there are too many for this uid already.
+     * if the number reached the pendingintent warning threshold. Even more throws
+     * security exception if the number reached the pendingintent error threshold.
      */
     @GuardedBy("mLock")
     void incrementUidStatLocked(final PendingIntentRecord pir) {
@@ -433,7 +434,13 @@ public class PendingIntentController {
             mRecentIntentsPerUid.put(uid, recentHistory);
         } else if (newCount > lowBound && newCount <= mConstants.PENDINGINTENT_WARNING_THRESHOLD) {
             recentHistory = mRecentIntentsPerUid.get(uid);
+        } else if (newCount >= mConstants.PENDINGINTENT_ERROR_THRESHOLD) {
+            String msg = "Too many PendingIntent created for uid " + uid
+                    + ", aborting " + pir.key.toString();
+            Slog.w(TAG, msg);
+            throw new SecurityException(msg);
         }
+
         if (recentHistory == null) {
             return;
         }
