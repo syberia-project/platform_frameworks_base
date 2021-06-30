@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e713cdd7_3e38fb14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-06-30T10:40:27Z",
+      "side": 1,
+      "message": "Scroll in goolag play and some other apps lags af",
+      "revId": "6a5fb2f796665215e286f10fc1e281b5efc43887",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    }
+  ]
+}
