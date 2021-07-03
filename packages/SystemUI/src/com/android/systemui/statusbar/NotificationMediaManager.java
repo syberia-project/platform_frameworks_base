@@ -354,6 +354,10 @@ public class NotificationMediaManager implements Dumpable {
         return mMediaNotificationKey;
     }
 
+    public MediaArtworkProcessor getMediaArtworkProcessor() {
+        return mMediaArtworkProcessor;
+    }
+
     public MediaMetadata getMediaMetadata() {
         return mMediaMetadata;
     }

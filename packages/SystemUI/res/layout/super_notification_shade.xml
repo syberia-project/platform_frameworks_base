@@ -21,6 +21,7 @@
 <com.android.systemui.statusbar.phone.NotificationShadeWindowView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sysui="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -50,6 +51,33 @@
         android:importantForAccessibility="no"
         sysui:ignoreRightInset="true"
         />
+
+    <FrameLayout
+        android:id="@+id/ambient_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        sysui:ignoreRightInset="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ambient_text_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            sysui:ignoreRightInset="true">
+            <TextView
+                android:id="@+id/ambient_text"
+                android:animateLayoutChanges="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.02"
+                android:textColor="?attr/wallpaperTextColor"
+                android:textSize="24sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <com.android.systemui.statusbar.VisualizerView
         android:id="@+id/visualizerview"

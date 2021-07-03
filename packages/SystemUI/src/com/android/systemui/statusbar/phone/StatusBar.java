@@ -140,10 +140,13 @@ import android.widget.DateTimeView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.colorextraction.ColorExtractor;
@@ -262,6 +265,7 @@ import com.android.systemui.statusbar.policy.RemoteInputQuickSettingsDisabler;
 import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
+import com.android.systemui.synth.ambient.AmbientController;
 import com.android.systemui.volume.VolumeComponent;
 
 import java.io.FileDescriptor;
@@ -527,6 +531,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             mLinger = BRIGHTNESS_CONTROL_LINGER_THRESHOLD + 1;
         }
     };
+
+    private AmbientController mAmbientController;
+    private TextView mAmbientTextView;
+    private FrameLayout mAmbientContainer;
+    private ConstraintLayout mAmbientTextContainer;
 
     // ensure quick settings is disabled until the current user makes it through the setup wizard
     @VisibleForTesting
@@ -1221,6 +1230,11 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         mQuickQsTotalHeight = context.getResources().getDimensionPixelSize(
             com.android.internal.R.dimen.quick_qs_total_height);
+
+        mAmbientContainer = mNotificationShadeWindowView.findViewById(R.id.ambient_container);
+        mAmbientTextContainer = mNotificationShadeWindowView.findViewById(R.id.ambient_text_container);
+        mAmbientTextView = mNotificationShadeWindowView.findViewById(R.id.ambient_text);
+        mAmbientController = new AmbientController(context, mAmbientContainer, mAmbientTextContainer, mAmbientTextView, mNotificationPanelViewController);
 
         // TODO: Deal with the ugliness that comes from having some of the statusbar broken out
         // into fragments, but the rest here, it leaves some awkward lifecycle and whatnot.
@@ -4026,6 +4040,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         mNotificationPanelViewController.setDozing(mDozing, animate, mWakeUpTouchLocation);
         mVisualizerView.setDozing(mDozing);
+        mAmbientController.setDozing(mDozing);
         updateQsExpansionEnabled();
         Trace.endSection();
     }
@@ -4164,8 +4179,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         updateScrimController();
         mPresenter.updateMediaMetaData(false, mState != StatusBarState.KEYGUARD);
         mVisualizerView.setStatusBarState(newState);
+        mAmbientController.setKeyguardShowing(mState == StatusBarState.KEYGUARD);
         updateKeyguardState();
         Trace.endSection();
+    }
+
+    public AmbientController getAmbientController() {
+        return mAmbientController;
     }
 
     @Override
