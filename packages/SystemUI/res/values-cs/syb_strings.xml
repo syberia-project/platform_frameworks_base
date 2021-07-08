@@ -152,4 +152,6 @@
     <string name="volume_ringer_alarms_only">Budíky</string>
     <string name="volume_ringer_dnd">Nerušit</string>
     <string name="tristate_flashlight">Svítilna</string>
+    <!-- Anti flicker QS tile -->
+    <string name="quick_settings_anti_flicker">Anti flicker</string>
 </resources>

@@ -152,4 +152,6 @@
     <string name="volume_ringer_alarms_only">Alarmes</string>
     <string name="volume_ringer_dnd">Não Perturbe</string>
     <string name="tristate_flashlight">Lanterna</string>
+    <!-- Anti flicker QS tile -->
+    <string name="quick_settings_anti_flicker">Anti flicker</string>
 </resources>
