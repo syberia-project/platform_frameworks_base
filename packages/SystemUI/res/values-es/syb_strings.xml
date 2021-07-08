@@ -153,5 +153,5 @@
     <string name="volume_ringer_dnd">No Molestar</string>
     <string name="tristate_flashlight">Linterna</string>
     <!-- Anti flicker QS tile -->
-    <string name="quick_settings_anti_flicker">Anti flicker</string>
+    <string name="quick_settings_anti_flicker">Antiparpadeo</string>
 </resources>
