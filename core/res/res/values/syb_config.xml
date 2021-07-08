@@ -89,4 +89,7 @@
     <string name="config_batterymeterLandPowersavePathiOS16" translatable="false">@string/config_batterymeterLandPerimeterPathiOS16</string>
     <string name="config_batterymeterLandErrorPerimeterPathiOS16" translatable="false">@string/config_batterymeterLandPerimeterPathiOS16</string>
 
+    <!-- For dynamic default font styles -->
+    <java-symbol type="string" name="config_bodyFontFamily" />
+
 </resources>
