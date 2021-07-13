@@ -3649,7 +3649,7 @@ public class NotificationPanelViewController extends PanelViewController {
                 Settings.Secure.DOZE_ALWAYS_ON, 0, UserHandle.USER_CURRENT) == 1;
         ExpandableNotificationRow row = mStackScrollLayout.getFirstActiveClearableNotifications(ROWS_ALL);
         boolean activeNotif = row != null;
-        int pulseReason = Settings.System.getIntForUser(mView.getContext().getContentResolver(),
+        int pulseReason = Settings.System.getIntForUser(resolver,
                 Settings.System.PULSE_TRIGGER_REASON, DozeLog.PULSE_REASON_NONE, UserHandle.USER_CURRENT);
         boolean pulseReasonNotification = pulseReason == DozeLog.PULSE_REASON_NOTIFICATION;
         boolean ambientLightsHideAod = Settings.System.getIntForUser(resolver,
@@ -3676,7 +3676,7 @@ public class NotificationPanelViewController extends PanelViewController {
                         + " pulseReason = " + pulseReason + " ambientLightsTimeout = " + ambientLightsTimeout);
             }
             int pulseColor = mPulseLightsView.getNotificationLightsColor();
-            if (row != null) {
+            if (activeNotif) {
                 if (DEBUG_PULSE_LIGHT) {
                     Log.d(TAG, "setPulsing notification = " + row.getNotificationColor());
                 }

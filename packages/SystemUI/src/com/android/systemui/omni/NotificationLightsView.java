@@ -21,26 +21,16 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
-import android.app.WallpaperColors;
 import android.app.WallpaperManager;
-import android.app.WallpaperInfo;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.palette.graphics.Palette;
@@ -82,24 +72,23 @@ public class NotificationLightsView extends RelativeLayout {
     }
 
     public int getNotificationLightsColor() {
-        int colorMode = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.NOTIFICATION_PULSE_COLOR_MODE,
-                0, UserHandle.USER_CURRENT);
-        int color = getDefaultNotificationLightsColor(); // custom color (fallback)
+        final ContentResolver resolver = mContext.getContentResolver();
+        int colorMode = Settings.System.getIntForUser(resolver,
+                Settings.System.NOTIFICATION_PULSE_COLOR_MODE, 0,
+                UserHandle.USER_CURRENT);
+        int color = Settings.System.getIntForUser(resolver,
+                Settings.System.NOTIFICATION_PULSE_COLOR,
+                Utils.getColorAccentDefaultColor(mContext),
+                UserHandle.USER_CURRENT); // custom color (fallback)
         if (colorMode == 0) { // accent
-            color = Utils.getColorAccentDefaultColor(getContext());
-        } else if (colorMode == 1) { // wallpapper
+            color = Utils.getColorAccentDefaultColor(mContext);
+        } else if (colorMode == 1) { // wallpaper
             try {
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-                WallpaperInfo wallpaperInfo = wallpaperManager.getWallpaperInfo();
-                if (wallpaperInfo == null) { // if not a live wallpaper
-                    Drawable wallpaperDrawable = wallpaperManager.getDrawable();
-                    Bitmap bitmap = ((BitmapDrawable)wallpaperDrawable).getBitmap();
+                if (wallpaperManager.getWallpaperInfo() == null) { // if not a live wallpaper
+                    Bitmap bitmap = ((BitmapDrawable) wallpaperManager.getDrawable()).getBitmap();
                     if (bitmap != null) { // if wallpaper is not blank
-                        Palette p = Palette.from(bitmap).generate();
-                        int wallColor = p.getDominantColor(color);
-                        if (color != wallColor)
-                            color = wallColor;
+                        color = Palette.from(bitmap).generate().getDominantColor(color);
                     }
                 }
             } catch (Exception e) { /* nothing to do, will use fallback */ }
@@ -107,15 +96,8 @@ public class NotificationLightsView extends RelativeLayout {
         return color;
     }
 
-    public int getDefaultNotificationLightsColor() {
-        int defaultColor = Utils.getColorAccentDefaultColor(getContext());
-        return Settings.System.getIntForUser(mContext.getContentResolver(),
-                    Settings.System.NOTIFICATION_PULSE_COLOR, defaultColor,
-                    UserHandle.USER_CURRENT);
-    }
-
     public void animateNotificationWithColor(int color) {
-        ContentResolver resolver = mContext.getContentResolver();
+        final ContentResolver resolver = mContext.getContentResolver();
         int duration = Settings.System.getIntForUser(resolver,
                 Settings.System.NOTIFICATION_PULSE_DURATION, 2,
                 UserHandle.USER_CURRENT) * 1000; // seconds to ms
@@ -127,7 +109,7 @@ public class NotificationLightsView extends RelativeLayout {
         ImageView rightView = (ImageView) findViewById(R.id.notification_animation_right);
         leftView.setColorFilter(color);
         rightView.setColorFilter(color);
-        mLightAnimator = ValueAnimator.ofFloat(new float[]{0.0f, 2.0f});
+        mLightAnimator = ValueAnimator.ofFloat(0.0f, 2.0f);
         mLightAnimator.setDuration(duration);
         mLightAnimator.setRepeatCount(repeats == 0 ?
                 ValueAnimator.INFINITE : repeats);
@@ -152,6 +134,7 @@ public class NotificationLightsView extends RelativeLayout {
             });
         }
         mLightAnimator.addUpdateListener(new AnimatorUpdateListener() {
+            @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 if (DEBUG) Log.d(TAG, "onAnimationUpdate");
                 float progress = ((Float) animation.getAnimatedValue()).floatValue();
