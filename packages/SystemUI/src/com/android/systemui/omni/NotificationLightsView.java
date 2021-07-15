@@ -21,11 +21,10 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
+import android.app.WallpaperColors;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -33,15 +32,12 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import androidx.palette.graphics.Palette;
-
 import com.android.settingslib.Utils;
 import com.android.systemui.R;
 
 public class NotificationLightsView extends RelativeLayout {
     private static final boolean DEBUG = false;
     private static final String TAG = "NotificationLightsView";
-    private static final String CANCEL_NOTIFICATION_PULSE_ACTION = "cancel_notification_pulse";
     private ValueAnimator mLightAnimator;
 
     public NotificationLightsView(Context context) {
@@ -83,15 +79,11 @@ public class NotificationLightsView extends RelativeLayout {
         if (colorMode == 0) { // accent
             color = Utils.getColorAccentDefaultColor(mContext);
         } else if (colorMode == 1) { // wallpaper
-            try {
-                WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
-                if (wallpaperManager.getWallpaperInfo() == null) { // if not a live wallpaper
-                    Bitmap bitmap = ((BitmapDrawable) wallpaperManager.getDrawable()).getBitmap();
-                    if (bitmap != null) { // if wallpaper is not blank
-                        color = Palette.from(bitmap).generate().getDominantColor(color);
-                    }
-                }
-            } catch (Exception e) { /* nothing to do, will use fallback */ }
+            WallpaperColors wallpaperColors = WallpaperManager.getInstance(mContext)
+                .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
+            if (wallpaperColors != null) {
+                color = wallpaperColors.getPrimaryColor().toArgb();
+            }
         }
         return color;
     }
@@ -137,17 +129,15 @@ public class NotificationLightsView extends RelativeLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 if (DEBUG) Log.d(TAG, "onAnimationUpdate");
-                float progress = ((Float) animation.getAnimatedValue()).floatValue();
-                leftView.setScaleY(progress);
-                rightView.setScaleY(progress);
+                float progress = (float) animation.getAnimatedValue();
+                setScaleY(progress);
                 float alpha = 1.0f;
                 if (progress <= 0.3f) {
                     alpha = progress / 0.3f;
                 } else if (progress >= 1.0f) {
                     alpha = 2.0f - progress;
                 }
-                leftView.setAlpha(alpha);
-                rightView.setAlpha(alpha);
+                setAlpha(alpha);
             }
         });
         if (DEBUG) Log.d(TAG, "start");
