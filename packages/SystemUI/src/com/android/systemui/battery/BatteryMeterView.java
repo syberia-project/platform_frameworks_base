@@ -378,7 +378,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
             // Use the high voltage symbol ⚡ (u26A1 unicode) but prevent the system
             // to load its emoji colored variant with the uFE0E flag
             String bolt = "\u26A1\uFE0E";
-            CharSequence mChargeIndicator = mCharging && (mBatteryStyle == BATTERY_STYLE_HIDDEN ||
+            CharSequence mChargeIndicator = !isCharging() && (mBatteryStyle == BATTERY_STYLE_HIDDEN ||
                     mBatteryStyle == BATTERY_STYLE_TEXT) ? (bolt + " ") : "";
             String percentText = mChargeIndicator + text;
             // Setting text actually triggers a layout pass (because the text view is set to
@@ -428,7 +428,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     void updateShowPercent() {
         boolean drawPercentInside = mShowBatteryPercent == 1
                                     && !isCharging() && !mBatteryStateUnknown;
-        boolean showPercent = mShowBatteryPercent == 2
+        boolean showPercent = mShowBatteryPercent >= 2
                                     || mBatteryStyle == BATTERY_STYLE_TEXT
                                     || mShowPercentMode == MODE_ON;
         showPercent = showPercent && !mBatteryStateUnknown
@@ -461,6 +461,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                 Resources res = getContext().getResources();
                 mBatteryPercentView.setPaddingRelative(
                         res.getDimensionPixelSize(R.dimen.battery_level_padding_start), 0, 0, 0);
+                setLayoutDirection(mShowBatteryPercent > 2 ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
             }
 
         } else {
