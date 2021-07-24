@@ -88,6 +88,8 @@ LOCAL_REQUIRED_MODULES := \
 	FontTaurusSourceOverlay \
 	FontTechnicalSourceOverlay \
 	FontMontserratSourceOverlay \
+        IconPackOOSAndroidOverlay \
+        IconPackOOSSystemUIOverlay \
         IconShapeCylinderOverlay \
         IconShapeHeartOverlay \
         IconShapeHexagonOverlay \
