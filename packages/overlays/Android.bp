@@ -76,7 +76,9 @@ phony {
         "IconShapeSquircleOverlay",
         "IconShapeTaperedRectOverlay",
         "IconShapeTeardropOverlay",
-        "IconShapeVesselOverlay"
+        "IconShapeVesselOverlay",
+        "IconPackOOSAndroidOverlay",
+        "IconPackOOSSystemUIOverlay"
 
     ],
 }
