@@ -5823,6 +5823,12 @@ public final class Settings {
         public static final String STATUSBAR_CLOCK_STYLE = "statusbar_clock_style";
 
         /**
+         * Switch between different rounded styles
+         * @hide
+         */
+        public static final String BERRY_ROUNDED_STYLE = "berry_rounded_style";
+
+        /**
          * Whether to show seconds next to clock in status bar
          * 0 - hide (default)
          * 1 - show
