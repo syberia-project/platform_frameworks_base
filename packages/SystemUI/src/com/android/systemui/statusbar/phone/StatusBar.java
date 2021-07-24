@@ -250,6 +250,7 @@ import com.android.systemui.statusbar.policy.RemoteInputQuickSettingsDisabler;
 import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.volume.VolumeComponent;
 
 import java.io.FileDescriptor;
@@ -270,7 +271,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         OnHeadsUpChangedListener, CommandQueue.Callbacks,
         ColorExtractor.OnColorsChangedListener, ConfigurationListener,
         StatusBarStateController.StateListener, ActivityLaunchAnimator.Callback,
-        LifecycleOwner, BatteryController.BatteryStateChangeCallback, PackageChangedListener  {
+        LifecycleOwner, BatteryController.BatteryStateChangeCallback, PackageChangedListener,
+        TunerService.Tunable {
     public static final boolean MULTIUSER_DEBUG = false;
 
     protected static final int MSG_HIDE_RECENT_APPS = 1020;
@@ -294,6 +296,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             "com.android.systemui.statusbar.banner_action_cancel";
     private static final String BANNER_ACTION_SETUP =
             "com.android.systemui.statusbar.banner_action_setup";
+    private static final String BERRY_ROUNDED_STYLE =
+            "system:" + Settings.System.BERRY_ROUNDED_STYLE;
     public static final String TAG = "StatusBar";
     public static final boolean DEBUG = false;
     public static final boolean SPEW = false;
@@ -432,6 +436,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     private final ExtensionController mExtensionController;
     private final UserInfoControllerImpl mUserInfoControllerImpl;
     private final DismissCallbackRegistry mDismissCallbackRegistry;
+    private final TunerService mTunerService;
     private NotificationsController mNotificationsController;
 
     protected TaskHelper mTaskHelper;
@@ -719,6 +724,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private ActivityIntentHelper mActivityIntentHelper;
 
+    private int mRoundedStyle;
+
     private StatusBarSettingsObserver mStatusBarSettingsObserver = new StatusBarSettingsObserver(mHandler);
     private class StatusBarSettingsObserver extends ContentObserver {
         StatusBarSettingsObserver(Handler handler) {
@@ -878,7 +885,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             DismissCallbackRegistry dismissCallbackRegistry,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
             StatusBarTouchableRegionManager statusBarTouchableRegionManager,
-            TaskHelper taskHelper) {
+            TaskHelper taskHelper, TunerService tunerService) {
         super(context);
         mNotificationsController = notificationsController;
         mLightBarController = lightBarController;
@@ -957,6 +964,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         mIconPolicy = phoneStatusBarPolicy;
         mDismissCallbackRegistry = dismissCallbackRegistry;
         mTaskHelper = taskHelper;
+        mTunerService = tunerService;
 
         mBubbleExpandListener =
                 (isExpanding, key) -> {
@@ -981,6 +989,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         mColorExtractor.addOnColorsChangedListener(this);
         mStatusBarStateController.addCallback(this,
                 SysuiStatusBarStateController.RANK_STATUS_BAR);
+
+        mTunerService.addTunable(this, BERRY_ROUNDED_STYLE);
 
         mDisplayManager = mContext.getSystemService(DisplayManager.class);
 
@@ -3886,6 +3896,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private void updateRoundedStyle() {
+        mUiOffloadThread.execute(() -> {
+            ThemeAccentUtils.setRoundedStyle(mOverlayManager, mRoundedStyle);
+        });
+    }
+
     private void updateDozingState() {
         Trace.traceCounter(Trace.TRACE_TAG_APP, "dozing", mDozing ? 1 : 0);
         Trace.beginSection("StatusBar#updateDozingState");
@@ -4887,6 +4903,23 @@ public class StatusBar extends SystemUI implements DemoMode,
     public void startAssist(Bundle args) {
         mAssistManagerLazy.get().startAssist(args);
     }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case BERRY_ROUNDED_STYLE:
+                int roundedStyle =
+                        TunerService.parseInteger(newValue, 0);
+                if (mRoundedStyle != roundedStyle) {
+                    mRoundedStyle = roundedStyle;
+                    updateRoundedStyle();
+                }
+                break;
+            default:
+                break;
+         }
+    }
+
     // End Extra BaseStatusBarMethods.
 
     public NotificationGutsManager getGutsManager() {
