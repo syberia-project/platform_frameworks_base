@@ -908,6 +908,9 @@ public class MobileSignalController extends SignalController<
                 // Vivo
                 case 8:
                     return TelephonyIcons.VOWIFI_VIVO;
+                // Syberia
+                case 9:
+                    return TelephonyIcons.VOWIFI_Syberia;
                 default:
                     return TelephonyIcons.VOWIFI;
             }
