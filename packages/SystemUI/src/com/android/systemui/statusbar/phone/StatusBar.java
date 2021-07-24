@@ -145,6 +145,7 @@ import com.android.internal.logging.UiEventLoggerImpl;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.RegisterStatusBarResult;
+import com.android.internal.statusbar.ThemeAccentUtils;
 import com.android.internal.util.hwkeys.ActionConstants;
 import com.android.internal.util.hwkeys.ActionUtils;
 import com.android.internal.util.hwkeys.PackageMonitor;
@@ -158,6 +159,7 @@ import com.android.systemui.ActivityIntentHelper;
 import com.android.systemui.AutoReinflateContainer;
 import com.android.systemui.DejankUtils;
 import com.android.systemui.DemoMode;
+import com.android.systemui.Dependency;
 import com.android.systemui.Dumpable;
 import com.android.systemui.EventLogTags;
 import com.android.systemui.InitController;
@@ -165,6 +167,7 @@ import com.android.systemui.Prefs;
 import com.android.systemui.R;
 import com.android.systemui.SystemUI;
 import com.android.systemui.SystemUIFactory;
+import com.android.systemui.UiOffloadThread;
 import com.android.systemui.assist.AssistManager;
 import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.bubbles.BubbleController;
@@ -270,7 +273,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         OnHeadsUpChangedListener, CommandQueue.Callbacks,
         ColorExtractor.OnColorsChangedListener, ConfigurationListener,
         StatusBarStateController.StateListener, ActivityLaunchAnimator.Callback,
-        LifecycleOwner, BatteryController.BatteryStateChangeCallback, PackageChangedListener  {
+        LifecycleOwner, BatteryController.BatteryStateChangeCallback, PackageChangedListener {
     public static final boolean MULTIUSER_DEBUG = false;
 
     protected static final int MSG_HIDE_RECENT_APPS = 1020;
@@ -668,6 +671,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected final BatteryController mBatteryController;
     protected boolean mPanelExpanded;
     private IOverlayManager mOverlayManager;
+    private final UiOffloadThread mUiOffloadThread = Dependency.get(UiOffloadThread.class);
     private UiModeManager mUiModeManager;
     protected boolean mIsKeyguard;
     private LogMaker mStatusBarStateLog;
@@ -719,6 +723,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private ActivityIntentHelper mActivityIntentHelper;
 
+    private int mRoundedStyle;
+
     private StatusBarSettingsObserver mStatusBarSettingsObserver = new StatusBarSettingsObserver(mHandler);
     private class StatusBarSettingsObserver extends ContentObserver {
         StatusBarSettingsObserver(Handler handler) {
@@ -764,6 +770,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.UI_BACKGROUND_BLUR),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.BERRY_ROUNDED_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -774,6 +783,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mQSPanel.getHost().reloadAllTiles();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.UI_BACKGROUND_BLUR))) {
                 mScrimController.updateScrimAlpha();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.BERRY_ROUNDED_STYLE))) {
+                updateCorners();
             }
             update();
         }
@@ -2358,6 +2369,15 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+   private void updateCorners() {
+       int roundedStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.BERRY_ROUNDED_STYLE, 0, UserHandle.USER_CURRENT);
+       if (mRoundedStyle != roundedStyle) {
+           mRoundedStyle = roundedStyle;
+           updateRoundedStyle();
+       }
+   }
+
     void makeExpandedVisible(boolean force) {
         if (SPEW) Log.d(TAG, "Make expanded visible: expanded visible=" + mExpandedVisible);
         if (!force && (mExpandedVisible || !mCommandQueue.panelsEnabled())) {
@@ -3886,6 +3906,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private void updateRoundedStyle() {
+        mUiOffloadThread.execute(() -> {
+            ThemeAccentUtils.setRoundedStyle(mOverlayManager, mRoundedStyle, mContext.getUserId());
+        });
+    }
+
     private void updateDozingState() {
         Trace.traceCounter(Trace.TRACE_TAG_APP, "dozing", mDozing ? 1 : 0);
         Trace.beginSection("StatusBar#updateDozingState");
@@ -4887,6 +4913,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     public void startAssist(Bundle args) {
         mAssistManagerLazy.get().startAssist(args);
     }
+
     // End Extra BaseStatusBarMethods.
 
     public NotificationGutsManager getGutsManager() {
