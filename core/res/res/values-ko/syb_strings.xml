@@ -74,9 +74,9 @@
     <!-- Whether device supports an alt. ambient display -->
     <!-- Pocket Lock -->
     <string name="pocket_view_title">주머니 모드가 켜졌습니다.</string>
-    <string name="pocket_view_title_cancel">To activate your phone:</string>
-    <string name="pocket_view_top_tag_cancel">Do not cover the blue area of your phone, and clean any dirt or dust off.</string>
-    <string name="pocket_view_top_tag_cancel2">Long press the power button to force quit pocket mode</string>
+    <string name="pocket_view_title_cancel">기기를 활성화 하려면</string>
+    <string name="pocket_view_top_tag_cancel">파란색으로 표시된 부분을 덮지 마시고 먼지나 이물질을 청소해 주세요</string>
+    <string name="pocket_view_top_tag_cancel2">주머니 감지 모드를 강제 종료하려면 전원 버튼을 길게 누르세요</string>
     <string name="pocket_view_top_tag_number1">1.\u0020</string>
     <string name="pocket_view_top_tag_number2">2.\u0020</string>
 </resources>

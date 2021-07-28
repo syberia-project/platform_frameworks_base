@@ -17,24 +17,24 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="statusbar_items_title">Ikona paska stanu</string>
     <string name="status_bar_vpn">VPN</string>
-    <string name="status_bar_data_saver">Data saver</string>
+    <string name="status_bar_data_saver">Oszczędzanie danych</string>
     <string name="status_bar_roaming">Roaming</string>
     <!-- Advanced restart -->
     <string name="global_action_reboot">Uruchom ponownie</string>
     <string name="global_action_reboot_system">System</string>
-    <string name="global_action_reboot_progress">Restarting\u2026</string>
+    <string name="global_action_reboot_progress">Ponowne uruchamianie\u2026</string>
     <string name="global_action_reboot_recovery">Uruchom w trybie Recovery</string>
-    <string name="global_action_reboot_recovery_progress">Restarting to recovery mode\u2026</string>
+    <string name="global_action_reboot_recovery_progress">Ponowne uruchamianie w trybie recovery\u2026</string>
     <string name="global_action_reboot_bootloader">Uruchom w trybie Bootloader</string>
-    <string name="global_action_reboot_bootloader_progress">Restarting to bootloader mode\u2026</string>
+    <string name="global_action_reboot_bootloader_progress">Ponowne uruchamianie w trybie bootloader\u2026</string>
     <string name="global_action_reboot_fastboot">Fastbootd</string>
-    <string name="global_action_reboot_fastboot_progress">Restarting to fastbootd mode\u2026</string>
-    <string name="global_action_settings">Settings</string>
-    <string name="global_action_screenshot">Screenshot</string>
-    <string name="global_action_screenrecord">Screenrecord</string>
-    <string name="global_action_flashlight">Flashlight</string>
+    <string name="global_action_reboot_fastboot_progress">Ponowne uruchamianie w trybie fastboot\u2026</string>
+    <string name="global_action_settings">Ustawienia</string>
+    <string name="global_action_screenshot">Zrzut ekranu</string>
+    <string name="global_action_screenrecord">Nagrywanie ekranu</string>
+    <string name="global_action_flashlight">Latarka</string>
     <!-- Label for current user in power menu options dialog -->
-    <string name="global_action_current_user">Current</string>
+    <string name="global_action_current_user">Bieżący</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time" formatted="false">&lt;xliff:g id="percentage"&gt;%2$s&lt;/xliff:g&gt; • Szybkie Ładowanie (&lt;xliff:g id="charging_time_left" Na przykład="4 godziny i 2 minuty"&gt;%s&lt;/xliff:g&gt; do naładowania)</string>
     <string name="keyguard_plugged_in_dash_charging">Ładowanie Dash</string>
@@ -55,11 +55,11 @@
     <string name="qs_menu_item_columns_eight">8</string>
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Reset</string>
-    <string name="qs_menu_item_qs_columns">Quickbar columns</string>
-    <string name="qs_menu_item_columns_auto">Automatic</string>
+    <string name="qs_menu_item_qs_columns">Kolumny paska szybkich ustawień</string>
+    <string name="qs_menu_item_columns_auto">Automatycznie</string>
     <string name="qs_menu_item_titles">Pokaż etykiety</string>
     <!-- DataSwitch Tile -->
-    <string name="qs_data_switch_label">Switch data card to</string>
+    <string name="qs_data_switch_label">Zmień kartę do obsługi danych</string>
     <string name="qs_data_switch_toast_0">Obecnie brak włożonej karty SIM</string>
     <string name="qs_data_switch_toast_1">Obecnie tylko jedna karta SIM została włożona</string>
     <string name="qs_data_switch_changed_1">Używaj karty SIM 1 dla danych mobilnych</string>
@@ -80,20 +80,20 @@
     <string name="quick_settings_sound_dnd">Nie przesszkadzać</string>
     <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Kofeina</string>
-    <string name="accessibility_quick_settings_caffeine_off">Caffeine off</string>
-    <string name="accessibility_quick_settings_caffeine_on">Caffeine on</string>
+    <string name="accessibility_quick_settings_caffeine_off">Kofeina wyłączona</string>
+    <string name="accessibility_quick_settings_caffeine_on">Kofeina włączona</string>
     <!-- Reboot/Recovery QS Tile -->
     <string name="quick_settings_reboot_label">Uruchom ponownie</string>
     <string name="quick_settings_reboot_recovery_label">Uruchom w trybie Recovery</string>
     <!-- Screenshot QS tile -->
-    <string name="quick_settings_screenshot_label">Screenshot</string>
-    <string name="quick_settings_region_screenshot_label">Partial screenshot</string>
+    <string name="quick_settings_screenshot_label">Zrzut ekranu</string>
+    <string name="quick_settings_region_screenshot_label">Częściowy zrzut ekranu</string>
     <!-- Heads Up QS Tile -->
-    <string name="quick_settings_heads_up_label">Heads up</string>
-    <string name="accessibility_quick_settings_heads_up_off">Heads up off.</string>
-    <string name="accessibility_quick_settings_heads_up_on">Heads up on.</string>
-    <string name="accessibility_quick_settings_heads_up_changed_off">Heads up turned off.</string>
-    <string name="accessibility_quick_settings_heads_up_changed_on">Heads up turned on.</string>
+    <string name="quick_settings_heads_up_label">Wyskakujące powiadomienia</string>
+    <string name="accessibility_quick_settings_heads_up_off">Wyłącz wyskakujące powiadomienia.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Włącz wyskakujące powiadomienia.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Wyskakujące powiadomienia wyłączone.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Wyskakujące powiadomienia włączone.</string>
     <!-- Gaming mode -->
     <string name="gaming_mode_not_enabled">Tryb gry jest wyłączony w ustawieniach</string>
     <string name="quick_settings_gaming_mode_label">Tryb gry</string>
@@ -104,34 +104,34 @@
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">Informacje o procesorze</string>
     <!-- Language toggle tile -->
-    <string name="quick_settings_locale_label">Language</string>
-    <string name="quick_settings_locale_more_locales_toast">Please configure multiple languages to enable toggle functionality</string>
+    <string name="quick_settings_locale_label">Język</string>
+    <string name="quick_settings_locale_more_locales_toast">Skonfiguruj wiele języków, aby włączyć funkcję przełączania</string>
     <!-- Name of the camera status bar icon. -->
-    <string name="status_bar_camera">Camera</string>
+    <string name="status_bar_camera">Aparat</string>
     <!-- Name of the location status bar icon. -->
-    <string name="status_bar_location">Location</string>
+    <string name="status_bar_location">Lokalizacja</string>
     <!-- Name of the microphone status bar icon. -->
-    <string name="status_bar_microphone">Microphone</string>
+    <string name="status_bar_microphone">Mikrofon</string>
     <!-- Kill button in notification guts -->
-    <string name="force_stop_dlg_title">Force stop?</string>
-    <string name="force_stop_dlg_text">If you force stop an app, it may misbehave.</string>
-    <string name="guts_force_close_app">Close App</string>
+    <string name="force_stop_dlg_title">Wymusić zatrzymanie?</string>
+    <string name="force_stop_dlg_text">Wymuszenie zatrzymania aplikacji może spowodować jej nieprawidłowe działanie.</string>
+    <string name="guts_force_close_app">Zamknij aplikację</string>
     <!-- Name of the nfc status bar icon. -->
     <string name="status_bar_nfc">NFC</string>
     <!-- Accessibility label for nfc icon (not shown on screen) [CHAR LIMIT=NONE] -->
     <string name="accessibility_status_bar_nfc">Nfc</string>
     <!-- Partial screenshot -->
-    <string name="global_screenshot_selector_capture_description">Capture partial screenshot</string>
-    <string name="global_screenshot_selector_cancel_description">Cancel partial screenshot</string>
+    <string name="global_screenshot_selector_capture_description">Zrób częściowy zrzut ekranu</string>
+    <string name="global_screenshot_selector_cancel_description">Anuluj częściowy zrzut ekranu</string>
     <!-- AOD QS tile -->
     <string name="quick_settings_aod_label">AOD</string>
-    <string name="quick_settings_aod_off_powersave_label">AOD off\nBattery saver</string>
-    <string name="task_helper_app_killed">%1$s force stopped</string>
-    <string name="empty_app_killed">App</string>
-    <string name="app_picker_dialog_title">Select an app</string>
-    <string name="active_edge_app_select_title">Select app</string>
-    <string name="active_edge_activity_select_title">Select activity</string>
-    <string name="screenrecord_delete_label">Delete</string>
+    <string name="quick_settings_aod_off_powersave_label">AOD wyłączony\nOszczędzanie baterii</string>
+    <string name="task_helper_app_killed">%1$s została zatrzymana</string>
+    <string name="empty_app_killed">Aplikacja</string>
+    <string name="app_picker_dialog_title">Wybierz aplikację</string>
+    <string name="active_edge_app_select_title">Wybierz aplikację</string>
+    <string name="active_edge_activity_select_title">Wybierz czynność</string>
+    <string name="screenrecord_delete_label">Usuń</string>
     <string name="screenrecord_delete_description">Screen recording deleted</string>
     <!-- VPN QS tile -->
     <string name="quick_settings_vpn_label">VPN</string>

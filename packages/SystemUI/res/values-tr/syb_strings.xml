@@ -153,5 +153,5 @@
     <string name="volume_ringer_dnd">Rahatsız etmeyin</string>
     <string name="tristate_flashlight">El feneri</string>
     <!-- Anti flicker QS tile -->
-    <string name="quick_settings_anti_flicker">Anti flicker</string>
+    <string name="quick_settings_anti_flicker">Titreme önleme</string>
 </resources>

@@ -40,14 +40,13 @@
     <string name="permlab_fakePackageSignature">Fałszowanie podpisu pakietu</string>
     <!-- Description of an application permission, listed so the user can choose whether
          they want to allow the application to do this. -->
-    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Legitimate uses include an emulator pretending to be what it emulates. Grant this permission with caution only!</string>
+    <string name="permdesc_fakePackageSignature">Umożliwia aplikacji podszywanie się pod inną. Szkodliwe aplikacje mogą użyć tego do uzyskania dostępu do prywatnych danych. Za prawidłowe wykorzystanie można uznać emulator udający to, co emuluje. Włącz pod szczególnym nadzorem!</string>
     <!-- Title of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permgrouplab_fake_package_signature">Spoof package signature</string>
+    <string name="permgrouplab_fake_package_signature">Fałszowanie podpisu pakietu</string>
     <!-- Description of a category of application permissions, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permgroupdesc_fake_package_signature">allow to spoof package signature</string>
+    <string name="permgroupdesc_fake_package_signature">zezwól na fałszowanie podpisu pakietu</string>
     <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
-    <string name="permgrouprequest_fake_package_signature">Allow
-        &lt;b&gt;<xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b&gt; to spoof package signature?</string>
+    <string name="permgrouprequest_fake_package_signature">Zezwolić aplikacji &lt;b&gt;<xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b&gt; na fałszowanie podpisu pakietu?</string>
     <!-- Gaming mode -->
     <string name="notification_channel_gaming">Tryb gry</string>
     <string name="gaming_mode_notification_title">Tryb gry włączony</string>
@@ -55,29 +54,29 @@
     <string name="gaming_mode_enabled_toast">Tryb gry włączony</string>
     <string name="gaming_mode_disabled_toast">Tryb gry wyłączony</string>
     <!-- AOKP custom system animations -->
-    <string name="animation_fade">Fade</string>
-    <string name="animation_slide_right">Slide in right</string>
-    <string name="animation_slide_left">Slide in left</string>
-    <string name="animation_slide_right_no_fade">Slide in right (No fade)</string>
-    <string name="animation_slide_left_no_fade">Slide in left (No fade)</string>
-    <string name="animation_slide_up">Slide in bottom</string>
-    <string name="animation_slide_down">Slide in top</string>
-    <string name="animation_default">Default</string>
-    <string name="animation_translucent">Translucent</string>
-    <string name="animation_grow_shrink">Grow in (Top)</string>
-    <string name="animation_grow_shrink_center">Grow in (Center)</string>
-    <string name="animation_grow_shrink_bottom">Grow in (Bottom)</string>
-    <string name="animation_grow_shrink_left">Grow in (Left)</string>
-    <string name="animation_grow_shrink_right">Grow in (Right)</string>
-    <string name="animation_random">Random</string>
-    <string name="action_null">Blank</string>
+    <string name="animation_fade">Zanikanie</string>
+    <string name="animation_slide_right">Przesunięcie w prawo</string>
+    <string name="animation_slide_left">Przesunięcie w lewo</string>
+    <string name="animation_slide_right_no_fade">Przesunięcie w prawo (Bez zanikania)</string>
+    <string name="animation_slide_left_no_fade">Przesunięcie w lewo (Bez zanikania)</string>
+    <string name="animation_slide_up">Przesunięcie w dół</string>
+    <string name="animation_slide_down">Przesunięcie w górę</string>
+    <string name="animation_default">Domyślne</string>
+    <string name="animation_translucent">Przeźroczysty</string>
+    <string name="animation_grow_shrink">Powiększenie (od góry)</string>
+    <string name="animation_grow_shrink_center">Powiększenie (Środek)</string>
+    <string name="animation_grow_shrink_bottom">Powiększenie (od dołu)</string>
+    <string name="animation_grow_shrink_left">Powiększenie (z lewej)</string>
+    <string name="animation_grow_shrink_right">Powiększenie (z prawej)</string>
+    <string name="animation_random">Losowo</string>
+    <string name="action_null">Puste</string>
     <string name="animation_ethans">Ethans</string>
     <!-- Whether device supports an alt. ambient display -->
     <!-- Pocket Lock -->
-    <string name="pocket_view_title">Pocket mode is on</string>
-    <string name="pocket_view_title_cancel">To activate your phone:</string>
-    <string name="pocket_view_top_tag_cancel">Do not cover the blue area of your phone, and clean any dirt or dust off.</string>
-    <string name="pocket_view_top_tag_cancel2">Long press the power button to force quit pocket mode</string>
+    <string name="pocket_view_title">Tryb kieszonkowy jest włączony</string>
+    <string name="pocket_view_title_cancel">Aby aktywować swój telefon:</string>
+    <string name="pocket_view_top_tag_cancel">Nie zakrywaj niebieskiego obszaru telefonu i wyczyść wszelki brud lub kurz.</string>
+    <string name="pocket_view_top_tag_cancel2">Przytrzymaj przycisk zasilania, aby wymusić wyjście z trybu kieszonkowego</string>
     <string name="pocket_view_top_tag_number1">1.\u0020</string>
     <string name="pocket_view_top_tag_number2">2.\u0020</string>
 </resources>
