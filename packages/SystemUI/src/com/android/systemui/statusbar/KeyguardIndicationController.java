@@ -555,6 +555,20 @@ public class KeyguardIndicationController implements StateListener,
                 mChargingIndicationView.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(
                             R.dimen.keyguard_charging_indication_height);
                 break;
+            case 6: // Magic
+                mChargingIndicationView.setFileName("keyguard_charge_magic.json");
+                mChargingIndicationView.getLayoutParams().height = mContext.getResources().getDimensionPixelSize(
+                            R.dimen.keyguard_charging_indication_height);
+                mChargingIndicationView.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(
+                            R.dimen.keyguard_charging_indication_height);
+                break;
+            case 7: // Syberia
+                mChargingIndicationView.setFileName("keyguard_charge_syberia.json");
+                mChargingIndicationView.getLayoutParams().height = mContext.getResources().getDimensionPixelSize(
+                            R.dimen.keyguard_charging_indication_height);
+                mChargingIndicationView.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(
+                            R.dimen.keyguard_charging_indication_height);
+                break;
         }
     }
 
