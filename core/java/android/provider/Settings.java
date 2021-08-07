@@ -4927,24 +4927,6 @@ public final class Settings {
         public static final String FORCE_FULLSCREEN_CUTOUT_APPS = "force_full_screen_cutout_apps";
 
         /**
-         * Whether the phone vibrates on call connect
-         * @hide
-         */
-        public static final String VIBRATE_ON_CONNECT = "vibrate_on_connect";
-
-         /**
-         * Whether the phone vibrates on call waiting
-         * @hide
-         */
-        public static final String VIBRATE_ON_CALLWAITING = "vibrate_on_callwaiting";
-
-         /**
-         * Whether the phone vibrates on disconnect
-         * @hide
-         */
-        public static final String VIBRATE_ON_DISCONNECT = "vibrate_on_disconnect";
-
-        /**
          * whether to enable or disable vibration on succesful fingerprint auth
          *
          * @hide
@@ -6005,6 +5987,12 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_CHARGING_ANIMATION_STYLE = "lockscreen_charging_animation_style";
+		
+        /**
+         * Whether to vibrate on call state change
+         * @hide
+         */
+        public static final String INCALL_FEEDBACK_VIBRATE = "incall_feeedback_vibrate";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
@@ -6131,9 +6119,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
             PRIVATE_SETTINGS.add(SCREENSHOT_SOUND);
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
-            PRIVATE_SETTINGS.add(VIBRATE_ON_CONNECT);
-            PRIVATE_SETTINGS.add(VIBRATE_ON_CALLWAITING);
-            PRIVATE_SETTINGS.add(VIBRATE_ON_DISCONNECT);
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
             PRIVATE_SETTINGS.add(SHOW_FOURG);
             PRIVATE_SETTINGS.add(SHOW_VOLTE_ICON);
@@ -6207,6 +6192,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(DOZE_BRIGHTNESS_FORCE);
             PRIVATE_SETTINGS.add(FP_WAKE_UNLOCK);
             PRIVATE_SETTINGS.add(STATUSBAR_ICONS_STYLE);
+            PRIVATE_SETTINGS.add(INCALL_FEEDBACK_VIBRATE);
         }
 
         /**
