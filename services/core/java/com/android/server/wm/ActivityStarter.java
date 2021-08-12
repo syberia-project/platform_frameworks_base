@@ -1486,7 +1486,7 @@ class ActivityStarter {
         final Task targetTask = r.getTask() != null
                 ? r.getTask()
                 : mTargetTask;
-        if (startedActivityStack == null || targetTask == null) {
+        if (startedActivityStack == null || targetTask == null || !targetTask.isAttached()) {
             return;
         }
 
