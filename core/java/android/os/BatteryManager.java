@@ -170,6 +170,13 @@ public class BatteryManager {
      * {@hide}
      */
     public static final String EXTRA_DASH_CHARGER = "dash_charger";
+	
+    /**
+     * Extra for {@link android.content.Intent#ACTION_BATTERY_CHANGED}:
+     * boolean value to indicate OEM fast charging
+     * {@hide}
+     */
+    public static final String EXTRA_OEM_FAST_CHARGER = "oem_fast_charger";
 
     // values for "status" field in the ACTION_BATTERY_CHANGED Intent
     public static final int BATTERY_STATUS_UNKNOWN = Constants.BATTERY_STATUS_UNKNOWN;

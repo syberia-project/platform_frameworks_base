@@ -29,6 +29,7 @@ import static android.os.BatteryManager.EXTRA_PLUGGED;
 import static android.os.BatteryManager.EXTRA_PRESENT;
 import static android.os.BatteryManager.EXTRA_STATUS;
 import static android.os.BatteryManager.EXTRA_DASH_CHARGER;
+import static android.os.BatteryManager.EXTRA_OEM_FAST_CHARGER;
 
 import android.content.Context;
 import android.content.Intent;
@@ -58,12 +59,13 @@ public class BatteryStatus {
     public final int maxChargingWattage;
     public final float temperature;
     public final boolean dashChargeStatus;
+    public final boolean oemFastChargeStatus;
     public final boolean present;
 
     public BatteryStatus(int status, int level, int plugged, int health,
             int maxChargingCurrent, int maxChargingVoltage,
             int maxChargingWattage, float temperature,
-            boolean dashChargeStatus, boolean present) {
+            boolean dashChargeStatus, boolean oemFastChargeStatus, boolean present) {
         this.status = status;
         this.level = level;
         this.plugged = plugged;
@@ -73,6 +75,7 @@ public class BatteryStatus {
         this.maxChargingWattage = maxChargingWattage;
         this.temperature = temperature;
         this.dashChargeStatus = dashChargeStatus;
+        this.oemFastChargeStatus = oemFastChargeStatus;
         this.present = present;
     }
 
@@ -83,6 +86,7 @@ public class BatteryStatus {
         health = batteryChangedIntent.getIntExtra(EXTRA_HEALTH, BATTERY_HEALTH_UNKNOWN);
         temperature = batteryChangedIntent.getIntExtra(EXTRA_TEMPERATURE, -1);
         dashChargeStatus = batteryChangedIntent.getBooleanExtra(EXTRA_DASH_CHARGER, false);
+        oemFastChargeStatus = batteryChangedIntent.getBooleanExtra(EXTRA_OEM_FAST_CHARGER, false);
         present = batteryChangedIntent.getBooleanExtra(EXTRA_PRESENT, true);
 
         final int maxChargingMicroAmp = batteryChangedIntent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT,
@@ -162,6 +166,9 @@ public class BatteryStatus {
      * @return the charing speed
      */
     public final int getChargingSpeed(Context context) {
+        if (oemFastChargeStatus) {
+                return CHARGING_FAST;
+        }
         final int slowThreshold = context.getResources().getInteger(
                 R.integer.config_chargingSlowlyThreshold);
         final int fastThreshold = context.getResources().getInteger(
