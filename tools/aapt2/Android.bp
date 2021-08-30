@@ -62,7 +62,6 @@ cc_defaults {
         "libidmap2_policies",
     ],
     stl: "libc++_static",
-    group_static_libs: true,
 }
 
 // ==========================================================
@@ -186,9 +185,9 @@ cc_test_host {
     ],
     defaults: ["aapt2_defaults"],
     data: [
-         "integration-tests/CompileTest/**/*",
-         "integration-tests/CommandTests/**/*",
-         "integration-tests/ConvertTest/**/*"
+        "integration-tests/CompileTest/**/*",
+        "integration-tests/CommandTests/**/*",
+        "integration-tests/ConvertTest/**/*",
     ],
 }
 
