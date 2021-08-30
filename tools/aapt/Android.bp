@@ -33,7 +33,6 @@ cc_defaults {
         "libbase",
         "libz",
     ],
-    group_static_libs: true,
 
     cflags: [
         "-Wall",
