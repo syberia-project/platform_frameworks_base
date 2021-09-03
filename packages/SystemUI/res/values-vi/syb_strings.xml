@@ -153,5 +153,5 @@
     <string name="volume_ringer_dnd">DnD</string>
     <string name="tristate_flashlight">Đèn pin</string>
     <!-- Anti flicker QS tile -->
-    <string name="quick_settings_anti_flicker">Anti flicker</string>
+    <string name="quick_settings_anti_flicker">Chống nháy ánh sáng</string>
 </resources>
