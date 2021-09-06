@@ -75,6 +75,8 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
     private final ContentObserver mHeadsUpObserver;
     private HeadsUpManager mHeadsUpManager;
 
+    private boolean mLessBoringHeadsUp;
+
     ActivityManager mAm;
     private ArrayList<String> mStoplist = new ArrayList<String>();
     private ArrayList<String> mBlacklist = new ArrayList<String>();
@@ -83,7 +85,6 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
     protected boolean mUseHeadsUp = false;
 
     private boolean mSkipHeadsUp = false;
-    private boolean mLessBoringHeadsUp = false;
     private TelecomManager mTm;
 
     @Inject
@@ -335,6 +336,11 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
         splitAndAddToArrayList(mBlacklist, blackString, "\\|");
     }
 
+    @Override
+    public void setUseLessBoringHeadsUp(boolean lessBoring) {
+        mLessBoringHeadsUp = lessBoring;
+    }
+
     /**
      * Whether or not the notification should "pulse" on the user's display when the phone is
      * dozing.  This displays the ambient view of the notification.
@@ -380,16 +386,6 @@ public class NotificationInterruptStateProviderImpl implements NotificationInter
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void setUseLessBoringHeadsUp(boolean lessBoring) {
-        mLessBoringHeadsUp = lessBoring;
-    }
-
-    @Override
-    public void setGamingPeekMode(boolean skipHeadsUp) {
-        mSkipHeadsUp = skipHeadsUp;
     }
 
     public boolean shouldSkipHeadsUp(StatusBarNotification sbn) {
