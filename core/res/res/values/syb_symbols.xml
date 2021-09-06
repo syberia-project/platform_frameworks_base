@@ -95,14 +95,6 @@
     <java-symbol type="bool" name="config_multiColorBatteryLed" />
     <java-symbol type="bool" name="config_ledCanPulse" />
 
-    <!-- Gaming mode -->
-    <java-symbol type="drawable" name="ic_gaming_notif" />
-    <java-symbol type="string" name="notification_channel_gaming" />
-    <java-symbol type="string" name="gaming_mode_notification_title" />
-    <java-symbol type="string" name="gaming_mode_notification_content" />
-    <java-symbol type="string" name="gaming_mode_enabled_toast" />
-    <java-symbol type="string" name="gaming_mode_disabled_toast" />
-
     <!-- Whether to show a custom view for FOD -->
     <java-symbol type="bool" name="config_needCustomFODView" />
 
@@ -223,7 +215,7 @@
 
     <!-- Whether device supports an alt. ambient display -->
     <java-symbol type="bool" name="config_alt_ambient_display"/>
-	
+
     <!-- Path to fast charging status file to detect whether an oem fast charger is active -->
     <java-symbol type="string" name="config_oemFastChargerStatusPath" />
 
