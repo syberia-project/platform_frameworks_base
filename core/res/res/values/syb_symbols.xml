@@ -225,4 +225,7 @@
     <!-- Screen recorder framerate limit -->
     <java-symbol type="integer" name="config_screenRecorderMaxFramerate" />
 
+    <!-- Wheter device supports an gaming mode profiles -->
+    <java-symbol type="bool" name="config_gamingmode_performance" />
+
 </resources>
