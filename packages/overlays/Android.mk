@@ -41,6 +41,7 @@ LOCAL_REQUIRED_MODULES := \
     FontHortensiaSourceOverlay \
     FontLGSmartGothicSourceOverlay \
     FontMinusmanSourceOverlay \
+    FontMontserratSourceOverlay \
     FontNokiaPureSourceOverlay \
     FontNotoSerifSourceOverlay \
     FontNovaSourceOverlay \
