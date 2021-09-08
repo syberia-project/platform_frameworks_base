@@ -57,6 +57,7 @@ LOCAL_REQUIRED_MODULES := \
 	FontNovaSourceOverlay \
 	FontTaurusSourceOverlay \
 	FontTechnicalSourceOverlay \
+	FontMontserratSourceOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
