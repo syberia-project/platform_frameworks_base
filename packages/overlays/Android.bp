@@ -121,7 +121,8 @@ phony {
         "FontMinusmanSourceOverlay",
         "FontNovaSourceOverlay",
         "FontTaurusSourceOverlay",
-        "FontTechnicalSourceOverlay"
+        "FontTechnicalSourceOverlay",
+        "FontMontserratSourceOverlay"
     ],
 }
 
