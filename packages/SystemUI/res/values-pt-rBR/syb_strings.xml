@@ -94,13 +94,6 @@
     <string name="accessibility_quick_settings_heads_up_on">Notificações flutuantes ativadas.</string>
     <string name="accessibility_quick_settings_heads_up_changed_off">As notificações flutuantes foram desativadas.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">As notificações flutuantes foram ativadas.</string>
-    <!-- Gaming mode -->
-    <string name="gaming_mode_not_enabled">Modo jogo está desativado nas configurações</string>
-    <string name="quick_settings_gaming_mode_label">Modo jogo</string>
-    <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-    <string name="accessibility_quick_settings_gaming_mode_disabled">O modo jogo foi desativado.</string>
-    <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
-    <string name="accessibility_quick_settings_gaming_mode_enabled">O modo jogo foi ativado.</string>
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">Informações da CPU</string>
     <!-- Language toggle tile -->
@@ -154,4 +147,8 @@
     <string name="tristate_flashlight">Lanterna</string>
     <!-- Anti flicker QS tile -->
     <string name="quick_settings_anti_flicker">Anti flicker</string>
+    <!-- Screenrecorder -->
+    <string name="screenrecord_stopdot_label">Show stop dot\nLongpress to move it</string>
+    <string name="screenrecord_lowquality_label">Lower quality for smaller file size</string>
+    <string name="screenrecord_longer_timeout_switch_label">Bigger file size limit\nLimit recording size to 15 GB</string>
 </resources>

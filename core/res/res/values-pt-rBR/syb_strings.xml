@@ -47,12 +47,6 @@
     <string name="permgroupdesc_fake_package_signature">permitir falsificar a assinatura do pacote</string>
     <!-- Message shown to the user when the apps requests permission from this group. If ever possible this should stay below 80 characters (assuming the parameters takes 20 characters). Don't abbreviate until the message reaches 120 characters though. [CHAR LIMIT=120] -->
     <string name="permgrouprequest_fake_package_signature">Permitir que &lt;b&gt;<xliff:g id="app_name" example="Gmail">%1$s</xliff:g>&lt;/b&gt; falsifique a assinatura do pacote?</string>
-    <!-- Gaming mode -->
-    <string name="notification_channel_gaming">Modo de Jogo</string>
-    <string name="gaming_mode_notification_title">Modo jogo ativado</string>
-    <string name="gaming_mode_notification_content">Toque para desativar o Modo Jogo</string>
-    <string name="gaming_mode_enabled_toast">O modo de jogo foi ativado</string>
-    <string name="gaming_mode_disabled_toast">O modo de jogo foi desativado</string>
     <!-- AOKP custom system animations -->
     <string name="animation_fade">Desvanecer</string>
     <string name="animation_slide_right">Deslize para a direita</string>
