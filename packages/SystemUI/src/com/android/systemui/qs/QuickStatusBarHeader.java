@@ -478,9 +478,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mStatusBarPaddingTop = resources.getDimensionPixelSize(R.dimen.status_bar_padding_top);
 
         // Update height for a few views, especially due to landscape mode restricting space.
-        mHeaderTextContainerView.getLayoutParams().height =
+        /*mHeaderTextContainerView.getLayoutParams().height =
                 resources.getDimensionPixelSize(R.dimen.qs_header_tooltip_height);
-        mHeaderTextContainerView.setLayoutParams(mHeaderTextContainerView.getLayoutParams());
+        mHeaderTextContainerView.setLayoutParams(mHeaderTextContainerView.getLayoutParams());*/
 
         mSystemIconsView.getLayoutParams().height = resources.getDimensionPixelSize(
                 com.android.internal.R.dimen.quick_qs_offset_height);
@@ -504,19 +504,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                     com.android.internal.R.bool.config_automatic_brightness_available)) {
                 mQuickQsBrightness.findViewById(R.id.brightness_icon).setVisibility(View.VISIBLE);
             } else {
-                if (mQsPanel != null && mQsPanel.isHorizontalLayout()) {
-                    mQuickQsBrightness.findViewById(R.id.brightness_icon).setVisibility(INVISIBLE);
-                } else {
-                    mQuickQsBrightness.findViewById(R.id.brightness_icon).setVisibility(View.GONE);
-                }
+                mQuickQsBrightness.findViewById(R.id.brightness_icon).setVisibility(View.GONE);
             }
             mQuickQsBrightness.setVisibility(View.VISIBLE);
         } else {
-            if (mQsPanel != null && mQsPanel.isHorizontalLayout()) {
-                mQuickQsBrightness.setVisibility(INVISIBLE);
-            } else {
-                mQuickQsBrightness.setVisibility(View.GONE);
-            }
+            mQuickQsBrightness.setVisibility(View.GONE);
         }
 
         mHeaderQsPanel.setLayoutParams(headerPanel);
