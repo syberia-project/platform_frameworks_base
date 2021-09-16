@@ -40,6 +40,7 @@ import com.android.systemui.qs.tiles.DataSaverTile;
 import com.android.systemui.qs.tiles.DataSwitchTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
+import com.android.systemui.qs.tiles.GamingModeTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.LiveDisplayTile;
@@ -108,6 +109,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<VpnTile> mVpnTileProvider;
     private final Provider<LteTile> mLteTileProvider;
     private final Provider<AntiFlickerTile> mAntiFlickerTileProvider;
+    private final Provider<GamingModeTile> mGamingModeTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -147,7 +149,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<LocaleTile> localeTileProvider,
             Provider<VpnTile> vpnTileProvider,
             Provider<LteTile> lteTileProvider,
-            Provider<AntiFlickerTile> antiFlickerTileProvider) {
+            Provider<AntiFlickerTile> antiFlickerTileProvider,
+            Provider<GamingModeTile> gamingModeTile) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -184,6 +187,7 @@ public class QSFactoryImpl implements QSFactory {
         mVpnTileProvider = vpnTileProvider;
         mLteTileProvider = lteTileProvider;
         mAntiFlickerTileProvider = antiFlickerTileProvider;
+        mGamingModeTileProvider = gamingModeTile;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -265,6 +269,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mLteTileProvider.get();
             case "anti_flicker":
                 return mAntiFlickerTileProvider.get();
+            case "gaming_mode":
+                return mGamingModeTileProvider.get();
         }
 
         // Custom tiles

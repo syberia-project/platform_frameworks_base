@@ -140,4 +140,13 @@
     <string name="screenrecord_lowquality_label">Ниже качество для меньшего размера файла</string>
     <string name="screenrecord_longer_timeout_switch_label">Увеличить лимит размера файла\nОграничить запись до 15 Гб</string>
 
+    <!-- Gaming mode -->
+    <string name="gaming_mode_not_enabled">Игровой режим выключен</string>
+    <string name="gaming_mode_enabled">Игровой режим включен</string>
+    <string name="quick_settings_gaming_mode_label">Игровой режим</string>
+    <!-- Content description of the Gaming mode tile in quick settings when disabled (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_gaming_mode_disabled">Gaming mode turned off.</string>
+    <!-- Content description of the Gaming mode tile in quick settings when enabled (not shown on the screen). [CHAR LIMIT=NONE] -->
+    <string name="accessibility_quick_settings_gaming_mode_enabled">Gaming mode turned on.</string>
+
 </resources>
