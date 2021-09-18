@@ -6542,6 +6542,9 @@ final class ActivityRecord extends WindowToken implements WindowManagerService.A
                         completeFinishing("activityPausedLocked");
                     }
                 }
+                if (isState(STOPPING) && finishing && !isVisible() && !mVisibleRequested) {
+                    mDisplayContent.mUnknownAppVisibilityController.appRemovedOrHidden(this);
+                }
             }
         }
 
