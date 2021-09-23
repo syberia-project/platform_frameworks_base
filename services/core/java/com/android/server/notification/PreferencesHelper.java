@@ -1021,6 +1021,9 @@ public class PreferencesHelper implements RankingConfig {
                     channel.setShowBadge(false);
                 }
                 channel.setOriginalImportance(channel.getImportance());
+                if ("com.google.android.gms.availability".equals(channel.getId())) {
+                    channel.setImportance(IMPORTANCE_NONE);
+                }
 
                 // validate parent
                 if (channel.getParentChannelId() != null) {
