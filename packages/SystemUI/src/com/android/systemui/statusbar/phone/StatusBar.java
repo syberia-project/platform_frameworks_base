@@ -1310,6 +1310,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         mNotificationPanelViewController.setHeadsUpManager(mHeadsUpManager);
         mNotificationLogger.setHeadsUpManager(mHeadsUpManager);
 
+        updateDismissStyle();
+
         createNavigationBar(result);
 
         if (ENABLE_LOCKSCREEN_WALLPAPER && mWallpaperSupported) {
