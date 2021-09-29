@@ -806,8 +806,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 updateRoundedFwvals();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.NOTIFICATION_MATERIAL_DISMISS))) {
                 updateDismissStyle();
-            } else if (uri.equals(Settings.System.getUriFor(Settings.Secure.SYSUI_ROUNDED_FWVALS))) {
-                updateRoundedFwvals();
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.SWITCH_STYLE))) {
                 stockSwitchStyle();
                 updateSwitchStyle();
             }
