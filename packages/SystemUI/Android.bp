@@ -178,6 +178,8 @@ android_library {
         "lottie",
         "LowLightDreamLib",
         "motion_tool_lib",
+        "colorkt",
+        "themelib",
     ],
     manifest: "AndroidManifest.xml",
 
