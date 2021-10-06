@@ -29,7 +29,9 @@
     <!-- Allow devices override audio panel location to the left side -->
     <bool name="config_audioPanelOnLeftSide">false</bool>
 
+    <!-- Color of the UDFPS pressed view -->
+    <color name="config_udfpsColor">#ffffffff</color>
+
     <!-- Udfps HBM provider class name -->
     <string name="config_udfpsHbmProviderComponent">com.android.systemui.biometrics.DummyUdfpsHbmProvider</string>
-
 </resources>
