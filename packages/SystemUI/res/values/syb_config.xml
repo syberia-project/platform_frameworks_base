@@ -37,4 +37,7 @@
     <!-- Udfps vendor code -->
     <integer name="config_udfpsVendorCode">0</integer>
 
+    <!-- StatusBar burn-in protection -->
+    <bool name="config_statusBarBurnInProtection">true</bool>
+
 </resources>
