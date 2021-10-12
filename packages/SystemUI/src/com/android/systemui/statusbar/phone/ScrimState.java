@@ -158,7 +158,7 @@ public enum ScrimState {
             mBehindAlpha = mClipQsScrim ? mCustomScrimAlpha : mDefaultScrimAlpha;
             mNotifAlpha = mCustomScrimAlpha;
             mFrontAlpha = 0f;
-            mBehindTint = mClipQsScrim ? Color.TRANSPARENT : mBackgroundColor;
+            mBehindTint = Color.TRANSPARENT;
 
             if (mClipQsScrim) {
                 updateScrimColor(mScrimBehind, mCustomScrimAlpha, mBackgroundColor);
