@@ -952,7 +952,7 @@ public class ContentProviderHelper {
             holder = getContentProviderExternalUnchecked(name, null, callingUid,
                     "*getmimetype*", userId);
             if (holder != null) {
-                final IBinder providerConnection = holder.connection;
+                final int innerUserId = userId;
                 final ComponentName providerName = holder.info.getComponentName();
                 // Note: creating a new Runnable instead of using a lambda here since lambdas in
                 // java provide no guarantee that there will be a new instance returned every call.
@@ -962,7 +962,14 @@ public class ContentProviderHelper {
                     @Override
                     public void run() {
                         Log.w(TAG, "Provider " + providerName + " didn't return from getType().");
-                        appNotRespondingViaProvider(providerConnection);
+                        ContentProviderRecord cpr = null;
+                        synchronized (mService) {
+                            cpr = mProviderMap.getProviderByName(name, innerUserId);
+                        }
+                        if (cpr != null && cpr.proc != null) {
+                            mService.mAnrHelper.appNotResponding(cpr.proc,
+                                "ContentProvider not responding");
+                        }
                     }
                 };
                 mService.mHandler.postDelayed(providerNotResponding, 1000);
