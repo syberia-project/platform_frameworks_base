@@ -43,4 +43,10 @@
     <string name="accessibility_quick_settings_caffeine_off">Кофеин выкл</string>
     <string name="accessibility_quick_settings_caffeine_on">Кофеин вкл</string>
 
+    <!-- QuickSettings: Sound [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Звонок</string>
+    <string name="quick_settings_sound_vibrate">Вибрация</string>
+    <string name="quick_settings_sound_dnd">Не беспокоить</string>
+
 </resources>
