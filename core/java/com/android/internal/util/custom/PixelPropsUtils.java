@@ -53,7 +53,8 @@ public class PixelPropsUtils {
             "com.disney.disneyplus",
             "com.netflix.mediaclient",
             "in.startv.hotstar",
-     	    "com.google.android.apps.wallpaper"
+     	    "com.google.android.apps.wallpaper",
+            "com.google.android.gm"
     };
 
     private static final String[] packagesToKeep = {
