@@ -6047,18 +6047,21 @@ public final class Settings {
         public static final String DISPLAY_TEMPERATURE_DAY = "display_temperature_day";
 
         /**
+         * @hide
          * Color temperature of the display at night
          * @hide
          */
         public static final String DISPLAY_TEMPERATURE_NIGHT = "display_temperature_night";
 
         /**
+         * @hide
          * Display color temperature adjustment mode, one of DAY (default), NIGHT, or AUTO.
          * @hide
          */
         public static final String DISPLAY_TEMPERATURE_MODE = "display_temperature_mode";
 
         /**
+         * @hide
          * Automatic outdoor mode
          * 0 = 0ff, 1 = on
          * @hide
@@ -6066,12 +6069,14 @@ public final class Settings {
         public static final String DISPLAY_AUTO_OUTDOOR_MODE = "display_auto_outdoor_mode";
 
         /**
+         * @hide
          * Anti flicker
          * 0 = 0ff, 1 = on
          */
         public static final String DISPLAY_ANTI_FLICKER = "display_anti_flicker";
 
         /**
+         * @hide
          * Reader mode
          * 0 = 0ff, 1 = on
          * @hide
@@ -6079,6 +6084,7 @@ public final class Settings {
         public static final String DISPLAY_READING_MODE = "display_reading_mode";
 
         /**
+         * @hide
          * Use display power saving features such as CABC or CABL
          * 0 = 0ff, 1 = on
          * @hide
@@ -6086,6 +6092,7 @@ public final class Settings {
         public static final String DISPLAY_CABC = "display_low_power";
 
         /**
+         * @hide
          * Use color enhancement feature of display
          * 0 = 0ff, 1 = on
          * @hide
@@ -6093,6 +6100,7 @@ public final class Settings {
         public static final String DISPLAY_COLOR_ENHANCE = "display_color_enhance";
 
         /**
+         * @hide
          * Use auto contrast optimization feature of display
          * 0 = 0ff, 1 = on
          * @hide
@@ -6100,21 +6108,22 @@ public final class Settings {
         public static final String DISPLAY_AUTO_CONTRAST = "display_auto_contrast";
 
         /**
+         * @hide
          * Manual display color adjustments (RGB values as floats, separated by spaces)
          * @hide
          */
         public static final String DISPLAY_COLOR_ADJUSTMENT = "display_color_adjustment";
 
         /**
-         * The current custom picture adjustment values as a delimited string
          * @hide
+         * The current custom picture adjustment values as a delimited string
          */
         public static final String DISPLAY_PICTURE_ADJUSTMENT =
                 "display_picture_adjustment";
 
         /**
-         * Did we tell about how they can stop breaking their eyes?
          * @hide
+         * Did we tell about how they can stop breaking their eyes?
          */
         public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
 
