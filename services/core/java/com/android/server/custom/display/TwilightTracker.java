@@ -68,7 +68,7 @@ public final class TwilightTracker {
     private final Context mContext;
 
     public TwilightTracker(Context context) {
-        mContext = context;
+        mContext = context.createAttributionContext(TAG);
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         mLocationManager = (LocationManager) mContext.getSystemService(
                 Context.LOCATION_SERVICE);
