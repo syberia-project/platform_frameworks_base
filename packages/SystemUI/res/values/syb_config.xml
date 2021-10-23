@@ -40,4 +40,7 @@
 
     <!-- Udfps HBM provider class name -->
     <string name="config_udfpsHbmProviderComponent">com.android.systemui.biometrics.DummyUdfpsHbmProvider</string>
+
+    <!-- Udfps vendor code -->
+    <integer name="config_udfpsVendorCode">22</integer>
 </resources>
