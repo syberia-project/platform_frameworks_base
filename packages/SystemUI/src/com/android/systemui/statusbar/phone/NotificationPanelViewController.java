@@ -282,7 +282,7 @@ public class NotificationPanelViewController extends PanelViewController {
     private final NotificationStackScrollLayoutController mNotificationStackScrollLayoutController;
     private final NotificationIconAreaController mNotificationIconAreaController;
 
-    // Cap and total height of Roboto font. Needs to be adjusted when font for the big clock is
+    // Cap and total height of Inter font. Needs to be adjusted when font for the big clock is
     // changed.
     private static final int CAP_HEIGHT = 2048;
     private static final int FONT_HEIGHT = 3072;
