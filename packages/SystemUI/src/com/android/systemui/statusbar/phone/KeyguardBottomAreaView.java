@@ -546,7 +546,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
     }
 
     private boolean hasInDisplayFingerprint() {
-        return FodUtils.hasFodSupport(mContext) && mIsFingerprintRunning;
+        return FodUtils.hasFodSupport(mContext);
     }
 
     public boolean isLeftVoiceAssist() {
