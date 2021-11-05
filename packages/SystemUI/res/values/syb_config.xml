@@ -14,12 +14,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <!-- Max visible notification icons -->
     <integer name="config_maxVisibleNotificationIcons">4</integer>
     <integer name="config_maxVisibleNotificationIconsOnLock">5</integer>
-
-    <!-- Allow devices override audio panel location to the left side -->
-    <bool name="config_audioPanelOnLeftSide">false</bool>
-
 </resources>
