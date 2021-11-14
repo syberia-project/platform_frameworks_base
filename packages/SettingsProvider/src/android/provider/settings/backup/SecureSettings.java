@@ -192,5 +192,6 @@ public class SecureSettings {
         Settings.Secure.LOCKSCREEN_SHOW_CONTROLS,
         Settings.Secure.LOCKSCREEN_SHOW_WALLET,
         Settings.Secure.ADVANCED_REBOOT,
+        Settings.Secure.ENABLE_LOCATION_PRIVACY_INDICATOR,
     };
 }
