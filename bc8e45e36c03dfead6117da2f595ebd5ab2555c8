@@ -16,6 +16,24 @@
       "message": "Please merge this",
       "revId": "bc8e45e36c03dfead6117da2f595ebd5ab2555c8",
       "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "263cab1e_17863d9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000049
+      },
+      "writtenOn": "2021-11-15T19:16:57Z",
+      "side": 1,
+      "message": "\u003e Please merge this\n\n+",
+      "parentUuid": "197eaf4b_0c706514",
+      "revId": "bc8e45e36c03dfead6117da2f595ebd5ab2555c8",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
     }
   ]
 }
