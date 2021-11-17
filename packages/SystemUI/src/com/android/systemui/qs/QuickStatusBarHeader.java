@@ -45,6 +45,7 @@ import com.android.systemui.statusbar.phone.StatusBarIconController.TintedIconMa
 import com.android.systemui.statusbar.phone.StatusIconContainer;
 import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.VariableDateView;
+import com.android.systemui.statusbar.policy.NetworkTraffic;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class QuickStatusBarHeader extends FrameLayout {
     private View mSecurityHeaderView;
     private View mStatusIconsView;
     private View mContainer;
+    private NetworkTraffic mNetworkTraffic;
 
     private View mQSCarriers;
     private ViewGroup mClockContainer;
@@ -137,6 +139,7 @@ public class QuickStatusBarHeader extends FrameLayout {
         mRightLayout = findViewById(R.id.rightLayout);
         mDateContainer = findViewById(R.id.date_container);
         mPrivacyContainer = findViewById(R.id.privacy_container);
+        mNetworkTraffic = findViewById(R.id.networkTraffic);
 
         mClockContainer = findViewById(R.id.clock_container);
         mClockView = findViewById(R.id.clock);
@@ -276,6 +279,7 @@ public class QuickStatusBarHeader extends FrameLayout {
                     android.R.attr.textColorSecondary);
             mTextColorPrimary = textColor;
             mClockView.setTextColor(textColor);
+            mNetworkTraffic.setTintColor(textColor);
             if (mTintedIconManager != null) {
                 mTintedIconManager.setTint(textColor);
             }
@@ -343,6 +347,7 @@ public class QuickStatusBarHeader extends FrameLayout {
                 .addFloat(mDateView, "alpha", 0, 0, 1)
                 .addFloat(mClockDateView, "alpha", 1, 0, 0)
                 .addFloat(mQSCarriers, "alpha", 0, 1)
+                .addFloat(mNetworkTraffic, "alpha", 0, 1)
                 .setListener(new TouchAnimator.ListenerAdapter() {
                     @Override
                     public void onAnimationAtEnd() {
