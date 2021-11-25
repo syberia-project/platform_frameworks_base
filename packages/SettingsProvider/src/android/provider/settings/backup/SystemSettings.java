@@ -95,5 +95,6 @@ public class SystemSettings {
         Settings.System.GLOBAL_ACTIONS_USERS,
         Settings.System.GLOBAL_ACTIONS_MAX_COLUMNS,
         Settings.System.GLOBAL_ACTIONS_MAX_ROWS,
+        Settings.System.FULLSCREEN_GESTURES,
     };
 }
