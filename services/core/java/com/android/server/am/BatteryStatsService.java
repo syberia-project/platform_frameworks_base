@@ -126,7 +126,7 @@ public final class BatteryStatsService extends IBatteryStats.Stub
         Watchdog.Monitor {
     static final String TAG = "BatteryStatsService";
     static final boolean DBG = false;
-    private static final boolean BATTERY_USAGE_STORE_ENABLED = true;
+    private static final boolean BATTERY_USAGE_STORE_ENABLED = false;
 
     private static IBatteryStats sService;
 
