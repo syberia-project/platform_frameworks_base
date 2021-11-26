@@ -112,9 +112,6 @@ public class NotificationShadeWindowViewController {
     private final PanelExpansionStateManager mPanelExpansionStateManager;
     private final StatusBarWindowController mStatusBarWindowController;
 
-    private ImageView mAutoBrightnessIcon;
-    private boolean mShowAutoBrightnessButton;
-
     // Used for determining view / touch intersection
     private int[] mTempLocation = new int[2];
     private RectF mTempRect = new RectF();
@@ -177,10 +174,6 @@ public class NotificationShadeWindowViewController {
 
         // This view is not part of the newly inflated expanded status bar.
         mBrightnessMirror = mView.findViewById(R.id.brightness_mirror_container);
-        mAutoBrightnessIcon = (ImageView)
-                mBrightnessMirror.findViewById(R.id.brightness_icon);
-        mShowAutoBrightnessButton = mTunerService.getValue(
-                QS_SHOW_AUTO_BRIGHTNESS_BUTTON, 1) == 1;
     }
 
     /**
@@ -458,10 +451,11 @@ public class NotificationShadeWindowViewController {
             public void onChildViewAdded(View parent, View child) {
                 if (child.getId() == R.id.brightness_mirror_container) {
                     mBrightnessMirror = child;
-                    mAutoBrightnessIcon = (ImageView)
+                    ImageView autoBrightnessIcon =
                             child.findViewById(R.id.brightness_icon);
-                    mAutoBrightnessIcon.setVisibility(!mShowAutoBrightnessButton
-                            ? View.GONE : View.VISIBLE);
+                    boolean show = mTunerService.getValue(
+                            QS_SHOW_AUTO_BRIGHTNESS_BUTTON, 1) == 1;
+                    autoBrightnessIcon.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             }
 
