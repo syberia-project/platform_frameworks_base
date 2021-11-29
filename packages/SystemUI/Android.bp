@@ -109,6 +109,7 @@ android_library {
         "tensorflowlite_java",
         "vendor-pixelatoms-java",
         "faceunlock_framework",
+        "//hardware/google/interfaces:com.google.hardware.pixel.display-V3-java",
     ],
     manifest: "AndroidManifest.xml",
 
