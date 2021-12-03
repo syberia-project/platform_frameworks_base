@@ -312,6 +312,8 @@ public interface CentralSurfaces extends Dumpable, LifecycleOwner {
     @Deprecated
     float getDisplayDensity();
 
+    void setBlockedGesturalNavigation(boolean blocked);
+
     public static class KeyboardShortcutsMessage {
         final int mDeviceId;
 
