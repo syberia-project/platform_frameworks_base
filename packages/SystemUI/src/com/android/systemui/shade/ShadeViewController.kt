@@ -266,6 +266,8 @@ interface ShadeViewController {
     /** Returns the ShadeFoldAnimator. */
     val shadeFoldAnimator: ShadeFoldAnimator
 
+    fun setBlockedGesturalNavigation(blocked: Boolean)
+
     companion object {
         /**
          * Returns a multiplicative factor to use when determining the falsing threshold for touches

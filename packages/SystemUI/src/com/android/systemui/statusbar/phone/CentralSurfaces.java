@@ -374,6 +374,8 @@ public interface CentralSurfaces extends Dumpable, LifecycleOwner {
 
     void extendDozePulse();
 
+    void setBlockedGesturalNavigation(boolean blocked);
+
     public static class KeyboardShortcutsMessage {
         final int mDeviceId;
 
