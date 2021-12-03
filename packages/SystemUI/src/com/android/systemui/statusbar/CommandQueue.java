@@ -181,6 +181,7 @@ public class CommandQueue extends IStatusBar.Stub implements
     private static final int MSG_TOGGLE_CAMERA_FLASH = 100 << MSG_SHIFT;
     private static final int MSG_KILL_FOREGROUND_APP = 101 << MSG_SHIFT;
     private static final int MSG_TOGGLE_SETTINGS_PANEL = 102 << MSG_SHIFT;
+    private static final int MSG_SET_BLOCKED_GESTURAL_NAVIGATION = 103 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -534,6 +535,7 @@ public class CommandQueue extends IStatusBar.Stub implements
 
         default void toggleCameraFlash() { }
         default void killForegroundApp() { }
+        default void setBlockedGesturalNavigation(boolean blocked) {}
     }
 
     @VisibleForTesting
@@ -1468,6 +1470,15 @@ public class CommandQueue extends IStatusBar.Stub implements
         }
     }
 
+    public void setBlockedGesturalNavigation(boolean blocked) {
+        synchronized (mLock) {
+            if (mHandler.hasMessages(MSG_SET_BLOCKED_GESTURAL_NAVIGATION)) {
+                mHandler.removeMessages(MSG_SET_BLOCKED_GESTURAL_NAVIGATION);
+            }
+            mHandler.obtainMessage(MSG_SET_BLOCKED_GESTURAL_NAVIGATION, blocked).sendToTarget();
+        }
+    }
+
     private final class H extends Handler {
         private H(Looper l) {
             super(l);
@@ -1985,6 +1996,9 @@ public class CommandQueue extends IStatusBar.Stub implements
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).killForegroundApp();
                     }
+                    break;
+                case MSG_SET_BLOCKED_GESTURAL_NAVIGATION:
+                    mCallbacks.forEach(cb -> cb.setBlockedGesturalNavigation((Boolean) msg.obj));
                     break;
             }
         }
