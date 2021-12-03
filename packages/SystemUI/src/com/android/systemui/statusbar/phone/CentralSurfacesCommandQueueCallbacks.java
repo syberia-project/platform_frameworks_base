@@ -577,6 +577,10 @@ public class CentralSurfacesCommandQueueCallbacks implements CommandQueue.Callba
         }
     }
 
+    public void setBlockedGesturalNavigation(boolean blocked) {
+        mCentralSurfaces.setBlockedGesturalNavigation(blocked);
+    }
+
     private boolean isGoingToSleep() {
         return mWakefulnessLifecycle.getWakefulness()
                 == WakefulnessLifecycle.WAKEFULNESS_GOING_TO_SLEEP;
