@@ -65,11 +65,11 @@
     <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
     <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
 
-  <!-- Enable face auth only when swiping security view -->
-  <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
+    <!-- Enable face auth only when swiping security view -->
+    <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
 
-  <!-- Whether to cancel fingerprint operation if not idle -->
-  <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
+    <!-- Whether to cancel fingerprint operation if not idle -->
+    <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
 
   <!-- LiveDisplay -->
   <java-symbol type="string" name="live_display_title" />
@@ -104,4 +104,6 @@
   <java-symbol type="array" name="config_displayModeMappings" />
   <java-symbol type="bool" name="config_defaultAntiFlicker" />
 
+    <!-- Whether to disable Night Light on Udfps keyguard -->
+    <bool name="config_udfpsDisableNightLight">false</bool>
 </resources>
