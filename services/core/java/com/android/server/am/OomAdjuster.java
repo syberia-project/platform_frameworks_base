@@ -844,7 +844,9 @@ public class OomAdjuster {
                     ProcessRecord app = activeProcesses.get(i);
                     final ProcessStateRecord state = app.mState;
                     if (!app.isKilledByAm() && app.getThread() != null && state.containsCycle()) {
-                        if (computeOomAdjLSP(app, state.getCurRawAdj(), topApp, true, now,
+                        final int cachedAdj = state.getCurRawAdj() >= ProcessList.CACHED_APP_MIN_ADJ
+                                ? state.getCurRawAdj() : ProcessList.UNKNOWN_ADJ;
+                        if (computeOomAdjLSP(app, cachedAdj, topApp, true, now,
                                 true, true)) {
                             retryCycles = true;
                         }
