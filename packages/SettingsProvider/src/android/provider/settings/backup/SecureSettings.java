@@ -270,5 +270,6 @@ public class SecureSettings {
         Settings.Secure.VISUAL_QUERY_ACCESSIBILITY_DETECTION_ENABLED,
         Settings.Secure.ADVANCED_REBOOT,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
+        Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
     };
 }

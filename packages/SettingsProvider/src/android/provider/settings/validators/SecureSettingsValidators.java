@@ -424,5 +424,6 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.CAMERA_EXTENSIONS_FALLBACK, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.ADVANCED_REBOOT, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.QUICK_SETTINGS_TILES_VIBRATE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.GESTURE_NAVBAR_LENGTH_MODE, new InclusiveIntegerRangeValidator(0, 3));
     }
 }
