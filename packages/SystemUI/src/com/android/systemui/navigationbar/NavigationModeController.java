@@ -47,6 +47,7 @@ import com.android.systemui.dagger.qualifiers.UiBackground;
 import com.android.systemui.dump.DumpManager;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.policy.ConfigurationController;
+import com.android.systemui.util.settings.SecureSettings;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class NavigationModeController implements Dumpable {
     public interface ModeChangedListener {
         void onNavigationModeChanged(int mode);
         default void onSettingsChanged() {}
+        default void onNavigationHandleWidthModeChanged(int mode) {}
     }
 
     private final Context mContext;
@@ -73,6 +75,7 @@ public class NavigationModeController implements Dumpable {
     private final IOverlayManager mOverlayManager;
     private final Executor mUiBgExecutor;
     private final UserTracker mUserTracker;
+    private final SecureSettings mSecureSettings;
 
     private ArrayList<ModeChangedListener> mListeners = new ArrayList<>();
 
@@ -123,7 +126,9 @@ public class NavigationModeController implements Dumpable {
             UserTracker userTracker,
             @Main Executor mainExecutor,
             @UiBackground Executor uiBgExecutor,
-            DumpManager dumpManager) {
+            DumpManager dumpManager,
+            @Main Handler mainHandler,
+            SecureSettings secureSettings) {
         mContext = context;
         mCurrentUserContext = context;
         mUserTracker = userTracker;
@@ -153,6 +158,18 @@ public class NavigationModeController implements Dumpable {
             }
         });
 
+        mSecureSettings = secureSettings;
+        mSecureSettings.registerContentObserverForUser(
+            Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
+            new ContentObserver(mainHandler) {
+                @Override
+                public void onChange(boolean selfChange, Uri uri) {
+                    mListeners.forEach(listener ->
+                        listener.onNavigationHandleWidthModeChanged(
+                            getNavigationHandleWidthMode()));
+                }
+            }, UserHandle.USER_ALL);
+
         updateCurrentInteractionMode(false /* notify */);
     }
 
@@ -161,8 +178,8 @@ public class NavigationModeController implements Dumpable {
         mCurrentUserContext = getCurrentUserContext();
         int mode = getCurrentInteractionMode(mCurrentUserContext);
         mUiBgExecutor.execute(() ->
-            Settings.Secure.putString(mCurrentUserContext.getContentResolver(),
-                    Secure.NAVIGATION_MODE, String.valueOf(mode)));
+            mSecureSettings.putStringForUser(Secure.NAVIGATION_MODE,
+                String.valueOf(mode), UserHandle.USER_CURRENT));
         if (DEBUG) {
             Log.d(TAG, "updateCurrentInteractionMode: mode=" + mode);
         }
@@ -216,6 +233,11 @@ public class NavigationModeController implements Dumpable {
             Log.e(TAG, "Failed to create package context", e);
             return null;
         }
+    }
+
+    public int getNavigationHandleWidthMode() {
+        return mSecureSettings.getIntForUser(Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
+            1, UserHandle.USER_CURRENT);
     }
 
     @Override
