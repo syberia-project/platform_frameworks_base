@@ -260,5 +260,6 @@ public class SecureSettings {
         Settings.Secure.EVEN_DIMMER_MIN_NITS,
         Settings.Secure.ADVANCED_REBOOT,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
+        Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
     };
 }
