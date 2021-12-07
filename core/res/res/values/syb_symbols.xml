@@ -88,10 +88,13 @@
     <java-symbol type="bool" name="config_multiColorBatteryLed" />
     <java-symbol type="bool" name="config_ledCanPulse" />
 
-  <!-- Wheter device supports an gaming mode profiles -->
-  <java-symbol type="bool" name="config_gamingmode_performance" />
+    <!-- Wheter device supports an gaming mode profiles -->
+    <java-symbol type="bool" name="config_gamingmode_performance" />
 
     <!-- Gaming Mode FPSInfoService FPS node file path -->
     <java-symbol type="string" name="config_gamingmode_fpsInfoSysNode" />
+
+    <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
+    <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
 
 </resources>
