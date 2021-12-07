@@ -355,5 +355,6 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.SHOW_BACK_ARROW_GESTURE, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.SCREEN_OFF_UDFPS_ENABLED, BOOLEAN_VALIDATOR);
         VALIDATORS.put(Secure.QUICK_SETTINGS_TILES_VIBRATE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(Secure.GESTURE_NAVBAR_LENGTH_MODE, new InclusiveIntegerRangeValidator(0, 3));
     }
 }

@@ -222,5 +222,6 @@ public class SecureSettings {
         Settings.Secure.ADVANCED_REBOOT,
         Settings.Secure.SHOW_BACK_ARROW_GESTURE,
         Settings.Secure.QUICK_SETTINGS_TILES_VIBRATE,
+        Settings.Secure.GESTURE_NAVBAR_LENGTH_MODE,
     };
 }
