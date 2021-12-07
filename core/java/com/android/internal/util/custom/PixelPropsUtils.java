@@ -48,7 +48,7 @@ public final class PixelPropsUtils {
         entry("DEVICE", "raven"),
         entry("PRODUCT", "raven"),
         entry("MODEL", "Pixel 6 Pro"),
-        entry("FINGERPRINT", "google/raven/raven:12/SD1A.210817.019.C2/7738411:user/release-keys")
+        entry("FINGERPRINT", "google/raven/raven:12/S3B1.220218.004/8242181:user/release-keys")
     );
 
     private static final Map<String, String> marlinProps = Map.ofEntries(
@@ -58,39 +58,49 @@ public final class PixelPropsUtils {
         entry("FINGERPRINT", "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys")
     );
 
+    private static final Map<String, String> redfinProps = Map.ofEntries(
+        entry("DEVICE", "redfin"),
+        entry("PRODUCT", "redfin"),
+        entry("MODEL", "Pixel 5"),
+        entry("FINGERPRINT", "google/redfin/redfin:12/SP2A.220305.012/8177914:user/release-keys")
+    );
+
     private static final List<String> packagesToChange = List.of(
         "com.android.vending",
-        "com.breel.wallpapers20",
-        "com.google.android.apps.customization.pixel",
         "com.google.android.apps.fitness",
         "com.google.android.apps.gcs",
-        "com.google.android.apps.maps",
-        "com.google.android.apps.nexuslauncher",
-        "com.google.android.apps.messaging",
-        "com.google.android.apps.pixelmigrate",
-        "com.google.android.apps.recorder",
         "com.google.android.apps.safetyhub",
         "com.google.android.apps.subscriptions.red",
         "com.google.android.apps.tachyon",
-        "com.google.android.apps.translate",
         "com.google.android.apps.turbo",
         "com.google.android.apps.turboadapter",
         "com.google.android.apps.wallpaper",
         "com.google.android.apps.wallpaper.pixel",
-        "com.google.android.apps.wellbeing",
         "com.google.android.as",
         "com.google.android.configupdater",
-        "com.google.android.dialer",
         "com.google.android.ext.services",
         "com.google.android.gms",
         "com.google.android.gms.location.history",
-        "com.google.android.googlequicksearchbox",
         "com.google.android.gsf",
-        "com.google.android.inputmethod.latin",
-        "com.google.android.soundpicker",
         "com.google.intelligence.sense",
         "com.google.pixel.dynamicwallpapers",
         "com.google.pixel.livewallpaper"
+    );
+
+    private static final List<String> packagesToChangePixel6 = List.of(
+        "com.google.android.soundpicker",
+        "com.google.android.inputmethod.latin",
+        "com.google.android.dialer",
+        "com.google.android.apps.translate",
+        "com.google.android.apps.maps",
+        "com.google.android.googlequicksearchbox",
+        "com.google.android.apps.recorder",
+        "com.google.android.apps.nexuslauncher",
+        "com.google.android.apps.messaging",
+        "com.google.android.apps.pixelmigrate",
+        "com.breel.wallpapers20",
+        "com.google.android.apps.customization.pixel",
+        "com.google.android.apps.wellbeing"
     );
 
     private static final List<String> packagesToChangePixelXL = List.of(
@@ -115,7 +125,7 @@ public final class PixelPropsUtils {
         }
         if (packagesToChange.contains(packageName)) {
             commonProps.forEach(PixelPropsUtils::setPropValue);
-            ravenProps.forEach((key, value) -> {
+            redfinProps.forEach((key, value) -> {
                 if (key.equals("MODEL") && packageName.equals("com.google.android.gms")) {
                     return;
                 } else {
@@ -125,6 +135,9 @@ public final class PixelPropsUtils {
         } else if (packagesToChangePixelXL.contains(packageName)) {
             commonProps.forEach(PixelPropsUtils::setPropValue);
             marlinProps.forEach(PixelPropsUtils::setPropValue);
+        } else if (packagesToChangePixel6.contains(packageName)) {
+            commonProps.forEach(PixelPropsUtils::setPropValue);
+            ravenProps.forEach(PixelPropsUtils::setPropValue);
         }
         // Set proper indexing fingerprint
         if (packageName.equals("com.google.android.settings.intelligence")) {
