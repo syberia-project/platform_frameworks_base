@@ -78,7 +78,7 @@ public class SingleKeyGestureTests {
     }
 
     private void initSingleKeyGestureRules() {
-        mDetector.addRule(new SingleKeyGestureDetector.SingleKeyRule(KEYCODE_POWER,
+        mDetector.addRule(new SingleKeyGestureDetector.SingleKeyRule(mContext, KEYCODE_POWER,
                 KEY_LONGPRESS | KEY_VERYLONGPRESS) {
             @Override
             int getMaxMultiPressCount() {
