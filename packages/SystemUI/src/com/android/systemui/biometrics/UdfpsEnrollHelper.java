@@ -135,11 +135,9 @@ public class UdfpsEnrollHelper {
     }
 
     void onEnrollmentProgress(int remaining) {
-        Log.d(TAG, "onEnrollmentProgress: remaining = " + remaining
-                + ", mRemainingSteps = " + mRemainingSteps
-                + ", mTotalSteps = " + mTotalSteps
-                + ", mLocationsEnrolled = " + mLocationsEnrolled
-                + ", mCenterTouchCount = " + mCenterTouchCount);
+        if (mTotalSteps == -1) {
+            mTotalSteps = remaining;
+        }
 
         if (remaining != mRemainingSteps) {
             mLocationsEnrolled++;
