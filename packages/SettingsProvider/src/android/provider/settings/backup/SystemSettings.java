@@ -105,5 +105,6 @@ public class SystemSettings {
         Settings.System.NOTIFICATION_PULSE_REPEATS,
         Settings.System.AOD_NOTIFICATION_PULSE_TIMEOUT,
         Settings.System.NOTIFICATION_PULSE_DURATION,
+        Settings.System.SCREEN_OFF_FOD,
     };
 }
