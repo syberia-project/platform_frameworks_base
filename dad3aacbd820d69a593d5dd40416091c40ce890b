@@ -16,6 +16,23 @@
       "message": "works",
       "revId": "dad3aacbd820d69a593d5dd40416091c40ce890b",
       "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7fc06d_23432e55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-12-09T19:55:56Z",
+      "side": 1,
+      "message": "Before this CL vendorCode was 22. in overlay it zeroe by default. I prefer to keep original vendorCode by default",
+      "revId": "dad3aacbd820d69a593d5dd40416091c40ce890b",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
     }
   ]
 }
