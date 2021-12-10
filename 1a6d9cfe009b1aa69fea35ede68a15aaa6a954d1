@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f98d2e76_c4e28a14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000015
+      },
+      "writtenOn": "2021-12-10T12:56:49Z",
+      "side": 1,
+      "message": "Updated default to 22",
+      "revId": "1a6d9cfe009b1aa69fea35ede68a15aaa6a954d1",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    }
+  ]
+}
