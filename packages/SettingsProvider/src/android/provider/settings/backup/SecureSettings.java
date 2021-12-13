@@ -193,5 +193,8 @@ public class SecureSettings {
         Settings.Secure.LOCKSCREEN_SHOW_WALLET,
         Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK,
         Settings.Secure.ADVANCED_REBOOT,
+        Settings.Secure.QS_SHOW_BRIGHTNESS,
+        Settings.Secure.QS_BRIGHTNESS_POSITION_BOTTOM,
+        Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS_BUTTON,
     };
 }
