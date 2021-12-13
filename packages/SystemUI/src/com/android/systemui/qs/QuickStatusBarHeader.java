@@ -28,6 +28,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.DisplayCutout;
@@ -61,8 +62,19 @@ import java.util.List;
  * View that contains the top-most bits of the QS panel (primarily the status bar with date, time,
  * battery, carrier info and privacy icons) and also contains the {@link QuickQSPanel}.
  */
-public class QuickStatusBarHeader extends FrameLayout implements
+public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tunable,
         View.OnClickListener, View.OnLongClickListener {
+
+    public static final String STATUS_BAR_BATTERY_STYLE =
+            "system:" + Settings.System.STATUS_BAR_BATTERY_STYLE;
+    public static final String QS_BATTERY_STYLE =
+            "system:" + Settings.System.QS_BATTERY_STYLE;
+    public static final String QS_BATTERY_LOCATION =
+            "system:" + Settings.System.QS_BATTERY_LOCATION;
+    private static final String QS_SHOW_BATTERY_PERCENT =
+            "system:" + Settings.System.QS_SHOW_BATTERY_PERCENT;
+    private static final String QS_SHOW_BATTERY_ESTIMATE =
+            "system:" + Settings.System.QS_SHOW_BATTERY_ESTIMATE;
 
     private boolean mExpanded;
     private boolean mQsDisabled;
@@ -93,6 +105,7 @@ public class QuickStatusBarHeader extends FrameLayout implements
     private View mPrivacyContainer;
 
     private BatteryMeterView mBatteryRemainingIcon;
+    private BatteryMeterView mBatteryIcon;
     private StatusIconContainer mIconContainer;
     private View mPrivacyChip;
 
@@ -112,13 +125,12 @@ public class QuickStatusBarHeader extends FrameLayout implements
     private List<String> mRssiIgnoredSlots;
     private boolean mIsSingleCarrier;
 
-    private boolean mHasCenterCutout;
-    private boolean mConfigShowBatteryEstimate;
-
     private boolean mUseCombinedQSHeader;
 
     private final ActivityStarter mActivityStarter;
     private final Vibrator mVibrator;
+
+    private int mStatusBarBatteryStyle, mQSBatteryStyle, mQSBatteryLocation;
 
     public QuickStatusBarHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -165,21 +177,26 @@ public class QuickStatusBarHeader extends FrameLayout implements
         mDatePrivacySeparator = findViewById(R.id.space);
         // Tint for the battery icons are handled in setupHost()
         mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
-
-        updateResources();
+        mBatteryIcon = findViewById(R.id.batteryIcon);
+        mBatteryRemainingIcon.setOnClickListener(this);
+        mBatteryIcon.setOnClickListener(this);
+ 
         Configuration config = mContext.getResources().getConfiguration();
         setDatePrivacyContainersWidth(config.orientation == Configuration.ORIENTATION_LANDSCAPE);
         setSecurityHeaderContainerVisibility(
                 config.orientation == Configuration.ORIENTATION_LANDSCAPE);
 
-        // QS will always show the estimate, and BatteryMeterView handles the case where
-        // it's unavailable or charging
-        mBatteryRemainingIcon.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
-
         mIconsAlphaAnimatorFixed = new TouchAnimator.Builder()
                 .addFloat(mIconContainer, "alpha", 0, 1)
                 .addFloat(mBatteryRemainingIcon, "alpha", 0, 1)
                 .build();
+
+        Dependency.get(TunerService.class).addTunable(this,
+                STATUS_BAR_BATTERY_STYLE,
+                QS_BATTERY_STYLE,
+                QS_BATTERY_LOCATION,
+                QS_SHOW_BATTERY_PERCENT,
+                QS_SHOW_BATTERY_ESTIMATE);
     }
 
     void onAttach(TintedIconManager iconManager,
@@ -248,6 +265,12 @@ public class QuickStatusBarHeader extends FrameLayout implements
             builder.appendPath(Long.toString(System.currentTimeMillis()));
             Intent todayIntent = new Intent(Intent.ACTION_VIEW, builder.build());
             mActivityStarter.postStartActivityDismissingKeyguard(todayIntent, 0);
+        } else if (v == mBatteryRemainingIcon) {
+            mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
+                    Intent.ACTION_POWER_USAGE_SUMMARY), 0);
+        } else if (v == mBatteryIcon) {
+            mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
+                    Intent.ACTION_POWER_USAGE_SUMMARY), 0);
         }
     }
 
@@ -259,6 +282,14 @@ public class QuickStatusBarHeader extends FrameLayout implements
                     "com.android.settings.Settings$DateTimeSettingsActivity");
             mActivityStarter.startActivity(nIntent, true /* dismissShade */);
             mVibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+            return true;
+        } else if (v == mBatteryRemainingIcon) {
+            mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
+                    Intent.ACTION_POWER_USAGE_SUMMARY), 0);
+            return true;
+        } else if (v == mBatteryIcon) {
+            mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
+                    Intent.ACTION_POWER_USAGE_SUMMARY), 0);
             return true;
         }
         return false;
@@ -280,14 +311,6 @@ public class QuickStatusBarHeader extends FrameLayout implements
         mSecurityHeaderView.setVisibility(landscape ? VISIBLE : GONE);
     }
 
-    private void updateBatteryMode() {
-        if (mConfigShowBatteryEstimate) {
-            mBatteryRemainingIcon.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
-        } else {
-            mBatteryRemainingIcon.setPercentShowMode(BatteryMeterView.MODE_ON);
-        }
-    }
-
     void updateResources() {
         Resources resources = mContext.getResources();
         // status bar is already displayed out of QS in split shade
@@ -297,8 +320,6 @@ public class QuickStatusBarHeader extends FrameLayout implements
         boolean gone = shouldUseSplitShade || mUseCombinedQSHeader || mQsDisabled;
         mStatusIconsView.setVisibility(gone ? View.GONE : View.VISIBLE);
         mDatePrivacyView.setVisibility(gone ? View.GONE : View.VISIBLE);
-
-        mConfigShowBatteryEstimate = resources.getBoolean(R.bool.config_showBatteryEstimateQSBH);
 
         mRoundedCornerPadding = resources.getDimensionPixelSize(
                 R.dimen.rounded_corner_content_padding);
@@ -333,6 +354,8 @@ public class QuickStatusBarHeader extends FrameLayout implements
             }
             mBatteryRemainingIcon.updateColors(mTextColorPrimary, textColorSecondary,
                     mTextColorPrimary);
+            mBatteryIcon.updateColors(mTextColorPrimary, textColorSecondary,
+                    mTextColorPrimary);
         }
 
         MarginLayoutParams qqsLP = (MarginLayoutParams) mHeaderQsPanel.getLayoutParams();
@@ -340,7 +363,6 @@ public class QuickStatusBarHeader extends FrameLayout implements
                 .getDimensionPixelSize(R.dimen.qqs_layout_margin_top) : qsOffsetHeight;
         mHeaderQsPanel.setLayoutParams(qqsLP);
 
-        updateBatteryMode();
         updateHeadersPadding();
         updateAnimators();
 
@@ -427,7 +449,13 @@ public class QuickStatusBarHeader extends FrameLayout implements
     }
 
     void setChipVisibility(boolean visibility) {
-        if (visibility) {
+        boolean showBattery = mQSBatteryLocation == 1
+                && (mBatteryIcon.getBatteryStyle() != 5
+                || mBatteryIcon.getBatteryEstimate() != 0);
+        if (showBattery) {
+            mBatteryIcon.setVisibility(visibility ? View.GONE : View.VISIBLE);
+        }
+        if (visibility || showBattery) {
             // Animates the icons and battery indicator from alpha 0 to 1, when the chip is visible
             mIconsAlphaAnimator = mIconsAlphaAnimatorFixed;
             mIconsAlphaAnimator.setPosition(mKeyguardExpansionFraction);
@@ -436,7 +464,6 @@ public class QuickStatusBarHeader extends FrameLayout implements
             mIconContainer.setAlpha(1);
             mBatteryRemainingIcon.setAlpha(1);
         }
-
     }
 
     /** */
@@ -512,14 +539,12 @@ public class QuickStatusBarHeader extends FrameLayout implements
                 mClockIconsSeparatorLayoutParams.width = 0;
                 setSeparatorVisibility(false);
                 mShowClockIconsSeparator = false;
-                mHasCenterCutout = false;
             } else {
                 datePrivacySeparatorLayoutParams.width = topCutout.width();
                 mDatePrivacySeparator.setVisibility(View.VISIBLE);
                 mClockIconsSeparatorLayoutParams.width = topCutout.width();
                 mShowClockIconsSeparator = true;
                 setSeparatorVisibility(mKeyguardExpansionFraction == 0f);
-                mHasCenterCutout = true;
             }
         }
         mDatePrivacySeparator.setLayoutParams(datePrivacySeparatorLayoutParams);
@@ -528,7 +553,6 @@ public class QuickStatusBarHeader extends FrameLayout implements
         mCutOutPaddingRight = sbInsets.second;
         mWaterfallTopInset = cutout == null ? 0 : cutout.getWaterfallInsets().top;
 
-        updateBatteryMode();
         updateHeadersPadding();
         return super.onApplyWindowInsets(insets);
     }
@@ -617,5 +641,59 @@ public class QuickStatusBarHeader extends FrameLayout implements
     public void setExpandedScrollAmount(int scrollY) {
         mStatusIconsView.setScrollY(scrollY);
         mDatePrivacyView.setScrollY(scrollY);
+    }
+    private void updateBatteryStyle() {
+        int style;
+        if (mQSBatteryStyle == -1) {
+            style = mStatusBarBatteryStyle;
+        } else {
+            style = mQSBatteryStyle;
+        }
+        mBatteryRemainingIcon.setBatteryStyle(style);
+        mBatteryIcon.setBatteryStyle(style);
+        setChipVisibility(mPrivacyChip.getVisibility() == View.VISIBLE);
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case QS_BATTERY_STYLE:
+                mQSBatteryStyle =
+                        TunerService.parseInteger(newValue, -1);
+                updateBatteryStyle();
+                break;
+            case STATUS_BAR_BATTERY_STYLE:
+                mStatusBarBatteryStyle =
+                        TunerService.parseInteger(newValue, 0);
+                updateBatteryStyle();
+                break;
+            case QS_BATTERY_LOCATION:
+                mQSBatteryLocation =
+                        TunerService.parseInteger(newValue, 0);
+                if (mQSBatteryLocation == 0) {
+                    mBatteryIcon.setVisibility(View.GONE);
+                    mBatteryRemainingIcon.setVisibility(View.VISIBLE);
+                } else {
+                    mBatteryRemainingIcon.setVisibility(View.GONE);
+                    mBatteryIcon.setVisibility(View.VISIBLE);
+                }
+                setChipVisibility(mPrivacyChip.getVisibility() == View.VISIBLE);
+                break;
+            case QS_SHOW_BATTERY_PERCENT:
+                mBatteryRemainingIcon.setBatteryPercent(
+                        TunerService.parseInteger(newValue, 2));
+                mBatteryIcon.setBatteryPercent(
+                        TunerService.parseInteger(newValue, 2));
+                break;
+            case QS_SHOW_BATTERY_ESTIMATE:
+                mBatteryRemainingIcon.setBatteryEstimate(
+                        TunerService.parseInteger(newValue, 0));
+                mBatteryIcon.setBatteryEstimate(
+                        TunerService.parseInteger(newValue, 0));
+                setChipVisibility(mPrivacyChip.getVisibility() == View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 }
