@@ -7443,5 +7443,9 @@ message MetricsEvent {
     PANEL_BLUETOOTH = 2003;
 
     SYBERIA = 4200;
+
+    // exTHmUI Settings
+    EXTHMUI_SETTINGS = 4000;
+
   }
 }
