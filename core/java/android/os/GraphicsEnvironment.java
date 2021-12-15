@@ -32,6 +32,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.internal.util.GamingModeHelper;
+
 import dalvik.system.VMRuntime;
 
 import java.io.BufferedReader;
@@ -636,7 +638,7 @@ public class GraphicsEnvironment {
     /**
      * Return the driver package name to use. Return null for system driver.
      */
-    private String chooseDriverInternal(Bundle coreSettings, ApplicationInfo ai) {
+    private String chooseDriverInternal(Context context, Bundle coreSettings, ApplicationInfo ai) {
         final String productionDriver = SystemProperties.get(PROPERTY_GFX_DRIVER_PRODUCTION);
         final boolean hasProductionDriver = productionDriver != null && !productionDriver.isEmpty();
 
@@ -657,6 +659,10 @@ public class GraphicsEnvironment {
                         "Ignore updatable driver package for privileged/non-updated system app.");
             }
             return null;
+        }
+
+        if (GamingModeHelper.useGameDriver(context, ai.packageName)) {
+            return productionDriver;
         }
 
         final boolean enablePrereleaseDriver =
@@ -738,7 +744,7 @@ public class GraphicsEnvironment {
     private boolean chooseDriver(
             Context context, Bundle coreSettings, PackageManager pm, String packageName,
             ApplicationInfo ai) {
-        final String driverPackageName = chooseDriverInternal(coreSettings, ai);
+        final String driverPackageName = chooseDriverInternal(context, coreSettings, ai);
         if (driverPackageName == null) {
             return false;
         }

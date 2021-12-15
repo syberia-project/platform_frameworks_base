@@ -113,4 +113,6 @@
          Used to decide if we show pulse settings -->
     <bool name="config_ledCanPulse">true</bool>
 
+    <bool name="config_gamingmode_performance">false</bool>
+
 </resources>
