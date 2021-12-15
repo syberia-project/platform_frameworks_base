@@ -2207,6 +2207,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         return mPresenter;
     }
 
+    @Override
+    public void setBlockedGesturalNavigation(boolean blocked) {
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().setBlockedGesturalNavigation(blocked);
+        }
+    }
+
     @VisibleForTesting
     void setBarStateForTest(int state) {
         mState = state;
