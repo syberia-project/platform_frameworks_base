@@ -1259,6 +1259,8 @@ public class ContentProviderHelper {
 
         // Now that the settings provider is published we can consider sending in a rescue party.
         RescueParty.onSettingsProviderPublished(mService.mContext);
+
+        mService.mActivityTaskManager.mGamingModeHelper.setAmsHandler(mService.mHandler);
     }
 
     /**
