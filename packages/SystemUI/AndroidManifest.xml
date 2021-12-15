@@ -183,6 +183,11 @@
     <!-- Self permission for internal broadcasts. -->
     <permission android:name="com.android.systemui.permission.SELF"
             android:protectionLevel="signature" />
+    
+    <!-- Adding Screen Recording -->
+    <permission android:name="com.android.systemui.permission.SCREEN_RECORDING"
+            android:protectionLevel="signature" />
+
     <uses-permission android:name="com.android.systemui.permission.SELF" />
 
     <permission android:name="com.android.systemui.permission.PLUGIN"
@@ -387,7 +392,13 @@
             android:theme="@style/ScreenRecord"
             android:showForAllUsers="true"
             android:excludeFromRecents="true" />
-        <service android:name=".screenrecord.RecordingService" />
+        <service android:name=".screenrecord.RecordingService" 
+            android:exported="true"
+            android:permission="com.android.systemui.permission.SCREEN_RECORDING">
+            <intent-filter>
+                <action android:name="com.android.systemui.screenrecord.RecordingService" />
+            </intent-filter>
+        </service>
 
         <receiver android:name=".SysuiRestartReceiver"
             android:exported="false">
