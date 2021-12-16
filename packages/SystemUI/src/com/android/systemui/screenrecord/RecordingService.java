@@ -192,7 +192,7 @@ public class RecordingService extends Service implements MediaRecorder.OnInfoLis
     }
 
     protected void doStartRecording(int audioSource, boolean showTaps) {
-        int mCurrentUserId = mUserContextTracker.getUserContext().getUserId();
+        int currentUserId = mUserContextTracker.getUserContext().getUserId();
         mAudioSource = ScreenRecordingAudioSource
                 .values()[audioSource];
         Log.d(TAG, "recording with audio source" + mAudioSource);
@@ -206,7 +206,7 @@ public class RecordingService extends Service implements MediaRecorder.OnInfoLis
 
         mRecorder = new ScreenMediaRecorder(
                 mUserContextTracker.getUserContext(),
-                mCurrentUserId,
+                currentUserId,
                 mAudioSource,
                 this
         );
@@ -252,15 +252,20 @@ public class RecordingService extends Service implements MediaRecorder.OnInfoLis
      * Begin the recording session
      * @return true if successful, false if something went wrong
      */
-    private boolean startRecording() {
+    private void startRecording() {
         try {
             getRecorder().start();
-            return true;
+            updateState(true);
+            createRecordingNotification();
+            mUiEventLogger.log(Events.ScreenRecordEvent.SCREEN_RECORD_START);
         } catch (IOException | RemoteException | RuntimeException e) {
             showErrorToast(R.string.screenrecord_start_error);
             e.printStackTrace();
+            updateState(false);
+            createErrorNotification();
+            stopForeground(true);
+            stopSelf();
         }
-        return false;
     }
 
     /**
