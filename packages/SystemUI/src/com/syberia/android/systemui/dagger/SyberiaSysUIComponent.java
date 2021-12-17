@@ -10,6 +10,7 @@ import com.android.systemui.dagger.SystemUIModule;
 import com.syberia.android.systemui.columbus.ColumbusModule;
 import com.syberia.android.systemui.keyguard.SyberiaKeyguardSliceProvider;
 import com.syberia.android.systemui.smartspace.KeyguardSmartspaceController;
+import com.syberia.android.systemui.elmyra.ElmyraModule;
 
 import dagger.Subcomponent;
 
@@ -18,6 +19,7 @@ import dagger.Subcomponent;
         ColumbusModule.class,
         DefaultComponentBinder.class,
         DependencyProvider.class,
+        ElmyraModule.class,
         SyberiaSystemUIBinder.class,
         SystemUIModule.class,
         SyberiaSystemUIModule.class})
