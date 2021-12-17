@@ -81,11 +81,13 @@ android_library {
         },
     },
     resource_dirs: [
+        "res",
         "res-product",
         "res-keyguard",
         "res-smartspace",
-        "res",
         "res-hwkeys",
+        "res-columbus",
+        "res-assist",
     ],
     static_libs: [
         "WindowManager-Shell",
@@ -123,10 +125,13 @@ android_library {
         "lottie",
         "colorkt",
         "themelib",
+        "assistmanager-google",
         "backgesture-google",
+        "columbus-sysui-google",
         "smartspace-google",
         "tensorflowlite_java",
         "faceunlock_framework",
+        "vendor-pixelatoms-java",
     ],
     manifest: "AndroidManifest.xml",
 
