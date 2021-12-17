@@ -61,7 +61,9 @@
 
 # Custom rules
 -keep class com.syberia.** { *; }
+-keep class co.aospa.** { *; }
 
 # Google rules
+-keep class android.hardware.** { *; }
 -keep class com.google.** { *; }
 -keep class vendor.** { *; }
