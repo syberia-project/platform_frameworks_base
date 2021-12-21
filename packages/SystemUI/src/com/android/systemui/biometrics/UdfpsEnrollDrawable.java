@@ -71,7 +71,6 @@ public class UdfpsEnrollDrawable extends UdfpsDrawable {
     private boolean mShouldShowEdgeHint = false;
 
     private int mEnrollIcon;
-    private int mMovingTargetFill;
 
     UdfpsEnrollDrawable(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context);
@@ -79,20 +78,20 @@ public class UdfpsEnrollDrawable extends UdfpsDrawable {
         loadResources(context, attrs);
         mSensorOutlinePaint = new Paint(0 /* flags */);
         mSensorOutlinePaint.setAntiAlias(true);
-        mSensorOutlinePaint.setColor(mMovingTargetFill);
+        mSensorOutlinePaint.setColor(mContext.getColor(R.color.udfps_moving_target_fill));
         mSensorOutlinePaint.setStyle(Paint.Style.FILL);
 
         mBlueFill = new Paint(0 /* flags */);
         mBlueFill.setAntiAlias(true);
-        mBlueFill.setColor(mMovingTargetFill);
+        mBlueFill.setColor(context.getColor(R.color.udfps_moving_target_fill));
         mBlueFill.setStyle(Paint.Style.FILL);
 
         mMovingTargetFpIcon = context.getResources()
                 .getDrawable(R.drawable.ic_kg_fingerprint, null);
-        mMovingTargetFpIcon.setTint(mEnrollIcon);
+        mMovingTargetFpIcon.setTint(mContext.getColor(R.color.udfps_enroll_icon));
         mMovingTargetFpIcon.mutate();
 
-        getFingerprintDrawable().setTint(mEnrollIcon);
+        mFingerprintDrawable.setTint(mContext.getColor(R.color.udfps_enroll_icon));
 
         mTargetAnimListener = new Animator.AnimatorListener() {
             @Override
@@ -116,8 +115,6 @@ public class UdfpsEnrollDrawable extends UdfpsDrawable {
                 R.styleable.BiometricsEnrollView, R.attr.biometricsEnrollStyle,
                 R.style.BiometricsEnrollStyle);
         mEnrollIcon = ta.getColor(R.styleable.BiometricsEnrollView_biometricsEnrollIcon, 0);
-        mMovingTargetFill = ta.getColor(
-                R.styleable.BiometricsEnrollView_biometricsMovingTargetFill, 0);
         ta.recycle();
     }
 
@@ -217,6 +214,11 @@ public class UdfpsEnrollDrawable extends UdfpsDrawable {
             return;
         }
 
+        if (getUdfpsDrawable() != null) {
+            getUdfpsDrawable().draw(canvas);
+            return;
+        }
+
         // Draw moving target
         if (mEnrollHelper != null && !mEnrollHelper.isCenterEnrollmentStage()) {
             canvas.save();
@@ -234,9 +236,9 @@ public class UdfpsEnrollDrawable extends UdfpsDrawable {
             if (mSensorRect != null) {
                 canvas.drawOval(mSensorRect, mSensorOutlinePaint);
             }
-            getFingerprintDrawable().draw(canvas);
-            getFingerprintDrawable().setAlpha(getAlpha());
-            mSensorOutlinePaint.setAlpha(getAlpha());
+            mFingerprintDrawable.draw(canvas);
+            mFingerprintDrawable.setAlpha(mAlpha);
+            mSensorOutlinePaint.setAlpha(mAlpha);
         }
 
     }
