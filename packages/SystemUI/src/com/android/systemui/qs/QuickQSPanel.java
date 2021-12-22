@@ -30,6 +30,8 @@ import com.android.systemui.plugins.qs.QSTile.SignalState;
 import com.android.systemui.plugins.qs.QSTile.State;
 import com.android.systemui.tuner.TunerService;
 
+import com.android.internal.util.syberia.SyberiaUtils;
+
 /**
  * Version of QSPanel that only shows N Quick Tiles in the QS Header.
  */
@@ -38,7 +40,8 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
     public static final String NUM_QUICK_TILES = "sysui_qqs_count";
     private static final String TAG = "QuickQSPanel";
     // A default value so that we never return 0.
-    public static final int DEFAULT_MAX_TILES = 6;
+    public static final int DEFAULT_MAX_TILES = 42;
+    public static final int DEFAULT_MIN_TILES = 6;
 
     public static final String QQS_BRIGHTNESS_SLIDER = "sysui_qqs_brightness_slider";
 
@@ -47,8 +50,8 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
 
     public QuickQSPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mMaxTiles = Math.min(DEFAULT_MAX_TILES,
-                getResources().getInteger(R.integer.quick_qs_panel_max_columns));
+        mMaxTiles = Math.min(DEFAULT_MAX_TILES, Math.max(DEFAULT_MIN_TILES,
+                getResources().getInteger(R.integer.quick_qs_panel_max_columns)));
     }
 
     @Override
@@ -95,7 +98,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
 
     @Override
     public TileLayout getOrCreateTileLayout() {
-        return new QQSSideLabelTileLayout(mContext);
+        return new QQSSideLabelTileLayout(mContext, this);
     }
 
 
@@ -139,7 +142,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
     }
 
     public void setMaxTiles(int maxTiles) {
-        mMaxTiles = Math.min(maxTiles, DEFAULT_MAX_TILES);
+        mMaxTiles = Math.min(DEFAULT_MAX_TILES, Math.max(DEFAULT_MIN_TILES, maxTiles));
     }
 
     @Override
@@ -233,15 +236,17 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
     static class QQSSideLabelTileLayout extends SideLabelTileLayout {
 
         private boolean mLastSelected;
+        private QuickQSPanel mQSPanel;
 
-        QQSSideLabelTileLayout(Context context) {
+        QQSSideLabelTileLayout(Context context, QuickQSPanel qsPanel) {
             super(context, null);
+            mQSPanel = qsPanel;
             setClipChildren(false);
             setClipToPadding(false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT);
             setLayoutParams(lp);
-            setMaxColumns(4);
+            setMaxColumns(getResourceColumns());
         }
 
         @Override
@@ -302,6 +307,19 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
             }
             setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_AUTO);
             mLastSelected = selected;
+        }
+
+        @Override
+        public int getResourceColumns() {
+            int columns = Math.min(DEFAULT_MAX_TILES,
+                    getResources().getInteger(R.integer.quick_qs_panel_max_columns));
+            return SyberiaUtils.getQuickQSColumnsCount(mContext, columns);
+        }
+
+        @Override
+        public void updateSettings() {
+            mQSPanel.setMaxTiles(getResourceColumns());
+            super.updateSettings();
         }
     }
 }

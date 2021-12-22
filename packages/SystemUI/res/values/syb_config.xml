@@ -26,4 +26,6 @@
      <!-- System icon area layout weight -->
     <item name="system_icon_area_weight" format="float" type="integer">1</item>
 
+    <bool name="qs_tile_vertical_layout">false</bool>
+
 </resources>

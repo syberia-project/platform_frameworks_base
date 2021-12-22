@@ -114,6 +114,8 @@ import com.android.systemui.statusbar.policy.ScrollAdapter;
 import com.android.systemui.util.Assert;
 import com.android.systemui.util.leak.RotationUtils;
 
+import com.android.internal.util.syberia.SyberiaUtils;
+
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.lang.annotation.Retention;
@@ -956,6 +958,7 @@ public class NotificationStackScrollLayout extends ViewGroup implements Dumpable
         mMinimumPaddings = res.getDimensionPixelSize(R.dimen.notification_side_paddings);
         mQsTilePadding = res.getDimensionPixelOffset(R.dimen.qs_tile_margin_horizontal);
         mQsTileColumns = res.getInteger(R.integer.quick_settings_num_columns);
+        mQsTileColumns = SyberiaUtils.getQSColumnsCount(mContext, mQsTileColumns);
         mSkinnyNotifsInLandscape = res.getBoolean(R.bool.config_skinnyNotifsInLandscape);
         mSidePaddings = mMinimumPaddings;  // Updated in onMeasure by updateSidePadding()
         mMinInteractionHeight = res.getDimensionPixelSize(
