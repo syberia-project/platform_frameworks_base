@@ -19,8 +19,11 @@ package com.android.internal.util.syberia;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.hardware.input.InputManager;
 import android.hardware.SensorManager;
+import android.provider.Settings;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
@@ -73,6 +76,25 @@ public class SyberiaUtils {
         }
     }
 
+    public static int getQSColumnsCount(Context context, int resourceCount) {
+        final int QS_COLUMNS_MIN = 2;
+        final Resources res = context.getResources();
+        int value = QS_COLUMNS_MIN;
+        if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            value = Settings.System.getIntForUser(
+                    context.getContentResolver(), "qs_layout_columns",
+                    resourceCount, UserHandle.USER_CURRENT);
+        } else {
+            value = Settings.System.getIntForUser(
+                    context.getContentResolver(), "qs_layout_columns_landscape",
+                    resourceCount, UserHandle.USER_CURRENT);
+        }
+        return Math.max(QS_COLUMNS_MIN, value);
+    }
+
+    public static int getQuickQSColumnsCount(Context context, int resourceCount) {
+        return getQSColumnsCount(context, resourceCount);
+    }
 
     public static boolean isPackageInstalled(Context context, String pkg, boolean ignoreState) {
         if (pkg != null) {
