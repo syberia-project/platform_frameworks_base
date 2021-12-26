@@ -88,6 +88,17 @@ LOCAL_REQUIRED_MODULES := \
 	FontTaurusSourceOverlay \
 	FontTechnicalSourceOverlay \
 	FontMontserratSourceOverlay \
+        IconShapeCylinderOverlay \
+        IconShapeHeartOverlay \
+        IconShapeHexagonOverlay \
+        IconShapeLeafOverlay \
+        IconShapePebbleOverlay \
+        IconShapeRoundedRectOverlay \
+        IconShapeSquareOverlay \
+        IconShapeSquircleOverlay \
+        IconShapeTaperedRectOverlay \
+        IconShapeTeardropOverlay \
+        IconShapeVesselOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
