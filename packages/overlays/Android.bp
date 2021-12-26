@@ -65,7 +65,19 @@ phony {
         "IconPackRoundedLauncherOverlay",
         "IconPackRoundedSettingsOverlay",
         "IconPackRoundedSystemUIOverlay",
-        "IconPackRoundedThemePickerOverlay"
+        "IconPackRoundedThemePickerOverlay",
+        "IconShapeCylinderOverlay",
+        "IconShapeHeartOverlay",
+        "IconShapeHexagonOverlay",
+        "IconShapeLeafOverlay",
+        "IconShapePebbleOverlay",
+        "IconShapeRoundedRectOverlay",
+        "IconShapeSquareOverlay",
+        "IconShapeSquircleOverlay",
+        "IconShapeTaperedRectOverlay",
+        "IconShapeTeardropOverlay",
+        "IconShapeVesselOverlay"
+
     ],
 }
 
