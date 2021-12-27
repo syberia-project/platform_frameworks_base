@@ -53,6 +53,7 @@ import com.android.systemui.shade.NotificationShadeWindowView;
 import com.android.systemui.shade.NotificationShadeWindowViewController;
 import com.android.systemui.statusbar.LightRevealScrim;
 import com.android.systemui.statusbar.NotificationPresenter;
+import com.android.systemui.statusbar.policy.GameSpaceManager;
 import com.android.systemui.util.Compile;
 
 import java.io.PrintWriter;
@@ -543,6 +544,8 @@ public interface CentralSurfaces extends Dumpable, ActivityStarter, LifecycleOwn
     boolean shouldDelayWakeUpAnimation();
 
     void setBlockedGesturalNavigation(boolean blocked);
+
+    GameSpaceManager getGameSpaceManager();
 
     public static class KeyboardShortcutsMessage {
         final int mDeviceId;
