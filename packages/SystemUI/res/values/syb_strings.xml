@@ -39,4 +39,8 @@
     <string name="global_action_flashlight">Flashlight</string>
 
     <string name="statusbar_items_title">Statusbar icon</string>
+
+    <string name="status_bar_vpn">VPN</string>
+    <string name="status_bar_call_strength">Call strength</string>
+
 </resources>
