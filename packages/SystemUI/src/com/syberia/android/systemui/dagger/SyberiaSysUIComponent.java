@@ -7,6 +7,9 @@ import com.android.systemui.dagger.SystemUIBinder;
 import com.android.systemui.dagger.SysUIComponent;
 import com.android.systemui.dagger.SystemUIModule;
 
+import com.syberia.android.systemui.keyguard.SyberiaKeyguardSliceProvider;
+import com.syberia.android.systemui.smartspace.KeyguardSmartspaceController;
+
 import dagger.Subcomponent;
 
 @SysUISingleton
@@ -22,4 +25,12 @@ public interface SyberiaSysUIComponent extends SysUIComponent {
     interface Builder extends SysUIComponent.Builder {
         SyberiaSysUIComponent build();
     }
+
+    /**
+     * Member injection into the supplied argument.
+     */
+    void inject(SyberiaKeyguardSliceProvider keyguardSliceProvider);
+
+    @SysUISingleton
+    KeyguardSmartspaceController createKeyguardSmartspaceController();
 }
