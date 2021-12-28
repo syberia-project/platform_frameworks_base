@@ -19,6 +19,8 @@ import com.google.android.systemui.smartspace.SmartSpaceController;
 import com.syberia.android.systemui.smartspace.KeyguardSmartspaceController;
 
 import com.android.keyguard.KeyguardUpdateMonitor;
+import com.syberia.android.systemui.theme.SyberiaThemeOverlayController;
+
 import com.android.keyguard.KeyguardViewController;
 import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.dagger.qualifiers.Background;
@@ -71,6 +73,7 @@ import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl;
 import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.util.concurrency.DelayableExecutor;
 import com.android.systemui.volume.dagger.VolumeModule;
+import com.android.systemui.theme.ThemeOverlayController;
 
 import dagger.Binds;
 import dagger.Module;
@@ -205,6 +208,9 @@ public abstract class SyberiaSystemUIModule {
     @Binds
     abstract DozeHost provideDozeHost(DozeServiceHost dozeServiceHost);
 
+    @Binds
+    abstract ThemeOverlayController provideThemeOverlayController(SyberiaThemeOverlayController themeOverlayController);
+
     // Google
     @Provides
     @SysUISingleton
@@ -243,4 +249,6 @@ public abstract class SyberiaSystemUIModule {
     static BcSmartspaceDataPlugin provideBcSmartspaceDataPlugin() {
         return new BcSmartspaceDataProvider();
     }
+
+
 }
