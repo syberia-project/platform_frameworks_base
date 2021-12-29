@@ -138,9 +138,13 @@ public class KeyguardClockSwitch extends RelativeLayout {
             mClockPlugin.onDestroyView();
             mClockPlugin = null;
         }
+        boolean useLargeClock = false;
         if (plugin == null) {
-            mClockView.setVisibility(View.VISIBLE);
-            mLargeClockView.setVisibility(View.VISIBLE);
+            this.mKeyguardStatusArea.setVisibility(View.VISIBLE);
+            this.mClockView.setVisibility(View.VISIBLE);
+            this.mLargeClockView.setVisibility(View.VISIBLE);
+            this.mClockFrame.setVisibility(View.VISIBLE);
+            setMargins(this.mLargeClockFrame, 0, 0, 0, 0);
             return;
         }
         // Attach small and big clock views to hierarchy.
@@ -156,12 +160,17 @@ public class KeyguardClockSwitch extends RelativeLayout {
             mLargeClockFrame.addView(bigClockView);
             mLargeClockView.setVisibility(View.GONE);
         }
-
+        mKeyguardStatusArea.setVisibility(plugin.shouldShowStatusArea() ? View.VISIBLE : View.GONE);
         // Initialize plugin parameters.
         mClockPlugin = plugin;
         mClockPlugin.setStyle(getPaint().getStyle());
         mClockPlugin.setTextColor(getCurrentTextColor());
         mClockPlugin.setDarkAmount(mDarkAmount);
+        Boolean bool = mHasVisibleNotifications;
+        if (bool != null) {
+            useLargeClock = bool.booleanValue();
+        }
+        setupFrames("setPlugin", useLargeClock);
         if (mColorPalette != null) {
             mClockPlugin.setColorPalette(mSupportsDarkText, mColorPalette);
         }
@@ -251,6 +260,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
             });
             mSmartspaceAnim.start();
         }
+        setupFrames("useLargeClock", !useLargeClock);
     }
 
     /**
@@ -337,6 +347,43 @@ public class KeyguardClockSwitch extends RelativeLayout {
             mClockPlugin.setColorPalette(mSupportsDarkText, mColorPalette);
         }
     }
+
+    private void setupFrames(String str, boolean useLargeClock) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("setupFrames called by " + str);
+        int i = 0;
+        if (useLargeClock) {
+            sb.append("\nhasNotifications: false");
+            if (hasCustomClock()) {
+                sb.append("\nhasCustomClock: true");
+                sb.append("\nshouldShowClockFrame: " + String.valueOf(mClockPlugin.shouldShowClockFrame()));
+                sb.append("\nusesPreferredY: " + String.valueOf(mClockPlugin.usesPreferredY()));
+                int dimensionPixelSize = mContext.getResources().getDisplayMetrics().heightPixels - mContext.getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                mClockFrame.setVisibility(!mClockPlugin.shouldShowClockFrame() ? View.GONE : View.VISIBLE);
+                FrameLayout frameLayout = mLargeClockFrame;
+                if (mClockPlugin.usesPreferredY()) {
+                    i = mClockPlugin.getPreferredY(dimensionPixelSize);
+                }
+                setMargins(frameLayout, 0, i, 0, 0);
+            } else {
+                sb.append("\nhasCustomClock: false");
+                mClockFrame.setVisibility(View.VISIBLE);
+                setMargins(mLargeClockFrame, 0, 0, 0, 0);
+            }
+        } else {
+            sb.append("\nhasNotifications: true");
+            mClockFrame.setVisibility(View.VISIBLE);
+            setMargins(mLargeClockFrame, 0, 0, 0, 0);
+        }
+    }
+
+    public void setMargins(View view, int i, int i2, int i3, int i4) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ((ViewGroup.MarginLayoutParams) view.getLayoutParams()).setMargins(i, i2, i3, i4);
+            view.requestLayout(); 
+        }
+    }
+
 
     public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.println("KeyguardClockSwitch:");
