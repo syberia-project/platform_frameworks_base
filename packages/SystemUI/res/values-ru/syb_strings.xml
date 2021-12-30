@@ -52,6 +52,7 @@
     <string name="status_bar_camera">Камера</string>
     <string name="status_bar_location">Местоположение</string>
     <string name="status_bar_microphone">Микрофон</string>
+    <string name="status_bar_call_strength">Уровень сигнала</string>
 
     <string name="task_helper_app_killed">%1$s принудительно остановлено</string>
     <string name="empty_app_killed">Приложение</string>
