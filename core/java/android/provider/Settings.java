@@ -6030,6 +6030,13 @@ public final class Settings {
         public static final String INCREASING_RING_START_VOLUME = "increasing_ring_start_vol";
 
         /**
+         * Whether to force small clock on keyguard
+         * @hide
+         */
+        @Readable
+        public static final String LOCKSCREEN_SMALL_CLOCK = "lockscreen_small_clock";
+
+        /**
          * Ramp up time (seconds) for increasing ring
          * @hide
          */
