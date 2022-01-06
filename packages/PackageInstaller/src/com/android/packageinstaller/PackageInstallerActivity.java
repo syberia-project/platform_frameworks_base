@@ -131,6 +131,7 @@ public class PackageInstallerActivity extends AlertActivity {
     // Would the mOk button be enabled if this activity would be resumed
     private boolean mEnableOk = false;
     private boolean mPermissionResultWasSet;
+    private boolean mAllowNextOnPause;
 
     private void startInstallConfirm(PackageInfo oldInfo) {
         requireViewById(R.id.updating_app_view).setVisibility(View.VISIBLE); // the main layout
@@ -408,10 +409,21 @@ public class PackageInstallerActivity extends AlertActivity {
         // sometimes this activity becomes hidden after onPause(),
         // and the user is unable to bring it back
         if (!mPermissionResultWasSet && mSessionId != -1) {
-            mInstaller.setPermissionsResult(mSessionId, false);
-            mPermissionResultWasSet = true;
-            finish();
+            if (mAllowNextOnPause) {
+                mAllowNextOnPause = false;
+            } else {
+                if (!isFinishing()) {
+                    finish();
+                }
+            }
         }
+    }
+
+    // handles startActivity() calls too
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
+        mAllowNextOnPause = true;
+        super.startActivityForResult(intent, requestCode, options);
     }
 
     @Override
@@ -426,6 +438,9 @@ public class PackageInstallerActivity extends AlertActivity {
         super.onDestroy();
         while (!mActiveUnknownSourcesListeners.isEmpty()) {
             unregister(mActiveUnknownSourcesListeners.get(0));
+        }
+        if (!mPermissionResultWasSet) {
+            mInstaller.setPermissionsResult(mSessionId, false);
         }
     }
 
