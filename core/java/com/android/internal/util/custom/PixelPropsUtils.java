@@ -163,10 +163,6 @@ public class PixelPropsUtils {
             return;
         }
 
-        if (packageName.equals(PACKAGE_GMS)) {
-            sIsGms = true;
-        }
-
         if (packageName.startsWith("com.google.")
                 || Arrays.asList(extraPackagesToChange).contains(packageName)) {
             Map<String, Object> propsToChange = propsToChangePixel6;
@@ -189,6 +185,10 @@ public class PixelPropsUtils {
                 }
                 if (DEBUG) Log.d(TAG, "Defining " + key + " prop for: " + packageName);
                 setPropValue(key, value);
+            }
+
+            if (packageName.equals(PACKAGE_GMS)) {
+                sIsGms = true;
             }
 
             // Set proper indexing fingerprint
