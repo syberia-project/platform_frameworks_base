@@ -62,9 +62,9 @@
      <!-- Width of the big battery circle icon in the status bar. -->
     <dimen name="status_bar_battery_bigcircle_icon_width">20.5dp</dimen>
     <!-- Height of the landscape battery icon in the status bar. -->
-    <dimen name="status_bar_battery_icon_height_landscape">12.5dp</dimen>
+    <dimen name="status_bar_battery_icon_height_landscape">10.5dp</dimen>
     <!-- Width of the landscape battery icon in the status bar. -->
-    <dimen name="status_bar_battery_icon_width_landscape">24dp</dimen>
+    <dimen name="status_bar_battery_icon_width_landscape">20dp</dimen>
 
     <!-- QQS Brightness slider -->
     <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
