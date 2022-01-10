@@ -6778,6 +6778,12 @@ public final class Settings {
         public static final String LIVE_DISPLAY_HINTED = "live_display_hinted";
 
         /**
+         * Whether to enable the ripple animation on fingerprint unlock
+         * @hide
+         */
+        public static final String ENABLE_RIPPLE_EFFECT = "enable_ripple_effect";
+
+        /**
          * @hide
          */
         public static final String QS_TILE_VERTICAL_LAYOUT = "qs_tile_vertical_layout";

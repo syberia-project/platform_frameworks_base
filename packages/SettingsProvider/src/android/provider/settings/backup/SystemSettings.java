@@ -129,6 +129,7 @@ public class SystemSettings {
                 Settings.System.FLASHLIGHT_ON_CALL,
                 Settings.System.FLASHLIGHT_ON_CALL_IGNORE_DND,
                 Settings.System.FLASHLIGHT_ON_CALL_RATE,
+                Settings.System.ENABLE_RIPPLE_EFFECT
         ));
         if (Flags.backUpSmoothDisplayAndForcePeakRefreshRate()) {
             settings.add(Settings.System.PEAK_REFRESH_RATE);
