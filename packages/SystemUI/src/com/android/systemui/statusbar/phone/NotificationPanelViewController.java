@@ -253,8 +253,8 @@ public class NotificationPanelViewController extends PanelViewController {
 
     // Cap and total height of Roboto font. Needs to be adjusted when font for the big clock is
     // changed.
-    private static final int CAP_HEIGHT = 2048;
-    private static final int FONT_HEIGHT = 3072;
+    private static final int CAP_HEIGHT = 1456;
+    private static final int FONT_HEIGHT = 2163;
 
     /**
      * Maximum time before which we will expand the panel even for slow motions when getting a
@@ -4743,7 +4743,7 @@ public class NotificationPanelViewController extends PanelViewController {
             // Update Clock Pivot
             mKeyguardStatusViewController.setPivotX(mView.getWidth() / 2);
             mKeyguardStatusViewController.setPivotY(
-                    (FONT_HEIGHT - CAP_HEIGHT) / 2816f
+                    (FONT_HEIGHT - CAP_HEIGHT) / 2048f
                             * mKeyguardStatusViewController.getClockTextSize());
 
             // Calculate quick setting heights.
