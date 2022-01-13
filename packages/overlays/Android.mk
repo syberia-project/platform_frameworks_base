@@ -89,7 +89,10 @@ LOCAL_REQUIRED_MODULES := \
 	FontTechnicalSourceOverlay \
 	FontMontserratSourceOverlay \
         IconPackOOSAndroidOverlay \
+        IconPackOOSLauncherOverlay \
+        IconPackOOSSettingsOverlay \
         IconPackOOSSystemUIOverlay \
+        IconPackOOSThemePickerOverlay \
         IconShapeCylinderOverlay \
         IconShapeHeartOverlay \
         IconShapeHexagonOverlay \
