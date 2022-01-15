@@ -61,6 +61,9 @@ public class NotificationIconAreaController implements
         NotificationWakeUpCoordinator.WakeUpListener,
         DemoMode {
 
+    public static final String STATUSBAR_COLORED_ICONS =
+            "system:" + Settings.System.STATUSBAR_COLORED_ICONS;
+
     public static final String HIGH_PRIORITY = "high_priority";
     private static final long AOD_ICONS_APPEAR_DURATION = 200;
 
@@ -99,6 +102,7 @@ public class NotificationIconAreaController implements
     private int mAodIconTint;
     private boolean mAodIconsVisible;
     private boolean mShowLowPriority = true;
+    private boolean mNewIconStyle = false;
 
     @VisibleForTesting
     final NotificationListener.NotificationSettingsListener mSettingsListener =
@@ -143,6 +147,25 @@ public class NotificationIconAreaController implements
         initializeNotificationAreaViews(context);
         reloadAodColor();
         darkIconDispatcher.addDarkReceiver(this);
+
+        final TunerService tunerService = Dependency.get(TunerService.class);
+        tunerService.addTunable(this, STATUSBAR_COLORED_ICONS);
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        switch (key) {
+            case STATUSBAR_COLORED_ICONS:
+                boolean newIconStyle =
+                    TunerService.parseIntegerSwitch(newValue, false);
+                if (mNewIconStyle != newIconStyle) {
+                    mNewIconStyle = newIconStyle;
+                    updateNotificationIcons();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     protected View inflateIconArea(LayoutInflater inflater) {
@@ -498,6 +521,8 @@ public class NotificationIconAreaController implements
                 }
                 hostLayout.addView(v, i, params);
             }
+            v.setIconStyle(mNewIconStyle);
+            v.updateDrawable();
         }
 
         hostLayout.setChangingViewPositions(true);
@@ -514,6 +539,7 @@ public class NotificationIconAreaController implements
         }
         hostLayout.setChangingViewPositions(false);
         hostLayout.setReplacingIcons(null);
+        hostLayout.updateState();
     }
 
     /**
@@ -549,13 +575,12 @@ public class NotificationIconAreaController implements
         if (colorize) {
             color = DarkIconDispatcher.getTint(mTintArea, v, tint);
         }
-        boolean newIconStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
-            Settings.System.STATUSBAR_COLORED_ICONS, 0, UserHandle.USER_CURRENT) == 1;
-        if (v.getStatusBarIcon().pkg.contains("systemui") || !newIconStyle) {
+        if (v.getStatusBarIcon().pkg.contains("systemui") || !mNewIconStyle) {
             v.setStaticDrawableColor(color);
             v.setDecorColor(tint);
         } else {
-            return;
+            v.setStaticDrawableColor(StatusBarIconView.NO_COLOR);
+            v.setDecorColor(Color.WHITE);
         }
     }
 
