@@ -81,7 +81,9 @@ phony {
         "IconPackOOSSystemUIOverlay",
         "IconPackOOSLauncherOverlay",
         "IconPackOOSSettingsOverlay",
-        "IconPackOOSThemePickerOverlay"
+        "IconPackOOSThemePickerOverlay",
+        "IconPackAcherusAndroidOverlay",
+        "IconPackAcherusSystemUIOverlay"
     ],
 }
 
