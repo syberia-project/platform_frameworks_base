@@ -65,10 +65,11 @@ import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl;
 import com.android.systemui.statusbar.policy.ZenModeController;
 import com.android.systemui.theme.ThemeOverlayController;
 import com.android.systemui.util.concurrency.DelayableExecutor;
+import com.android.systemui.settings.UserContentResolverProvider;
 import com.google.android.systemui.smartspace.BcSmartspaceDataProvider;
 import com.google.android.systemui.smartspace.KeyguardMediaViewController;
 import com.google.android.systemui.smartspace.KeyguardZenAlarmViewController;
-import com.google.android.systemui.smartspace.SmartSpaceController;     
+import com.google.android.systemui.smartspace.SmartSpaceController;
 
 import dagger.Binds;
 import dagger.Module;
@@ -107,7 +108,8 @@ public abstract class CustomSystemUIModule {
             BroadcastDispatcher broadcastDispatcher,
             DemoModeController demoModeController,
             @Main Handler mainHandler,
-            @Background Handler bgHandler) {
+            @Background Handler bgHandler,
+        UserContentResolverProvider userContentResolverProvider) {
         BatteryController bC = new BatteryControllerImpl(
                 context,
                 enhancedEstimates,
@@ -115,7 +117,8 @@ public abstract class CustomSystemUIModule {
                 broadcastDispatcher,
                 demoModeController,
                 mainHandler,
-                bgHandler);
+                bgHandler,
+        userContentResolverProvider);
         bC.init();
         return bC;
     }
