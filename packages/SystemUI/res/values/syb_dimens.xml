@@ -68,4 +68,7 @@
     <dimen name="status_bar_mobile_type_padding">2dp</dimen>
     <dimen name="status_bar_mobile_type_padding_limit">10dp</dimen>
 
+    <!-- Power Menu Lite: drawable padding -->
+    <dimen name="global_actions_light_icon_padding">32dp</dimen>
+
 </resources>
