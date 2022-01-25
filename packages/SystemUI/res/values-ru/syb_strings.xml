@@ -107,4 +107,8 @@
     <string name="usage_data">использовано сегодня</string>
     <string name="usage_data_default_suffix">Сеть</string>
 
+    <!-- Language toggle tile -->
+    <string name="quick_settings_locale_label">Язык</string>
+    <string name="quick_settings_locale_more_locales_toast">Выберите несколько языков в настройках чтобы активировать переключатель</string>
+
 </resources>
