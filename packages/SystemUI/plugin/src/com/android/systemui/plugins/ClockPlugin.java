@@ -140,11 +140,4 @@ public interface ClockPlugin extends Plugin {
     default boolean shouldShowStatusArea() {
         return true;
     }
-    default boolean shouldShowClockFrame() {
-        return true;
-    }
-    default boolean usesPreferredY() {
-        return false;
-    }
-
 }
