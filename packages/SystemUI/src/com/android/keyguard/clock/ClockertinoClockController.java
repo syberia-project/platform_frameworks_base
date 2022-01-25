@@ -29,13 +29,13 @@ public class ClockertinoClockController implements ClockPlugin {
     private final SysuiColorExtractor mColorExtractor;
     private float mDarkAmount;
     private LinearLayout mDateWidgetBase;
-    private LinearLayout mDateWidgetBaseBig;
+    private LinearLayout mDateWidgetBaseBigClock;
     private final LayoutInflater mLayoutInflater;
     private final ClockPalette mPalette = new ClockPalette();
     private final ViewPreviewer mRenderer = new ViewPreviewer();
     private final Resources mResources;
     private LinearLayout mTimeWidgetBase;
-    private LinearLayout mTimeWidgetBaseBig;
+    private LinearLayout mTimeWidgetBaseBigClock;
     private ViewGroup mTimeWidgetBaseBigClockDateViews;
     private ViewGroup mTimeWidgetBaseBigClockInternalTextViews;
     private ViewGroup mTimeWidgetBaseBigClockTextClocks;
@@ -76,6 +76,7 @@ public class ClockertinoClockController implements ClockPlugin {
         mView = (ClockLayout) mLayoutInflater.inflate(R.layout.clock_clockertino, (ViewGroup) null);
         mViewBigClock = (ClockLayout) mLayoutInflater.inflate(R.layout.clock_clockertino_big, (ViewGroup) null);
         ClockLayout clockLayout = mView;
+        ClockLayout clockLayout = mViewBigClock;
         mTimeWidgetBase = mView.findViewById(R.id.timeWidget);
         mDateWidgetBase = mView.findViewById(R.id.dateWidget);
         mDateWidgetBaseBig = mViewBigClock.findViewById(R.id.dateWidget);
