@@ -267,6 +267,9 @@ public class VolumeDialogImpl implements VolumeDialog,
     private Consumer<Boolean> mCrossWindowBlurEnabledListener;
     private BackgroundBlurDrawable mDialogRowsViewBackground;
 
+    // Variable to track the default row with which the panel is initially shown
+    private VolumeRow mDefaultRow = null;
+
     private final SettingsObserver mSettingsObserver = new SettingsObserver();
     private class SettingsObserver extends ContentObserver {
         SettingsObserver() {
@@ -1416,6 +1419,10 @@ public class VolumeDialogImpl implements VolumeDialog,
             mConfigChanged = false;
         }
 
+        if (mDefaultRow == null) {
+            mDefaultRow = getActiveRow();
+        }
+
         initSettingsH();
         mShowing = true;
         mIsAnimatingDismiss = false;
@@ -1483,6 +1490,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                 .withEndAction(() -> mHandler.postDelayed(() -> {
                     mDialog.dismiss();
                     tryToRemoveCaptionsTooltip();
+                    mDefaultRow = null;
                     mIsAnimatingDismiss = false;
 
                     hideRingerDrawer();
@@ -1526,10 +1534,13 @@ public class VolumeDialogImpl implements VolumeDialog,
                 return true;
             }
 
-            if (row.defaultStream) {
+            // if the row is the default stream or the row with which this panel was created,
+            // show it additonally to the active row if it is one of the following streams
+            if (row.defaultStream || mDefaultRow == row) {
                 return activeRow.stream == STREAM_RING
                         || activeRow.stream == STREAM_ALARM
                         || activeRow.stream == STREAM_VOICE_CALL
+                        || activeRow.stream == STREAM_MUSIC
                         || activeRow.stream == STREAM_ACCESSIBILITY
                         || mDynamic.get(activeRow.stream);
             }
