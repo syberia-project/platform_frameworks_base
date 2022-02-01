@@ -100,20 +100,24 @@
   <java-symbol type="array" name="config_displayModeMappings" />
   <java-symbol type="bool" name="config_defaultAntiFlicker" />
 
-    <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
-    <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
+  <!-- Whether to cleanup fingerprints upon connection to the daemon and when user switches -->
+  <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
 
-    <!-- Whether to cancel fingerprint operation if not idle -->
-    <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
+  <!-- Whether to cancel fingerprint operation if not idle -->
+  <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
 
-    <!-- Light / Regular style fonts -->
-    <java-symbol type="string" name="config_lightFontFamily" />
-    <java-symbol type="string" name="config_regularFontFamily" />
+   <!-- Light / Regular style fonts -->
+  <java-symbol type="string" name="config_lightFontFamily" />
+  <java-symbol type="string" name="config_regularFontFamily" />
 
   <!-- PropImitationHooks -->
   <java-symbol type="string" name="config_certifiedFingerprint" />
   <java-symbol type="string" name="config_certifiedModel" />
   <java-symbol type="string" name="config_stockFingerprint" />
   <java-symbol type="bool" name="config_spoofGoogleApps" />
+
+  <!-- App lock -->
+  <java-symbol type="string" name="unlock_application" />
+  <java-symbol type="array" name="config_appLockAllowedSystemApps" />
 
 </resources>
