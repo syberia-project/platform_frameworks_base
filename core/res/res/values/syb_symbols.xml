@@ -119,4 +119,8 @@
          platform signatures, specifically for use on devices with a vendor partition. -->
     <java-symbol type="array" name="config_vendorPlatformSignatures" />
 
+    <!-- App lock -->
+    <java-symbol type="string" name="unlock_application" />
+    <java-symbol type="array" name="config_appLockAllowedSystemApps" />
+
 </resources>
