@@ -4933,7 +4933,7 @@ public final class ActivityThread extends ClientTransactionHandler
         Service s = mServices.get(data.token);
         if (DEBUG_SERVICE)
             Slog.v(TAG, "handleBindService s=" + s + " rebind=" + data.rebind);
-        if (s != null) {
+        if (s != null && createData != null) {
             try {
                 data.intent.setExtrasClassLoader(s.getClassLoader());
                 data.intent.prepareToEnterProcess(isProtectedComponent(createData.info),
@@ -4964,7 +4964,7 @@ public final class ActivityThread extends ClientTransactionHandler
     private void handleUnbindService(BindServiceData data) {
         CreateServiceData createData = mServicesData.get(data.token);
         Service s = mServices.get(data.token);
-        if (s != null) {
+        if (s != null && createData != null) {
             try {
                 data.intent.setExtrasClassLoader(s.getClassLoader());
                 data.intent.prepareToEnterProcess(isProtectedComponent(createData.info),
@@ -5071,7 +5071,7 @@ public final class ActivityThread extends ClientTransactionHandler
     private void handleServiceArgs(ServiceArgsData data) {
         CreateServiceData createData = mServicesData.get(data.token);
         Service s = mServices.get(data.token);
-        if (s != null) {
+        if (s != null && createData != null) {
             try {
                 if (data.args != null) {
                     data.args.setExtrasClassLoader(s.getClassLoader());
