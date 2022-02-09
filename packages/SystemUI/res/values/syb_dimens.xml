@@ -83,4 +83,7 @@
     <!-- Power Menu Lite: drawable padding -->
     <dimen name="global_actions_light_icon_padding">32dp</dimen>
 
+    <!-- Dialog margin -->
+    <dimen name="rdnt_margin_dialog">12dp</dimen>
+
 </resources>
