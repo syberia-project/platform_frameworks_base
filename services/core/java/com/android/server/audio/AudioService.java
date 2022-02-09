@@ -4302,6 +4302,8 @@ public class AudioService extends IAudioService.Stub
                 ringerMode = AudioManager.RINGER_MODE_VIBRATE;
                 toastText = com.android.internal.R.string.volume_dialog_ringer_guidance_vibrate;
                 break;
+            default:
+                return;
         }
         maybeVibrate(effect, reason);
         setRingerModeInternal(ringerMode, reason);

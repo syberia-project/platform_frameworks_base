@@ -6201,10 +6201,25 @@ public final class Settings {
         public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
 
         /**
-         * Whether to play haptic feedback when touching udfps icon
+         * Whether to enable the ripple animation on fingerprint unlock
          * @hide
          */
-        public static final String UDFPS_HAPTIC_FEEDBACK = "udfps_haptic_feedback";
+        public static final String ENABLE_RIPPLE_EFFECT = "enable_ripple_effect";
+
+        /**
+         * @hide
+         */
+        public static final String UDFPS_ANIM = "udfps_anim";
+
+        /**
+         * @hide
+         */
+        public static final String UDFPS_ANIM_STYLE = "udfps_anim_style";
+
+        /**
+         * @hide
+         */
+        public static final String UDFPS_ICON = "udfps_icon";
 
         /**
          * These are all public system settings

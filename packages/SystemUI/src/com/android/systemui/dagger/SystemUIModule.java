@@ -22,6 +22,7 @@ import android.content.Context;
 import androidx.annotation.Nullable;
 
 import com.android.internal.statusbar.IStatusBarService;
+import com.android.keyguard.clock.ClockModule;
 import com.android.keyguard.dagger.KeyguardBouncerComponent;
 import com.android.systemui.BootCompleteCache;
 import com.android.systemui.BootCompleteCacheImpl;
@@ -94,6 +95,7 @@ import dagger.Provides;
 @Module(includes = {
             AppOpsModule.class,
             AssistModule.class,
+            ClockModule.class,
             ControlsModule.class,
             DemoModeModule.class,
             FalsingModule.class,
