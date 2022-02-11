@@ -23,5 +23,8 @@
     <string name="pocket_view_top_tag_cancel">Не закрывайте синюю часть Вашего телефона и удалите любые загрязнения или пыль на этой синей части.</string>
     <string name="pocket_view_top_tag_cancel2">Длительно удерживайте кнопку питания для принудительного выхода из карманного режима.</string>
 
+    <!-- Face unlock -->
+    <string name="face_unlock_disabled_idle">Разблокировка по лицу выключена из-за бездействия</string>
+
 </resources>
 
