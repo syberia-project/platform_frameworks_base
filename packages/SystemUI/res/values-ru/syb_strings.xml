@@ -88,4 +88,7 @@
     <string name="accessibility_quick_settings_caffeine_off">Кофеин выкл</string>
     <string name="accessibility_quick_settings_caffeine_on">Кофеин вкл</string>
 
+    <!-- Face Unlock -->
+    <string name="face_unlock_recognizing">Распознаём лицо...</string>
+
 </resources>
