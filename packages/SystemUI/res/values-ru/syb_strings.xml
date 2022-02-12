@@ -88,4 +88,7 @@
     <!-- A toast message shown after successfully deleting a screen recording [CHAR LIMIT=NONE] -->
     <string name="screenrecord_delete_description">Запись экрана удалена</string>
 
+    <!-- Face Unlock -->
+    <string name="face_unlock_recognizing">Распознаём лицо...</string>
+
 </resources>
