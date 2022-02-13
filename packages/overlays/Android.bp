@@ -87,7 +87,10 @@ phony {
         "IconShapeCloudyOverlay",
         "IconShapeFlowerOverlay",
         "IconShapeRoundedHexagonOverlay",
-        "IconShapeStretchedOverlay"
+        "IconShapeStretchedOverlay",
+        "IconPackOutlineAndroidOverlay",
+        "IconPackOutlineSettingsOverlay",
+        "IconPackOutlineSystemUIOverlay"
     ],
 }
 
