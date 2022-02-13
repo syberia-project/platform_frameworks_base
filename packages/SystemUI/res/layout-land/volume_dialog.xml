@@ -28,9 +28,11 @@
         android:id="@+id/volume_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/volume_dialog_panel_transparent_padding_right"
         android:orientation="vertical"
         android:clipToPadding="false"
         android:clipChildren="false">
+
 
         <LinearLayout
             android:id="@+id/volume_dialog_top_container"
