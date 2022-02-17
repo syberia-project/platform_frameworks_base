@@ -739,6 +739,12 @@ public class ApplicationPackageManager extends PackageManager {
                 name.contains("PIXEL_2019_PRELOAD") ||
                 name.contains("PIXEL_2019_MIDYEAR_EXPERIENCE")) {
             return false;
+	}
+        if (GmsCompat.isEnabled()) {
+            if ("android.hardware.uwb".equals(name)) {
+                // otherwise, GMS tries to access privileged UwbManager and crashes
+                return false;
+            }
         }
         return mHasSystemFeatureCache.query(new HasSystemFeatureQuery(name, version));
     }
