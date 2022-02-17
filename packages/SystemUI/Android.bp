@@ -65,6 +65,7 @@ android_library {
         "res-hwkeys",
         "res-columbus",
         "res-assist",
+        "res-blur",
     ],
     static_libs: [
         "WindowManager-Shell",
@@ -108,6 +109,7 @@ android_library {
         "tensorflowlite_java",
         "vendor-pixelatoms-java",
         "//hardware/google/interfaces:com.google.hardware.pixel.display-V3-java",
+        "AndroidSystemBlur",
     ],
     manifest: "AndroidManifest.xml",
 

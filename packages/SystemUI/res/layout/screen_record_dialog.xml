@@ -14,12 +14,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhenxiang.blur.WindowBlurLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/rdnt_margin_dialog"
-    android:background="@drawable/rounded_bg_full">
+    app:backgroundColour="?androidprv:attr/colorSurface"
+    app:cornerRadius="?android:attr/dialogCornerRadius"
+    app:blurRadius="@integer/background_blur_radius"
+    app:blurBackgroundColourOpacity="@dimen/background_blur_colour_opacity">
 
     <!-- Scrollview is necessary to fit everything in landscape layout -->
     <ScrollView
@@ -167,4 +173,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</com.zhenxiang.blur.WindowBlurLinearLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="background_blur_colour_opacity" format="float" type="dimen">0.71</item>
+</resources> 

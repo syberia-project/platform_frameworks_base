@@ -33,28 +33,37 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_weight="1">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@android:id/list"
-        android:gravity="center"
-        android:translationZ="@dimen/global_actions_translate"
-        android:orientation="horizontal"
-        android:background="@drawable/global_actions_lite_background"
-        android:padding="@dimen/global_actions_lite_padding"
-        android:layoutDirection="ltr">
-      <androidx.constraintlayout.helper.widget.Flow
-          android:id="@+id/list_flow"
-          android:layout_width="match_parent"
+      
+    <com.zhenxiang.blur.WindowBlurFrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundColour="@color/global_actions_lite_background"
+      app:cornerRadius="@dimen/global_actions_corner_radius"
+      app:blurRadius="@integer/background_blur_radius"
+      app:blurBackgroundColourOpacity="@dimen/background_blur_colour_opacity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:flow_wrapMode="chain"
-          app:flow_maxElementsWrap="2"
-          app:flow_horizontalGap="@dimen/global_actions_lite_padding"
-          app:flow_verticalGap="@dimen/global_actions_lite_padding"
-          app:flow_horizontalStyle="packed"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+          android:id="@android:id/list"
+          android:gravity="center"
+          android:translationZ="@dimen/global_actions_translate"
+          android:orientation="horizontal"
+          android:padding="@dimen/global_actions_lite_padding"
+          android:layoutDirection="ltr">
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/list_flow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:flow_wrapMode="chain"
+            app:flow_maxElementsWrap="2"
+            app:flow_horizontalGap="@dimen/global_actions_lite_padding"
+            app:flow_verticalGap="@dimen/global_actions_lite_padding"
+            app:flow_horizontalStyle="packed"/>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.zhenxiang.blur.WindowBlurFrameLayout>
   </com.android.systemui.globalactions.GlobalActionsLayoutLite>
 </androidx.constraintlayout.widget.ConstraintLayout>
