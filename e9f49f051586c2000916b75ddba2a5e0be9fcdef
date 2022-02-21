@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c43bf22_8acffb92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000015
+      },
+      "writtenOn": "2022-02-21T13:33:23Z",
+      "side": 1,
+      "message": "Needs additional repo\nhttps://github.com/SOVIET-ANDROID/external_AndroidSystemBlur",
+      "revId": "e9f49f051586c2000916b75ddba2a5e0be9fcdef",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    }
+  ]
+}
