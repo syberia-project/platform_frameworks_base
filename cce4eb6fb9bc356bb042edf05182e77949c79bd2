@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3387e6c_f3b58173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000015
+      },
+      "writtenOn": "2022-02-23T09:15:54Z",
+      "side": 1,
+      "message": "Fails to compile \n\nframeworks/base/packages/SystemUI/src/com/android/systemui/statusbar/StatusBarIconView.java:223: error: package Settings does not exist\n                Settings.System.STATUSBAR_ICONS_STYLE, 1, UserHandle.USER_CURRENT) \u003d\u003d 1;\n",
+      "revId": "cce4eb6fb9bc356bb042edf05182e77949c79bd2",
+      "serverId": "42502b1d-019c-4a7f-8d4c-3cb7dd1b67f8"
+    }
+  ]
+}
