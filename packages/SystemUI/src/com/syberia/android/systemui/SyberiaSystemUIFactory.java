@@ -2,7 +2,6 @@ package com.syberia.android.systemui;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Handler;
 
 import com.syberia.android.systemui.dagger.SyberiaGlobalRootComponent;
 import com.syberia.android.systemui.dagger.SyberiaSysUIComponent;
