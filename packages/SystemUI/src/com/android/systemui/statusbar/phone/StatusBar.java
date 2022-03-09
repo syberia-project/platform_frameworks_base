@@ -433,6 +433,16 @@ public class StatusBar extends SystemUI implements
     }
 
     /** */
+    public void toggleCameraFlash() {
+        mCommandQueueCallbacks.toggleCameraFlash();
+    }
+
+    /** */
+    public void toggleCameraFlashState(boolean enable) {
+        mCommandQueueCallbacks.toggleCameraFlashState(enable);
+    }
+
+    /** */
     public void animateCollapsePanels(int flags, boolean force) {
         mCommandQueueCallbacks.animateCollapsePanels(flags, force);
     }
@@ -1999,29 +2009,6 @@ public class StatusBar extends SystemUI implements
                     "com.android.systemui:full_screen_intent");
             mWakeUpComingFromTouch = false;
             mWakeUpTouchLocation = null;
-        }
-    }
-
-    @Override
-    public void toggleCameraFlash() {
-        if (DEBUG) {
-            Log.d(TAG, "Toggling camera flashlight");
-        }
-        if (mFlashlightController.isAvailable()) {
-            mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
-        }
-    }
-
-
-    @Override
-    public void toggleCameraFlashState(boolean enable) {
-        if (DEBUG) {
-            Log.d(TAG, "Disabling camera flashlight");
-        }
-        if (mFlashlightController != null) {
-            if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
-                mFlashlightController.setFlashlight(enable);
-            }
         }
     }
 

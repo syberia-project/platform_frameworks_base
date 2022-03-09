@@ -1126,6 +1126,7 @@ public class CommandQueue extends IStatusBar.Stub implements
         GcUtils.runGcAndFinalizersSync();
     }
 
+    @Override
     public void toggleCameraFlash() {
         synchronized (mLock) {
             mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH);
