@@ -158,7 +158,8 @@ public final class GmsCompat {
         return isGmsApp(pkg);
     }
 
-    private static boolean isGmsApp(PackageInfo pkg) {
+    /** @hide */
+    public static boolean isGmsApp(PackageInfo pkg) {
         ApplicationInfo app = pkg.applicationInfo;
         if (app == null) {
             return false;
