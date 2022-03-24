@@ -37,8 +37,6 @@ import com.android.systemui.settings.UserTracker
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.theme.ThemeOverlayApplier
 import com.android.systemui.theme.ThemeOverlayController
-import com.android.systemui.tuner.TunerService
-import com.android.systemui.tuner.TunerService.Tunable
 import com.android.systemui.util.settings.SecureSettings
 import dev.kdrag0n.colorkt.Color
 import dev.kdrag0n.colorkt.cam.Zcam
@@ -70,7 +68,6 @@ class CustomThemeOverlayController @Inject constructor(
     dumpManager: DumpManager,
     featureFlags: FeatureFlags,
     wakefulnessLifecycle: WakefulnessLifecycle,
-    private val tunerService: TunerService,
 ) : ThemeOverlayController(
     context,
     broadcastDispatcher,
@@ -123,11 +120,12 @@ class CustomThemeOverlayController @Inject constructor(
         }
     }
 
-    // Seed colors
-    override fun getNeutralColor(colors: WallpaperColors) = colors.primaryColor.toArgb()
-    override fun getAccentColor(colors: WallpaperColors) = getNeutralColor(colors)
+    init {
+        val whiteLuminance = parseWhiteLuminanceUser(
+            Settings.Secure.getInt(mContext.contentResolver, PREF_WHITE_LUMINANCE, WHITE_LUMINANCE_USER_DEFAULT)
+        )
+        val linearLightness = Settings.Secure.getInt(mContext.contentResolver, PREF_LINEAR_LIGHTNESS, 0) != 0
 
-    override fun getOverlay(primaryColor: Int, type: Int): FabricatedOverlay {
         cond = Zcam.ViewingConditions(
             surroundFactor = Zcam.ViewingConditions.SURROUND_AVERAGE,
             // sRGB
@@ -146,11 +144,17 @@ class CustomThemeOverlayController @Inject constructor(
             useLinearLightness = linearLightness,
             cond = cond,
         )
+    }
 
+    // Seed colors
+    override fun getNeutralColor(colors: WallpaperColors) = colors.primaryColor.toArgb()
+    override fun getAccentColor(colors: WallpaperColors) = getNeutralColor(colors)
+
+    override fun getOverlay(primaryColor: Int, type: Int): FabricatedOverlay {
         // Generate color scheme
         val colorScheme = DynamicColorScheme(
             targets = targets,
-            seedColor = if (customColor) Srgb(colorOverride) else Srgb(primaryColor),
+            seedColor = if (colorOverride != null) Srgb(colorOverride) else Srgb(primaryColor),
             chromaFactor = chromaFactor,
             cond = cond,
             accurateShades = accurateShades,
@@ -193,7 +197,6 @@ class CustomThemeOverlayController @Inject constructor(
         private const val TAG = "CustomThemeOverlayController"
 
         private const val PREF_PREFIX = "monet_engine"
-        private const val PREF_CUSTOM_COLOR = "${PREF_PREFIX}_custom_color"
         private const val PREF_COLOR_OVERRIDE = "${PREF_PREFIX}_color_override"
         private const val PREF_CHROMA_FACTOR = "${PREF_PREFIX}_chroma_factor"
         private const val PREF_ACCURATE_SHADES = "${PREF_PREFIX}_accurate_shades"
