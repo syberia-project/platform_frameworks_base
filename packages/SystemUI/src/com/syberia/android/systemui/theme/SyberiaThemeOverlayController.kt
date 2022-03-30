@@ -32,6 +32,7 @@ import android.provider.Settings.Secure.MONET_ENGINE_CHROMA_FACTOR
 import android.provider.Settings.Secure.MONET_ENGINE_ACCURATE_SHADES
 import android.provider.Settings.Secure.MONET_ENGINE_LINEAR_LIGHTNESS
 import android.provider.Settings.Secure.MONET_ENGINE_WHITE_LUMINANCE
+import android.provider.Settings.Secure.SYSTEM_BLACK_THEME
 import android.util.Log
 import android.util.TypedValue
 
@@ -124,6 +125,7 @@ class SyberiaThemeOverlayController @Inject constructor(
                         cond = getViewingConditions()
                         targets = getMaterialYouTargets()
                     }
+                    SYSTEM_BLACK_THEME -> reevaluateSystemTheme(true /* forceReload */)
                 }
                 if (DEBUG) Log.d(TAG, "updating theme")
                 // Call super class method to reload system theme with updated
@@ -142,6 +144,8 @@ class SyberiaThemeOverlayController @Inject constructor(
             registerContentObserverForUser(MONET_ENGINE_LINEAR_LIGHTNESS,
                 settingsObserver, UserHandle.USER_ALL)
             registerContentObserverForUser(MONET_ENGINE_WHITE_LUMINANCE,
+                settingsObserver, UserHandle.USER_ALL)
+            registerContentObserverForUser(SYSTEM_BLACK_THEME,
                 settingsObserver, UserHandle.USER_ALL)
         }
 
