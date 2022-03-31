@@ -610,6 +610,37 @@ public class VolumeDialogImpl implements VolumeDialog,
         mSettingsView = mDialog.findViewById(R.id.settings_container);
         mSettingsIcon = mDialog.findViewById(R.id.settings);
 
+        if (mVolumePanelOnLeft) {
+            if (mRingerAndDrawerContainer != null) {
+                mRingerAndDrawerContainer.setLayoutDirection(LAYOUT_DIRECTION_RTL);
+            }
+
+            ViewGroup container = mDialog.findViewById(R.id.volume_dialog_container);
+            setGravity(container, Gravity.LEFT);
+            setLayoutGravity(container, Gravity.LEFT);
+
+            setGravity(mDialogView, Gravity.LEFT);
+            setLayoutGravity(mDialogView, Gravity.LEFT);
+
+            setGravity((ViewGroup) mTopContainer, Gravity.LEFT);
+
+            setLayoutGravity(mSelectedRingerContainer, Gravity.BOTTOM | Gravity.LEFT);
+
+            setLayoutGravity(mRingerDrawerNewSelectionBg, Gravity.BOTTOM | Gravity.LEFT);
+
+            setGravity(mRinger, Gravity.LEFT);
+            setLayoutGravity(mRinger, Gravity.BOTTOM | Gravity.LEFT);
+
+            setGravity(mDialogRowsViewContainer, Gravity.LEFT);
+            setLayoutGravity(mDialogRowsViewContainer, Gravity.LEFT);
+
+            setGravity(mODICaptionsView, Gravity.LEFT);
+            setLayoutGravity(mODICaptionsView, Gravity.LEFT);
+
+            //((ViewStub.LayoutParams) mODICaptionsTooltipViewStub.getLayoutParams())
+            //        .gravity = Gravity.BOTTOM | Gravity.LEFT;
+        }
+
         if (mRows.isEmpty()) {
             if (!AudioSystem.isSingleVolume(mContext)) {
                 addRow(STREAM_ACCESSIBILITY, R.drawable.ic_volume_accessibility,
@@ -658,6 +689,25 @@ public class VolumeDialogImpl implements VolumeDialog,
 
         // Normal, mute, and possibly vibrate.
         mRingerCount = mShowVibrate ? 3 : 2;
+    }
+
+    // Helper to set gravity.
+    private void setGravity(ViewGroup viewGroup, int gravity) {
+        if (viewGroup instanceof LinearLayout) {
+            ((LinearLayout) viewGroup).setGravity(gravity);
+        }
+    }
+
+    // Helper to set layout gravity.
+    private void setLayoutGravity(ViewGroup viewGroup, int gravity) {
+        if (viewGroup != null) {
+            Object obj = viewGroup.getLayoutParams();
+            if (obj instanceof FrameLayout.LayoutParams) {
+                ((FrameLayout.LayoutParams) obj).gravity = gravity;
+            } else if (obj instanceof LinearLayout.LayoutParams) {
+                ((LinearLayout.LayoutParams) obj).gravity = gravity;
+            }
+        }
     }
 
     protected ViewGroup getDialogView() {
@@ -1494,8 +1544,10 @@ public class VolumeDialogImpl implements VolumeDialog,
             trimObsoleteH();
         }
 
+        boolean isOutmostIndexMax = mVolumePanelOnLeft ? isRtl() : !isRtl();
+
         // Index of the last row that is actually visible.
-        int rightmostVisibleRowIndex = !isRtl() ? -1 : Short.MAX_VALUE;
+        int outmostVisibleRowIndex = isOutmostIndexMax ? -1 : Short.MAX_VALUE;
 
         // apply changes to all rows
         for (final VolumeRow row : mRows) {
@@ -1504,14 +1556,11 @@ public class VolumeDialogImpl implements VolumeDialog,
             Util.setVisOrGone(row.view, shouldBeVisible);
 
             if (shouldBeVisible && mRingerAndDrawerContainerBackground != null) {
-                // For RTL, the rightmost row has the lowest index since child views are laid out
+                // For RTL, the outmost row has the lowest index since child views are laid out
                 // from right to left.
-                rightmostVisibleRowIndex =
-                        !isRtl()
-                                ? Math.max(rightmostVisibleRowIndex,
-                                mDialogRowsView.indexOfChild(row.view))
-                                : Math.min(rightmostVisibleRowIndex,
-                                        mDialogRowsView.indexOfChild(row.view));
+                outmostVisibleRowIndex = isOutmostIndexMax
+                        ? Math.max(outmostVisibleRowIndex, mDialogRowsView.indexOfChild(row.view))
+                        : Math.min(outmostVisibleRowIndex, mDialogRowsView.indexOfChild(row.view));
 
                 // Add spacing between each of the visible rows - we'll remove the spacing from the
                 // last row after the loop.
@@ -1519,7 +1568,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                 if (layoutParams instanceof LinearLayout.LayoutParams) {
                     final LinearLayout.LayoutParams linearLayoutParams =
                             ((LinearLayout.LayoutParams) layoutParams);
-                    if (!isRtl()) {
+                    if (isOutmostIndexMax) {
                         linearLayoutParams.setMarginEnd(mRingerRowsPadding);
                     } else {
                         linearLayoutParams.setMarginStart(mRingerRowsPadding);
@@ -1537,8 +1586,8 @@ public class VolumeDialogImpl implements VolumeDialog,
             }
         }
 
-        if (rightmostVisibleRowIndex > -1 && rightmostVisibleRowIndex < Short.MAX_VALUE) {
-            final View lastVisibleChild = mDialogRowsView.getChildAt(rightmostVisibleRowIndex);
+        if (outmostVisibleRowIndex > -1 && outmostVisibleRowIndex < Short.MAX_VALUE) {
+            final View lastVisibleChild = mDialogRowsView.getChildAt(outmostVisibleRowIndex);
             final ViewGroup.LayoutParams layoutParams = lastVisibleChild.getLayoutParams();
             // Remove the spacing on the last row, and remove its background since the container is
             // drawing a background for this row.
