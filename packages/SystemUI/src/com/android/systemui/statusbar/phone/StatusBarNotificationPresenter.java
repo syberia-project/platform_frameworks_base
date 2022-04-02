@@ -289,6 +289,7 @@ public class StatusBarNotificationPresenter implements NotificationPresenter,
     private void updateNotificationsOnUiModeChanged() {
         // TODO(b/145659174): Remove legacy pipeline code
         if (mFeatureFlags.isNewNotifPipelineRenderingEnabled()) return;
+        updateNotificationOnUiModeChanged();
     }
 
     private void updateGamingModeSettings() {
