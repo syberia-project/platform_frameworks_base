@@ -48,7 +48,7 @@ public final class PixelPropsUtils {
         entry("DEVICE", "raven"),
         entry("PRODUCT", "raven"),
         entry("MODEL", "Pixel 6 Pro"),
-        entry("FINGERPRINT", "google/raven/raven:12/SD1A.210817.019.C2/7738411:user/release-keys")
+        entry("FINGERPRINT", "google/raven/raven:12/SP2A.220405.004/8233519:user/release-keys")
     );
 
     private static final Map<String, String> marlinProps = Map.ofEntries(
