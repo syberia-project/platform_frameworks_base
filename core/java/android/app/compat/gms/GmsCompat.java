@@ -57,6 +57,8 @@ public final class GmsCompat {
     private static boolean isGmsCore;
     private static boolean isPlayStore;
 
+    private static boolean elegibleForClientCompat;
+
     // Static only
     private GmsCompat() { }
 
@@ -105,6 +107,7 @@ public final class GmsCompat {
             isPlayStore = GmsInfo.PACKAGE_PLAY_STORE.equals(pkg);
             GmsHooks.init(appCtx, pkg);
         }
+        elegibleForClientCompat = !isGmsCore;
     }
 
     private static boolean validateCerts(Signature[] signatures) {
@@ -200,7 +203,7 @@ public final class GmsCompat {
         if (cachedIsClientOfGmsCore) {
             return true;
         }
-        if (!Process.isApplicationUid(Process.myUid()) || isGmsCore()) {
+        if (!elegibleForClientCompat) {
             return false;
         }
         if (isGmsApp(GmsInfo.PACKAGE_GMS_CORE, appContext().getUserId())) {
