@@ -747,11 +747,11 @@ public class ApplicationPackageManager extends PackageManager {
             return false;
 	}
         if (GmsCompat.isEnabled()) {
-            if ("android.hardware.uwb".equals(name)) {
-                // otherwise, GMS tries to access privileged UwbManager and crashes
+            if (GmsHooks.isHiddenSystemFeature(name)) {
                 return false;
             }
         }
+
         return mHasSystemFeatureCache.query(new HasSystemFeatureQuery(name, version));
     }
 
