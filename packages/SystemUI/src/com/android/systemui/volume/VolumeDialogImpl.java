@@ -93,7 +93,6 @@ import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewOutlineProvider;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewStub;
@@ -458,10 +457,10 @@ public class VolumeDialogImpl implements VolumeDialog,
             }
         }
 
-        if (mVolumePanelOnLeft && isLandscape()) {
+        if (mVolumePanelOnLeft) {
             mTouchableRegion.op(
                     locInWindow[0],
-                    locInWindow[1],
+                    locInWindow[1] + (int) yExtraSize,
                     locInWindow[0] + view.getWidth() - (int) xExtraSize,
                     locInWindow[1] + view.getHeight(),
                     Region.Op.UNION);
@@ -584,9 +583,6 @@ public class VolumeDialogImpl implements VolumeDialog,
                 R.id.volume_ringer_and_drawer_container);
 
         if (mRingerAndDrawerContainer != null) {
-            if (mVolumePanelOnLeft) {
-                mRingerAndDrawerContainer.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-            }
             if (isLandscape()) {
                 // In landscape, we need to add padding to the bottom of the ringer drawer so that
                 // when it expands to the left, it doesn't overlap any additional volume rows.
@@ -984,13 +980,6 @@ public class VolumeDialogImpl implements VolumeDialog,
 
         ((LinearLayout) mRingerDrawerContainer.findViewById(R.id.volume_drawer_options))
                 .setOrientation(isLandscape() ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
-
-        if (isLandscape() && mVolumePanelOnLeft) {
-            ((LinearLayout.LayoutParams) mDialogRowsViewContainer.getLayoutParams())
-                    .gravity = Gravity.LEFT;
-            ((FrameLayout.LayoutParams) mSelectedRingerContainer.getLayoutParams())
-                    .gravity = Gravity.BOTTOM | Gravity.LEFT;
-        }
 
         mSelectedRingerContainer.setOnClickListener(view -> {
             if (mIsRingerDrawerOpen) {
