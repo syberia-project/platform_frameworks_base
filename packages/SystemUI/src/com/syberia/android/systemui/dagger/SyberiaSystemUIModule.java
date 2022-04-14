@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.syberia.android.systemui.SyberiaServices;
-import co.aospa.android.systemui.assist.AssistManagerGoogle;
+import com.syberia.android.systemui.assist.AssistManagerGoogle;
 import com.syberia.android.systemui.smartspace.KeyguardSmartspaceController;
 
 import com.android.internal.logging.UiEventLogger;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.aospa.android.systemui.assist;
+package com.syberia.android.systemui.assist;
 
 import android.content.Context;
 import android.metrics.LogMaker;
