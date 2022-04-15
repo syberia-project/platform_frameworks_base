@@ -7,8 +7,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -280,17 +278,10 @@ public class KeyguardClockSwitch extends RelativeLayout {
             return false;
         }
 
-        final boolean forceSmallClock = Settings.System.getIntForUser(
-                getContext().getContentResolver(),
-                Settings.System.LOCKSCREEN_SMALL_CLOCK, 0,
-                UserHandle.USER_CURRENT) == 1;
-
-        boolean useLargeClock = clockSize == LARGE && !forceSmallClock;
-
         // let's make sure clock is changed only after all views were laid out so we can
         // translate them properly
         if (mChildrenAreLaidOut) {
-            animateClockChange(useLargeClock);
+            animateClockChange(clockSize == LARGE);
         }
 
         mDisplayedClockSize = clockSize;

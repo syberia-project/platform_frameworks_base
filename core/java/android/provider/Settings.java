@@ -6237,12 +6237,6 @@ public final class Settings {
         public static final String VIBRATE_ON_DISCONNECT = "vibrate_on_disconnect";
 
         /**
-         * Whether to force small clock on keyguard
-         * @hide
-         */
-        public static final String LOCKSCREEN_SMALL_CLOCK = "lockscreen_small_clock";
-
-        /**
          * Whether to play haptic feedback when touching udfps icon
          * @hide
          */
@@ -6266,7 +6260,6 @@ public final class Settings {
          */
         public static final String[] LEGACY_RESTORE_SETTINGS = {
         };
-
 
         /**
          * These are all public system settings
