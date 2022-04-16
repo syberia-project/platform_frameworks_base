@@ -118,6 +118,9 @@ LOCAL_REQUIRED_MODULES := \
         IconShapeTaperedRectOverlay \
         IconShapeTeardropOverlay \
         IconShapeVesselOverlay \
+        IconPackDoraAndroidOverlay \
+        IconPackDoraSettingsOverlay \
+        IconPackDoraSystemUIOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
