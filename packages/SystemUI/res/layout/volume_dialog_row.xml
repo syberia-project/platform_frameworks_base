@@ -39,7 +39,6 @@
             android:ellipsize="end"
             android:maxLength="10"
             android:maxLines="1"
-            android:visibility="gone"
             android:textColor="?android:attr/colorControlNormal"
             android:textAppearance="@style/TextAppearance.Volume.Header" />
         <FrameLayout
