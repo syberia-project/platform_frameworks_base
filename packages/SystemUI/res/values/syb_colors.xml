@@ -19,4 +19,6 @@
 
 <resources>
     <color name="reticker_background_color">@android:color/system_neutral1_50</color>
+
+     <color name="volume_row_bg">@android:color/system_accent2_200</color>
 </resources>
