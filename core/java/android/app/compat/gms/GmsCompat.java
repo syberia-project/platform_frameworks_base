@@ -32,6 +32,7 @@ import android.os.RemoteException;
 import android.os.UserHandle;
 import android.util.Log;
 
+import com.android.internal.gmscompat.GmsHooks;
 import com.android.internal.gmscompat.GmsInfo;
 
 /**
@@ -81,14 +82,19 @@ public final class GmsCompat {
     }
 
     /**
-     * Called before Application.onCreate()
+     * Call from Instrumentation.newApplication() before Application class in instantiated to
+     * make sure init is completed in GMS processes before any of the app's code is executed.
      *
      * @hide
      */
     public static void maybeEnable(Context appCtx) {
         if (!Process.isApplicationUid(Process.myUid())) {
+            // note that isApplicationUid() returns false for processes of services that have
+            // 'android:isolatedProcess="true"' directive in AndroidManifest, which is fine,
+            // because they have no need for GmsCompat
             return;
         }
+
         appContext = appCtx;
         ApplicationInfo appInfo = appCtx.getApplicationInfo();
 
@@ -97,6 +103,7 @@ public final class GmsCompat {
             String pkg = appInfo.packageName;
             isGmsCore = GmsInfo.PACKAGE_GMS_CORE.equals(pkg);
             isPlayStore = GmsInfo.PACKAGE_PLAY_STORE.equals(pkg);
+            GmsHooks.init(appCtx, pkg);
         }
     }
 
