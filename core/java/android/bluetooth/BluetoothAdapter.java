@@ -1282,6 +1282,12 @@ public final class BluetoothAdapter {
             android.Manifest.permission.LOCAL_MAC_ADDRESS,
     })
     public String getAddress() {
+        if (GmsCompat.isEnabled()){
+            if (!GmsCompat.hasPermission(android.Manifest.permission.BLUETOOTH_CONNECT)) {
+                return DEFAULT_MAC_ADDRESS;
+            }
+        }
+
         try {
             return mManagerService.getAddress(mAttributionSource);
         } catch (RemoteException e) {
@@ -1300,6 +1306,12 @@ public final class BluetoothAdapter {
     @RequiresBluetoothConnectPermission
     @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT)
     public String getName() {
+        if (GmsCompat.isEnabled()) {
+            if (!GmsCompat.hasPermission(android.Manifest.permission.BLUETOOTH_CONNECT)) {
+                return null;
+            }
+        }
+
         try {
             return mManagerService.getName(mAttributionSource);
         } catch (RemoteException e) {
