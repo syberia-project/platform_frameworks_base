@@ -107,6 +107,9 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.View.OnLongClickListener;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -136,7 +139,6 @@ import com.android.systemui.plugins.VolumeDialog;
 import com.android.systemui.plugins.VolumeDialogController;
 import com.android.systemui.plugins.VolumeDialogController.State;
 import com.android.systemui.plugins.VolumeDialogController.StreamState;
-import com.android.systemui.statusbar.phone.ExpandableIndicator;
 import com.android.systemui.statusbar.policy.AccessibilityManagerWrapper;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
@@ -266,10 +268,11 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
     private ViewGroup mODICaptionsView;
     private CaptionsToggleImageButton mODICaptionsIcon;
     private View mSettingsView;
+    private RotateAnimation rotateAnimation;
     private ImageButton mSettingsIcon;
     private ImageButton mAppVolumeIcon;
+    private ImageButton mExpandRows;
     private View mExpandRowsView;
-    private ExpandableIndicator mExpandRows;
     private FrameLayout mZenIcon;
     private final List<VolumeRow> mRows = new ArrayList<>();
     private ConfigurableTexts mConfigurableTexts;
@@ -747,6 +750,7 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
 
         mExpandRowsView = mDialog.findViewById(R.id.expandable_indicator_container);
         mExpandRows = mDialog.findViewById(R.id.expandable_indicator);
+        mExpandRows.setOnLongClickListener(this);
 
         if (mVolumePanelOnLeft) {
             if (mRingerAndDrawerContainer != null) {
@@ -774,8 +778,6 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
 
             setGravity(mODICaptionsView, Gravity.LEFT);
             setLayoutGravity(mODICaptionsView, Gravity.LEFT);
-
-            mExpandRows.setRotation(-90);
         }
 
         if (mRows.isEmpty()) {
@@ -1405,7 +1407,11 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
             mExpandRows.setOnClickListener(v -> {
                 mExpanded = !mExpanded;
                 updateRowsH(mDefaultRow, true);
-                mExpandRows.setExpanded(mExpanded);
+                if (!mExpanded) {
+                    rotateIcon();
+                } else {
+                    rotateIconReverse();
+                }
             });
             mExpandRows.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -1762,9 +1768,6 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
                     mDialog.dismiss();
                     tryToRemoveCaptionsTooltip();
                     mExpanded = false;
-                    if (mExpandRows != null) {
-                        mExpandRows.setExpanded(mExpanded);
-                    }
                     mAnimatingRows = 0;
                     mDefaultRow = null;
                     mIsAnimatingDismiss = false;
@@ -2795,6 +2798,22 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
             "com.android.settings.Settings$SoundSettingsActivity");
         mMediaOutputDialogFactory.dismiss();
         mActivityStarter.startActivity(nIntent, true /* dismissShade */);
+    }
+
+    private void rotateIcon() {
+        rotateAnimation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(400);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        mExpandRows.startAnimation(rotateAnimation);
+    }
+
+    private void rotateIconReverse() {
+        rotateAnimation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(400);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        mExpandRows.startAnimation(rotateAnimation);
     }
 
     private final class VolumeSeekBarChangeListener implements OnSeekBarChangeListener {
