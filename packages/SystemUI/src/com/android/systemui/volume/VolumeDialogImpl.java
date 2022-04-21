@@ -47,6 +47,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -178,6 +179,10 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
      *  this class. This flag should be true in Scenario/Integration tests.
      */
     private final boolean mShouldListenForJank;
+
+    private static final ComponentName SOUND_SETTING_COMPONENT = new ComponentName(
+            "com.android.settings", "com.android.settings.Settings$SoundSettingsActivity");
+
     private final int mDialogShowAnimationDurationMs;
     private final int mDialogHideAnimationDurationMs;
     private int mDialogWidth;
@@ -1193,6 +1198,16 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
                 } else {
                     mActivityStarter.startActivity(new Intent(Settings.Panel.ACTION_VOLUME),
                             true /* dismissShade */);
+                }
+            });
+            mSettingsIcon.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent = new Intent().setComponent(SOUND_SETTING_COMPONENT);
+                    mMediaOutputDialogFactory.dismiss();
+                    dismissH(DISMISS_REASON_SETTINGS_CLICKED);
+                    mActivityStarter.startActivity(intent, true /* dismissShade */);
+                    return true;
                 }
             });
         }
