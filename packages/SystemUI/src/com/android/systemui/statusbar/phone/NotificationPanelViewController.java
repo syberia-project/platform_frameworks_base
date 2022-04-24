@@ -5076,6 +5076,7 @@ public class NotificationPanelViewController extends PanelViewController {
         boolean debug = true;
         if (visibility && getExpandedFraction() != 1) {
             mNotificationStackScroller.setVisibility(GONE);
+            mStatusBar.updateDismissAllVisibility(false);
             ExpandableNotificationRow row = mHeadsUpManager.getTopEntry().getRow();
             String pkgname = row.getEntry().getSbn().getPackageName();
             Drawable icon = null;
