@@ -4750,7 +4750,7 @@ public final class ViewRootImpl implements ViewParent,
                 mChoreographer.getFrameTimeNanos() / TimeUtils.NANOS_PER_MS;
 
         boolean useAsyncReport = false;
-        if (!dirty.isEmpty() || mIsAnimating || accessibilityFocusDirty) {
+        if (!dirty.isEmpty() || mIsAnimating || accessibilityFocusDirty || fullRedrawNeeded) {
             if (isHardwareEnabled()) {
                 // If accessibility focus moved, always invalidate the root.
                 boolean invalidateRoot = accessibilityFocusDirty || mInvalidateRootRequested;
