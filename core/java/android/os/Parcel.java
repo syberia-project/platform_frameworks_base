@@ -34,7 +34,6 @@ import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.GuardedBy;
-import com.android.internal.gmscompat.HybridBinder;
 import com.android.internal.util.ArrayUtils;
 
 import dalvik.annotation.optimization.CriticalNative;
@@ -2529,21 +2528,11 @@ public final class Parcel {
         return TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(this);
     }
 
-    /** {@hide} */
-    public boolean mPerformBinderRedirectionCheck;
-
     /**
      * Read an object from the parcel at the current dataPosition().
      */
     public final IBinder readStrongBinder() {
-        IBinder b = nativeReadStrongBinder(mNativePtr);
-        if (mPerformBinderRedirectionCheck && b != null) {
-            HybridBinder hb = HybridBinder.maybeCreate(b);
-            if (hb != null) {
-                return hb;
-            }
-        }
-        return b;
+        return nativeReadStrongBinder(mNativePtr);
     }
 
     /**

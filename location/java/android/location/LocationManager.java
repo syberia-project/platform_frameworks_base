@@ -40,7 +40,6 @@ import android.annotation.TestApi;
 import android.app.AppOpsManager;
 import android.app.PendingIntent;
 import android.app.PropertyInvalidatedCache;
-import android.app.compat.gms.GmsCompat;
 import android.compat.Compatibility;
 import android.compat.annotation.ChangeId;
 import android.compat.annotation.EnabledAfter;
@@ -520,9 +519,6 @@ public class LocationManager {
     @SystemApi
     @RequiresPermission(Manifest.permission.LOCATION_HARDWARE)
     public void setExtraLocationControllerPackage(@Nullable String packageName) {
-        if (GmsCompat.isEnabled()) {
-            return;
-        }
         try {
             mService.setExtraLocationControllerPackage(packageName);
         } catch (RemoteException e) {
@@ -538,10 +534,6 @@ public class LocationManager {
     @SystemApi
     @RequiresPermission(Manifest.permission.LOCATION_HARDWARE)
     public void setExtraLocationControllerPackageEnabled(boolean enabled) {
-        if (GmsCompat.isEnabled()) {
-            return;
-        }
-
         try {
             mService.setExtraLocationControllerPackageEnabled(enabled);
         } catch (RemoteException e) {
@@ -1488,14 +1480,6 @@ public class LocationManager {
             @NonNull LocationRequest locationRequest,
             @NonNull @CallbackExecutor Executor executor,
             @NonNull LocationListener listener) {
-        if (GmsCompat.isEnabled()) {
-            // requires privileged UPDATE_APP_OPS_STATS permission
-            locationRequest.setHideFromAppOps(false);
-            // requires privileged WRITE_SECURE_SETTINGS permission
-            locationRequest.setLocationSettingsIgnored(false);
-            // requires privileged UPDATE_DEVICE_STATS permission
-            locationRequest.setWorkSource(null);
-        }
         Preconditions.checkArgument(provider != null, "invalid null provider");
         Preconditions.checkArgument(locationRequest != null, "invalid null location request");
 

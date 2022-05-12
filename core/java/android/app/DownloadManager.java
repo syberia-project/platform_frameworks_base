@@ -25,7 +25,6 @@ import android.annotation.SdkConstant.SdkConstantType;
 import android.annotation.SystemApi;
 import android.annotation.SystemService;
 import android.annotation.TestApi;
-import android.app.compat.gms.GmsCompat;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.ClipDescription;
 import android.content.ContentProviderClient;
@@ -37,7 +36,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.DatabaseUtils;
-import android.database.MatrixCursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkPolicyManager;
 import android.net.Uri;
@@ -716,13 +714,6 @@ public class DownloadManager {
          * @return this object
          */
         public Request setNotificationVisibility(int visibility) {
-            if (GmsCompat.isEnabled()) {
-                // requires the privileged DOWNLOAD_WITHOUT_NOTIFICATION permission
-                if (visibility == VISIBILITY_HIDDEN) {
-                    return this;
-                }
-            }
-
             mNotificationVisibility = visibility;
             return this;
         }
@@ -1187,12 +1178,6 @@ public class DownloadManager {
 
     /** @hide */
     public Cursor query(Query query, String[] projection) {
-        // don't crash apps that expect INTERNET permission to be always granted
-        Context ctx = ActivityThread.currentApplication();
-        if (ctx != null && ctx.checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            // underlying provider is protected by the INTERNET permission
-            return new MatrixCursor(projection);
-        }
         Cursor underlyingCursor = query.runQuery(mResolver, projection, mBaseUri);
         if (underlyingCursor == null) {
             return null;

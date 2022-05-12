@@ -31,7 +31,6 @@ import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.app.ActivityThread;
 import android.app.PropertyInvalidatedCache;
-import android.app.compat.gms.GmsCompat;
 import android.bluetooth.BluetoothDevice.Transport;
 import android.bluetooth.BluetoothProfile.ConnectionPolicy;
 import android.bluetooth.annotations.RequiresBluetoothAdvertisePermission;
@@ -1282,12 +1281,6 @@ public final class BluetoothAdapter {
             android.Manifest.permission.LOCAL_MAC_ADDRESS,
     })
     public String getAddress() {
-        if (GmsCompat.isEnabled()){
-            if (!GmsCompat.hasPermission(android.Manifest.permission.BLUETOOTH_CONNECT)) {
-                return DEFAULT_MAC_ADDRESS;
-            }
-        }
-
         try {
             return mManagerService.getAddress(mAttributionSource);
         } catch (RemoteException e) {
@@ -1306,12 +1299,6 @@ public final class BluetoothAdapter {
     @RequiresBluetoothConnectPermission
     @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT)
     public String getName() {
-        if (GmsCompat.isEnabled()) {
-            if (!GmsCompat.hasPermission(android.Manifest.permission.BLUETOOTH_CONNECT)) {
-                return null;
-            }
-        }
-
         try {
             return mManagerService.getName(mAttributionSource);
         } catch (RemoteException e) {
@@ -1618,12 +1605,6 @@ public final class BluetoothAdapter {
     @RequiresPermission(android.Manifest.permission.BLUETOOTH_SCAN)
     @ScanMode
     public int getScanMode() {
-        if (GmsCompat.isEnabled()) {
-            if (!GmsCompat.hasPermission(android.Manifest.permission.BLUETOOTH_SCAN)) {
-                return SCAN_MODE_NONE;
-            }
-        }
-
         if (getState() != STATE_ON) {
             return SCAN_MODE_NONE;
         }
