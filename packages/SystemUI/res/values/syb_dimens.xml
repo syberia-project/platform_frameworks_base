@@ -89,4 +89,7 @@
     <!-- Udfps fingerprint animation -->
     <dimen name="udfps_animation_size">280dp</dimen>
     <dimen name="udfps_animation_offset">0dp</dimen>
+
+    <!-- Floating rotation button margin when on 2-button navbar mode -->
+    <dimen name="floating_rotation_button_min_margin_navbar">60dp</dimen>
 </resources>
