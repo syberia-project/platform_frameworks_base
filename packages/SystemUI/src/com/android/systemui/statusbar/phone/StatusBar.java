@@ -251,7 +251,6 @@ import com.android.systemui.util.DumpUtilsKt;
 import com.android.systemui.util.WallpaperController;
 import com.android.systemui.util.concurrency.DelayableExecutor;
 import com.android.systemui.util.concurrency.MessageRouter;
-import com.android.systemui.util.settings.SystemSettings;
 import com.android.systemui.volume.VolumeComponent;
 import com.android.systemui.wmshell.BubblesManager;
 import com.android.wm.shell.bubbles.Bubbles;
@@ -479,7 +478,6 @@ public class StatusBar extends SystemUI implements
     private final AutoHideController mAutoHideController;
     private final CollapsedStatusBarFragmentLogger mCollapsedStatusBarFragmentLogger;
     private BurnInProtectionController mBurnInProtectionController;
-    private final SystemSettings mSystemSettings;
 
     private final Point mCurrentDisplaySize = new Point();
 
@@ -823,8 +821,7 @@ public class StatusBar extends SystemUI implements
             TunerService tunerService,
             DumpManager dumpManager,
             ActivityLaunchAnimator activityLaunchAnimator,
-            TaskHelper taskHelper,
-            SystemSettings systemSettings) {
+            TaskHelper taskHelper) {
         super(context);
         mNotificationsController = notificationsController;
         mFragmentService = fragmentService;
@@ -925,8 +922,6 @@ public class StatusBar extends SystemUI implements
 
         mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
         mStartingSurfaceOptional = startingSurfaceOptional;
-
-        mSystemSettings = systemSettings;
         lockscreenShadeTransitionController.setStatusbar(this);
 
         mPanelExpansionStateManager.addExpansionListener(this::onPanelExpansionChanged);
@@ -984,7 +979,7 @@ public class StatusBar extends SystemUI implements
         mStatusBarHideIconsForBouncerManager.setDisplayId(mDisplayId);
 
         mPackageMonitor = new PackageMonitor();
-        mPackageMonitor.register(mContext, mMainHandler);
+        mPackageMonitor.register(mContext, mHandler);
         mPackageMonitor.addListener(this);
 
         // start old BaseStatusBar.start().
@@ -1500,8 +1495,7 @@ public class StatusBar extends SystemUI implements
                 mInitController,
                 mNotificationInterruptStateProvider,
                 mRemoteInputManager,
-                mConfigurationController,
-                mSystemSettings);
+                mConfigurationController);
 
         mNotificationShelfController.setOnActivatedListener(mPresenter);
         mRemoteInputManager.addControllerCallback(mNotificationShadeWindowController);
@@ -3937,30 +3931,36 @@ public class StatusBar extends SystemUI implements
         return mDeviceInteractive;
     }
 
-    private SbSettingsObserver mSbSettingsObserver = new SbSettingsObserver();
+    Handler mHandler = new Handler();
+    private SbSettingsObserver mSbSettingsObserver = new SbSettingsObserver(mHandler);
     private class SbSettingsObserver extends ContentObserver {
-        SbSettingsObserver() {
-            super(mMainHandler);
+        SbSettingsObserver(Handler handler) {
+            super(handler);
         }
 
         void observe() {
-            mSystemSettings.registerContentObserver(
-                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN, this);
-            mSystemSettings.registerContentObserver(
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, this);
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            switch (uri.getLastPathSegment()) {
-                case Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN:
-                case Settings.System.DOUBLE_TAP_SLEEP_GESTURE:
-                    setLockscreenDoubleTapToSleep();
-                    break;
+            super.onChange(selfChange, uri);
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
+                setLockscreenDoubleTapToSleep();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
+                setLockscreenDoubleTapToSleep();
             }
         }
 
-        void update() {
+        public void update() {
             setLockscreenDoubleTapToSleep();
         }
     }
