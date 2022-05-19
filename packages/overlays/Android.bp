@@ -122,7 +122,8 @@ phony {
         "FontNovaSourceOverlay",
         "FontTaurusSourceOverlay",
         "FontTechnicalSourceOverlay",
-        "FontMontserratSourceOverlay"
+        "FontMontserratSourceOverlay",
+        "FontHarmonySansOverlay"
     ],
 }
 
