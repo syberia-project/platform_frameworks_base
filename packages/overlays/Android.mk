@@ -37,6 +37,7 @@ LOCAL_REQUIRED_MODULES := \
     FontFakedesSourceOverlay \
     FontFifa2018SourceOverlay \
     FontGoogleSansSourceOverlay \
+    FontHarmonySansOverlay \
     FontHondaSourceOverlay \
     FontHortensiaSourceOverlay \
     FontLGSmartGothicSourceOverlay \
