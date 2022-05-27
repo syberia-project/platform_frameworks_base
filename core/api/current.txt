@@ -13959,6 +13959,10 @@ package android.database.sqlite {
     ctor public SQLiteAccessPermException(String);
   }
 
+  public interface SQLiteAuthorizer {
+    method public int onAuthorize(int, @Nullable String, @Nullable String, @Nullable String, @Nullable String);
+  }
+
   public class SQLiteBindOrColumnIndexOutOfRangeException extends android.database.sqlite.SQLiteException {
     ctor public SQLiteBindOrColumnIndexOutOfRangeException();
     ctor public SQLiteBindOrColumnIndexOutOfRangeException(String);
@@ -13982,6 +13986,46 @@ package android.database.sqlite {
     method @Deprecated protected void onAllReferencesReleasedFromContainer();
     method public void releaseReference();
     method @Deprecated public void releaseReferenceFromContainer();
+  }
+
+  public class SQLiteConstants {
+    field public static final int SQLITE_ALTER_TABLE = 26; // 0x1a
+    field public static final int SQLITE_ANALYZE = 28; // 0x1c
+    field public static final int SQLITE_ATTACH = 24; // 0x18
+    field public static final int SQLITE_COPY = 0; // 0x0
+    field public static final int SQLITE_CREATE_INDEX = 1; // 0x1
+    field public static final int SQLITE_CREATE_TABLE = 2; // 0x2
+    field public static final int SQLITE_CREATE_TEMP_INDEX = 3; // 0x3
+    field public static final int SQLITE_CREATE_TEMP_TABLE = 4; // 0x4
+    field public static final int SQLITE_CREATE_TEMP_TRIGGER = 5; // 0x5
+    field public static final int SQLITE_CREATE_TEMP_VIEW = 6; // 0x6
+    field public static final int SQLITE_CREATE_TRIGGER = 7; // 0x7
+    field public static final int SQLITE_CREATE_VIEW = 8; // 0x8
+    field public static final int SQLITE_CREATE_VTABLE = 29; // 0x1d
+    field public static final int SQLITE_DELETE = 9; // 0x9
+    field public static final int SQLITE_DENY = 1; // 0x1
+    field public static final int SQLITE_DETACH = 25; // 0x19
+    field public static final int SQLITE_DROP_INDEX = 10; // 0xa
+    field public static final int SQLITE_DROP_TABLE = 11; // 0xb
+    field public static final int SQLITE_DROP_TEMP_INDEX = 12; // 0xc
+    field public static final int SQLITE_DROP_TEMP_TABLE = 13; // 0xd
+    field public static final int SQLITE_DROP_TEMP_TRIGGER = 14; // 0xe
+    field public static final int SQLITE_DROP_TEMP_VIEW = 15; // 0xf
+    field public static final int SQLITE_DROP_TRIGGER = 16; // 0x10
+    field public static final int SQLITE_DROP_VIEW = 17; // 0x11
+    field public static final int SQLITE_DROP_VTABLE = 30; // 0x1e
+    field public static final int SQLITE_FUNCTION = 31; // 0x1f
+    field public static final int SQLITE_IGNORE = 2; // 0x2
+    field public static final int SQLITE_INSERT = 18; // 0x12
+    field public static final int SQLITE_OK = 0; // 0x0
+    field public static final int SQLITE_PRAGMA = 19; // 0x13
+    field public static final int SQLITE_READ = 20; // 0x14
+    field public static final int SQLITE_RECURSIVE = 33; // 0x21
+    field public static final int SQLITE_REINDEX = 27; // 0x1b
+    field public static final int SQLITE_SAVEPOINT = 32; // 0x20
+    field public static final int SQLITE_SELECT = 21; // 0x15
+    field public static final int SQLITE_TRANSACTION = 22; // 0x16
+    field public static final int SQLITE_UPDATE = 23; // 0x17
   }
 
   public class SQLiteConstraintException extends android.database.sqlite.SQLiteException {
@@ -14013,6 +14057,7 @@ package android.database.sqlite {
     method public void beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener);
     method public void beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener);
     method public android.database.sqlite.SQLiteStatement compileStatement(String) throws android.database.SQLException;
+    method @NonNull public android.database.sqlite.SQLiteStatement compileStatement(@NonNull String, @Nullable android.database.sqlite.SQLiteAuthorizer) throws android.database.SQLException;
     method @NonNull public static android.database.sqlite.SQLiteDatabase create(@Nullable android.database.sqlite.SQLiteDatabase.CursorFactory);
     method @NonNull public static android.database.sqlite.SQLiteDatabase createInMemory(@NonNull android.database.sqlite.SQLiteDatabase.OpenParams);
     method public int delete(String, String, String[]);
@@ -14023,6 +14068,7 @@ package android.database.sqlite {
     method public void execPerConnectionSQL(@NonNull String, @Nullable Object[]) throws android.database.SQLException;
     method public void execSQL(String) throws android.database.SQLException;
     method public void execSQL(String, Object[]) throws android.database.SQLException;
+    method public void execSQL(@NonNull String, @Nullable Object[], @Nullable android.database.sqlite.SQLiteAuthorizer) throws android.database.SQLException;
     method public static String findEditTable(String);
     method public java.util.List<android.util.Pair<java.lang.String,java.lang.String>> getAttachedDbs();
     method public long getMaximumSize();
@@ -14060,6 +14106,7 @@ package android.database.sqlite {
     method public android.database.Cursor rawQuery(String, String[], android.os.CancellationSignal);
     method public android.database.Cursor rawQueryWithFactory(android.database.sqlite.SQLiteDatabase.CursorFactory, String, String[], String);
     method public android.database.Cursor rawQueryWithFactory(android.database.sqlite.SQLiteDatabase.CursorFactory, String, String[], String, android.os.CancellationSignal);
+    method @NonNull public android.database.Cursor rawQueryWithFactory(@Nullable android.database.sqlite.SQLiteDatabase.CursorFactory, @NonNull String, @Nullable String[], @Nullable String, @Nullable android.os.CancellationSignal, @Nullable android.database.sqlite.SQLiteAuthorizer);
     method public static int releaseMemory();
     method public long replace(String, String, android.content.ContentValues);
     method public long replaceOrThrow(String, String, android.content.ContentValues) throws android.database.SQLException;
@@ -14076,6 +14123,7 @@ package android.database.sqlite {
     method public int update(String, android.content.ContentValues, String, String[]);
     method public int updateWithOnConflict(String, android.content.ContentValues, String, String[], int);
     method public void validateSql(@NonNull String, @Nullable android.os.CancellationSignal);
+    method public void validateSql(@NonNull String, @Nullable android.os.CancellationSignal, @Nullable android.database.sqlite.SQLiteAuthorizer);
     method @Deprecated public boolean yieldIfContended();
     method public boolean yieldIfContendedSafely();
     method public boolean yieldIfContendedSafely(long);
@@ -14114,7 +14162,9 @@ package android.database.sqlite {
     ctor public SQLiteDatabase.OpenParams.Builder(android.database.sqlite.SQLiteDatabase.OpenParams);
     method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder addOpenFlags(int);
     method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams build();
+    method public boolean isAuthorizerSupportEnabled();
     method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder removeOpenFlags(int);
+    method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder setAuthorizerSupportEnabled(boolean);
     method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder setCursorFactory(@Nullable android.database.sqlite.SQLiteDatabase.CursorFactory);
     method @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder setErrorHandler(@Nullable android.database.DatabaseErrorHandler);
     method @Deprecated @NonNull public android.database.sqlite.SQLiteDatabase.OpenParams.Builder setIdleConnectionTimeout(@IntRange(from=0) long);

@@ -17,6 +17,7 @@
 package android.database.sqlite;
 
 import android.compat.annotation.UnsupportedAppUsage;
+import android.database.sqlite.SQLiteDebug.NoPreloadHolder;
 import android.util.ArrayMap;
 import android.util.Pair;
 
@@ -151,6 +152,13 @@ public final class SQLiteDatabaseConfiguration {
     public SQLiteDatabaseConfiguration(String path, int openFlags) {
         if (path == null) {
             throw new IllegalArgumentException("path must not be null.");
+        }
+
+        if (NoPreloadHolder.DEBUG_SQL_STATEMENTS) {
+            openFlags |= SQLiteDatabase.ENABLE_PROFILE;
+        }
+        if (NoPreloadHolder.DEBUG_SQL_TIME) {
+            openFlags |= SQLiteDatabase.ENABLE_TRACE;
         }
 
         this.path = path;

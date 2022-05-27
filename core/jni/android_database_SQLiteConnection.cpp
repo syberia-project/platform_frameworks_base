@@ -59,6 +59,10 @@ namespace android {
 static const int BUSY_TIMEOUT_MS = 2500;
 
 static struct {
+    jmethodID onAuthorize;
+} gAuthorizer;
+
+static struct {
     jmethodID apply;
 } gUnaryOperator;
 
@@ -74,6 +78,9 @@ struct SQLiteConnection {
         OPEN_READONLY           = 0x00000001,
         OPEN_READ_MASK          = 0x00000001,
         NO_LOCALIZED_COLLATORS  = 0x00000010,
+        ENABLE_TRACE            = 0x00000100,
+        ENABLE_PROFILE          = 0x00000200,
+        ENABLE_AUTHORIZER       = 0x00000400,
         CREATE_IF_NECESSARY     = 0x10000000,
     };
 
@@ -83,9 +90,10 @@ struct SQLiteConnection {
     const String8 label;
 
     volatile bool canceled;
+    volatile jobject authorizer;
 
     SQLiteConnection(sqlite3* db, int openFlags, const String8& path, const String8& label) :
-        db(db), openFlags(openFlags), path(path), label(label), canceled(false) { }
+        db(db), openFlags(openFlags), path(path), label(label), canceled(false), authorizer(NULL) { }
 };
 
 // Called each time a statement begins execution, when tracing is enabled.
@@ -108,10 +116,33 @@ static int sqliteProgressHandlerCallback(void* data) {
     return connection->canceled;
 }
 
+static int sqliteAuthorizerCallback(void* data, int action, const char* arg3, const char* arg4,
+        const char* arg5, const char* arg6) {
+    SQLiteConnection* connection = static_cast<SQLiteConnection*>(data);
+    if (connection->authorizer) {
+        JNIEnv* env = AndroidRuntime::getJNIEnv();
+        ScopedLocalRef<jobject> authorizerObj(env, env->NewLocalRef(connection->authorizer));
+        ScopedLocalRef<jstring> arg3String(env, env->NewStringUTF(arg3));
+        ScopedLocalRef<jstring> arg4String(env, env->NewStringUTF(arg4));
+        ScopedLocalRef<jstring> arg5String(env, env->NewStringUTF(arg5));
+        ScopedLocalRef<jstring> arg6String(env, env->NewStringUTF(arg6));
+        int res = env->CallIntMethod(authorizerObj.get(), gAuthorizer.onAuthorize, action,
+                arg3String.get(), arg4String.get(), arg5String.get(), arg6String.get());
+        if (env->ExceptionCheck()) {
+            ALOGE("Exception thrown by authorizer");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+            return SQLITE_DENY;
+        } else {
+            return res;
+        }
+    } else {
+        return SQLITE_OK;
+    }
+}
 
 static jlong nativeOpen(JNIEnv* env, jclass clazz, jstring pathStr, jint openFlags,
-        jstring labelStr, jboolean enableTrace, jboolean enableProfile, jint lookasideSz,
-        jint lookasideCnt) {
+        jstring labelStr, jint lookasideSz, jint lookasideCnt) {
     int sqliteFlags;
     if (openFlags & SQLiteConnection::CREATE_IF_NECESSARY) {
         sqliteFlags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
@@ -172,12 +203,15 @@ static jlong nativeOpen(JNIEnv* env, jclass clazz, jstring pathStr, jint openFla
     // Create wrapper object.
     SQLiteConnection* connection = new SQLiteConnection(db, openFlags, path, label);
 
-    // Enable tracing and profiling if requested.
-    if (enableTrace) {
+    // Enable optional features if requested.
+    if (openFlags & SQLiteConnection::ENABLE_TRACE) {
         sqlite3_trace(db, &sqliteTraceCallback, connection);
     }
-    if (enableProfile) {
+    if (openFlags & SQLiteConnection::ENABLE_PROFILE) {
         sqlite3_profile(db, &sqliteProfileCallback, connection);
+    }
+    if (openFlags & SQLiteConnection::ENABLE_AUTHORIZER) {
+        sqlite3_set_authorizer(db, &sqliteAuthorizerCallback, connection);
     }
 
     ALOGV("Opened connection %p with label '%s'", db, label.string());
@@ -188,6 +222,11 @@ static void nativeClose(JNIEnv* env, jclass clazz, jlong connectionPtr) {
     SQLiteConnection* connection = reinterpret_cast<SQLiteConnection*>(connectionPtr);
 
     if (connection) {
+        if (connection->authorizer) {
+            env->DeleteGlobalRef(connection->authorizer);
+            connection->authorizer = NULL;
+        }
+
         ALOGV("Closing connection %p", connection->db);
         int err = sqlite3_close(connection->db);
         if (err != SQLITE_OK) {
@@ -198,6 +237,20 @@ static void nativeClose(JNIEnv* env, jclass clazz, jlong connectionPtr) {
         }
 
         delete connection;
+    }
+}
+
+static void nativeSetAuthorizer(JNIEnv* env, jclass clazz, jlong connectionPtr,
+        jobject authorizerObj) {
+    SQLiteConnection* connection = reinterpret_cast<SQLiteConnection*>(connectionPtr);
+
+    if (connection->authorizer) {
+        env->DeleteGlobalRef(connection->authorizer);
+        connection->authorizer = NULL;
+    }
+    if (authorizerObj) {
+        jobject authorizerObjGlobal = env->NewGlobalRef(authorizerObj);
+        connection->authorizer = authorizerObjGlobal;
     }
 }
 
@@ -878,10 +931,12 @@ static void nativeResetCancel(JNIEnv* env, jobject clazz, jlong connectionPtr,
 static const JNINativeMethod sMethods[] =
 {
     /* name, signature, funcPtr */
-    { "nativeOpen", "(Ljava/lang/String;ILjava/lang/String;ZZII)J",
+    { "nativeOpen", "(Ljava/lang/String;ILjava/lang/String;II)J",
             (void*)nativeOpen },
     { "nativeClose", "(J)V",
             (void*)nativeClose },
+    { "nativeSetAuthorizer", "(JLandroid/database/sqlite/SQLiteAuthorizer;)V",
+            (void*)nativeSetAuthorizer },
     { "nativeRegisterCustomScalarFunction", "(JLjava/lang/String;Ljava/util/function/UnaryOperator;)V",
             (void*)nativeRegisterCustomScalarFunction },
     { "nativeRegisterCustomAggregateFunction", "(JLjava/lang/String;Ljava/util/function/BinaryOperator;)V",
@@ -936,6 +991,10 @@ static const JNINativeMethod sMethods[] =
 
 int register_android_database_SQLiteConnection(JNIEnv *env)
 {
+    jclass authorizerClazz = FindClassOrDie(env, "android/database/sqlite/SQLiteAuthorizer");
+    gAuthorizer.onAuthorize = GetMethodIDOrDie(env, authorizerClazz,
+            "onAuthorize", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
+
     jclass unaryClazz = FindClassOrDie(env, "java/util/function/UnaryOperator");
     gUnaryOperator.apply = GetMethodIDOrDie(env, unaryClazz,
             "apply", "(Ljava/lang/Object;)Ljava/lang/Object;");
