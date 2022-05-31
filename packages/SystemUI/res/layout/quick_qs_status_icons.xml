@@ -37,8 +37,8 @@
 
         <com.android.systemui.statusbar.policy.Clock
             android:id="@+id/clock"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:minHeight="@dimen/qs_header_row_min_height"
             android:gravity="center_vertical|start"
             android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
@@ -48,8 +48,8 @@
 
         <com.android.systemui.statusbar.policy.VariableDateView
             android:id="@+id/date_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/status_bar_left_clock_end_padding"
             android:gravity="center_vertical|start"
             android:singleLine="true"
@@ -62,7 +62,7 @@
     <include layout="@layout/qs_carrier_group"
         android:id="@+id/carrier_group"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:minHeight="@dimen/qs_header_row_min_height"
         android:minWidth="48dp"
@@ -79,6 +79,17 @@
         android:layout_marginEnd="8dp"
         android:visibility="gone"
         />
+
+    <com.android.systemui.statusbar.policy.NetworkTraffic
+	android:id="@+id/networkTraffic"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:layout_marginStart="6dp"
+	android:layout_marginEnd="4dp"
+	android:singleLine="false"
+	android:lineSpacingMultiplier="1.2"
+	systemui:showDark="false"
+	android:gravity="center_vertical|end"/>
 
     <FrameLayout
         android:id="@+id/rightLayout"

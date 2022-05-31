@@ -27,7 +27,106 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:minHeight="48dp">
-
+    	
+    	<LinearLayout
+    	android:layout_width="wrap_content"
+    	android:layout_height="match_parent"
+    	android:layout_marginTop="2dp">
+		<TextClock
+		    android:textAppearance="@style/TextAppearance.QS.Status"
+		    android:textSize="37dp"
+		    android:textStyle="bold"
+		    android:textColor="?android:colorAccent"
+		    android:gravity="start|center"
+		    android:layout_gravity="start|center"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:singleLine="true"
+		    android:layout_marginStart="6dp"
+		    android:format12Hour="hh"
+		    android:format24Hour="HH" />
+		<TextClock
+		    android:textAppearance="@style/TextAppearance.QS.Status"
+		    android:textSize="37dp"
+		    android:textStyle="bold"
+		    android:gravity="start|center"
+		    android:layout_gravity="start|center"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="0dp"
+		    android:singleLine="true"
+		    android:layout_marginStart="0dp"
+		    android:format12Hour=":"
+		    android:format24Hour=":" />
+		<TextClock
+		    android:textAppearance="@style/TextAppearance.QS.Status"
+		    android:textSize="37dp"
+		    android:textStyle="bold"
+		    android:gravity="start|center"
+		    android:layout_gravity="start|center"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:singleLine="true"
+		    android:layout_marginStart="0dp"
+		    android:format12Hour="mm"
+		    android:format24Hour="mm" />
+		<TextClock
+		    android:textAppearance="@style/TextAppearance.QS.Status"
+		    android:textSize="35dp"
+		    android:textStyle="bold"
+		    android:textColor="#ffcd2d31"
+		    android:layout_gravity="start|center"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="0dp"
+		    android:singleLine="true"
+		    android:layout_marginStart="0dp"
+		    android:format12Hour="|"
+		    android:format24Hour="|" />
+		<View
+		    android:layout_width="2dp"
+		    android:layout_height="0dp" />
+		<LinearLayout
+		    android:gravity="start|center"
+		    android:layout_gravity="start|center"
+		    android:orientation="vertical"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="0dp">
+			<View
+			    android:layout_width="wrap_content"
+			    android:layout_height="2dp" />
+			<TextClock
+			    android:textAppearance="@style/TextAppearance.NotificationSectionHeaderButton"
+			    android:textSize="12dp"
+			    android:textStyle="bold"
+			    android:textColor="?android:colorAccent"
+			    android:gravity="start|center"
+			    android:layout_gravity="start|center"
+			    android:layout_width="wrap_content"
+			    android:layout_height="15dp"
+			    android:minHeight="15dp"
+			    android:singleLine="true"
+			    android:paddingStart="0dp"
+			    android:paddingEnd="0dp"
+			    android:format12Hour="EEEE"
+			    android:format24Hour="EEEE" />
+			<TextClock
+			android:textAppearance="@style/TextAppearance.QS.Status"
+			android:textSize="12dp"
+			android:textStyle="bold"
+			android:gravity="start|center"
+			android:layout_gravity="start|center"
+			android:layout_width="wrap_content"
+			android:layout_height="15dp"
+			android:minHeight="15dp"
+			android:singleLine="true"
+			android:paddingStart="0dp"
+			android:paddingEnd="0dp"
+			android:format12Hour="MMM d, yyyy"
+			android:format24Hour="MMM d, yyyy" />
+		</LinearLayout>
+        </LinearLayout>
     <FrameLayout
         android:id="@+id/date_container"
         android:layout_width="0dp"
@@ -38,8 +137,8 @@
 
         <com.android.systemui.statusbar.policy.VariableDateView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="start|center_vertical"
             android:gravity="center_vertical"
             android:singleLine="true"
@@ -83,17 +182,6 @@
         <include layout="@layout/ongoing_privacy_chip" />
 
     </FrameLayout>
-
-    <com.android.systemui.statusbar.policy.NetworkTraffic
-        android:id="@+id/networkTraffic"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="4dp"
-        android:singleLine="false"
-        android:lineSpacingMultiplier="1.2"
-        systemui:showDark="false"
-        android:gravity="center_vertical|end"/>
 
     <com.android.systemui.battery.BatteryMeterView
         android:id="@+id/batteryIcon"
