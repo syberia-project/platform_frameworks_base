@@ -197,5 +197,6 @@ public class SecureSettings {
         Settings.Secure.QS_BRIGHTNESS_POSITION_BOTTOM,
         Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS_BUTTON,
         Settings.Secure.SHOW_BACK_ARROW_GESTURE,
+        Settings.Secure.STATUS_BAR_SHOW_VIBRATE_ICON,
     };
 }
