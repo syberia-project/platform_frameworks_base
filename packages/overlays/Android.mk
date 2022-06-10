@@ -36,37 +36,30 @@ LOCAL_REQUIRED_MODULES := \
 	FontNotoSerifSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
-	IconPackCircularSettingsOverlay \
 	IconPackCircularSystemUIOverlay \
 	IconPackCircularThemePickerOverlay \
         IconPackPUIAndroidOverlay \
         IconPackPUILauncherOverlay \
-        IconPackPUISettingsOverlay \
         IconPackPUISystemUIOverlay \
         IconPackPUIThemePickerOverlay \
 	IconPackVictorAndroidOverlay \
 	IconPackVictorLauncherOverlay \
-	IconPackVictorSettingsOverlay \
 	IconPackVictorSystemUIOverlay \
 	IconPackVictorThemePickerOverlay \
 	IconPackSamAndroidOverlay \
 	IconPackSamLauncherOverlay \
-	IconPackSamSettingsOverlay \
 	IconPackSamSystemUIOverlay \
 	IconPackSamThemePickerOverlay \
 	IconPackKaiAndroidOverlay \
 	IconPackKaiLauncherOverlay \
-	IconPackKaiSettingsOverlay \
 	IconPackKaiSystemUIOverlay \
 	IconPackKaiThemePickerOverlay \
 	IconPackFilledAndroidOverlay \
 	IconPackFilledLauncherOverlay \
-	IconPackFilledSettingsOverlay \
 	IconPackFilledSystemUIOverlay \
 	IconPackFilledThemePickerOverlay \
 	IconPackRoundedAndroidOverlay \
 	IconPackRoundedLauncherOverlay \
-	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
 	IconPackRoundedThemePickerOverlay \
 	FontOneplusSlateSource \
@@ -95,11 +88,9 @@ LOCAL_REQUIRED_MODULES := \
 	FontMontserratSourceOverlay \
         IconPackOOSAndroidOverlay \
         IconPackOOSLauncherOverlay \
-        IconPackOOSSettingsOverlay \
         IconPackOOSSystemUIOverlay \
         IconPackOOSThemePickerOverlay \
         IconPackOutlineAndroidOverlay \
-        IconPackOutlineSettingsOverlay \
         IconPackOutlineSystemUIOverlay \
         IconPackAcherusAndroidOverlay \
         IconPackAcherusSystemUIOverlay \
@@ -119,7 +110,6 @@ LOCAL_REQUIRED_MODULES := \
         IconShapeTeardropOverlay \
         IconShapeVesselOverlay \
         IconPackDoraAndroidOverlay \
-        IconPackDoraSettingsOverlay \
         IconPackDoraSystemUIOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarMode2ButtonOverlay \
