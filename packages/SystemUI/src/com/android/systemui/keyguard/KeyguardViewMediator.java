@@ -127,6 +127,8 @@ import com.android.systemui.unfold.SysUIUnfoldComponent;
 import com.android.systemui.unfold.UnfoldLightRevealOverlayAnimation;
 import com.android.systemui.util.DeviceConfigProxy;
 
+import com.android.internal.util.syberia.udfps.UdfpsUtils;
+
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -1054,7 +1056,10 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable,
         // explicitly DO NOT want to call
         // mKeyguardViewControllerLazy.get().setKeyguardGoingAwayState(false)
         // here, since that will mess with the device lock state.
-        mUpdateMonitor.dispatchKeyguardGoingAway(false);
+        boolean isUdfps = deviceHasUdfps();
+        if (!isUdfps) {
+            mUpdateMonitor.dispatchKeyguardGoingAway(false);
+        }
 
         notifyStartedGoingToSleep();
     }
@@ -2933,5 +2938,9 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable,
         public CharSequence getMessage() {
             return mMessage;
         }
+    }
+
+    private boolean deviceHasUdfps() {
+        return UdfpsUtils.hasUdfpsSupport(mContext);
     }
 }
