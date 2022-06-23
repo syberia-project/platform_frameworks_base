@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.provider.Settings;
 
 import com.android.internal.logging.UiEventLogger;
 import com.android.systemui.R;
@@ -39,13 +40,22 @@ public class QuickQSPanel extends QSPanel {
     // A fallback value for max tiles number when setting via Tuner (parseNumTiles)
     public static final int TUNER_MAX_TILES_FALLBACK = 6;
     public static final int DEFAULT_MIN_TILES = 4;
+    public static final int DEFAULT_MIN_TILES_TWO = 3;
 
     private boolean mDisabledByPolicy;
     private int mMaxTiles;
 
     public QuickQSPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mMaxTiles = Math.max(DEFAULT_MIN_TILES, getResources().getInteger(R.integer.quick_qs_panel_max_tiles));
+    	boolean isPortrait = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+	int portraitValue = Math.max(2, getResources().getInteger(R.integer.quick_settings_num_columns));
+	    portraitValue = OmniUtils.getQuickQSColumnsPortrait(mContext, portraitValue);
+        if (isPortrait && portraitValue == 2) {
+            mMaxTiles = Math.max(DEFAULT_MIN_TILES, getResources().getInteger(R.integer.quick_qs_panel_max_tiles));
+	} else {
+            mMaxTiles = Math.max(DEFAULT_MIN_TILES_TWO, getResources().getInteger(R.integer.quick_qs_panel_max_tiles));
+       }
     }
 
     @Override
@@ -102,7 +112,16 @@ public class QuickQSPanel extends QSPanel {
     }
 
     public void setMaxTiles(int maxTiles) {
-        mMaxTiles = Math.max(DEFAULT_MIN_TILES, maxTiles);
+    	boolean isPortrait = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+	int portraitValue = Math.max(2, getResources().getInteger(R.integer.quick_settings_num_columns));
+	    portraitValue = OmniUtils.getQuickQSColumnsPortrait(mContext, portraitValue);
+        if (isPortrait && portraitValue == 2) {
+            mMaxTiles = Math.max(DEFAULT_MIN_TILES, maxTiles);
+	} else {
+	    mMaxTiles = Math.max(DEFAULT_MIN_TILES_TWO, maxTiles);
+       }
+        
     }
 
     public int getNumQuickTiles() {
@@ -177,7 +196,13 @@ public class QuickQSPanel extends QSPanel {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.WRAP_CONTENT);
             setLayoutParams(lp);
-            setMaxColumns(getResourceColumns());
+            boolean isPortrait = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+            if (isPortrait) {
+            setMaxColumns(getResourceColumnsPortrait());
+            } else {
+            setMaxColumns(getResourceColumnsLand());
+            }
         }
 
         @Override
@@ -241,14 +266,26 @@ public class QuickQSPanel extends QSPanel {
         }
 
         @Override
-        public int getResourceColumns() {
-            int columns = getResources().getInteger(R.integer.quick_qs_panel_max_tiles);
-            return OmniUtils.getQuickQSColumnsCount(mContext, columns);
-        }
+    	public int getResourceColumnsPortrait() {
+        	int resourceColumns = Math.max(2, getResources().getInteger(R.integer.quick_settings_num_columns));
+        	return OmniUtils.getQuickQSColumnsPortrait(mContext, resourceColumns);
+    	}
+    
+        @Override
+    	public int getResourceColumnsLand() {
+        	int resourceColumnsLand = Math.max(4, getResources().getInteger(R.integer.quick_settings_num_columns_landscape));
+        	return OmniUtils.getQuickQSColumnsLandscape(mContext, resourceColumnsLand);
+    	}
 
         @Override
         public void updateSettings() {
-            mQSPanel.setMaxTiles(getResourceColumns());
+    	boolean isPortrait = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_PORTRAIT;
+        if (isPortrait) {
+            mQSPanel.setMaxTiles(getResourceColumnsPortrait());
+        } else {
+            mQSPanel.setMaxTiles(getResourceColumnsLand());
+        }
             super.updateSettings();
         }
     }
