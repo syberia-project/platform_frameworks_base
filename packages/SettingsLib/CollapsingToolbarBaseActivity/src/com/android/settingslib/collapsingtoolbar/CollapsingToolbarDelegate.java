@@ -76,7 +76,7 @@ public class CollapsingToolbarDelegate {
     @SuppressWarnings("RestrictTo")
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
         final View view =
-                inflater.inflate(R.layout.collapsing_toolbar_base_layout, container, false);
+                inflater.inflate(R.layout.xd_base_layout, container, false);
         if (view instanceof CoordinatorLayout) {
             mCoordinatorLayout = (CoordinatorLayout) view;
         }
