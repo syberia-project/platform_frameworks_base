@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  
+  Copyright (C) 2021 The Android Open Source Project
+  Copyright 2021-2022 xdroid, xyzprjkt
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- The main content view -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@id/content_parent"
+  android:fitsSystemWindows="true"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    
+    <com.google.android.material.appbar.AppBarLayout
+      android:theme="@style/Theme.CollapsingToolbar.Settings"
+      android:id="@id/app_bar"
+      android:background="@color/xd_base_layout_header"
+      android:fitsSystemWindows="true"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:outlineSpotShadowColor="@android:color/transparent"
+      android:outlineAmbientShadowColor="@android:color/transparent">
+        
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+          android:id="@id/collapsing_toolbar"
+          android:clipToPadding="false"
+          android:layout_width="fill_parent"
+          android:layout_height="@dimen/xd_toolbar_height"
+          app:collapsedTitleTextAppearance="@style/xd_toolbar.Collapsed"
+          app:contentScrim="@android:color/transparent"
+          app:expandedTitleMarginEnd="@dimen/xd_toolbar_expanded_title_margin_end"
+          app:expandedTitleMarginStart="@dimen/xd_toolbar_expanded_title_margin_start"
+          app:expandedTitleTextAppearance="@style/xd_toolbar.Expanded"
+          app:extraMultilineHeightEnabled="true"
+          app:forceApplySystemWindowInsetTop="true"
+          app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
+          app:maxLines="2"
+          app:scrimAnimationDuration="50"
+          app:scrimVisibleHeightTrigger="@dimen/xd_toolbar_scrim"
+          app:statusBarScrim="@null"
+          app:titleCollapseMode="fade"
+          app:toolbarId="@id/action_bar">
+            
+            <Toolbar
+              android:theme="?android:actionBarTheme"
+              android:id="@id/action_bar"
+              android:layout_width="fill_parent"
+              android:layout_height="?actionBarSize"
+              android:layout_marginTop="4dp"
+              android:transitionName="shared_element_view"
+              app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/xd_pref_card_horizontal_padding"
+            android:layout_marginEnd="@dimen/xd_pref_card_horizontal_padding"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="@dimen/xd_pref_card_radius"
+            app:cardElevation="0dp">
+
+          <FrameLayout
+            android:id="@id/content_frame"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xd_pref_card_horizontal_padding-negative"
+            android:layout_marginEnd="@dimen/xd_pref_card_horizontal_padding-negative"/>
+
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="25dp"
+      android:background="@drawable/xd_base_layout_round_mask"
+      app:layout_anchor="@id/app_bar"
+      app:layout_anchorGravity="bottom"
+      android:layout_gravity="bottom"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

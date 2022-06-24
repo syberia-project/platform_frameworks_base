@@ -20,4 +20,17 @@
     <dimen name="settingslib_scrim_visible_height_trigger">109dp</dimen>
     <dimen name="expanded_title_margin_start">24dp</dimen>
     <dimen name="expanded_title_margin_end">75dp</dimen>
+
+    <!-- xd. Preference Card -->
+    <dimen name="xd_pref_card_radius">28dp</dimen>
+    <dimen name="xd_pref_card_radius-outer">5dp</dimen>
+    <dimen name="xd_pref_card_horizontal_padding">16dp</dimen>
+    <dimen name="xd_pref_card_horizontal_padding-negative">-16dp</dimen>
+
+    <!-- xd. Toolbar -->
+    <dimen name="xd_toolbar_height">131dp</dimen>
+    <dimen name="xd_toolbar_scrim">89dp</dimen>
+    <dimen name="xd_toolbar_expanded_title_margin_start">21dp</dimen>
+    <dimen name="xd_toolbar_expanded_title_margin_end">75dp</dimen>
+
 </resources>
