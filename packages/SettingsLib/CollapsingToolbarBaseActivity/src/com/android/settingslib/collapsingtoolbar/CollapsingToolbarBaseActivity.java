@@ -57,7 +57,7 @@ public class CollapsingToolbarBaseActivity extends FragmentActivity {
         }
         // Force loading font synchronously for collapsing toolbar layout
         TextAppearanceConfig.setShouldLoadFontSynchronously(true);
-        super.setContentView(R.layout.collapsing_toolbar_base_layout);
+        super.setContentView(R.layout.xd_base_layout);
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         mAppBarLayout = findViewById(R.id.app_bar);
         if (mCollapsingToolbarLayout != null) {
