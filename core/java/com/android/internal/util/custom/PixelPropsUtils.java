@@ -45,6 +45,7 @@ public class PixelPropsUtils {
 
     private static final String[] packagesToChangePixel6 = {
             PACKAGE_GMS
+            "com.google.android.inputmethod.latin"
     };
 
     private static final String[] packagesToChangePixelXL = {
