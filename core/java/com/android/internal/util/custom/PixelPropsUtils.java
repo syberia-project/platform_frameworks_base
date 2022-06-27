@@ -15,6 +15,7 @@
  */
 package com.android.internal.util.custom;
 
+import android.app.Application;
 import android.os.Build;
 import android.util.Log;
 
@@ -30,8 +31,8 @@ public class PixelPropsUtils {
     private static final String TAG = PixelPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static volatile boolean sIsGms = false;
     public static final String PACKAGE_GMS = "com.google.android.gms";
+    private static volatile boolean sIsGms = false;
 
     private static final Map<String, Object> propsToChange;
     private static final Map<String, Object> propsToChangePixel6;
@@ -43,7 +44,7 @@ public class PixelPropsUtils {
     private static final Map<String, ArrayList<String>> propsToKeep;
 
     private static final String[] packagesToChangePixel6 = {
-            "com.google.android.gms"
+            PACKAGE_GMS
     };
 
     private static final String[] packagesToChangePixelXL = {
@@ -152,7 +153,10 @@ public class PixelPropsUtils {
         propsToChangeOP8P.put("MANUFACTURER", "OnePlus");
     }
 
-    public static void setProps(String packageName) {
+    public static void setProps(Application app) {
+        final String packageName = app.getPackageName();
+        final String processName = app.getProcessName();
+
         if (packageName == null) {
             return;
         }
@@ -183,7 +187,8 @@ public class PixelPropsUtils {
                 setPropValue(key, value);
             }
 
-             if (packageName.equals(PACKAGE_GMS)) {
+            if (packageName.equals(PACKAGE_GMS) &&
+                    processName.equals(PACKAGE_GMS + ".unstable")) {
                 sIsGms = true;
             }
 
