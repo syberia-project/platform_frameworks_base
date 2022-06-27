@@ -48,46 +48,45 @@ public class PixelPropsUtils {
     };
 
     private static final String[] packagesToChangePixelXL = {
-            "com.google.android.apps.photos"
+            "com.google.android.apps.photos",
+            "com.samsung.accessory",
+            "com.samsung.accessory.fridaymgr",
+            "com.samsung.accessory.berrymgr",
+            "com.samsung.accessory.neobeanmgr",
+            "com.samsung.android.app.watchmanager",
+            "com.samsung.android.geargplugin",
+            "com.samsung.android.gearnplugin",
+            "com.samsung.android.modenplugin",
+            "com.samsung.android.neatplugin",
+            "com.samsung.android.waterplugin"
     };
 
     private static final String[] extraPackagesToChange = {
             "com.android.chrome",
             "com.breel.wallpapers20",
-            "com.amazon.avod.thirdpartyclient",
-            "com.disney.disneyplus",
-            "com.netflix.mediaclient",
-            "in.startv.hotstar",
-     	    "com.google.android.apps.wallpaper",
-            "com.google.android.contacts",
-	    "com.android.chrome",
-	    "com.google.android.apps.googleassistant",
-	    "com.google.android.deskclock",
-            "com.google.android.apps.youtube.music",
-            "com.google.android.apps.podcasts",
-            "com.google.android.apps.tachyon",
-            "com.google.android.apps.nbu.files",
-            "com.google.android.android.contacts",
-            "com.google.android.android.apps.messaging",
-	    "com.google.android.gm"
+            "com.nhs.online.nhsonline"
     };
 
     private static final String[] packagesToKeep = {
-        "com.google.android.GoogleCamera",
-        "com.google.android.GoogleCamera.Cameight",
-        "com.google.android.GoogleCamera.Go",
-        "com.google.android.GoogleCamera.Urnyx",
-        "com.google.android.GoogleCameraAsp",
-        "com.google.android.GoogleCameraCVM",
-        "com.google.android.GoogleCameraEng",
-        "com.google.android.GoogleCameraEng2",
-        "com.google.android.GoogleCameraGood",
-        "com.google.android.MTCL83",
-        "com.google.android.UltraCVM",
-        "com.google.android.dialer",
-        "com.google.android.youtube",
-        "com.google.ar.core",
-        "com.google.android.apps.cameralite"
+            "com.google.android.GoogleCamera",
+            "com.google.android.GoogleCamera.Cameight",
+            "com.google.android.GoogleCamera.Go",
+            "com.google.android.GoogleCamera.Urnyx",
+            "com.google.android.GoogleCameraAsp",
+            "com.google.android.GoogleCameraCVM",
+            "com.google.android.GoogleCameraEng",
+            "com.google.android.GoogleCameraEng2",
+            "com.google.android.GoogleCameraGood",
+            "com.google.android.MTCL83",
+            "com.google.android.UltraCVM",
+            "com.google.android.apps.cameralite",
+            "com.google.android.apps.recorder",
+            "com.google.android.apps.wearables.maestro.companion",
+            "com.google.android.apps.youtube.kids",
+            "com.google.android.apps.youtube.music",
+            "com.google.android.dialer",
+            "com.google.android.youtube",
+            "com.google.ar.core"
     };
 
     private static final String[] packagesToChangeROG1 = {
