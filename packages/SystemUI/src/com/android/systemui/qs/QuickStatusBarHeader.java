@@ -220,6 +220,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
 
     void setIsSingleCarrier(boolean isSingleCarrier) {
         mIsSingleCarrier = isSingleCarrier;
+        if (mIsSingleCarrier) {
+            mIconContainer.removeIgnoredSlots(mRssiIgnoredSlots);
+        }
         updateAlphaAnimator();
     }
 
