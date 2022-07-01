@@ -42,6 +42,12 @@ public class QuickQSPanel extends QSPanel {
     public static final int DEFAULT_MIN_TILES = 4;
     public static final int DEFAULT_MIN_TILES_TWO = 3;
 
+    // Tile Columns on normal conditions
+    public int mMaxColumnsPortrait = 6;
+    public int mMaxColumnsLandscape = 6;
+    // Tile Columns when media player is visible
+    public int mMaxColumnsMediaPlayer = 4;
+
     private boolean mDisabledByPolicy;
     private int mMaxTiles;
 
@@ -56,6 +62,11 @@ public class QuickQSPanel extends QSPanel {
 	} else {
             mMaxTiles = Math.max(DEFAULT_MIN_TILES_TWO, getResources().getInteger(R.integer.quick_qs_panel_max_tiles));
        }
+	mMaxColumnsPortrait = Math.max(2, getResources().getInteger(R.integer.quick_qs_panel_num_columns));
+	mMaxColumnsPortrait = OmniUtils.getQuickQSColumnsPortrait(mContext, mMaxColumnsPortrait);
+	mMaxColumnsLandscape = Math.max(2, getResources().getInteger(R.integer.quick_qs_panel_num_columns_landscape));
+	mMaxColumnsLandscape = OmniUtils.getQuickQSColumnsPortrait(mContext, mMaxColumnsLandscape);
+        mMaxColumnsMediaPlayer = getResources().getInteger(R.integer.quick_qs_panel_num_columns_media);
     }
 
     @Override
@@ -64,6 +75,7 @@ public class QuickQSPanel extends QSPanel {
         if (mHorizontalContentContainer != null) {
             mHorizontalContentContainer.setClipChildren(false);
         }
+        updateColumns();
     }
 
     @Override
@@ -111,6 +123,18 @@ public class QuickQSPanel extends QSPanel {
         super.drawTile(r, state);
     }
 
+    public void updateColumns() {
+        boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+        int mColumnsMediaPlayer = mUsingHorizontalLayout ? 
+            mMaxColumnsMediaPlayer : 
+            mMaxColumnsLandscape;
+
+        mTileLayout.setMaxColumns(isLandscape ? 
+            mColumnsMediaPlayer : 
+            mMaxColumnsPortrait);
+    }
+    
     public void setMaxTiles(int maxTiles) {
     	boolean isPortrait = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_PORTRAIT;
