@@ -198,5 +198,6 @@ public class SecureSettings {
         Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS_BUTTON,
         Settings.Secure.SHOW_BACK_ARROW_GESTURE,
         Settings.Secure.STATUS_BAR_SHOW_VIBRATE_ICON,
+        Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS,
     };
 }
