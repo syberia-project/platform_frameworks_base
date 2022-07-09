@@ -113,7 +113,7 @@ public final class PhantomProcessRecord {
                 mService.reportUidInfoMessageLocked(TAG,
                         "Killing " + toString() + ": " + reason, mUid);
             }
-            if (mPid > 0) {
+            if (mPid > 0 && mPid == Process.getThreadGroupLeader(mPid)) {
                 EventLog.writeEvent(EventLogTags.AM_KILL, UserHandle.getUserId(mUid),
                         mPid, mProcessName, mAdj, reason);
                 if (!Process.supportsPidFd()) {

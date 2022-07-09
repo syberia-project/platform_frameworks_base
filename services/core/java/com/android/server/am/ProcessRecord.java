@@ -998,7 +998,7 @@ class ProcessRecord implements WindowProcessListener {
                         "Killing " + toShortString() + " (adj " + mState.getSetAdj()
                         + "): " + reason, info.uid);
             }
-            if (mPid > 0) {
+           if (mPid > 0 && mPid == Process.getThreadGroupLeader(mPid)) {
                 mService.mProcessList.noteAppKill(this, reasonCode, subReason, reason);
                 EventLog.writeEvent(EventLogTags.AM_KILL,
                         userId, mPid, processName, mState.getSetAdj(), reason);
