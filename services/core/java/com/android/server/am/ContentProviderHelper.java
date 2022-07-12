@@ -1722,6 +1722,10 @@ public class ContentProviderHelper {
                     mProviderMap.removeProviderByName(names[j], userId);
                 }
             }
+            // remove publish map if provider is dying
+            if (cpr.proc != null) {
+                cpr.proc.mProviders.removeProvider(cpr.info.name);
+            }
         }
 
         for (int i = cpr.connections.size() - 1; i >= 0; i--) {
