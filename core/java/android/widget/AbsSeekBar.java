@@ -24,10 +24,12 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.BlendMode;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Insets;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Region.Op;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -103,6 +105,8 @@ public abstract class AbsSeekBar extends ProgressBar {
     private List<Rect> mUserGestureExclusionRects = Collections.emptyList();
     private final List<Rect> mGestureExclusionRects = new ArrayList<>();
     private final Rect mThumbRect = new Rect();
+
+    private static Drawable mFakeThumbDrawable = null;
 
     public AbsSeekBar(Context context) {
         super(context);
@@ -240,6 +244,14 @@ public abstract class AbsSeekBar extends ProgressBar {
      * @return The current thumb drawable
      */
     public Drawable getThumb() {
+        if (mThumb == null) {
+            // ColorDrawable(TRANSPARENT) thumb draws 1x1 pixel. Null mThumb is correct
+            // Return fake thumb for apps that cant handle mThumb == null
+            if (mFakeThumbDrawable == null) {
+                mFakeThumbDrawable = new ColorDrawable(Color.TRANSPARENT);
+            }
+            return mFakeThumbDrawable;
+        }
         return mThumb;
     }
 

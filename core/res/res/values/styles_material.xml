@@ -809,7 +809,7 @@ please see styles_device_defaults.xml.
         <item name="indeterminateOnly">false</item>
         <item name="progressDrawable">@drawable/seekbar_progress_drawable</item>
         <item name="indeterminateDrawable">@drawable/seekbar_progress_drawable</item>
-        <item name="thumb">@color/transparent</item>
+        <item name="thumb">@null</item>
         <item name="splitTrack">true</item>
         <item name="useDisabledAlpha">false</item>
         <item name="focusable">true</item>
