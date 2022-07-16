@@ -1360,8 +1360,8 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
             // (SDR) layers, but the main brightness value will be the one for HDR.
             float sdrAnimateValue = animateValue;
             if (mHbmController.getHighBrightnessMode() == BrightnessInfo.HIGH_BRIGHTNESS_MODE_HDR
-                    && ((mBrightnessReason.modifier & BrightnessReason.MODIFIER_DIMMED) == 0
-                    || (mBrightnessReason.modifier & BrightnessReason.MODIFIER_LOW_POWER) == 0)) {
+                    && (mBrightnessReason.modifier & BrightnessReason.MODIFIER_DIMMED) == 0
+                    && (mBrightnessReason.modifier & BrightnessReason.MODIFIER_LOW_POWER) == 0) {
                 // We want to scale HDR brightness level with the SDR level
                 animateValue = mHbmController.getHdrBrightnessValue();
             }
