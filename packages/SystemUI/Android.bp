@@ -126,6 +126,7 @@ android_library {
         "colorkt",
         "themelib",
         "faceunlock_framework",
+        "bcsmartspace-google",
     ],
     manifest: "AndroidManifest.xml",
 
