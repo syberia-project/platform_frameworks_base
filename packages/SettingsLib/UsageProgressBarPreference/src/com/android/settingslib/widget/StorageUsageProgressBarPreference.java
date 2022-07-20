@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  * Progres bar preference with a usage summary and a total summary.
  * This preference shows number in usage summary with enlarged font size.
  */
-public class UsageProgressBarPreference extends Preference {
+public class StorageUsageProgressBarPreference extends Preference {
 
     private final Pattern mNumberPattern = Pattern.compile("[\\d]*[\\٫.,]?[\\d]+");
     private static final int ANIM_DURATION = 1200;
@@ -57,7 +57,7 @@ public class UsageProgressBarPreference extends Preference {
      *                access the current theme, resources, {@link SharedPreferences}, etc.
      * @param attrs   The attributes of the XML tag that is inflating the preference
      */
-    public UsageProgressBarPreference(Context context, AttributeSet attrs) {
+    public StorageUsageProgressBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayoutResource(R.layout.preference_usage_progress_bar);
     }
@@ -67,7 +67,7 @@ public class UsageProgressBarPreference extends Preference {
      *
      * @param context The Context this is associated with.
      */
-    public UsageProgressBarPreference(Context context) {
+    public StorageUsageProgressBarPreference(Context context) {
         this(context, null);
     }
 
@@ -177,14 +177,14 @@ public class UsageProgressBarPreference extends Preference {
         }
 
         if (mPercent >= 51) {
-            progressBar.setProgressTintList(context.getColorStateList(R.color.battery_high));
-            progressBar.setProgressBackgroundTintList(context.getColorStateList(R.color.battery_high));
+            progressBar.setProgressTintList(context.getColorStateList(R.color.battery_low));
+            progressBar.setProgressBackgroundTintList(context.getColorStateList(R.color.battery_low));
         } else if (mPercent >= 20) {
             progressBar.setProgressTintList(context.getColorStateList(R.color.battery_medium));
             progressBar.setProgressBackgroundTintList(context.getColorStateList(R.color.battery_medium));
         } else if (mPercent <= 19) {
-            progressBar.setProgressTintList(context.getColorStateList(R.color.battery_low));
-            progressBar.setProgressBackgroundTintList(context.getColorStateList(R.color.battery_low));
+            progressBar.setProgressTintList(context.getColorStateList(R.color.battery_high));
+            progressBar.setProgressBackgroundTintList(context.getColorStateList(R.color.battery_high));
         }
     }
 
