@@ -22,17 +22,9 @@ LOCAL_NOTICE_FILE := $(LOCAL_PATH)/../../NOTICE
 LOCAL_REQUIRED_MODULES := \
 	DisplayCutoutEmulationCornerOverlay \
 	DisplayCutoutEmulationDoubleOverlay \
-	DisplayCutoutEmulationHoleOverlay \
+    DisplayCutoutEmulationHoleOverlay \
 	DisplayCutoutEmulationTallOverlay \
 	DisplayCutoutEmulationWaterfallOverlay \
-	FontAclonicaSourceOverlay \
-	FontAmaranteSourceOverlay \
-	FontBariolSourceOverlay \
-	FontCagliostroSourceOverlay \
-	FontComicSansSourceOverlay \
-	FontCoolstorySourceOverlay \
-	FontGoogleSansSourceOverlay \
-	FontLGSmartGothicSourceOverlay \
 	FontNotoSerifSourceOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularLauncherOverlay \
@@ -62,30 +54,6 @@ LOCAL_REQUIRED_MODULES := \
 	IconPackRoundedLauncherOverlay \
 	IconPackRoundedSystemUIOverlay \
 	IconPackRoundedThemePickerOverlay \
-	FontOneplusSlateSource \
-	FontRosemarySourceOverlay \
-	FontSamsungOneSourceOverlay \
-	FontSonySketchSourceOverlay \
-	FontSurferSourceOverlay \
-	FontNokiaPureSourceOverlay \
-	FontFifa2018SourceOverlay \
-	FontOswaldSourceOverlay \
-	FontExo2SourceOverlay \
-	FontUbuntuRegularSourceOverlay \
-	FontRobotoCondensedLightSourceOverlay \
-	FontStoropiaSourceOverlay \
-	FontRoundedEleganceSourceOverlay \
-	FontCaviarDreamsSourceOverlay \
-	FontSanFranciscoDisplayProSourceOverlay \
-	FontDomkratSourceOverlay \
-	FontFakedesSourceOverlay \
-	FontHondaSourceOverlay \
-	FontHortensiaSourceOverlay \
-	FontMinusmanSourceOverlay \
-	FontNovaSourceOverlay \
-	FontTaurusSourceOverlay \
-	FontTechnicalSourceOverlay \
-	FontMontserratSourceOverlay \
         IconPackOOSAndroidOverlay \
         IconPackOOSLauncherOverlay \
         IconPackOOSSystemUIOverlay \
