@@ -1724,7 +1724,8 @@ public class LauncherApps {
         public void onPackagesAvailable(UserHandle user, String[] packageNames, boolean replacing)
                 throws RemoteException {
             if (DEBUG) {
-                Log.d(TAG, "onPackagesAvailable " + user.getIdentifier() + "," + packageNames);
+                Log.d(TAG, "onPackagesAvailable " + user.getIdentifier() + ","
+                        + Arrays.toString(packageNames));
             }
             synchronized (LauncherApps.this) {
                 for (CallbackMessageHandler callback : mCallbacks) {
@@ -1737,7 +1738,8 @@ public class LauncherApps {
         public void onPackagesUnavailable(UserHandle user, String[] packageNames, boolean replacing)
                 throws RemoteException {
             if (DEBUG) {
-                Log.d(TAG, "onPackagesUnavailable " + user.getIdentifier() + "," + packageNames);
+                Log.d(TAG, "onPackagesUnavailable " + user.getIdentifier() + ","
+                        + Arrays.toString(packageNames));
             }
             synchronized (LauncherApps.this) {
                 for (CallbackMessageHandler callback : mCallbacks) {
@@ -1751,7 +1753,8 @@ public class LauncherApps {
                 Bundle launcherExtras)
                 throws RemoteException {
             if (DEBUG) {
-                Log.d(TAG, "onPackagesSuspended " + user.getIdentifier() + "," + packageNames);
+                Log.d(TAG, "onPackagesSuspended " + user.getIdentifier() + ","
+                        + Arrays.toString(packageNames));
             }
             synchronized (LauncherApps.this) {
                 for (CallbackMessageHandler callback : mCallbacks) {
@@ -1764,7 +1767,8 @@ public class LauncherApps {
         public void onPackagesUnsuspended(UserHandle user, String[] packageNames)
                 throws RemoteException {
             if (DEBUG) {
-                Log.d(TAG, "onPackagesUnsuspended " + user.getIdentifier() + "," + packageNames);
+                Log.d(TAG, "onPackagesUnsuspended " + user.getIdentifier() + ","
+                        + Arrays.toString(packageNames));
             }
             synchronized (LauncherApps.this) {
                 for (CallbackMessageHandler callback : mCallbacks) {
