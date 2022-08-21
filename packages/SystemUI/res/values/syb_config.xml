@@ -20,4 +20,7 @@
     <!-- StatusBar burn-in protection -->
     <bool name="config_statusBarBurnInProtection">true</bool>
 
+    <!-- Udfps vendor code -->
+    <integer name="config_udfpsVendorCode">0</integer>
+
 </resources>
