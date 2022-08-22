@@ -122,7 +122,8 @@ static void native_writeToParcel(JNIEnv *env, jobject self, jlong nativePtr, job
     battery::LongMultiStateCounter *counter = asLongMultiStateCounter(nativePtr);
     ndk::ScopedAParcel parcel(AParcel_fromJavaParcel(env, jParcel));
 
-    uint16_t stateCount = counter->getStateCount();
+    // This cast is safe since it's initialized by int32 value.
+    auto stateCount = static_cast<int32_t>(counter->getStateCount());
     THROW_ON_WRITE_ERROR(AParcel_writeInt32(parcel.get(), stateCount));
 
     for (battery::state_t state = 0; state < stateCount; state++) {
@@ -161,7 +162,7 @@ static jlong native_initFromParcel(JNIEnv *env, jclass theClass, jobject jParcel
 }
 
 static jint native_getStateCount(jlong nativePtr) {
-    return asLongMultiStateCounter(nativePtr)->getStateCount();
+    return static_cast<jint>(asLongMultiStateCounter(nativePtr)->getStateCount());
 }
 
 static const JNINativeMethod g_methods[] = {
