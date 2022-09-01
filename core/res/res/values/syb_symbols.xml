@@ -110,4 +110,8 @@
     <java-symbol type="string" name="config_lightFontFamily" />
     <java-symbol type="string" name="config_regularFontFamily" />
 
+  <!-- PropImitationHooks -->
+  <java-symbol type="string" name="config_certifiedFingerprint" />
+  <java-symbol type="string" name="config_stockFingerprint" />
+
 </resources>
