@@ -43,4 +43,7 @@
     <!-- Whether key handler sends intent when changing slider position -->
     <java-symbol type="string" name="config_alertSliderIntent" />
 
+  <!-- Whether to handle audio direction changes between major call states -->
+  <java-symbol type="bool" name="config_handleAudioDirectionChangesBetweenCallStateChanges" />
+
 </resources>
