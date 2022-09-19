@@ -2100,7 +2100,7 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
                                         | Installer.FLAG_CLEAR_APP_DATA_KEEP_ART_PROFILES);
                     }
                 }
-                ver.fingerprint = Build.DATE;
+                ver.fingerprint = PackagePartitions.FINGERPRINT;
             }
 
             // Defer the app data fixup until we are done with app data clearing above.
