@@ -33,7 +33,7 @@
 #include <ui/Rotation.h>
 
 #include <EGL/egl.h>
-#include <GLES2/gl2.h>
+#include <GLES/gl.h>
 
 namespace android {
 
@@ -55,7 +55,7 @@ public:
     };
 
     struct Font {
-        FileMap* map = nullptr;
+        FileMap* map;
         Texture texture;
         int char_width;
         int char_height;
@@ -64,7 +64,7 @@ public:
     struct Animation {
         struct Frame {
             String8 name;
-            FileMap* map = nullptr;
+            FileMap* map;
             int trimX;
             int trimY;
             int trimWidth;
@@ -92,10 +92,6 @@ public:
             uint8_t* audioData;
             int audioLength;
             Animation* animation;
-            // Controls if dynamic coloring is enabled for this part.
-            bool useDynamicColoring = false;
-            // Defines if this part is played after the dynamic coloring part.
-            bool postDynamicColoring = false;
 
             bool hasFadingPhase() const {
                 return !playUntilComplete && framesToFadeCount > 0;
@@ -111,12 +107,6 @@ public:
         ZipFileRO* zip;
         Font clockFont;
         Font progressFont;
-         // Controls if dynamic coloring is enabled for the whole animation.
-        bool dynamicColoringEnabled = false;
-        int colorTransitionStart = 0; // Start frame of dynamic color transition.
-        int colorTransitionEnd = 0; // End frame of dynamic color transition.
-        float startColors[4][3]; // Start colors of dynamic color transition.
-        float endColors[4][3];   // End colors of dynamic color transition.
     };
 
     // All callbacks will be called from this class's internal thread.
@@ -175,12 +165,9 @@ private:
     int displayEventCallback(int fd, int events, void* data);
     void processDisplayEvents();
 
-    status_t initTexture(Texture* texture, AssetManager& asset, const char* name,
-        bool premultiplyAlpha = true);
-    status_t initTexture(FileMap* map, int* width, int* height,
-        bool premultiplyAlpha = true);
+    status_t initTexture(Texture* texture, AssetManager& asset, const char* name);
+    status_t initTexture(FileMap* map, int* width, int* height);
     status_t initFont(Font* font, const char* fallback);
-    void initShaders();
     bool android();
     bool movie();
     void drawText(const char* str, const Font& font, bool bold, int* x, int* y);
@@ -188,7 +175,6 @@ private:
     void drawProgress(int percent, const Font& font, const int xPos, const int yPos);
     void fadeFrame(int frameLeft, int frameBottom, int frameWidth, int frameHeight,
                    const Animation::Part& part, int fadedFramesCount);
-    void drawTexturedQuad(float xStart, float yStart, float width, float height);
     bool validClock(const Animation::Part& part);
     Animation* loadAnimation(const String8&);
     bool playAnimation(const Animation&);
@@ -210,15 +196,12 @@ private:
     void checkExit();
 
     void handleViewport(nsecs_t timestep);
-    void initDynamicColors();
 
     sp<SurfaceComposerClient>       mSession;
     AssetManager mAssets;
     Texture     mAndroid[2];
     int         mWidth;
     int         mHeight;
-    int         mInitWidth;
-    int         mInitHeight;
     int         mMaxWidth = 0;
     int         mMaxHeight = 0;
     int         mCurrentInset;
@@ -234,19 +217,11 @@ private:
     bool        mTimeIsAccurate;
     bool        mTimeFormat12Hour;
     bool        mShuttingDown;
-    bool        mDynamicColorsApplied = false;
     String8     mZipFileName;
     SortedVector<String8> mLoadedFiles;
     sp<TimeCheckThread> mTimeCheckThread = nullptr;
     sp<Callbacks> mCallbacks;
     Animation* mAnimation = nullptr;
-    GLuint mImageShader;
-    GLuint mTextShader;
-    GLuint mImageFadeLocation;
-    GLuint mImageTextureLocation;
-    GLuint mTextCropAreaLocation;
-    GLuint mTextTextureLocation;
-    GLuint mImageColorProgressLocation;
 };
 
 // ---------------------------------------------------------------------------
