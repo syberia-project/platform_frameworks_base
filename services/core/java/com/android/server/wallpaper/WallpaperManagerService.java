@@ -1347,6 +1347,7 @@ public class WallpaperManagerService extends IWallpaperManager.Stub
                     }
                     FgThread.getHandler().removeCallbacks(mResetRunnable);
                     mContext.getMainThreadHandler().removeCallbacks(mTryToRebindRunnable);
+                    mContext.getMainThreadHandler().removeCallbacks(mDisconnectRunnable);
                 }
             }
             t.traceEnd();
