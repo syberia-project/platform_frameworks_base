@@ -11,7 +11,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Pocket Lock --> 
     <string name="pocket_lock_message_long_press">Удерживайте кнопку питания для разблокировки</string>
@@ -22,6 +22,32 @@
     <string name="pocket_view_title_cancel">Чтобы активировать ваш телефон:</string>
     <string name="pocket_view_top_tag_cancel">Не закрывайте синюю часть Вашего телефона и удалите любые загрязнения или пыль на этой синей части.</string>
     <string name="pocket_view_top_tag_cancel2">Длительно удерживайте кнопку питания для принудительного выхода из карманного режима.</string>
+
+    <!-- LiveDisplay strings -->
+    <string name="live_display_title" translatable="false">LiveDisplay</string>
+    <string name="live_display_auto">Автоматически</string>
+    <string name="live_display_auto_summary">Автоматическая регулировка цветовой температуры экрана после заката и восхода солнца</string>
+    <string name="live_display_off">Отключить</string>
+    <string name="live_display_off_summary">Отключить автоподстройку</string>
+    <string name="live_display_day">День</string>
+    <string name="live_display_day_summary">Только дневные настройки</string>
+    <string name="live_display_night">Ночь</string>
+    <string name="live_display_night_summary">Только ночные настройки</string>
+    <string name="live_display_outdoor">На улице (яркое солнце)</string>
+    <string name="live_display_outdoor_summary">Только уличный режим</string>
+    <string name="live_display_hint">Функция LiveDisplay поможет снизить зрительное напряжение и улучшить сон. Нажмите здесь, чтобы попробовать!</string>
+    <string name="accessibility_quick_settings_live_display_off">LiveDisplay выключен</string>
+    <string name="accessibility_quick_settings_live_display_auto">LiveDisplay работает в автоматическом режиме</string>
+    <string name="accessibility_quick_settings_live_display_day">LiveDisplay работает в дневном режиме</string>
+    <string name="accessibility_quick_settings_live_display_night">LiveDisplay работает в ночном режиме</string>
+    <string name="accessibility_quick_settings_live_display_outdoor">LiveDisplay работает в режиме «на улице»</string>
+    <string name="accessibility_quick_settings_live_display_changed_off">LiveDisplay выключен</string>
+    <string name="accessibility_quick_settings_live_display_changed_auto">LiveDisplay переключен в автоматический режим</string>
+    <string name="accessibility_quick_settings_live_display_changed_day">LiveDisplay переключен в дневной режим</string>
+    <string name="accessibility_quick_settings_live_display_changed_night">LiveDisplay переключен в ночной режим</string>
+    <string name="accessibility_quick_settings_live_display_changed_outdoor">LiveDisplay переключен в режим «на улице»</string>
+
+    <string name="unlock_application">Разблокировать <xliff:g id="label" example="Telegram">%1$s</xliff:g></string>
 
 </resources>
 
