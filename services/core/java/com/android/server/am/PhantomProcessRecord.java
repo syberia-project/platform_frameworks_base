@@ -114,6 +114,9 @@ public final class PhantomProcessRecord {
                         "Killing " + toString() + ": " + reason, mUid);
             }
             if (mPid > 0) {
+                if (mPid != Process.getThreadGroupLeader(mPid)) {
+                    return;
+                }
                 EventLog.writeEvent(EventLogTags.AM_KILL, UserHandle.getUserId(mUid),
                         mPid, mProcessName, mAdj, reason);
                 if (!Process.supportsPidFd()) {
