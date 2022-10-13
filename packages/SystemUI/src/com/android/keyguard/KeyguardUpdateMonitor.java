@@ -3780,19 +3780,9 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     }
 
     private void updateFingerprintSettings() {
-        boolean defFingerprintSettings = mContext.getResources().getBoolean(
-                com.android.systemui.R.bool.config_fingerprintWakeAndUnlock);
-        if (defFingerprintSettings) {
-            mFingerprintWakeAndUnlock = Settings.System.getIntForUser(
-                    mContext.getContentResolver(), Settings.System.FINGERPRINT_WAKE_UNLOCK,
-                    1, UserHandle.USER_CURRENT) == 1;
-        } else {
-            mFingerprintWakeAndUnlock = defFingerprintSettings;
-            // if its false, the device meant to be used like that, disable toggle with 2.
-            Settings.System.putIntForUser(mContext.getContentResolver(),
-                    Settings.System.FINGERPRINT_WAKE_UNLOCK,
-                    2, UserHandle.USER_CURRENT);
-        }
+        mFingerprintWakeAndUnlock = Settings.System.getIntForUser(
+                mContext.getContentResolver(), Settings.System.FINGERPRINT_WAKE_UNLOCK,
+                0, UserHandle.USER_CURRENT) == 0;
     }
 
     protected int getBiometricLockoutDelay() {
