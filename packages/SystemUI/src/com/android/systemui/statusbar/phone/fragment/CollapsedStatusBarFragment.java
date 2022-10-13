@@ -590,12 +590,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
      * don't set the clock GONE otherwise it'll mess up the animation.
      */
     private int clockHiddenMode() {
-        if (!mPanelExpansionStateManager.isClosed() && !mKeyguardStateController.isShowing()
-                && !mStatusBarStateController.isDozing()
-                && mClockController.getClock().shouldBeVisible()) {
-            return View.INVISIBLE;
-        }
-        return View.GONE;
+        return View.INVISIBLE;
     }
 
     public void hideNotificationIconArea(boolean animate) {
