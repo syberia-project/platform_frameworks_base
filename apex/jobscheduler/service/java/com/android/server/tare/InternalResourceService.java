@@ -477,7 +477,7 @@ public class InternalResourceService extends SystemService {
         }
         synchronized (mLock) {
             mUidToPackageCache.remove(uid, pkgName);
-            for (int i = 0; i < mPkgCache.size(); ++i) {
+            for (int i = mPkgCache.size() - 1; i >= 0; --i) {
                 PackageInfo pkgInfo = mPkgCache.get(i);
                 if (UserHandle.getUserId(pkgInfo.applicationInfo.uid) == userId
                         && pkgName.equals(pkgInfo.packageName)) {
