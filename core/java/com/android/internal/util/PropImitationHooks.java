@@ -19,6 +19,7 @@ package com.android.internal.util;
 import android.app.Application;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.SystemProperties;
 import android.util.Log;
 
 import com.android.internal.R;
@@ -44,6 +45,7 @@ public class PropImitationHooks {
     private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_FINSKY = "com.android.vending";
     private static final String PACKAGE_GMS = "com.google.android.gms";
+    private static final String PROCESS_GMS_PERSISTENT = PACKAGE_GMS + ".persistent";
     private static final String PROCESS_GMS_UNSTABLE = PACKAGE_GMS + ".unstable";
 
     private static final String PACKAGE_GPHOTOS = "com.google.android.apps.photos";
@@ -67,16 +69,17 @@ public class PropImitationHooks {
         "PIXEL_2021_MIDYEAR_EXPERIENCE"
     };
 
+    private static final String PACKAGE_ASI = "com.google.android.as";
     private static final String PACKAGE_VELVET = "com.google.android.googlequicksearchbox";
     private static final String PACKAGE_WALLPAPERS = "com.google.android.apps.wallpaper";
     private static final Map<String, Object> sP6Props = new HashMap<>();
     static {
         sP6Props.put("BRAND", "google");
         sP6Props.put("MANUFACTURER", "Google");
-        sP6Props.put("DEVICE", "raven");
-        sP6Props.put("PRODUCT", "raven");
-        sP6Props.put("MODEL", "Pixel 6 Pro");
-        sP6Props.put("FINGERPRINT", "google/raven/raven:13/TP1A.221005.002/9012097:user/release-keys");
+        sP6Props.put("DEVICE", "redfin");
+        sP6Props.put("PRODUCT", "redfin");
+        sP6Props.put("MODEL", "Pixel 5");
+        sP6Props.put("FINGERPRINT", "google/redfin/redfin:13/TP1A.220624.014/8819323:user/release-keys");
     }
 
     private static final boolean sSpoofGapps =
@@ -109,8 +112,11 @@ public class PropImitationHooks {
             dlog("Spoofing Pixel XL for Google Photos");
             sP1Props.forEach((k, v) -> setPropValue(k, v));
         } else if (sSpoofGapps && (packageName.equals(PACKAGE_VELVET)
-                || packageName.equals(PACKAGE_WALLPAPERS))) {
-            dlog("Spoofing Pixel 6 Pro for: " + packageName);
+                || packageName.equals(PACKAGE_WALLPAPERS)
+                || packageName.equals(PACKAGE_ASI)
+                || (packageName.equals(PACKAGE_GMS)
+                    && processName.equals(PROCESS_GMS_PERSISTENT)))) {
+            dlog("Spoofing Pixel 5 for: " + packageName + " process: " + processName);
             sP6Props.forEach((k, v) -> setPropValue(k, v));
         }
     }
