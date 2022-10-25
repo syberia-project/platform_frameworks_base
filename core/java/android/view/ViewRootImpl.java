@@ -178,6 +178,7 @@ import android.provider.Settings;
 import android.sysprop.DisplayProperties;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.BoostFramework.ScrollOptimizer;
 import android.util.DisplayMetrics;
 import android.util.EventLog;
 import android.util.IndentingPrintWriter;
@@ -2517,6 +2518,7 @@ public final class ViewRootImpl implements ViewParent,
         mBlastBufferQueue = new BLASTBufferQueue(mTag, mSurfaceControl,
                 mSurfaceSize.x, mSurfaceSize.y, mWindowAttributes.format);
         mBlastBufferQueue.setTransactionHangCallback(sTransactionHangCallback);
+        ScrollOptimizer.setBLASTBufferQueue(mBlastBufferQueue);
         Surface blastSurface = mBlastBufferQueue.createSurface();
         // Only call transferFrom if the surface has changed to prevent inc the generation ID and
         // causing EGL resources to be recreated.
@@ -9763,6 +9765,7 @@ public final class ViewRootImpl implements ViewParent,
     }
 
     void doProcessInputEvents() {
+        ScrollOptimizer.setBLASTBufferQueue(mBlastBufferQueue);
         // Deliver all pending input events in the queue.
         while (mPendingInputEventHead != null) {
             QueuedInputEvent q = mPendingInputEventHead;
@@ -9777,6 +9780,10 @@ public final class ViewRootImpl implements ViewParent,
                     mPendingInputEventCount);
 
             mViewFrameInfo.setInputEvent(mInputEventAssigner.processEvent(q.mEvent));
+
+            if (q.mEvent instanceof MotionEvent) {
+                ScrollOptimizer.setMotionType(((MotionEvent)q.mEvent).getActionMasked());
+            }
 
             deliverInputEvent(q);
         }
