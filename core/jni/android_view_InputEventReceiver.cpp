@@ -55,6 +55,7 @@ static struct {
     jmethodID onDragEvent;
     jmethodID onBatchedInputEventPending;
     jmethodID onTouchModeChanged;
+    jmethodID dispatchMotionEventInfo;
 } gInputEventReceiverClassInfo;
 
 // Add prefix to the beginning of each line in 'str'
@@ -109,6 +110,8 @@ private:
     bool mBatchedInputEventPending;
     int mFdEvents;
     std::vector<OutboundEvent> mOutboundQueue;
+    int mLastMotionEventType = -1;
+    int mLastTouchMoveNum = -1;
 
     void setFdEvents(int events);
 
@@ -315,10 +318,39 @@ status_t NativeInputEventReceiver::consumeEvents(JNIEnv* env,
     bool skipCallbacks = false;
     for (;;) {
         uint32_t seq;
+        int motionEventType = -1;
+        int touchMoveNum = -1;
+        bool flag = false;
+
         InputEvent* inputEvent;
 
+#ifdef QTI_PERF_TOUCH_BOOST
+        status_t status = mInputConsumer.consume(&mInputEventFactory,
+                consumeBatches, frameTime, &seq, &inputEvent,
+                &motionEventType, &touchMoveNum, &flag);
+#else
         status_t status = mInputConsumer.consume(&mInputEventFactory,
                 consumeBatches, frameTime, &seq, &inputEvent);
+#endif
+
+        if (!receiverObj.get()) {
+            receiverObj.reset(GetReferent(env, mReceiverWeakGlobal));
+            if (!receiverObj.get()) {
+                ALOGW("channel '%s' ~ Receiver object was finalized "
+                        "without being disposed.", getInputChannelName().c_str());
+                return DEAD_OBJECT;
+            }
+        }
+
+        if (flag && ((mLastMotionEventType != motionEventType) ||
+               (mLastTouchMoveNum != touchMoveNum))) {
+           env->CallVoidMethod(receiverObj.get(),
+               gInputEventReceiverClassInfo.dispatchMotionEventInfo, motionEventType, touchMoveNum);
+           mLastMotionEventType = motionEventType;
+           mLastTouchMoveNum = touchMoveNum;
+           flag = false;
+        }
+
         if (status != OK && status != WOULD_BLOCK) {
             ALOGE("channel '%s' ~ Failed to consume input event.  status=%s(%d)",
                   getInputChannelName().c_str(), statusToString(status).c_str(), status);
@@ -624,7 +656,8 @@ int register_android_view_InputEventReceiver(JNIEnv* env) {
     gInputEventReceiverClassInfo.onBatchedInputEventPending =
             GetMethodIDOrDie(env, gInputEventReceiverClassInfo.clazz, "onBatchedInputEventPending",
                              "(I)V");
-
+    gInputEventReceiverClassInfo.dispatchMotionEventInfo = GetMethodIDOrDie(env,
+            gInputEventReceiverClassInfo.clazz, "dispatchMotionEventInfo", "(II)V");
     return res;
 }
 
