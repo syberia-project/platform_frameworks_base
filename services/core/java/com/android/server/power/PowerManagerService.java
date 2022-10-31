@@ -4226,27 +4226,28 @@ public final class PowerManagerService extends SystemService
 
     private boolean forceSuspendInternal(int uid) {
         synchronized (mLock) {
-            mForceSuspendActive = true;
-            // Place the system in an non-interactive state
-            for (int idx = 0; idx < mPowerGroups.size(); idx++) {
-                sleepPowerGroupLocked(mPowerGroups.valueAt(idx), mClock.uptimeMillis(),
-                        PowerManager.GO_TO_SLEEP_REASON_FORCE_SUSPEND, uid);
+            try {
+                mForceSuspendActive = true;
+                // Place the system in an non-interactive state
+                for (int idx = 0; idx < mPowerGroups.size(); idx++) {
+                    sleepPowerGroupLocked(mPowerGroups.valueAt(idx), mClock.uptimeMillis(),
+                            PowerManager.GO_TO_SLEEP_REASON_FORCE_SUSPEND, uid);
+                }
+
+                // Disable all the partial wake locks as well
+                updateWakeLockDisabledStatesLocked();
+
+                Slog.i(TAG, "Force-Suspending (uid " + uid + ")...");
+                boolean success = mNativeWrapper.nativeForceSuspend();
+                if (!success) {
+                    Slog.i(TAG, "Force-Suspending failed in native.");
+                }
+                return success;
+            } finally {
+                mForceSuspendActive = false;
+                // Re-enable wake locks once again.
+                updateWakeLockDisabledStatesLocked();
             }
-
-            // Disable all the partial wake locks as well
-            updateWakeLockDisabledStatesLocked();
-
-            Slog.i(TAG, "Force-Suspending (uid " + uid + ")...");
-            boolean success = mNativeWrapper.nativeForceSuspend();
-            if (!success) {
-                Slog.i(TAG, "Force-Suspending failed in native.");
-            }
-
-            mForceSuspendActive = false;
-            // Re-enable wake locks once again.
-            updateWakeLockDisabledStatesLocked();
-
-            return success;
         }
     }
 
