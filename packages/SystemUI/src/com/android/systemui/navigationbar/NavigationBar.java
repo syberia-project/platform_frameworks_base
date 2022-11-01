@@ -58,6 +58,7 @@ import android.annotation.NonNull;
 import android.app.ActivityTaskManager;
 import android.app.IActivityTaskManager;
 import android.app.StatusBarManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -72,6 +73,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.provider.DeviceConfig;
 import android.telecom.TelecomManager;
 import android.text.TextUtils;
@@ -1659,6 +1662,8 @@ public class NavigationBar extends ViewController<NavigationBarView> implements 
         int insetsHeight = -1;
         int gravity = Gravity.BOTTOM;
         boolean navBarCanMove = true;
+        boolean IsHideIMESpaceEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.HIDE_IME_SPACE_ENABLE , 1, UserHandle.USER_CURRENT) != 0;
         final Context userContext = mUserContextProvider.createCurrentUserContext(mContext);
         if (mWindowManager != null && mWindowManager.getCurrentWindowMetrics() != null) {
             Rect displaySize = mWindowManager.getCurrentWindowMetrics().getBounds();
@@ -1667,8 +1672,13 @@ public class NavigationBar extends ViewController<NavigationBarView> implements 
                     com.android.internal.R.bool.config_navBarCanMove);
         }
         if (!navBarCanMove) {
-            height = userContext.getResources().getDimensionPixelSize(
-                    com.android.internal.R.dimen.navigation_bar_frame_height);
+	    if (IsHideIMESpaceEnabled) {
+              height = userContext.getResources().getDimensionPixelSize(
+                      com.android.internal.R.dimen.navigation_bar_frame_height_hide_ime);
+            } else {
+              height = userContext.getResources().getDimensionPixelSize(
+                      com.android.internal.R.dimen.navigation_bar_frame_height);
+	   }
             insetsHeight = userContext.getResources().getDimensionPixelSize(
                     com.android.internal.R.dimen.navigation_bar_height);
         } else {
@@ -1676,8 +1686,13 @@ public class NavigationBar extends ViewController<NavigationBarView> implements 
                 case ROTATION_UNDEFINED:
                 case Surface.ROTATION_0:
                 case Surface.ROTATION_180:
-                    height = userContext.getResources().getDimensionPixelSize(
-                            com.android.internal.R.dimen.navigation_bar_frame_height);
+                    if (IsHideIMESpaceEnabled) {
+                      height = userContext.getResources().getDimensionPixelSize(
+                              com.android.internal.R.dimen.navigation_bar_frame_height_hide_ime);
+                    } else {
+                      height = userContext.getResources().getDimensionPixelSize(
+                              com.android.internal.R.dimen.navigation_bar_frame_height);
+                    }
                     insetsHeight = userContext.getResources().getDimensionPixelSize(
                             com.android.internal.R.dimen.navigation_bar_height);
                     break;
