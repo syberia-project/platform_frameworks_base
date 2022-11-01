@@ -37,6 +37,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Insets;
 import android.graphics.Rect;
+import android.os.UserHandle;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -87,6 +88,7 @@ public class DisplayLayout {
     private final Rect mStableInsets = new Rect();
     private boolean mHasNavigationBar = false;
     private boolean mHasStatusBar = false;
+    private boolean mIsHideIMESpaceEnabled = true;
     private int mNavBarFrameHeight = 0;
     private boolean mAllowSeamlessRotationDespiteNavBarMoving = false;
     private boolean mNavigationBarCanMove = false;
@@ -163,6 +165,8 @@ public class DisplayLayout {
         rawDisplay.getDisplayInfo(info);
         init(info, context.getResources(), hasNavigationBar(info, context, displayId),
                 hasStatusBar(displayId));
+        mIsHideIMESpaceEnabled = Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.HIDE_IME_SPACE_ENABLE , 0, UserHandle.USER_CURRENT) != 0;
     }
 
     public DisplayLayout(DisplayLayout dl) {
@@ -221,7 +225,11 @@ public class DisplayLayout {
         if (mHasStatusBar) {
             convertNonDecorInsetsToStableInsets(res, mStableInsets, mCutout, mHasStatusBar);
         }
-        mNavBarFrameHeight = getNavigationBarFrameHeight(res, mWidth > mHeight);
+        if (mIsHideIMESpaceEnabled) {
+          mNavBarFrameHeight = getNavigationBarFrameHeightHidden(res, mWidth > mHeight);
+        } else {
+          mNavBarFrameHeight = getNavigationBarFrameHeight(res, mWidth > mHeight);
+        }
     }
 
     /**
@@ -510,7 +518,7 @@ public class DisplayLayout {
             // TODO(b/142569966): make sure VR2D and DisplayWindowSettings are moved here somehow.
         }
     }
-
+             
     static boolean hasStatusBar(int displayId) {
         return displayId == Display.DEFAULT_DISPLAY;
     }
@@ -554,6 +562,12 @@ public class DisplayLayout {
         }
     }
 
+    public static int getNavigationBarFrameHeightHidden(Resources res, boolean landscape) {
+        return res.getDimensionPixelSize(landscape
+                ? R.dimen.navigation_bar_frame_height_landscape_hide_ime
+                : R.dimen.navigation_bar_frame_height_hide_ime);
+    }
+    
     /** @see com.android.server.wm.DisplayPolicy#getNavigationBarFrameHeight */
     public static int getNavigationBarFrameHeight(Resources res, boolean landscape) {
         return res.getDimensionPixelSize(landscape
