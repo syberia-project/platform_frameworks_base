@@ -158,4 +158,7 @@
     <!-- Whether to handle audio direction changes between major call states -->
     <bool name="config_handleAudioDirectionChangesBetweenCallStateChanges">true</bool>
 
+    <!-- Enable face auth only when swiping security view -->
+    <bool name="config_faceAuthOnlyOnSecurityView">false</bool>
+
 </resources>
