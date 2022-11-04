@@ -138,17 +138,6 @@
     <!-- Whether devices suports in-display fingerprint when screen is off -->
     <bool name="config_supportsScreenOffUdfps">false</bool>
 
-    <!-- Build fingerprint and model from a GMS certified device -->
-    <string name="config_certifiedFingerprint" translatable="false">google/angler/angler:6.0/MDB08L/2343525:user/release-keys</string>
-    <string name="config_certifiedModel" translatable="false">Nexus 6P</string>
-
-    <!-- Build fingerprint from stock ROM -->
-    <string name="config_stockFingerprint" translatable="false"></string>
-
-    <!-- Whether to spoof device as pixel for certain google apps, to
-         unlock pixel-exclusive features -->
-    <bool name="config_spoofGoogleApps">true</bool>
-
     <!-- List of system apps that are allowed to be locked with app lock.
           Use with extreme caution. -->
     <string-array name="config_appLockAllowedSystemApps" translatable="false" />
