@@ -531,12 +531,51 @@ jobject GraphicsJNI::createRegion(JNIEnv* env, SkRegion* region)
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// To prevent a potential static initializer cycle during JNI registration,
+// lazily initialize the class references to ColorSpace.
+void ensure_colorspace_class_refs(JNIEnv* env) {
+    if (gColorSpace_class != nullptr) {
+        return;
+    }
+    gColorSpace_class = MakeGlobalRefOrDie(env, FindClassOrDie(env, "android/graphics/ColorSpace"));
+    gColorSpace_getMethodID = GetStaticMethodIDOrDie(
+            env, gColorSpace_class, "get",
+            "(Landroid/graphics/ColorSpace$Named;)Landroid/graphics/ColorSpace;");
+    gColorSpace_matchMethodID = GetStaticMethodIDOrDie(
+            env, gColorSpace_class, "match",
+            "([FLandroid/graphics/ColorSpace$Rgb$TransferParameters;)Landroid/graphics/"
+            "ColorSpace;");
+
+    gColorSpaceRGB_class =
+            MakeGlobalRefOrDie(env, FindClassOrDie(env, "android/graphics/ColorSpace$Rgb"));
+    gColorSpaceRGB_constructorMethodID = GetMethodIDOrDie(
+            env, gColorSpaceRGB_class, "<init>",
+            "(Ljava/lang/String;[FLandroid/graphics/ColorSpace$Rgb$TransferParameters;)V");
+
+    gColorSpace_Named_class =
+            MakeGlobalRefOrDie(env, FindClassOrDie(env, "android/graphics/ColorSpace$Named"));
+    gColorSpace_Named_sRGBFieldID = GetStaticFieldIDOrDie(env, gColorSpace_Named_class, "SRGB",
+                                                          "Landroid/graphics/ColorSpace$Named;");
+    gColorSpace_Named_ExtendedSRGBFieldID = GetStaticFieldIDOrDie(
+            env, gColorSpace_Named_class, "EXTENDED_SRGB", "Landroid/graphics/ColorSpace$Named;");
+    gColorSpace_Named_LinearSRGBFieldID = GetStaticFieldIDOrDie(
+            env, gColorSpace_Named_class, "LINEAR_SRGB", "Landroid/graphics/ColorSpace$Named;");
+    gColorSpace_Named_LinearExtendedSRGBFieldID =
+            GetStaticFieldIDOrDie(env, gColorSpace_Named_class, "LINEAR_EXTENDED_SRGB",
+                                  "Landroid/graphics/ColorSpace$Named;");
+
+    gTransferParameters_class = MakeGlobalRefOrDie(
+            env, FindClassOrDie(env, "android/graphics/ColorSpace$Rgb$TransferParameters"));
+    gTransferParameters_constructorMethodID =
+            GetMethodIDOrDie(env, gTransferParameters_class, "<init>", "(DDDDDDD)V");
+}
+
 jobject GraphicsJNI::getColorSpace(JNIEnv* env, SkColorSpace* decodeColorSpace,
         SkColorType decodeColorType) {
     if (!decodeColorSpace || decodeColorType == kAlpha_8_SkColorType) {
         return nullptr;
     }
-
+    ensure_colorspace_class_refs(env);
     // Special checks for the common sRGB cases and their extended variants.
     jobject namedCS = nullptr;
     sk_sp<SkColorSpace> srgbLinear = SkColorSpace::MakeSRGBLinear();
@@ -776,32 +815,6 @@ int register_android_graphics_Graphics(JNIEnv* env)
                                                      "(Ljava/lang/Class;I)Ljava/lang/Object;");
     gVMRuntime_addressOf = GetMethodIDOrDie(env, gVMRuntime_class, "addressOf", "(Ljava/lang/Object;)J");
 
-    gColorSpace_class = MakeGlobalRefOrDie(env, FindClassOrDie(env, "android/graphics/ColorSpace"));
-    gColorSpace_getMethodID = GetStaticMethodIDOrDie(env, gColorSpace_class,
-            "get", "(Landroid/graphics/ColorSpace$Named;)Landroid/graphics/ColorSpace;");
-    gColorSpace_matchMethodID = GetStaticMethodIDOrDie(env, gColorSpace_class, "match",
-            "([FLandroid/graphics/ColorSpace$Rgb$TransferParameters;)Landroid/graphics/ColorSpace;");
-
-    gColorSpaceRGB_class = MakeGlobalRefOrDie(env,
-            FindClassOrDie(env, "android/graphics/ColorSpace$Rgb"));
-    gColorSpaceRGB_constructorMethodID = GetMethodIDOrDie(env, gColorSpaceRGB_class,
-            "<init>", "(Ljava/lang/String;[FLandroid/graphics/ColorSpace$Rgb$TransferParameters;)V");
-
-    gColorSpace_Named_class = MakeGlobalRefOrDie(env,
-            FindClassOrDie(env, "android/graphics/ColorSpace$Named"));
-    gColorSpace_Named_sRGBFieldID = GetStaticFieldIDOrDie(env,
-            gColorSpace_Named_class, "SRGB", "Landroid/graphics/ColorSpace$Named;");
-    gColorSpace_Named_ExtendedSRGBFieldID = GetStaticFieldIDOrDie(env,
-            gColorSpace_Named_class, "EXTENDED_SRGB", "Landroid/graphics/ColorSpace$Named;");
-    gColorSpace_Named_LinearSRGBFieldID = GetStaticFieldIDOrDie(env,
-            gColorSpace_Named_class, "LINEAR_SRGB", "Landroid/graphics/ColorSpace$Named;");
-    gColorSpace_Named_LinearExtendedSRGBFieldID = GetStaticFieldIDOrDie(env,
-            gColorSpace_Named_class, "LINEAR_EXTENDED_SRGB", "Landroid/graphics/ColorSpace$Named;");
-
-    gTransferParameters_class = MakeGlobalRefOrDie(env, FindClassOrDie(env,
-            "android/graphics/ColorSpace$Rgb$TransferParameters"));
-    gTransferParameters_constructorMethodID = GetMethodIDOrDie(env, gTransferParameters_class,
-            "<init>", "(DDDDDDD)V");
 
     gFontMetrics_class = FindClassOrDie(env, "android/graphics/Paint$FontMetrics");
     gFontMetrics_class = MakeGlobalRefOrDie(env, gFontMetrics_class);
