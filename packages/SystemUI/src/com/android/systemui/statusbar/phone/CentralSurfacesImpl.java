@@ -2256,7 +2256,9 @@ public class CentralSurfacesImpl extends CoreStartable implements
     // Called by NavigationBarFragment
     @Override
     public void setQsScrimEnabled(boolean scrimEnabled) {
-        mNotificationPanelViewController.setQsScrimEnabled(scrimEnabled);
+        if(mNotificationPanelViewController != null) {
+           mNotificationPanelViewController.setQsScrimEnabled(scrimEnabled);
+        }
     }
 
     /** Temporarily hides Bubbles if the status bar is hidden. */
