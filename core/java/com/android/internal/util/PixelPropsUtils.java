@@ -27,8 +27,8 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PixelPropsUtils {
 
@@ -54,12 +54,12 @@ public class PixelPropsUtils {
         "FINGERPRINT", "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys"
     );
 
-    private static final List<String> sExtraPackages = List.of(
+    private static final Set<String> sExtraPackages = Set.of(
         "com.android.chrome",
         "com.android.vending"
     );
 
-    private static final List<String> sPackageWhitelist = List.of(
+    private static final Set<String> sPackageWhitelist = Set.of(
         "com.google.android.dialer",
         "com.google.android.euicc",
         "com.google.android.youtube",
@@ -70,7 +70,7 @@ public class PixelPropsUtils {
         "com.google.android.settings.intelligence"
     );
 
-    private static final List<String> sFeatureBlacklist = List.of(
+    private static final Set<String> sFeatureBlacklist = Set.of(
         "PIXEL_2017_PRELOAD",
         "PIXEL_2018_PRELOAD",
         "PIXEL_2019_MIDYEAR_PRELOAD",
