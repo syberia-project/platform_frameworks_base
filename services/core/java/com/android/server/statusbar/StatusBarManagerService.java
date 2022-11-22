@@ -2315,10 +2315,12 @@ public class StatusBarManagerService extends IStatusBarService.Stub implements D
             return;
         }
 
-        // Record doesn't exist, so we create a new one
-        record = new DisableRecord(userId, token);
-        record.setFlags(what, which, pkg);
-        mDisableRecords.add(record);
+        if (what != 0) {
+            // Record doesn't exist, so we create a new one
+            record = new DisableRecord(userId, token);
+            record.setFlags(what, which, pkg);
+            mDisableRecords.add(record);
+        }
     }
 
     @Nullable
