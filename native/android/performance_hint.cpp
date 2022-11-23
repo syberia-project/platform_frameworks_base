@@ -120,6 +120,16 @@ APerformanceHintManager* APerformanceHintManager::create(sp<IHintManager> manage
 
 APerformanceHintSession* APerformanceHintManager::createSession(
         const int32_t* threadIds, size_t size, int64_t initialTargetWorkDurationNanos) {
+    // Judge the |mPreferredRateNanos| value in advance,
+    // which may reduce the binder once, because the isHalSupported function
+    // is also used in HintManagerService.BinderService#createHintSession to
+    // judge whether |mHintSessionPreferredRate| is equal to -1.
+    //
+    // see: frameworks/base/services/core/java/com/android/server/power/hint/
+    // HintManagerService.java -> BinderService#createHintSession
+    if (mPreferredRateNanos == -1L) {
+        return nullptr;
+    }
     std::vector<int32_t> tids(threadIds, threadIds + size);
     sp<IHintSession> session;
     binder::Status ret =
