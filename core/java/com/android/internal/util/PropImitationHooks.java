@@ -81,7 +81,7 @@ public class PropImitationHooks {
         sP6Props.put("DEVICE", "redfin");
         sP6Props.put("PRODUCT", "redfin");
         sP6Props.put("MODEL", "Pixel 5");
-        sP6Props.put("FINGERPRINT", "google/redfin/redfin:13/TP1A.220624.014/8819323:user/release-keys");
+        sP6Props.put("FINGERPRINT", "google/redfin/redfin:13/TP1A.221105.002/9080065:user/release-keys");
     }
 
     private static final boolean sSpoofGapps =
