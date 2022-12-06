@@ -3337,7 +3337,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
         if (mBouncerFullyShown != fullyShow){
             mBouncerFullyShown = fullyShow;
             if (mFaceUnlockBehavior == FACE_UNLOCK_BEHAVIOR_SWIPE){
-                updateFaceListeningState(BIOMETRIC_ACTION_UPDATE);
+                updateFaceListeningState(BIOMETRIC_ACTION_UPDATE, FACE_AUTH_UPDATED_PRIMARY_BOUNCER_SHOWN);
             }
         }
     }
