@@ -40,6 +40,7 @@
     <string name="config_pocketBridgeSysfsInpocket"></string>
 
     <!-- Pocket Lock -->
+    <bool name="config_pocketJudgeDisableOnCall">true</bool>
     <bool name="config_pocketModeSupported">true</bool>
 
     <!-- Defines custom OEM sensor for pocket detection. -->
