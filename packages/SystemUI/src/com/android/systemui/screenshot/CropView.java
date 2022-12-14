@@ -353,21 +353,21 @@ public class CropView extends View {
     private Range getAllowedValues(CropBoundary boundary) {
         switch (boundary) {
             case TOP:
-                return new Range<>(0f,
+                return new Range<>(0f, Math.max(0f,
                         mCrop.bottom - pixelDistanceToFraction(mCropTouchMargin,
-                                CropBoundary.BOTTOM));
+                                CropBoundary.BOTTOM)));
             case BOTTOM:
-                return new Range<>(
-                        mCrop.top + pixelDistanceToFraction(mCropTouchMargin,
-                                CropBoundary.TOP), 1f);
+                return new Range<>(Math.min(1f,
+                        mCrop.top + pixelDistanceToFraction(mCropTouchMargin, CropBoundary.TOP)),
+                        1f);
             case LEFT:
-                return new Range<>(0f,
+                return new Range<>(0f, Math.max(0f,
                         mCrop.right - pixelDistanceToFraction(mCropTouchMargin,
-                                CropBoundary.RIGHT));
+                                CropBoundary.RIGHT)));
             case RIGHT:
-                return new Range<>(
-                        mCrop.left + pixelDistanceToFraction(mCropTouchMargin,
-                                CropBoundary.LEFT), 1f);
+                return new Range<>(Math.min(1f,
+                        mCrop.left + pixelDistanceToFraction(mCropTouchMargin, CropBoundary.LEFT)),
+                        1f);
         }
         return null;
     }
