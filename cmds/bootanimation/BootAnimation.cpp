@@ -108,6 +108,7 @@ static const char PROGRESS_PROP_NAME[] = "service.bootanim.progress";
 static const char DISPLAYS_PROP_NAME[] = "persist.service.bootanim.displays";
 static const char CLOCK_ENABLED_PROP_NAME[] = "persist.sys.bootanim.clock.enabled";
 static const int ANIM_ENTRY_NAME_MAX = ANIM_PATH_MAX + 1;
+static const int MAX_CHECK_EXIT_INTERVAL_US = 50000;
 static constexpr size_t TEXT_POS_LEN_MAX = 16;
 
 // ---------------------------------------------------------------------------
@@ -1427,7 +1428,17 @@ bool BootAnimation::playAnimation(const Animation& animation) {
                 checkExit();
             }
 
-            usleep(part.pause * ns2us(frameDuration));
+            int pauseDuration = part.pause * ns2us(frameDuration);
+            while(pauseDuration > 0 && !exitPending()){
+                if (pauseDuration > MAX_CHECK_EXIT_INTERVAL_US) {
+                    usleep(MAX_CHECK_EXIT_INTERVAL_US);
+                    pauseDuration -= MAX_CHECK_EXIT_INTERVAL_US;
+                } else {
+                    usleep(pauseDuration);
+                    break;
+                }
+                checkExit();
+            }
 
             if (exitPending() && !part.count && mCurrentInset >= mTargetInset &&
                 !part.hasFadingPhase()) {
