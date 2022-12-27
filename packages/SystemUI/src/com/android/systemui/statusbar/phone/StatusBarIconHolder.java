@@ -23,6 +23,7 @@ import android.graphics.drawable.Icon;
 import android.os.UserHandle;
 
 import com.android.internal.statusbar.StatusBarIcon;
+import com.android.systemui.statusbar.phone.PhoneStatusBarPolicy.NetworkTrafficState;
 import com.android.systemui.statusbar.phone.StatusBarSignalPolicy.CallIndicatorIconState;
 import com.android.systemui.statusbar.pipeline.mobile.ui.viewmodel.MobileIconViewModel;
 
@@ -67,8 +68,12 @@ public class StatusBarIconHolder {
     @Retention(RetentionPolicy.SOURCE)
     @interface IconType {}
 
+    public static final int TYPE_NETWORK_TRAFFIC = 5;
+
     private StatusBarIcon mIcon;
     private @IconType int mType = TYPE_ICON;
+    private NetworkTrafficState mNetworkTrafficState;
+
     private int mTag = 0;
 
     /** Returns a human-readable string representing the given type. */
@@ -89,6 +94,13 @@ public class StatusBarIconHolder {
         wrapper.mIcon = icon;
 
         return wrapper;
+    }
+
+    public static StatusBarIconHolder fromNetworkTrafficState(NetworkTrafficState state) {
+        StatusBarIconHolder holder = new StatusBarIconHolder();
+        holder.mNetworkTrafficState = state;
+        holder.mType = TYPE_NETWORK_TRAFFIC;
+        return holder;
     }
 
     /** Creates a new holder with for the new wifi icon. */
@@ -139,10 +151,20 @@ public class StatusBarIconHolder {
         mIcon = icon;
     }
 
+    public NetworkTrafficState getNetworkTrafficState() {
+        return mNetworkTrafficState;
+    }
+
+    public void setNetworkTrafficState(NetworkTrafficState state) {
+        mNetworkTrafficState = state;
+    }
+
     public boolean isVisible() {
         switch (mType) {
             case TYPE_ICON:
                 return mIcon.visible;
+            case TYPE_NETWORK_TRAFFIC:
+                return mNetworkTrafficState.visible;
             case TYPE_MOBILE_NEW:
             case TYPE_WIFI_NEW:
                 // The new pipeline controls visibilities via the view model and view binder, so
@@ -167,6 +189,10 @@ public class StatusBarIconHolder {
             case TYPE_WIFI_NEW:
                 // The new pipeline controls visibilities via the view model and view binder, so
                 // ignore setVisible.
+                break;
+
+            case TYPE_NETWORK_TRAFFIC:
+                mNetworkTrafficState.visible = visible;
                 break;
         }
     }
