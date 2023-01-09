@@ -5814,6 +5814,7 @@ public final class Settings {
           * 2 - Volume up/down moves cursor right/left
           * @hide
           */
+        @Readable
         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
 
         /**
