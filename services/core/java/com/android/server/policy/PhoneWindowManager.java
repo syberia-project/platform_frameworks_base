@@ -673,7 +673,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private PocketLock mPocketLock;
     private boolean mPocketLockShowing;
     private boolean mIsDeviceInPocket;
-    private boolean mIsPocketDisabledOnCall;
     private final IPocketCallback mPocketCallback = new IPocketCallback.Stub() {
 
         @Override
@@ -2073,8 +2072,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 res.getBoolean(com.android.internal.R.bool.config_wakeOnAssistKeyPress);
         mWakeOnBackKeyPress =
                 res.getBoolean(com.android.internal.R.bool.config_wakeOnBackKeyPress);
-        mIsPocketDisabledOnCall =
-                res.getBoolean(com.android.internal.R.bool.config_pocketJudgeDisableOnCall);
 
         // Double-tap-to-doze
         mNativeDoubleTapToDozeAvailable = !TextUtils.isEmpty(
@@ -5403,13 +5400,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (!mSystemReady || !mSystemBooted || !mKeyguardDrawnOnce
                 || mPocketLock == null || mPocketLockShowing) {
             return;
-        }
-
-        if (mIsPocketDisabledOnCall) {
-            TelecomManager telecomManager = getTelecommService();
-            if (telecomManager != null && telecomManager.isInCall()) {
-                return;
-            }
         }
 
         if (mPowerManager.isInteractive() && !isKeyguardShowingAndNotOccluded()){
