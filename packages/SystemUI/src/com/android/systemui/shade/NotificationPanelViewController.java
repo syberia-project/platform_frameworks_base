@@ -1716,7 +1716,8 @@ public final class NotificationPanelViewController implements Dumpable {
     private int computeDesiredClockSizeForSplitShade() {
         // Media is not visible to the user on AOD.
         boolean isMediaVisibleToUser =
-                mMediaDataManager.hasActiveMediaOrRecommendation() && !isOnAod();
+                mMediaDataManager.hasActiveMediaOrRecommendation() && !isOnAod()
+                && mMediaHierarchyManager.getShouldShowOnLockScreen();
         if (isMediaVisibleToUser) {
             // When media is visible, it overlaps with the large clock. Use small clock instead.
             return SMALL;
@@ -1815,9 +1816,10 @@ public final class NotificationPanelViewController implements Dumpable {
     }
 
     private boolean hasVisibleNotifications() {
+        final boolean mediaVisible = mMediaDataManager.hasActiveMediaOrRecommendation()
+                && mMediaHierarchyManager.getShouldShowOnLockScreen();
         return mNotificationStackScrollLayoutController
-                .getVisibleNotificationCount() != 0
-                || mMediaDataManager.hasActiveMediaOrRecommendation();
+                .getVisibleNotificationCount() != 0 || mediaVisible;
     }
 
     /**
