@@ -157,8 +157,8 @@
   <!-- Parallel space max count. -->
   <java-symbol type="integer" name="config_parallelSpaceMaxCount" />
 
-    <!-- Boost Framework -->
-    <java-symbol type="bool" name="config_supportsBoostFramework" />
+  <!-- Boost Framework -->
+  <java-symbol type="bool" name="config_supportsBoostFramework" />
 
     <!-- Enable face auth only when swiping security view -->
     <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
@@ -181,4 +181,6 @@
     <java-symbol type="string" name="config_batterymeterLandPowersavePathiOS16" />
     <java-symbol type="string" name="config_batterymeterLandErrorPerimeterPathiOS16" />
 
+  <!-- Display color inversion availability -->
+  <java-symbol type="bool" name="config_displayInversionAvailable" />
 </resources>
