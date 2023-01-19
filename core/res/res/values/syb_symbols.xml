@@ -153,10 +153,12 @@
   <!-- Parallel space max count. -->
   <java-symbol type="integer" name="config_parallelSpaceMaxCount" />
 
-    <!-- Boost Framework -->
-    <java-symbol type="bool" name="config_supportsBoostFramework" />
+  <!-- Boost Framework -->
+  <java-symbol type="bool" name="config_supportsBoostFramework" />
 
   <!-- Enable face auth only when swiping security view -->
   <java-symbol type="bool" name="config_faceAuthOnlyOnSecurityView" />
 
+  <!-- Display color inversion availability -->
+  <java-symbol type="bool" name="config_displayInversionAvailable" />
 </resources>
