@@ -113,8 +113,7 @@ public class PixelPropsUtils {
 
         if (sIsGms) {
             dlog("Spoofing build for GMS");
-            setPropValue("FINGERPRINT", GMS_FINGERPRINT);
-            setPropValue("MODEL", Build.MODEL + "\u200b");
+            spoofBuildGms();
         } else if (sIsPhotos) {
             dlog("Spoofing Pixel XL for Google Photos");
             sPixelXLProps.forEach(PixelPropsUtils::setPropValue);
@@ -136,6 +135,28 @@ public class PixelPropsUtils {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             Log.e(TAG, "Failed to set prop " + key, e);
         }
+    }
+
+    private static void setBuildField(String key, String value) {
+        try {
+            // Unlock
+            Field field = Build.class.getDeclaredField(key);
+            field.setAccessible(true);
+
+            // Edit
+            field.set(null, value);
+
+            // Lock
+            field.setAccessible(false);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Log.e(TAG, "Failed to spoof Build." + key, e);
+        }
+    }
+
+    private static void spoofBuildGms() {
+        // Alter model name and fingerprint to avoid hardware attestation enforcement
+        setBuildField("FINGERPRINT", "google/angler/angler:6.0/MDB08L/2343525:user/release-keys");
+        setBuildField("MODEL", "angler");
     }
 
     private static boolean isCallerSafetyNet() {
