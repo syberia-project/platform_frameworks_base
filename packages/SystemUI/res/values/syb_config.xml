@@ -41,3 +41,27 @@
     <bool name="config_statusBarBurnInProtection">true</bool>
 
 </resources>
+
+Bool
+Code:
+
+<!-- StatusBar burn-in protection -->
+<resources>
+	<dimen name="horizontal_max_swift">6dp</dimen>
+	<dimen name="vertical_max_swift">6dp</dimen>
+	<dimen name="udfps_burn_in_offset_x">6dp</dimen>
+	<dimen name="udfps_burn_in_offset_y">6dp</dimen>
+	<dimen name="burn_in_prevention_offset_x">40dp</dimen>
+	<dimen name="burn_in_prevention_offset_y">40dp</dimen>
+	<dimen name="burn_in_prevention_offset_y_large_clock">40dp</dimen>
+	<dimen name="default_burn_in_prevention_offset">40dp</dimen>
+</resources>
+
+<resources>
+	<integer name="config_burnInProtectionMaxVerticalOffset">0</integer>
+	<integer name="config_burnInProtectionMinHorizontalOffset">0</integer>
+	<integer name="config_burnInProtectionMinVerticalOffset">0</integer>
+	<integer name="config_shift_interval">20</integer>
+	<integer name="config_burnInProtectionMaxHorizontalOffset">0</integer>
+	<integer name="config_burnInProtectionMaxRadius">-1</integer>
+</resources>
