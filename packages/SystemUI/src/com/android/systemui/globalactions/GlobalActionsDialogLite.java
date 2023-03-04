@@ -1299,19 +1299,12 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         return new SinglePressAction(com.android.systemui.R.drawable.ic_lock_flashlight,
                 com.android.systemui.R.string.global_action_flashlight) {
             public void onPress() {
-                try {
-                    CameraManager cameraManager = (CameraManager)
-                            mContext.getSystemService(Context.CAMERA_SERVICE);
-                    for (final String cameraId : cameraManager.getCameraIdList()) {
-                        CameraCharacteristics characteristics =
-                            cameraManager.getCameraCharacteristics(cameraId);
-                        int orient = characteristics.get(CameraCharacteristics.LENS_FACING);
-                        if (orient == CameraCharacteristics.LENS_FACING_BACK) {
-                            cameraManager.setTorchMode(cameraId, !mFlashlightEnabled);
-                            mFlashlightEnabled = !mFlashlightEnabled;
-                        }
+                if (mStatusBarService != null) {
+                    try {
+                        mStatusBarService.toggleCameraFlash();
+                    } catch (RemoteException e) {
+                    // do nothing.
                     }
-                } catch (CameraAccessException e) {
                 }
             }
 
