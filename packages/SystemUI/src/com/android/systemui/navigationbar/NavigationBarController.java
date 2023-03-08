@@ -316,7 +316,7 @@ public class NavigationBarController implements
 
         // We may show TaskBar on the default display for large screen device. Don't need to create
         // navigation bar for this case.
-        if (shouldShowTaskbar() && isOnDefaultDisplay && initializeTaskbarIfNecessary()) {
+        if (shouldShowTaskbar() && isOnDefaultDisplay) {
             return;
         }
 
