@@ -371,7 +371,7 @@ public class BrightnessSynchronizer {
                 // If we're not waiting on any more confirmations or the time has expired, move to
                 // completed state.
                 if (mConfirmedTypes == mUpdatedTypes
-                        || (mTimeUpdated + WAIT_FOR_RESPONSE_MILLIS) < mClock.uptimeMillis()) {
+                        || (mTimeUpdated + WAIT_FOR_RESPONSE_MILLIS) <= mClock.uptimeMillis()) {
                     mState = STATE_COMPLETED;
                 }
             }
