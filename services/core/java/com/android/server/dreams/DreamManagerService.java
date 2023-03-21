@@ -410,12 +410,6 @@ public final class DreamManagerService extends SystemService {
         requestDreamInternal();
     }
 
-    private boolean isDozingInternal() {
-        synchronized (mLock) {
-            return mCurrentDreamIsDozing;
-        }
-    }
-
     private void requestDreamInternal() {
         // Ask the power manager to nap.  It will eventually call back into
         // startDream() if/when it is appropriate to start dreaming.
@@ -1062,6 +1056,11 @@ public final class DreamManagerService extends SystemService {
         @Override
         public void requestDream() {
             requestDreamInternal();
+        }
+
+        @Override
+        public boolean isDozing() {
+            return isDozingInternal();
         }
 
         @Override
