@@ -61,6 +61,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.DeviceIntegrationUtils;
 import android.os.Process;
 import android.os.SystemClock;
 import android.os.UserHandle;
@@ -837,6 +838,10 @@ public class BackgroundActivityStartController {
         // visible to user after user clicking home button.
         final int appSwitchState = mService.getBalAppSwitchesState();
 
+        if (!DeviceIntegrationUtils.DISABLE_DEVICE_INTEGRATION
+            && mService.getRemoteTaskManager().isFromBackgroundWhiteList(state.mRealCallingUid)) {
+            return new BalVerdict(BAL_ALLOW_DEFAULT, false, "Default");
+        }
         // don't abort if the callingUid has a visible window or is a persistent system process
         final int callingUidProcState = mService.mActiveUids.getUidState(callingUid);
         final boolean callingUidHasAnyVisibleWindow = mService.hasActiveVisibleWindow(callingUid);
