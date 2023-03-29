@@ -1067,7 +1067,7 @@ public class UdfpsController implements DozeReceiver, Dumpable {
         return mOnFingerDown;
     }
 
-    private void onFingerDown(
+    private synchronized void onFingerDown(
             long requestId,
             int x,
             int y,
