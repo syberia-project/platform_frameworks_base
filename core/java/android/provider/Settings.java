@@ -5652,12 +5652,6 @@ public final class Settings {
         public static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
 
         /**
-         * @hide
-         */
-        @Readable
-        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
-
-        /**
          * Enable/Disable screenshot sound
          * @hide
          */
