@@ -71,6 +71,7 @@ object MobileIconBinder {
         val roamingView = view.requireViewById<ImageView>(R.id.mobile_roaming)
         val roamingSpace = view.requireViewById<Space>(R.id.mobile_roaming_space)
         val dotView = view.requireViewById<StatusBarIconView>(R.id.status_bar_dot)
+        val volteView = view.requireViewById<ImageView>(R.id.mobile_volte)
 
         view.isVisible = viewModel.isVisible.value
         iconView.isVisible = true
@@ -218,6 +219,7 @@ object MobileIconBinder {
                             }
 
                             roamingView.imageTintList = tint
+                            volteView.imageTintList = tint
                             activityIn.imageTintList = tint
                             activityOut.imageTintList = tint
                             dotView.setDecorColor(colors.tint)
@@ -225,6 +227,17 @@ object MobileIconBinder {
                     }
 
                     launch { decorTint.collect { tint -> dotView.setDecorColor(tint) } }
+
+                    launch {
+                        viewModel.volteId.distinctUntilChanged().collect { volteId ->
+                            if (volteId != 0) {
+                                volteView.visibility = VISIBLE
+                                volteView.setImageResource(volteId)
+                            } else {
+                                volteView.visibility = GONE
+                            }
+                        }
+                    }
 
                     try {
                         awaitCancellation()
