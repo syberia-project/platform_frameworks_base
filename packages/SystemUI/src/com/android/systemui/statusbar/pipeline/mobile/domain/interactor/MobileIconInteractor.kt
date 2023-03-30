@@ -18,6 +18,8 @@ package com.android.systemui.statusbar.pipeline.mobile.domain.interactor
 
 import android.content.Context
 import com.android.internal.telephony.flags.Flags
+import android.telephony.ims.stub.ImsRegistrationImplBase.REGISTRATION_TECH_IWLAN
+import android.telephony.TelephonyManager
 import com.android.settingslib.SignalIcon.MobileIconGroup
 import com.android.settingslib.graph.SignalDrawable
 import com.android.settingslib.mobile.MobileIconCarrierIdOverrides
@@ -26,6 +28,7 @@ import com.android.systemui.dagger.qualifiers.Application
 import com.android.systemui.log.table.TableLogBuffer
 import com.android.systemui.log.table.logDiffsForTable
 import com.android.systemui.statusbar.pipeline.mobile.data.model.DataConnectionState.Connected
+import com.android.systemui.statusbar.pipeline.mobile.data.model.MobileIconCustomizationMode
 import com.android.systemui.statusbar.pipeline.mobile.data.model.NetworkNameModel
 import com.android.systemui.statusbar.pipeline.mobile.data.model.ResolvedNetworkType
 import com.android.systemui.statusbar.pipeline.mobile.data.repository.MobileConnectionRepository
@@ -131,6 +134,14 @@ interface MobileIconInteractor {
 
     /** True when in carrier network change mode */
     val carrierNetworkChangeActive: StateFlow<Boolean>
+
+    val imsInfo: StateFlow<MobileIconCustomizationMode>
+
+    val showVolteIcon: StateFlow<Boolean>
+
+    val showVowifiIcon: StateFlow<Boolean>
+
+    val voWifiAvailable: StateFlow<Boolean>
 }
 
 /** Interactor for a single mobile connection. This connection _should_ have one subscription ID */
@@ -148,8 +159,11 @@ class MobileIconInteractorImpl(
     isDefaultConnectionFailed: StateFlow<Boolean>,
     override val isForceHidden: Flow<Boolean>,
     connectionRepository: MobileConnectionRepository,
+    override val showVolteIcon: StateFlow<Boolean>,
+    override val showVowifiIcon: StateFlow<Boolean>,
     private val context: Context,
-    val carrierIdOverrides: MobileIconCarrierIdOverrides = MobileIconCarrierIdOverridesImpl()
+
+    val carrierIdOverrides: MobileIconCarrierIdOverrides = MobileIconCarrierIdOverridesImpl(),
 ) : MobileIconInteractor {
     override val tableLogBuffer: TableLogBuffer = connectionRepository.tableLogBuffer
 
@@ -200,6 +214,36 @@ class MobileIconInteractorImpl(
                 SharingStarted.WhileSubscribed(),
                 connectionRepository.carrierName.value.name
             )
+
+    override val imsInfo: StateFlow<MobileIconCustomizationMode> =
+        combine(
+            connectionRepository.voiceNetworkType,
+            connectionRepository.originNetworkType,
+            connectionRepository.voiceCapable,
+            connectionRepository.videoCapable,
+            connectionRepository.imsRegistered,
+        ) { voiceNetworkType, originNetworkType, voiceCapable, videoCapable, imsRegistered ->
+            MobileIconCustomizationMode(
+                voiceNetworkType = voiceNetworkType,
+                originNetworkType = originNetworkType,
+                voiceCapable = voiceCapable,
+                videoCapable = videoCapable,
+                imsRegistered = imsRegistered,
+            )
+        }
+        .stateIn(scope, SharingStarted.WhileSubscribed(), MobileIconCustomizationMode())
+
+    override val voWifiAvailable: StateFlow<Boolean> =
+        combine(
+            connectionRepository.imsRegistrationTech,
+            connectionRepository.voiceCapable,
+            showVowifiIcon,
+        ) { imsRegistrationTech, voiceCapable, showVowifiIcon ->
+            voiceCapable
+                    && imsRegistrationTech == REGISTRATION_TECH_IWLAN
+                    && showVowifiIcon
+        }
+            .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 
     /** What the mobile icon would be before carrierId overrides */
     private val defaultNetworkType: StateFlow<MobileIconGroup> =
