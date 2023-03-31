@@ -34,6 +34,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.Trace;
+import android.util.BoostFramework.ScrollOptimizer;
 import android.util.Log;
 import android.util.TimeUtils;
 import android.view.animation.AnimationUtils;
@@ -291,6 +292,7 @@ public final class Choreographer {
         mLastFrameTimeNanos = Long.MIN_VALUE;
 
         mFrameIntervalNanos = (long)(1000000000 / getRefreshRate());
+        ScrollOptimizer.setFrameInterval(mFrameIntervalNanos);
 
         mCallbackQueues = new CallbackQueue[CALLBACK_LAST + 1];
         for (int i = 0; i <= CALLBACK_LAST; i++) {
@@ -332,6 +334,7 @@ public final class Choreographer {
         synchronized(this) {
             mTouchMoveNum = touchMoveNum;
             mMotionEventType = motionEventType;
+            ScrollOptimizer.setMotionType(mMotionEventType);
         }
     }
 
@@ -748,7 +751,7 @@ public final class Choreographer {
                     }
                 }
             }
-            if (USE_VSYNC) {
+            if (ScrollOptimizer.shouldUseVsync(USE_VSYNC)) {
                 if (DEBUG_FRAMES) {
                     Log.d(TAG, "Scheduling next frame on vsync.");
                 }
@@ -764,6 +767,8 @@ public final class Choreographer {
                     mHandler.sendMessageAtFrontOfQueue(msg);
                 }
             } else {
+                sFrameDelay = ScrollOptimizer.getFrameDelay(sFrameDelay,
+                        mLastFrameTimeNanos);
                 final long nextFrameTime = Math.max(
                         mLastFrameTimeNanos / TimeUtils.NANOS_PER_MS + sFrameDelay, now);
                 if (DEBUG_FRAMES) {
@@ -891,6 +896,7 @@ public final class Choreographer {
                 mLastVsyncEventData = vsyncEventData;
             }
 
+            ScrollOptimizer.setUITaskStatus(true);
             AnimationUtils.lockAnimationClock(frameTimeNanos / TimeUtils.NANOS_PER_MS);
 
             mFrameInfo.markInputHandlingStart();
@@ -905,6 +911,7 @@ public final class Choreographer {
             doCallbacks(Choreographer.CALLBACK_TRAVERSAL, frameData, frameIntervalNanos);
 
             doCallbacks(Choreographer.CALLBACK_COMMIT, frameData, frameIntervalNanos);
+            ScrollOptimizer.setUITaskStatus(false);
         } finally {
             AnimationUtils.unlockAnimationClock();
             Trace.traceEnd(Trace.TRACE_TAG_VIEW);
@@ -1275,6 +1282,7 @@ public final class Choreographer {
                 mTimestampNanos = timestampNanos;
                 mFrame = frame;
                 mLastVsyncEventData = vsyncEventData;
+                ScrollOptimizer.setVsyncTime(mTimestampNanos);
                 Message msg = Message.obtain(mHandler, this);
                 msg.setAsynchronous(true);
                 mHandler.sendMessageAtTime(msg, timestampNanos / TimeUtils.NANOS_PER_MS);
