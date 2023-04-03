@@ -178,8 +178,6 @@ android_library {
         "lottie",
         "LowLightDreamLib",
         "motion_tool_lib",
-        "colorkt",
-        "themelib",
         "faceunlock_framework",
         "bcsmartspace-google",
     ],
