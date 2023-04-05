@@ -176,6 +176,14 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                 & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
+    public boolean isCircleBattery() {
+        return (mBatteryStyle == BATTERY_STYLE_CIRCLE ||
+                mBatteryStyle == BATTERY_STYLE_DOTTED_CIRCLE ||
+                mBatteryStyle == BATTERY_STYLE_FULL_CIRCLE   ||
+                mBatteryStyle == BATTERY_STYLE_BIG_CIRCLE    ||
+                mBatteryStyle == BATTERY_STYLE_BIG_DOTTED_CIRCLE);
+    }
+
     private void setupLayoutTransition() {
         LayoutTransition transition = new LayoutTransition();
         transition.setDuration(200);
