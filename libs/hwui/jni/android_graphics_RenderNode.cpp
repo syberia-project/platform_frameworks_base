@@ -652,10 +652,11 @@ static void android_view_RenderNode_requestPositionUpdates(JNIEnv* env, jobject,
                                  float width, float height,
                                  const SkRect& childRelativeBounds,
                                  uirenderer::Rect& bounds) {
-              float normalizedLeft = childRelativeBounds.left() / width;
-              float normalizedTop = childRelativeBounds.top() / height;
-              float normalizedRight = childRelativeBounds.right() / width;
-              float normalizedBottom = childRelativeBounds.bottom() / height;
+	      ALOGE("code is changed.");
+              float normalizedLeft = bounds.left / width;
+              float normalizedTop = bounds.top / height;
+              float normalizedRight = bounds.right / width;
+              float normalizedBottom = bounds.bottom / height;
               float reverseLeft = width *
                   (stretchEffect.computeStretchedPositionX(normalizedLeft) -
                     normalizedLeft);
