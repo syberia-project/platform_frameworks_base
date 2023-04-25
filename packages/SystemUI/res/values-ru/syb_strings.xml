@@ -51,7 +51,7 @@
     <string name="keyguard_plugged_in_warp_charging"><xliff:g id="percentage">%s</xliff:g> • Warp зарядка</string>
 
     <!-- DataSwitch Tile -->
-    <string name="qs_data_switch_label">Переключить SIM на</string>
+    <string name="qs_data_switch_label">С <xliff:g id="card" example="MTS">%1$s</xliff:g> на</string>
     <string name="qs_data_switch_changed_1">Используется SIM 1 для передачи данных</string>
     <string name="qs_data_switch_changed_2">Используется SIM 2 для передачи данных</string>
 
