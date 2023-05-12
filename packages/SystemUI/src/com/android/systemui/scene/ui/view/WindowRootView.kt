@@ -101,11 +101,15 @@ open class WindowRootView(
             if (child.layoutParams is LayoutParams) {
                 val layoutParams = child.layoutParams as LayoutParams
                 if (
-                    !layoutParams.ignoreRightInset &&
-                        (layoutParams.rightMargin != rightInset ||
-                            layoutParams.leftMargin != leftInset)
+                    (layoutParams.rightMargin != rightInset ||
+                        layoutParams.leftMargin != leftInset)
                 ) {
-                    layoutParams.updateMargins(left = leftInset, right = rightInset)
+                    val leftMargin = if (layoutParams.ignoreLeftInset) 0 else leftInset
+                    val rightMargin = if (
+                        !layoutParams.ignoreRightInset ||
+                            (layoutParams.ignoreLeftInset && layoutParams.rightMargin == 0)
+                    ) rightInset else 0
+                    layoutParams.updateMargins(left = leftMargin, right = rightMargin)
                     child.requestLayout()
                 }
             }
@@ -134,6 +138,7 @@ open class WindowRootView(
 
     private class LayoutParams : FrameLayout.LayoutParams {
         var ignoreRightInset = false
+        var ignoreLeftInset = false
 
         constructor(
             width: Int,
@@ -156,6 +161,11 @@ open class WindowRootView(
             ignoreRightInset =
                 obtainedAttributes.getBoolean(
                     R.styleable.StatusBarWindowView_Layout_ignoreRightInset,
+                    false
+                )
+            ignoreLeftInset =
+                obtainedAttributes.getBoolean(
+                    R.styleable.StatusBarWindowView_Layout_ignoreLeftInset,
                     false
                 )
             obtainedAttributes.recycle()
