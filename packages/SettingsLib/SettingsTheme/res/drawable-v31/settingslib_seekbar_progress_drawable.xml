@@ -36,8 +36,8 @@
         </selector>
     </item>
     <item android:gravity="fill_horizontal|center" android:id="@android:id/progress">
-        <com.android.internal.graphics.drawable.RoundedCornerProgressDrawable
-            android:drawable="@drawable/seekbar_progress"
+        <com.android.settingslib.drawable.RoundedCornerProgressDrawable
+            android:drawable="@drawable/settingslib_seekbar_progress"
         />
     </item>
 </layer-list>

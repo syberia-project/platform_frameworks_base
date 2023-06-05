@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.graphics.drawable;
+package com.android.settingslib.drawable;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
