@@ -121,14 +121,8 @@ android_library {
         "src/**/*.kt",
         "src/**/*.java",
         "src/**/I*.aidl",
-        ":ReleaseJavaFiles",
+        ":DebugJavaFiles",
     ],
-    product_variables: {
-        debuggable: {
-            srcs: [":DebugJavaFiles"],
-            exclude_srcs: [":ReleaseJavaFiles"],
-        },
-    },
     resource_dirs: [
         "res-product",
         "res-keyguard",
