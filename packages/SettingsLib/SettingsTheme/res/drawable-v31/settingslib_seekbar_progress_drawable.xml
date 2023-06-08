@@ -16,19 +16,19 @@
   ~ limitations under the License.
   -->
 <layer-list
-  xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:gravity="fill_horizontal|center" android:id="@android:id/background">
         <selector>
             <item android:state_enabled="false">
                 <shape android:tint="?android:attr/colorAccent" android:shape="rectangle" android:alpha="0.4">
-                    <size android:height="20dp" />
-                    <solid android:color="#40626161" />
+                    <size android:height="5dp" />
+                    <solid android:color="@*android:color/white_disabled_material" />
                     <corners android:radius="10dp" />
                 </shape>
             </item>
             <item android:state_enabled="true">
                 <shape android:tint="?android:attr/colorAccent" android:shape="rectangle" android:alpha="0.8">
-                    <size android:height="20dp" />
+                    <size android:height="5dp" />
                     <solid android:color="#80626161" />
                     <corners android:radius="10dp" />
                 </shape>
@@ -38,7 +38,7 @@
     <item android:gravity="fill_horizontal|center" android:id="@android:id/progress">
         <com.android.settingslib.drawable.RoundedCornerProgressDrawable
             android:drawable="@drawable/settingslib_seekbar_progress"
-        />
+            />
     </item>
 </layer-list>
 

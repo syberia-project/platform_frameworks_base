@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="center" android:start="5dp" android:end="5dp" android:height="10dp">
+        <selector>
+            <item android:state_enabled="false">
+                <shape android:tint="?android:attr/colorBackground" android:shape="oval">
+                    <size android:width="10dp" android:height="10dp" />
+                    <solid android:color="@*android:color/white_disabled_material" />
+                </shape>
+            </item>
+            <item android:state_enabled="true">
+                <shape android:tint="?android:attr/colorBackground" android:shape="oval">
+                    <size android:width="10dp" android:height="10dp" />
+                    <solid android:color="#80626161" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</layer-list>
