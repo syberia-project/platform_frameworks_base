@@ -110,6 +110,8 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
 
     private var overlayTouchListener: TouchExplorationStateChangeListener? = null
 
+    private val frameworkDimming = context.getResources().getBoolean(R.bool.config_udfpsFrameworkDimming)
+
     private val coreLayoutParams = WindowManager.LayoutParams(
         WindowManager.LayoutParams.TYPE_DISPLAY_OVERLAY,
         0 /* flags set in computeLayoutParams() */,
@@ -121,6 +123,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
         layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
         flags = (Utils.FINGERPRINT_OVERLAY_LAYOUT_PARAM_FLAGS or
                 WindowManager.LayoutParams.FLAG_SPLIT_TOUCH)
+        if (frameworkDimming) {
+            flags = flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
+        }
         privateFlags = WindowManager.LayoutParams.PRIVATE_FLAG_TRUSTED_OVERLAY
         // Avoid announcing window title.
         accessibilityTitle = " "
