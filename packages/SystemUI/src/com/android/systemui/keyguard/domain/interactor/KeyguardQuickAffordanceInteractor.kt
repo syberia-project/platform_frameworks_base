@@ -78,8 +78,7 @@ constructor(
      *
      * If `false`, the UI goes back to using single taps.
      */
-    val useLongPress: Boolean
-        get() = featureFlags.isEnabled(Flags.CUSTOMIZABLE_LOCK_SCREEN_QUICK_AFFORDANCES)
+    val useLongPress: Boolean = true
 
     /** Returns an observable for the quick affordance at the given position. */
     suspend fun quickAffordance(
