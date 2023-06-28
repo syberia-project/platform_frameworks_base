@@ -924,7 +924,7 @@ internal constructor(
             GestureState.ACTIVE -> {
                 previousXTranslationOnActiveOffset = previousXTranslation
                 updateRestingArrowDimens()
-                performActivatedHapticFeedback()
+                //performActivatedHapticFeedback()
                 val popVelocity =
                     if (previousState == GestureState.INACTIVE) {
                         POP_ON_INACTIVE_TO_ACTIVE_VELOCITY
@@ -945,7 +945,7 @@ internal constructor(
 
                 mView.popOffEdge(POP_ON_INACTIVE_VELOCITY)
 
-                performDeactivatedHapticFeedback()
+                //performDeactivatedHapticFeedback()
                 updateRestingArrowDimens()
             }
             GestureState.FLUNG -> {
@@ -983,6 +983,11 @@ internal constructor(
                         MIN_DURATION_COMMITTED_ANIMATION
                     )
                 }
+
+//                vibratorHelper.cancel()
+//                    mainHandler.postDelayed(10L) {
+//                        vibratorHelper.vibrate(VIBRATE_ACTIVATED_EFFECT)
+//                    }
             }
             GestureState.CANCELLED -> {
                 val delay = max(0, MIN_DURATION_CANCELLED_ANIMATION - elapsedTimeSinceEntry)
