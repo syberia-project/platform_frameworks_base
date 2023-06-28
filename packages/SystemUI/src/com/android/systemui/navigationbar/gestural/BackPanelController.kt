@@ -943,11 +943,11 @@ internal constructor(
                         mView,
                         HapticFeedbackConstants.GESTURE_THRESHOLD_ACTIVATE
                     )
-                } else {
-                    vibratorHelper.cancel()
-                    mainHandler.postDelayed(10L) {
-                        vibratorHelper.vibrate(VIBRATE_ACTIVATED_EFFECT)
-                    }
+//                } else {
+//                    vibratorHelper.cancel()
+//                    mainHandler.postDelayed(10L) {
+//                        vibratorHelper.vibrate(VIBRATE_ACTIVATED_EFFECT)
+//                    }
                 }
                 val popVelocity =
                     if (previousState == GestureState.INACTIVE) {
@@ -974,9 +974,10 @@ internal constructor(
                         mView,
                         HapticFeedbackConstants.GESTURE_THRESHOLD_DEACTIVATE
                     )
-                } else {
-                    vibratorHelper.vibrate(VIBRATE_DEACTIVATED_EFFECT)
                 }
+//                } else {
+//                    vibratorHelper.vibrate(VIBRATE_DEACTIVATED_EFFECT)
+//                }
                 updateRestingArrowDimens()
             }
             GestureState.FLUNG -> {
@@ -1008,6 +1009,11 @@ internal constructor(
                         MIN_DURATION_COMMITTED_ANIMATION
                     )
                 }
+
+//                vibratorHelper.cancel()
+//                    mainHandler.postDelayed(10L) {
+//                        vibratorHelper.vibrate(VIBRATE_ACTIVATED_EFFECT)
+//                    }
             }
             GestureState.CANCELLED -> {
                 val delay = max(0, MIN_DURATION_CANCELLED_ANIMATION - elapsedTimeSinceEntry)
