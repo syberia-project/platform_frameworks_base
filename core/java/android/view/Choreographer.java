@@ -957,9 +957,8 @@ public final class Choreographer {
             if (callbackType == Choreographer.CALLBACK_COMMIT) {
                 final long jitterNanos = now - frameTimeNanos;
                 Trace.traceCounter(Trace.TRACE_TAG_VIEW, "jitterNanos", (int) jitterNanos);
-                if (jitterNanos >= 2 * frameIntervalNanos) {
-                    final long lastFrameOffset = jitterNanos % frameIntervalNanos
-                            + frameIntervalNanos;
+                if (frameIntervalNanos != 0 && jitterNanos >= 2 * frameIntervalNanos) {
+                    final long lastFrameOffset = jitterNanos % frameIntervalNanos + frameIntervalNanos;
                     if (DEBUG_JANK) {
                         Log.d(TAG, "Commit callback delayed by " + (jitterNanos * 0.000001f)
                                 + " ms which is more than twice the frame interval of "
@@ -969,9 +968,12 @@ public final class Choreographer {
                         mDebugPrintNextFrameTimeDelta = true;
                     }
                     frameTimeNanos = now - lastFrameOffset;
-                    mLastFrameTimeNanos = frameTimeNanos;
-                    frameData.updateFrameData(frameTimeNanos);
+                } else {
+                    frameTimeNanos = now; 
                 }
+
+                mLastFrameTimeNanos = frameTimeNanos;
+                frameData.updateFrameData(frameTimeNanos);
             }
         }
         try {
