@@ -548,7 +548,13 @@ public final class WindowManagerGlobal {
                     visibleRootCount++;
                 }
             }
-            if (visibleRootCount == 1) {
+
+            // The visibleRootCount more than one means multi-layer, and multi-layer rendering
+            // can result in unexpected pending between UI thread and render thread with
+            // pre-rendering enabled. Need to disable pre-rendering for multi-layer cases.
+            if (visibleRootCount > 1) {
+                ScrollOptimizer.disableOptimizer(true);
+            } else if (visibleRootCount == 1) {
                 ScrollOptimizer.disableOptimizer(false);
             }
 
