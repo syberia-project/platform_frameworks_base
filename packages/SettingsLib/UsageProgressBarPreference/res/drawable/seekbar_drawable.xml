@@ -25,7 +25,7 @@
     </item>
     <item android:id="@android:id/progress"
         android:gravity="center_vertical|fill_horizontal" >
-        <com.android.internal.graphics.drawable.RoundedCornerProgressDrawable
+        <com.android.settingslib.drawable.RoundedCornerProgressDrawable
           android:drawable="@drawable/seekbar_progress"
         />
         </item>
