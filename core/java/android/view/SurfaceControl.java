@@ -84,6 +84,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Handle to an on-screen Surface managed by the system compositor. The SurfaceControl is
@@ -3977,11 +3978,17 @@ public final class SurfaceControl implements Parcelable {
             if (this == other) {
                 return this;
             }
-            mResizedSurfaces.putAll(other.mResizedSurfaces);
-            other.mResizedSurfaces.clear();
-            mReparentedSurfaces.putAll(other.mReparentedSurfaces);
-            other.mReparentedSurfaces.clear();
-            nativeMergeTransaction(mNativeObject, other.mNativeObject);
+            ReentrantLock lock = new ReentrantLock();
+            lock.lock();
+            try {
+                mResizedSurfaces.putAll(other.mResizedSurfaces);
+                other.mResizedSurfaces.clear();
+                mReparentedSurfaces.putAll(other.mReparentedSurfaces);
+                other.mReparentedSurfaces.clear();
+                nativeMergeTransaction(mNativeObject, other.mNativeObject);
+            } finally {
+                lock.unlock();
+            }
             return this;
         }
 
