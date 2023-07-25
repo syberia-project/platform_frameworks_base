@@ -84,6 +84,7 @@ import com.android.systemui.statusbar.phone.ScrimController;
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager;
 import com.android.systemui.statusbar.phone.StatusBarTouchableRegionManager;
 import com.android.systemui.statusbar.phone.dagger.CentralSurfacesComponent;
+import com.android.systemui.statusbar.policy.CastController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.util.LargeScreenUtils;
@@ -132,6 +133,7 @@ public class QuickSettingsController {
     private final FalsingCollector mFalsingCollector;
     private final LockscreenGestureLogger mLockscreenGestureLogger;
     private final ShadeLogger mShadeLog;
+    private final CastController mCastController;
     private final FeatureFlags mFeatureFlags;
     private final InteractionJankMonitor mInteractionJankMonitor;
     private final FalsingManager mFalsingManager;
@@ -315,7 +317,8 @@ public class QuickSettingsController {
             FeatureFlags featureFlags,
             InteractionJankMonitor interactionJankMonitor,
             ShadeLogger shadeLog,
-            TunerService tunerService
+            TunerService tunerService,
+            CastController castController
     ) {
         mPanelViewControllerLazy = panelViewControllerLazy;
         mPanelView = panelView;
@@ -354,6 +357,7 @@ public class QuickSettingsController {
         mLockscreenGestureLogger = lockscreenGestureLogger;
         mMetricsLogger = metricsLogger;
         mShadeLog = shadeLog;
+        mCastController = castController;
         mFeatureFlags = featureFlags;
         mInteractionJankMonitor = interactionJankMonitor;
 
@@ -1159,7 +1163,9 @@ public class QuickSettingsController {
         mLastClipBounds.set(left, top, right, bottom);
         if (mIsFullWidth) {
             clipStatusView = qsVisible;
-            float screenCornerRadius = mRecordingController.isRecording() ? 0 : mScreenCornerRadius;
+            float screenCornerRadius =
+                    mRecordingController.isRecording() || mCastController.hasConnectedCastDevice()
+                            ? 0 : mScreenCornerRadius;
             radius = (int) MathUtils.lerp(screenCornerRadius, mScrimCornerRadius,
                     Math.min(top / (float) mScrimCornerRadius, 1f));
         }
