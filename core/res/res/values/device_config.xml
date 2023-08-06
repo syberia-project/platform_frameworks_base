@@ -22,4 +22,8 @@
 
     <!-- Device-specific configs, for overlaying in device trees. Provisioned on every boot. -->
     <string-array name="configs_device" />
+
+    <!-- Configs for pixel specific devices. Provisioned on every boot. -->
+    <string-array name="configs_base_pixel" />
+    <string-array name="pixel_devices" />
 </resources>
