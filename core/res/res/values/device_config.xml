@@ -25,5 +25,6 @@
 
     <!-- Configs for pixel specific devices. Provisioned on every boot. -->
     <string-array name="configs_base_pixel" />
+    <string-array name="reset_namespaces" />
     <string-array name="pixel_devices" />
 </resources>
