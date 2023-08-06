@@ -20,6 +20,7 @@ package com.android.internal.util.evolution;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.provider.DeviceConfig;
+import android.provider.Settings;
 import android.util.Log;
 import android.os.SystemProperties;
 
@@ -47,6 +48,7 @@ public class SimpleDeviceConfig {
     private static Set<String> rawPropertiesSetSoft = new HashSet<>();
 
     public static void updateDefaultConfigs(Context context) {
+        resetConfigs(context, R.array.reset_namespaces);
         updateConfig(context, R.array.configs_base, false);
         updateConfig(context, R.array.configs_base_soft, true);
 
@@ -79,6 +81,14 @@ public class SimpleDeviceConfig {
             if (!isSoft || DeviceConfig.getString(namespace, key, null) == null) {
                 DeviceConfig.setProperty(namespace, key, value, false);
             }
+        }
+    }
+
+    private static void resetConfigs(Context context, int configArray) {
+        // Reset namespace configs
+        String[] namespaces = context.getResources().getStringArray(configArray);
+        for (String namespace : namespaces) {
+            DeviceConfig.resetToDefaults(Settings.RESET_MODE_TRUSTED_DEFAULTS, namespace);
         }
     }
 

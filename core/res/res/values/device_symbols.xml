@@ -19,5 +19,6 @@
     <java-symbol type="array" name="configs_base_soft" />
     <java-symbol type="array" name="configs_device" />
     <java-symbol type="array" name="configs_base_pixel" />
+    <java-symbol type="array" name="reset_namespaces" />
     <java-symbol type="array" name="pixel_devices" />
 </resources>
