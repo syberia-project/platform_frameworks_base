@@ -148,6 +148,13 @@ public class SimpleDeviceConfig {
 
             Collections.addAll(rawPropertiesSet,
                     context.getResources().getStringArray(R.array.configs_device));
+
+            boolean isPixelDevice = Arrays.asList(context.getResources().getStringArray(R.array.pixel_devices))
+                .contains(SystemProperties.get("ro.product.device"));
+            if (isPixelDevice){
+                Collections.addAll(rawPropertiesSet,
+                        context.getResources().getStringArray(R.array.configs_base_pixel));
+            }
         }
 
         if (fullKeyValMap.isEmpty() || nameSpaceSet.isEmpty()) {
