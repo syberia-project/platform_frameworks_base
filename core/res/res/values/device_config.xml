@@ -23,6 +23,11 @@
     <!-- Device-specific configs, for overlaying in device trees. Provisioned on every boot. -->
     <string-array name="configs_device" />
 
+    <!-- Configs for non-pixel devices. Usually for disable pixel specific configs.
+         Provisioned on every boot.
+    -->
+    <string-array name="configs_base_non_pixel" />
+
     <!-- Configs for pixel specific devices. Provisioned on every boot. -->
     <string-array name="configs_base_pixel" />
     <string-array name="reset_namespaces" />
