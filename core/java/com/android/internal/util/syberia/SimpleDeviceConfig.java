@@ -21,8 +21,10 @@ import android.content.Context;
 import android.content.ContentResolver;
 import android.provider.DeviceConfig;
 import android.util.Log;
+import android.os.SystemProperties;
 
 import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +51,12 @@ public class SimpleDeviceConfig {
         updateConfig(context, R.array.configs_base_soft, true);
 
         updateConfig(context, R.array.configs_device, false);
+
+        boolean isPixelDevice = Arrays.asList(context.getResources().getStringArray(R.array.pixel_devices))
+            .contains(SystemProperties.get("ro.product.device"));
+        if (isPixelDevice){
+            updateConfig(context, R.array.configs_base_pixel, false);
+        }
     }
 
     private static void updateConfig(Context context, int configArray, boolean isSoft) {
