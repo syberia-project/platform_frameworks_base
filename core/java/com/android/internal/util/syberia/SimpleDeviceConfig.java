@@ -58,6 +58,8 @@ public class SimpleDeviceConfig {
             .contains(SystemProperties.get("ro.product.device"));
         if (isPixelDevice){
             updateConfig(context, R.array.configs_base_pixel, false);
+        } else {
+            updateConfig(context, R.array.configs_base_non_pixel, false);
         }
     }
 
@@ -154,6 +156,9 @@ public class SimpleDeviceConfig {
             if (isPixelDevice){
                 Collections.addAll(rawPropertiesSet,
                         context.getResources().getStringArray(R.array.configs_base_pixel));
+            } else {
+                Collections.addAll(rawPropertiesSet,
+                        context.getResources().getStringArray(R.array.configs_base_non_pixel));
             }
         }
 
