@@ -40,8 +40,6 @@ import android.util.Pair;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.util.Preconditions;
 
-import com.android.internal.util.evolution.SimpleDeviceConfig;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -957,11 +955,6 @@ public final class DeviceConfig {
     public static boolean setProperty(@NonNull String namespace, @NonNull String name,
             @Nullable String value, boolean makeDefault) {
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
-        // Return true for GMS thinks it suceeds and don't retry to update value
-        if (contentResolver.getPackageName().contains("com.google.android.gms")) {
-            return Settings.Config.putString(contentResolver, namespace, name,
-                        SimpleDeviceConfig.modifyValue(contentResolver, namespace, name, value), makeDefault);
-        }
         return Settings.Config.putString(contentResolver, namespace, name, value, makeDefault);
     }
 
@@ -984,13 +977,7 @@ public final class DeviceConfig {
     @RequiresPermission(WRITE_DEVICE_CONFIG)
     public static boolean setProperties(@NonNull Properties properties) throws BadConfigException {
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
-        String namespace = properties.getNamespace();
-        // Set modified properties map if calling package is gms
-        if (contentResolver.getPackageName().contains("com.google.android.gms")) {
-            return Settings.Config.setStrings(contentResolver, namespace,
-                SimpleDeviceConfig.modifyProperties(contentResolver, namespace, properties.mMap));
-        }
-        return Settings.Config.setStrings(contentResolver, namespace,
+        return Settings.Config.setStrings(contentResolver, properties.getNamespace(),
                 properties.mMap);
     }
 
