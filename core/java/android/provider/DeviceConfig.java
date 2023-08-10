@@ -38,6 +38,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.android.internal.annotations.GuardedBy;
+import com.android.internal.util.syberia.DeviceConfigUtils;
 import com.android.internal.util.Preconditions;
 
 import java.util.Arrays;
@@ -954,6 +955,9 @@ public final class DeviceConfig {
     @RequiresPermission(WRITE_DEVICE_CONFIG)
     public static boolean setProperty(@NonNull String namespace, @NonNull String name,
             @Nullable String value, boolean makeDefault) {
+        if (DeviceConfigUtils.shouldDenyDeviceConfigControl(namespace, name)){
+            return true;
+        }
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
         return Settings.Config.putString(contentResolver, namespace, name, value, makeDefault);
     }
@@ -976,9 +980,15 @@ public final class DeviceConfig {
     @SystemApi
     @RequiresPermission(WRITE_DEVICE_CONFIG)
     public static boolean setProperties(@NonNull Properties properties) throws BadConfigException {
+        Map<String, String> keyValuesFiltered = 
+            DeviceConfigUtils.filterDeviceConfigs(properties.getNamespace(), properties.mMap);
+        if (keyValuesFiltered.size() == 0){
+            return true;
+        }
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
-        return Settings.Config.setStrings(contentResolver, properties.getNamespace(),
-                properties.mMap);
+        boolean result = Settings.Config.setStrings(contentResolver, properties.getNamespace(),
+                keyValuesFiltered);
+        return result;
     }
 
     /**
@@ -993,6 +1003,9 @@ public final class DeviceConfig {
     @SystemApi
     @RequiresPermission(WRITE_DEVICE_CONFIG)
     public static boolean deleteProperty(@NonNull String namespace, @NonNull String name) {
+        if (DeviceConfigUtils.shouldDenyDeviceConfigControl(namespace, name)){
+            return true;
+        }
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
         return Settings.Config.deleteString(contentResolver, namespace, name);
     }
@@ -1027,6 +1040,7 @@ public final class DeviceConfig {
     public static void resetToDefaults(@ResetMode int resetMode, @Nullable String namespace) {
         ContentResolver contentResolver = ActivityThread.currentApplication().getContentResolver();
         Settings.Config.resetToDefaults(contentResolver, resetMode, namespace);
+        DeviceConfigUtils.setDefaultProperties(contentResolver);
     }
 
     /**
