@@ -54,6 +54,7 @@ import android.content.pm.ActivityInfo.ScreenOrientation;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.hardware.display.DeviceProductInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -118,6 +119,10 @@ public class DisplayRotation {
     private final DisplayWindowSettings mDisplayWindowSettings;
     private final Context mContext;
     private final Object mLock;
+    /* QTI_BEGIN */
+    private final boolean overrideMirroring;
+    private final boolean isBuiltin;
+    /* QTI_END */
     @Nullable
     private final DisplayRotationImmersiveAppCompatPolicy mCompatPolicyForImmersiveApps;
 
@@ -284,7 +289,16 @@ public class DisplayRotation {
         mRotation = defaultRotation;
 
         mDisplayRotationCoordinator = displayRotationCoordinator;
-        if (isDefaultDisplay) {
+
+        /* QTI_BEGIN */
+        overrideMirroring =
+                SystemProperties.getBoolean("vendor.display.override_mirroring_rotation", false);
+
+        isBuiltin = ((displayAddress) != null) ?
+                ((((DisplayAddress.Physical) displayAddress).getPort() & 0x80) == 0x80) : false;
+        /* QTI_END */
+
+        if (/* QTI_BEGIN */ (overrideMirroring && isBuiltin) || /* QTI_END */ isDefaultDisplay) {
             mDisplayRotationCoordinator.setDefaultDisplayDefaultRotation(mRotation);
         }
         mDefaultDisplayRotationChangedCallback = this::updateRotationAndSendNewConfigIfChanged;
@@ -296,7 +310,7 @@ public class DisplayRotation {
                     mDefaultDisplayRotationChangedCallback);
         }
 
-        if (isDefaultDisplay) {
+        if (/* QTI_BEGIN */ (overrideMirroring && isBuiltin) || /* QTI_END */ isDefaultDisplay) {
             final Handler uiHandler = UiThread.getHandler();
             mOrientationListener =
                     new OrientationListener(mContext, uiHandler, defaultRotation);
@@ -1247,7 +1261,8 @@ public class DisplayRotation {
 
         @Surface.Rotation
         final int preferredRotation;
-        if (!isDefaultDisplay) {
+
+        if (/* QTI_BEGIN */ !(overrideMirroring && isBuiltin) && /* QTI_END */ !isDefaultDisplay) {
             // For secondary displays we ignore things like displays sensors, docking mode and
             // rotation lock, and always prefer user rotation.
             preferredRotation = mUserRotation;
