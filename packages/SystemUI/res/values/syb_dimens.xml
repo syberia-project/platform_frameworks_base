@@ -85,4 +85,7 @@
     <dimen name="navigation_home_handle_width_long">170dp</dimen>
     <dimen name="navigation_home_handle_width_very_long">190dp</dimen>
 
+    <!-- A11 QS style -->
+    <dimen name="custom_qs_panel_padding_top">0dp</dimen>
+
 </resources>
