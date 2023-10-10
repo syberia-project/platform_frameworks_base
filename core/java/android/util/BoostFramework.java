@@ -110,6 +110,8 @@ public class BoostFramework {
     public static final int VENDOR_HINT_DRAG_END = 0x00001052;
     //Ime Launch Boost Hint
     public static final int VENDOR_HINT_IME_LAUNCH_EVENT = 0x0000109F;
+    //App exit animation boost
+    public static final int VENDOR_HINT_EXIT_ANIM_BOOST = 0x000010A9;
 
     //feedback hints
     public static final int VENDOR_FEEDBACK_WORKLOAD_TYPE = 0x00001601;

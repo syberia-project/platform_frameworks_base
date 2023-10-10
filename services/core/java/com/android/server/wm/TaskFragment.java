@@ -1408,6 +1408,10 @@ class TaskFragment extends WindowContainer<WindowContainer> {
                 dc.prepareAppTransition(TRANSIT_NONE);
             } else {
                 dc.prepareAppTransition(TRANSIT_OPEN);
+                // Exit app animation boost
+                if (next != null && mPerf != null) {
+                    mPerf.perfHint(BoostFramework.VENDOR_HINT_EXIT_ANIM_BOOST, next.packageName);
+                }
             }
         }
 
