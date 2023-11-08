@@ -59,4 +59,8 @@
     <!-- Whether to handle audio direction changes between major call states -->
     <bool name="config_handleAudioDirectionChangesBetweenCallStateChanges">true</bool>
 
+    <!-- Default values for status bar DT2S gesture -->
+    <bool name="config_dt2sGestureAvailable">true</bool>
+    <bool name="config_dt2sGestureEnabledByDefault">true</bool>
+
 </resources>
