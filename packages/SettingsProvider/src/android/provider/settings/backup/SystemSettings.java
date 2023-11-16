@@ -114,7 +114,18 @@ public class SystemSettings {
                 Settings.System.SCREEN_FLASH_NOTIFICATION_COLOR,
                 Settings.System.NOTIFICATION_COOLDOWN_ENABLED,
                 Settings.System.NOTIFICATION_COOLDOWN_ALL,
-                Settings.System.NOTIFICATION_COOLDOWN_VIBRATE_UNLOCKED
+                Settings.System.NOTIFICATION_COOLDOWN_VIBRATE_UNLOCKED,
+                Settings.System.GLOBAL_ACTIONS_AIRPLANE,
+                Settings.System.GLOBAL_ACTIONS_EMERGENCY,
+                Settings.System.GLOBAL_ACTIONS_FLASHLIGHT,
+                Settings.System.GLOBAL_ACTIONS_LOCKDOWN,
+                Settings.System.GLOBAL_ACTIONS_SOUNDPANEL,
+                Settings.System.GLOBAL_ACTIONS_SCREENSHOT,
+                Settings.System.GLOBAL_ACTIONS_SCREENRECORD,
+                Settings.System.GLOBAL_ACTIONS_SETTINGS,
+                Settings.System.GLOBAL_ACTIONS_USERS,
+                Settings.System.GLOBAL_ACTIONS_MAX_COLUMNS,
+                Settings.System.GLOBAL_ACTIONS_MAX_ROWS,
         ));
         if (Flags.backUpSmoothDisplayAndForcePeakRefreshRate()) {
             settings.add(Settings.System.PEAK_REFRESH_RATE);
