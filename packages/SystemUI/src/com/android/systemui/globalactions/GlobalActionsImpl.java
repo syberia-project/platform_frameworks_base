@@ -67,8 +67,8 @@ public class GlobalActionsImpl implements GlobalActions, CommandQueue.Callbacks 
     }
 
     @Override
-    public void showShutdownUi(boolean isReboot, String reason) {
-        mShutdownUi.showShutdownUi(isReboot, reason);
+    public void showShutdownUi(boolean isReboot, String reason, boolean rebootCustom) {
+        mShutdownUi.showShutdownUi(isReboot, reason, rebootCustom);
     }
     @Override
     public void disable(int displayId, int state1, int state2, boolean animate) {
