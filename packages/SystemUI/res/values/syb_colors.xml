@@ -15,23 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <style name="TriStateUiText">
-        <item name="android:textSize">11.0sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <!-- Pure Tuner Theme-->
-    <style name="ExTunerSettings" parent="@android:style/Theme.DeviceDefault.Settings">
-        <item name="preferenceTheme">@style/TunerPreferenceTheme</item>
-    </style>
-
     <!-- Island notification -->
-    <style name="Theme.Island.SystemUI" parent="@style/Theme.MaterialComponents.DayNight">
-        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
-    </style>
-
-    <style name="islandBackgroundOverlay" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">48dp</item>
-    </style>
+    <color name="island_background_color_dark">@android:color/system_neutral1_800</color>
+    <color name="island_background_color_light">@android:color/system_neutral1_0</color>
 </resources>
