@@ -46,6 +46,15 @@ public class TelephonyIcons {
     public static final int ICON_5G_PLUS = R.drawable.ic_5g_plus_mobiledata;
     public static final int ICON_CWF = R.drawable.ic_carrier_wifi;
     public static final int ICON_VOWIFI = R.drawable.ic_vowifi;
+    static final int ICON_VOWIFI_ASUS = R.drawable.ic_vowifi_asus;
+    static final int ICON_VOWIFI_MOTO = R.drawable.ic_vowifi_moto;
+    static final int ICON_VOWIFI_ONEPLUS = R.drawable.ic_vowifi_oneplus;
+    static final int ICON_VOWIFI_EMUI = R.drawable.ic_vowifi_emui;
+    static final int ICON_VOWIFI_Simple1 = R.drawable.ic_vowifi_simple1;
+    static final int ICON_VOWIFI_Simple2 = R.drawable.ic_vowifi_simple2;
+    static final int ICON_VOWIFI_Simple3 = R.drawable.ic_vowifi_simple3;
+    static final int ICON_VOWIFI_VIVO = R.drawable.ic_vowifi_vivo;
+    static final int ICON_VOWIFI_Margaritov = R.drawable.ic_vowifi_margaritov;
 
     public static final MobileIconGroup CARRIER_NETWORK_CHANGE = new MobileIconGroup(
             "CARRIER_NETWORK_CHANGE",
@@ -175,6 +184,51 @@ public class TelephonyIcons {
             "VoWIFI",
             0,
             TelephonyIcons.ICON_VOWIFI);
+
+    public static final MobileIconGroup VOWIFI_MOTO = new MobileIconGroup(
+            "VoWIFI_Moto",
+            0,
+            TelephonyIcons.ICON_VOWIFI_MOTO);
+
+    public static final MobileIconGroup VOWIFI_ASUS = new MobileIconGroup(
+            "VoWIFI_ASUS",
+            0,
+            TelephonyIcons.ICON_VOWIFI_ASUS);
+
+    public static final MobileIconGroup VOWIFI_ONEPLUS = new MobileIconGroup(
+            "VoWIFI_OnePlus",
+            0,
+            TelephonyIcons.ICON_VOWIFI_ONEPLUS);
+
+    public static final MobileIconGroup VOWIFI_EMUI = new MobileIconGroup(
+            "VoWIFI_Emui",
+            0,
+            TelephonyIcons.ICON_VOWIFI_EMUI);
+
+    public static final MobileIconGroup VOWIFI_Simple1 = new MobileIconGroup(
+            "VoWIFI_Simple1",
+            0,
+            TelephonyIcons.ICON_VOWIFI_Simple1);
+
+    public static final MobileIconGroup VOWIFI_Simple2 = new MobileIconGroup(
+            "VoWIFI_Simple2",
+            0,
+            TelephonyIcons.ICON_VOWIFI_Simple2);
+
+    public static final MobileIconGroup VOWIFI_Simple3 = new MobileIconGroup(
+            "VoWIFI_Simple3",
+            0,
+            TelephonyIcons.ICON_VOWIFI_Simple3);
+
+    public static final MobileIconGroup VOWIFI_VIVO = new MobileIconGroup(
+            "VoWIFI_VIVO",
+            0,
+            TelephonyIcons.ICON_VOWIFI_VIVO);
+
+    public static final MobileIconGroup VOWIFI_Margaritov = new MobileIconGroup(
+            "VoWIFI_Syberia",
+            0,
+            TelephonyIcons.ICON_VOWIFI_Margaritov);
 
     // When adding a new MobileIconGroup, check if the dataContentDescription has to be filtered
     // in QSCarrier#hasValidTypeContentDescription
