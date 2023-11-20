@@ -28,6 +28,8 @@ import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.vcn.VcnTransportInfo
 import android.net.wifi.WifiInfo
 import android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID
+import android.os.UserHandle;
+import android.provider.Settings
 import androidx.annotation.ArrayRes
 import androidx.annotation.VisibleForTesting
 import com.android.systemui.Dumpable
@@ -80,6 +82,11 @@ interface ConnectivityRepository {
      * eventually catch up and reflect what is represented here in the VcnTransportInfo.
      */
     val vcnSubId: StateFlow<Int?>
+
+    val showVolteIconPref: StateFlow<Boolean>
+    val showVoWiFiIconPref: StateFlow<Boolean>
+    val volteIconStyle: StateFlow<Int>
+    val voWiFiIconStyle: StateFlow<Int>
 }
 
 @SuppressLint("MissingPermission")
@@ -95,6 +102,20 @@ constructor(
     @Application scope: CoroutineScope,
     tunerService: TunerService,
 ) : ConnectivityRepository, Dumpable {
+
+    private val initialVoltePref: Boolean = Settings.System.getIntForUser(
+                                context.contentResolver,
+                                Settings.System.SHOW_VOLTE_ICON, 0, UserHandle.USER_CURRENT) == 1
+    private val initialVoViFiPref: Boolean = Settings.System.getIntForUser(
+                                context.contentResolver,
+                                Settings.System.VOWIFI_ICON, 0, UserHandle.USER_CURRENT) == 1
+    private val initialVolteStyle: Int = Settings.System.getIntForUser(
+                                context.contentResolver,
+                                Settings.System.VOLTE_ICON_STYLE, 0, UserHandle.USER_CURRENT)
+    private val initialVoViFiStyle: Int = Settings.System.getIntForUser(
+                                context.contentResolver,
+                                Settings.System.VOWIFI_ICON_STYLE, 0, UserHandle.USER_CURRENT)
+
     init {
         dumpManager.registerNormalDumpable("ConnectivityRepository", this)
     }
@@ -130,6 +151,94 @@ constructor(
                 scope,
                 started = SharingStarted.WhileSubscribed(),
                 initialValue = defaultHiddenIcons
+            )
+
+    override val showVolteIconPref: StateFlow<Boolean> =
+        conflatedCallbackFlow {
+                val callback =
+                    object : TunerService.Tunable {
+                        override fun onTuningChanged(key: String, value: String?) {
+                            if (key != SHOW_VOLTE_ICON) {
+                                return
+                            }
+                            val enabled = TunerService.parseIntegerSwitch(value, false)
+                            trySend(enabled)
+                        }
+                    }
+                tunerService.addTunable(callback, SHOW_VOLTE_ICON)
+
+                awaitClose { tunerService.removeTunable(callback) }
+            }
+            .stateIn(
+                scope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = initialVoltePref
+            )
+
+    override val showVoWiFiIconPref: StateFlow<Boolean> =
+        conflatedCallbackFlow {
+                val callback =
+                    object : TunerService.Tunable {
+                        override fun onTuningChanged(key: String, value: String?) {
+                            if (key != VOWIFI_ICON) {
+                                return
+                            }
+                            val enabled = TunerService.parseIntegerSwitch(value, false)
+                            trySend(enabled)
+                        }
+                    }
+                tunerService.addTunable(callback, VOWIFI_ICON)
+
+                awaitClose { tunerService.removeTunable(callback) }
+            }
+            .stateIn(
+                scope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = initialVoViFiPref
+            )
+
+    override val volteIconStyle: StateFlow<Int> =
+        conflatedCallbackFlow {
+                val callback =
+                    object : TunerService.Tunable {
+                        override fun onTuningChanged(key: String, value: String?) {
+                            if (key != VOLTE_ICON_STYLE) {
+                                return
+                            }
+                            val style = TunerService.parseInteger(value, 0)
+                            trySend(style)
+                        }
+                    }
+                tunerService.addTunable(callback, VOLTE_ICON_STYLE)
+
+                awaitClose { tunerService.removeTunable(callback) }
+            }
+            .stateIn(
+                scope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = initialVolteStyle
+            )
+
+    override val voWiFiIconStyle: StateFlow<Int> =
+        conflatedCallbackFlow {
+                val callback =
+                    object : TunerService.Tunable {
+                        override fun onTuningChanged(key: String, value: String?) {
+                            if (key != VOWIFI_ICON_STYLE) {
+                                return
+                            }
+                            val style = TunerService.parseInteger(value, 0)
+                            trySend(style)
+                        }
+                    }
+                tunerService.addTunable(callback, VOWIFI_ICON_STYLE)
+
+                awaitClose { tunerService.removeTunable(callback) }
+            }
+            .stateIn(
+                scope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = initialVoViFiStyle
             )
 
     private val defaultNetworkCapabilities: SharedFlow<NetworkCapabilities?> =
@@ -223,6 +332,18 @@ constructor(
         @VisibleForTesting
         @ArrayRes
         internal val DEFAULT_HIDDEN_ICONS_RESOURCE = R.array.config_statusBarIconsToExclude
+
+        internal val SHOW_VOLTE_ICON =
+            "system:" + Settings.System.SHOW_VOLTE_ICON
+
+        internal val VOWIFI_ICON =
+            "system:" + Settings.System.VOWIFI_ICON
+
+        internal val VOLTE_ICON_STYLE =
+            "system:" + Settings.System.VOLTE_ICON_STYLE
+
+        internal val VOWIFI_ICON_STYLE =
+            "system:" + Settings.System.VOWIFI_ICON_STYLE
 
         /** Converts a list of string slot names to a set of [ConnectivitySlot] instances. */
         private fun List<String>.toSlotSet(
