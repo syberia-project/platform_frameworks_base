@@ -123,11 +123,12 @@ interface MobileIconInteractor {
 
     val imsInfo: StateFlow<MobileIconCustomizationMode>
 
-    val showVolteIcon: StateFlow<Boolean>
-
-    val showVowifiIcon: StateFlow<Boolean>
-
     val voWifiAvailable: StateFlow<Boolean>
+
+    val showVolteIconPref: StateFlow<Boolean>
+    val showVoWiFiIconPref: StateFlow<Boolean>
+    val volteIconStyle: StateFlow<Int>
+    val voWiFiIconStyle: StateFlow<Int>
 }
 
 /** Interactor for a single mobile connection. This connection _should_ have one subscription ID */
@@ -145,8 +146,10 @@ class MobileIconInteractorImpl(
     isDefaultConnectionFailed: StateFlow<Boolean>,
     override val isForceHidden: Flow<Boolean>,
     connectionRepository: MobileConnectionRepository,
-    override val showVolteIcon: StateFlow<Boolean>,
-    override val showVowifiIcon: StateFlow<Boolean>,
+    override val showVolteIconPref: StateFlow<Boolean>,
+    override val showVoWiFiIconPref: StateFlow<Boolean>,
+    override val volteIconStyle: StateFlow<Int>,
+    override val voWiFiIconStyle: StateFlow<Int>,
     private val context: Context,
 
     val carrierIdOverrides: MobileIconCarrierIdOverrides = MobileIconCarrierIdOverridesImpl(),
@@ -223,11 +226,9 @@ class MobileIconInteractorImpl(
         combine(
             connectionRepository.imsRegistrationTech,
             connectionRepository.voiceCapable,
-            showVowifiIcon,
-        ) { imsRegistrationTech, voiceCapable, showVowifiIcon ->
+        ) { imsRegistrationTech, voiceCapable ->
             voiceCapable
                     && imsRegistrationTech == REGISTRATION_TECH_IWLAN
-                    && showVowifiIcon
         }
             .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 

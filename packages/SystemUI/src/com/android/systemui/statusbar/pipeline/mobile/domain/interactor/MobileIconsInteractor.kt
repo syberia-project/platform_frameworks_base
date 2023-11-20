@@ -102,10 +102,10 @@ interface MobileIconsInteractor {
     /** True if we're configured to force-hide the mobile icons and false otherwise. */
     val isForceHidden: Flow<Boolean>
 
-    val showVolteIcon: StateFlow<Boolean>
-
-    val showVowifiIcon: StateFlow<Boolean>
-
+    val showVolteIconPref: StateFlow<Boolean>
+    val showVoWiFiIconPref: StateFlow<Boolean>
+    val volteIconStyle: StateFlow<Int>
+    val voWiFiIconStyle: StateFlow<Int>
     /**
      * Vends out a [MobileIconInteractor] tracking the [MobileConnectionRepository] for the given
      * subId.
@@ -331,15 +331,21 @@ constructor(
             .map { it.contains(ConnectivitySlot.MOBILE) }
             .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 
-    override val showVolteIcon: StateFlow<Boolean> =
-        mobileConnectionsRepo.defaultDataSubRatConfig
-            .mapLatest { it.showVolteIcon }
-            .stateIn(scope, SharingStarted.WhileSubscribed(), false)
+    override val showVolteIconPref: StateFlow<Boolean> =
+        connectivityRepository.showVolteIconPref
+            .stateIn(scope, SharingStarted.WhileSubscribed(), true)
 
-    override val showVowifiIcon: StateFlow<Boolean> =
-        mobileConnectionsRepo.defaultDataSubRatConfig
-            .mapLatest { it.showVowifiIcon }
-            .stateIn(scope, SharingStarted.WhileSubscribed(), false)
+    override val showVoWiFiIconPref: StateFlow<Boolean> =
+        connectivityRepository.showVoWiFiIconPref
+            .stateIn(scope, SharingStarted.WhileSubscribed(), true)
+
+    override val volteIconStyle: StateFlow<Int> =
+        connectivityRepository.volteIconStyle
+            .stateIn(scope, SharingStarted.WhileSubscribed(), 0)
+
+    override val voWiFiIconStyle: StateFlow<Int> =
+        connectivityRepository.voWiFiIconStyle
+            .stateIn(scope, SharingStarted.WhileSubscribed(), 0)
 
     /** Vends out new [MobileIconInteractor] for a particular subId */
     override fun getMobileConnectionInteractorForSubId(subId: Int): MobileIconInteractor =
@@ -358,8 +364,10 @@ constructor(
                 isDefaultConnectionFailed,
                 isForceHidden,
                 mobileConnectionsRepo.getRepoForSubId(subId),
-                showVolteIcon,
-                showVowifiIcon,
+                showVolteIconPref,
+                showVoWiFiIconPref,
+                volteIconStyle,
+                voWiFiIconStyle,
                 context,
             )
             .also { reuseCache[subId] = WeakReference(it) }
