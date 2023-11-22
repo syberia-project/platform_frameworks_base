@@ -48,6 +48,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.systemui.plugins.qs.QSTile.LiveDisplayState;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.qs.QSHost;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.logging.QSLogger;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
 
@@ -93,6 +94,7 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
     @Inject
     public LiveDisplayTile(QSHost host,
             @Background Looper backgroundLooper,
+            QsEventLogger uiEventLogger,
             @Main Handler mainHandler,
             MetricsLogger metricsLogger,
             FalsingManager falsingManager,
@@ -100,7 +102,7 @@ public class LiveDisplayTile extends QSTileImpl<LiveDisplayState> {
             ActivityStarter activityStarter,
             QSLogger qsLogger
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger, statusBarStateController,
+        super(host, uiEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger, statusBarStateController,
                 activityStarter, qsLogger);
 
         mNightDisplayAvailable = ColorDisplayManager.isNightDisplayAvailable(mContext);

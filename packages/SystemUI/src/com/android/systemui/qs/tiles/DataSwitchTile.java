@@ -30,6 +30,7 @@ import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.SysUIToast;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
 import com.android.systemui.qs.tileimpl.QSTileImpl.ResourceIcon;
@@ -38,6 +39,7 @@ import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
+import com.android.systemui.qs.pipeline.domain.interactor.PanelInteractor;
 import com.android.systemui.qs.logging.QSLogger;
 
 import java.lang.reflect.Method;
@@ -71,23 +73,27 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
             refreshState();
         }
     }
+    private final PanelInteractor mPanelInteractor;
 
     @Inject
     public DataSwitchTile(
             QSHost host,
             @Background Looper backgroundLooper,
+            QsEventLogger uiEventLogger,
             @Main Handler mainHandler,
             FalsingManager falsingManager,
             MetricsLogger metricsLogger,
             StatusBarStateController statusBarStateController,
             ActivityStarter activityStarter,
-            QSLogger qsLogger
+            QSLogger qsLogger,
+            PanelInteractor panelInteractor
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
+        super(host, uiEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
         mSubscriptionManager = SubscriptionManager.from(host.getContext());
         mTelephonyManager = TelephonyManager.from(host.getContext());
         mPhoneStateListener = new MyCallStateListener();
+        mPanelInteractor = panelInteractor;
     }
 
     @Override
@@ -148,7 +154,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
         } else if (mSimCount == 1) {
             Log.d(TAG, "handleClick:only one sim card");
         } else {
-            mHost.collapsePanels();
+            mPanelInteractor.collapsePanels();
             AsyncTask.execute(new Runnable() {
                 public final void run() {
                     toggleMobileDataEnabled();
@@ -173,7 +179,8 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         boolean activeSIMZero;
         if (arg == null) {
-            int defaultPhoneId = mSubscriptionManager.getDefaultDataPhoneId();
+            int defaultSubscriptionId = mSubscriptionManager.getDefaultDataSubscriptionId();
+            int defaultPhoneId = mSubscriptionManager.getPhoneId(defaultSubscriptionId);
             Log.d(TAG, "default data phone id=" + defaultPhoneId);
             activeSIMZero = defaultPhoneId == 0;
         } else {

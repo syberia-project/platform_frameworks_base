@@ -32,6 +32,7 @@ import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.plugins.FalsingManager;
+import com.android.systemui.qs.QsEventLogger;
 import com.android.systemui.qs.logging.QSLogger;
 import android.view.View;
 
@@ -56,6 +57,7 @@ public class ReadingModeTile extends QSTileImpl<BooleanState> {
     @Inject
     public ReadingModeTile(QSHost host,
             @Background Looper backgroundLooper,
+            QsEventLogger uiEventLogger,
             @Main Handler mainHandler,
             FalsingManager falsingManager,
             MetricsLogger metricsLogger,
@@ -63,7 +65,7 @@ public class ReadingModeTile extends QSTileImpl<BooleanState> {
             ActivityStarter activityStarter,
             QSLogger qsLogger
     ) {
-        super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger, statusBarStateController,
+        super(host, uiEventLogger, backgroundLooper, mainHandler, falsingManager, metricsLogger, statusBarStateController,
                 activityStarter, qsLogger);
 
         mHardware = LineageHardwareManager.getInstance(mContext);
