@@ -74,4 +74,6 @@
     <string name="global_action_screenrecord">Запись экрана</string>
     <string name="global_action_flashlight">Фонарик</string>
 
+    <string name="face_unlock_recognizing">Распознаём лицо...</string>
+
 </resources>

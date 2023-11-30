@@ -102,4 +102,6 @@
     <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
     <string name="qs_data_sim_none">No SIM card</string>
 
+    <string name="face_unlock_recognizing">Recognizing face...</string>
+
 </resources>
