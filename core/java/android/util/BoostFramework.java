@@ -103,6 +103,7 @@ public class BoostFramework {
     public static final int VENDOR_HINT_APP_UPDATE = 0x00001092;
     public static final int VENDOR_HINT_KILL = 0x00001093;
     public static final int VENDOR_HINT_BOOST_RENDERTHREAD = 0x00001096;
+    public static final int VENDOR_HINT_PASS_PID = 0x0000109C;
     //perf events
     public static final int VENDOR_HINT_FIRST_DRAW = 0x00001042;
     public static final int VENDOR_HINT_TAP_EVENT = 0x00001043;
@@ -162,6 +163,11 @@ public class BoostFramework {
         public static final int TYPE_START_APP_FROM_BG = 102;
         public static final int TYPE_ATTACH_APPLICATION = 103;
     };
+
+    public class PassPid {
+        public static final int APP_PID = 4;
+        public static final int RENDER_TID = 5;
+    }
 
     public class Draw {
         public static final int EVENT_TYPE_V1 = 1;

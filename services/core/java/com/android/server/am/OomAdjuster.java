@@ -395,6 +395,8 @@ public class OomAdjuster {
     //Per Task Boost of top-app renderThread
     public static BoostFramework mPerfBoost = new BoostFramework();
     public static int mPerfHandle = -1;
+    public static int mCurAppPid = -1;
+    public static int mCurRenderTid = -1;
     public static int mCurRenderThreadTid = -1;
     public static boolean mIsTopAppRenderThreadBoostEnabled = false;
 
@@ -1923,14 +1925,6 @@ public class OomAdjuster {
             foregroundActivities = true;
             hasVisibleActivities = true;
             procState = PROCESS_STATE_TOP;
-            if (DEBUG_OOM_ADJ_REASON || logUid == appUid) {
-                reportOomAdjMessageLocked(TAG_OOM_ADJ, "Making top: " + app);
-            }
-        } else if (state.isRunningRemoteAnimation()) {
-            adj = VISIBLE_APP_ADJ;
-            schedGroup = SCHED_GROUP_TOP_APP;
-            state.setAdjType("running-remote-anim");
-            procState = PROCESS_STATE_CUR_TOP;
 
             if(mIsTopAppRenderThreadBoostEnabled) {
                 if(mCurRenderThreadTid != app.getRenderThreadTid() && app.getRenderThreadTid() > 0) {
@@ -1950,7 +1944,30 @@ public class OomAdjuster {
                 }
             }
 
-	    if (DEBUG_OOM_ADJ_REASON || logUid == appUid) {
+            if (mCurAppPid != app.getPid() && app.getPid() > 0) {
+                mCurAppPid = app.getPid();
+                if (mPerfBoost != null) {
+                    mPerfBoost.perfHint(BoostFramework.VENDOR_HINT_PASS_PID, app.processName,
+                                        mCurAppPid, BoostFramework.PassPid.APP_PID);
+                }
+            }
+            if (mCurRenderTid != app.getRenderThreadTid() && app.getRenderThreadTid() > 0) {
+                mCurRenderTid = app.getRenderThreadTid();
+                if (mPerfBoost != null) {
+                    mPerfBoost.perfHint(BoostFramework.VENDOR_HINT_PASS_PID, app.processName,
+                                        mCurRenderTid, BoostFramework.PassPid.RENDER_TID);
+                }
+            }
+
+            if (DEBUG_OOM_ADJ_REASON || logUid == appUid) {
+                reportOomAdjMessageLocked(TAG_OOM_ADJ, "Making top: " + app);
+            }
+        } else if (state.isRunningRemoteAnimation()) {
+            adj = VISIBLE_APP_ADJ;
+            schedGroup = SCHED_GROUP_TOP_APP;
+            state.setAdjType("running-remote-anim");
+            procState = PROCESS_STATE_CUR_TOP;
+            if (DEBUG_OOM_ADJ_REASON || logUid == appUid) {
                 reportOomAdjMessageLocked(TAG_OOM_ADJ, "Making running remote anim: " + app);
             }
         } else if (app.getActiveInstrumentation() != null) {
