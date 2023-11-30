@@ -106,4 +106,6 @@
     <string name="now_playing_on">Now Playing on %1$s</string>
     <string name="by_artist">%1$s by %2$s</string>
 
+    <string name="face_unlock_recognizing">Recognizing face...</string>
+
 </resources>
