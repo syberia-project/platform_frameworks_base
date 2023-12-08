@@ -652,6 +652,10 @@ class AppErrors {
             if (r == null || !makeAppCrashingLocked(r, shortMsg, longMsg, stackTrace, data)) {
                 return;
             }
+            // don't show app error dialog before system booted
+            if (!mService.mBooting && !mService.mBooted) {
+                return;
+            }
 
             final Message msg = Message.obtain();
             msg.what = ActivityManagerService.SHOW_ERROR_UI_MSG;
