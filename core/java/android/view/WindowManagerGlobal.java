@@ -313,6 +313,35 @@ public final class WindowManagerGlobal {
         return null;
     }
 
+    private int getVisibleRootCount (ArrayList<ViewRootImpl> roots) {
+        int visibleRootCount = 0;
+        int lastLeft = -1;
+        int lastTop = -1;
+        int lastWidth = 0;
+        int lastHight = 0;
+        for (int i = roots.size() - 1; i >= 0; --i) {
+            View root_view = roots.get(i).getView();
+            if (root_view != null && root_view.getVisibility() == View.VISIBLE) {
+                int left = root_view.getLeft();
+                int top = root_view.getTop();
+                int width = root_view.getRight() - root_view.getLeft() ;
+                int hight = root_view.getBottom() - root_view.getTop() ;
+                // Filter the invalid visible views.
+                if (width != 0 && hight != 0) {
+                    // Filter the overwritten visible views.
+                    if (lastWidth != width || lastHight != hight || lastLeft != left || lastTop != top ) {
+                        visibleRootCount++;
+                    }
+                    lastLeft = left;
+                    lastTop = top;
+                    lastWidth = width;
+                    lastHight = hight;
+                }
+            }
+        }
+        return visibleRootCount;
+    }
+
     public void addView(View view, ViewGroup.LayoutParams params,
             Display display, Window parentWindow, int userId) {
         if (view == null) {
@@ -369,12 +398,10 @@ public final class WindowManagerGlobal {
                 // The previous removeView() had not completed executing. Now it has.
             }
 
-            boolean isSubWindow = false;
             // If this is a panel window, then find the window it is being
             // attached to for future reference.
             if (wparams.type >= WindowManager.LayoutParams.FIRST_SUB_WINDOW &&
                     wparams.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW) {
-                isSubWindow = true;
                 final int count = mViews.size();
                 for (int i = 0; i < count; i++) {
                     if (mRoots.get(i).mWindow.asBinder() == wparams.token) {
@@ -406,15 +433,8 @@ public final class WindowManagerGlobal {
             view.setLayoutParams(wparams);
 
             int visibleRootCount = 0;
-            if (!isSubWindow) {
-                for (int i = mRoots.size() - 1; i >= 0; --i) {
-                    View root_view = mRoots.get(i).getView();
-                    if (root_view != null && root_view.getVisibility() == View.VISIBLE) {
-                        visibleRootCount++;
-                    }
-                }
-            }
-            if (isSubWindow || visibleRootCount > 1) {
+            visibleRootCount = getVisibleRootCount(mRoots);
+            if (visibleRootCount > 1) {
                 ScrollOptimizer.disableOptimizer(true);
             }
 
@@ -545,17 +565,12 @@ public final class WindowManagerGlobal {
                 mDyingViews.remove(view);
             }
 
-            int visibleRootCount = 0;
-            for (int i = mRoots.size() - 1; i >= 0; --i) {
-                View root_view = mRoots.get(i).getView();
-                if (root_view != null && root_view.getVisibility() == View.VISIBLE) {
-                    visibleRootCount++;
-                }
-            }
-
             // The visibleRootCount more than one means multi-layer, and multi-layer rendering
             // can result in unexpected pending between UI thread and render thread with
             // pre-rendering enabled. Need to disable pre-rendering for multi-layer cases.
+            int visibleRootCount = 0;
+            visibleRootCount = getVisibleRootCount(mRoots);
+
             if (visibleRootCount > 1) {
                 ScrollOptimizer.disableOptimizer(true);
             } else if (visibleRootCount == 1) {
