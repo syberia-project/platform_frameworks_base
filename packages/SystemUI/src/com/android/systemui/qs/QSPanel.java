@@ -692,8 +692,8 @@ public class QSPanel extends LinearLayout implements Tunable {
             mUsingHorizontalLayout = horizontal;
             ViewGroup newParent = horizontal ? mHorizontalContentContainer : this;
             switchAllContentToParent(newParent, mTileLayout);
+            updateResources();
             if (mBrightnessRunnable != null) {
-                updateResources();
                 mBrightnessRunnable.run();
             }
             reAttachMediaHost(mediaHostView, horizontal);
@@ -758,8 +758,8 @@ public class QSPanel extends LinearLayout implements Tunable {
         if (mBrightnessView == null) return;
         ViewGroup newParent = mUsingHorizontalLayout ? mHorizontalContentContainer : this;
         switchAllContentToParent(newParent, mTileLayout);
+        updateResources();
         if (mBrightnessRunnable != null) {
-            updateResources();
             mBrightnessRunnable.run();
         }
     }
