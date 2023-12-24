@@ -128,6 +128,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
                 getPaddingTop(),
                 getPaddingEnd(),
                 bottomPadding);
+        setBrightnessViewMargin(mTop);
     }
 
     @Override
@@ -163,6 +164,11 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
             case QS_LAYOUT_COLUMNS_LANDSCAPE:
                 mColumns = TileUtils.getQSColumnsCount(mContext);
                 setMaxTiles(mColumns);
+                super.onTuningChanged(key, newValue);
+                break;
+            case QS_BRIGHTNESS_SLIDER_POSITION:
+                mTop = TunerService.parseInteger(newValue, 0) == 0;
+                updatePadding();
                 super.onTuningChanged(key, newValue);
                 break;
             default:
