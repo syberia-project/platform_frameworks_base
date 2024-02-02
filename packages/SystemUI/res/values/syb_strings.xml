@@ -92,4 +92,8 @@
     <string name="qs_data_switch_changed_2">Using SIM 2 for Mobile data</string>
     <string name="qs_data_sim_none">No SIM card</string>
 
+    <!-- Island notification -->
+    <string name="now_playing_on">Now Playing on %1$s</string>
+    <string name="by_artist">%1$s by %2$s</string>
+
 </resources>
