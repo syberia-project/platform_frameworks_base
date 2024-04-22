@@ -307,8 +307,8 @@ public class AppUtils {
     }
 
     private static void setAppEntryMounted(ApplicationsState.AppEntry appEntry, boolean mounted) {
-        if (appEntry.mounted != mounted) {
-            synchronized (appEntry) {
+        synchronized (appEntry) {
+            if (appEntry.mounted != mounted) {
                 appEntry.mounted = mounted;
             }
         }
