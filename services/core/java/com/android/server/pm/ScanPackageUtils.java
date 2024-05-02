@@ -867,7 +867,7 @@ final class ScanPackageUtils {
     public static void applyPolicy(ParsedPackage parsedPackage,
             final @PackageManagerService.ScanFlags int scanFlags,
             @Nullable AndroidPackage platformPkg, boolean isUpdatedSystemApp,
-            Signature[] vendorPlatformSignatures) {
+            Signature[][] vendorPlatformSignatures) {
         // TODO: In the real APIs, an updated system app is always a system app, but that may not
         //  hold true during scan because PMS doesn't propagate the SCAN_AS_SYSTEM flag for the data
         //  directory. This tries to emulate that behavior by using either the flag or the boolean,
@@ -988,7 +988,7 @@ final class ScanPackageUtils {
     public static void collectCertificatesLI(PackageSetting ps, ParsedPackage parsedPackage,
             AndroidPackage platformPackage, Settings.VersionInfo settingsVersionForPackage,
             boolean forceCollect, boolean skipVerify, boolean isPreNMR1Upgrade,
-            Signature[] vendorPlatformSignatures)
+            Signature[][] vendorPlatformSignatures)
             throws PackageManagerException {
         // When upgrading from pre-N MR1, verify the package time stamp using the package
         // directory and not the APK file.
@@ -1041,19 +1041,24 @@ final class ScanPackageUtils {
     }
 
     private static boolean signedWithVendorSignatures(
-        Signature[] vendorPlatformSignatures,
+        Signature[][] vendorPlatformSignatures,
         Signature[] signatures
     ) {
-        return ((compareSignaturesActual(
-                vendorPlatformSignatures,
-                signatures
-        ) == PackageManager.SIGNATURE_MATCH))
+        for (Signature[] vendorSigs : vendorPlatformSignatures) {
+            if ((compareSignaturesActual(
+                    vendorSigs,
+                    signatures
+                ) == PackageManager.SIGNATURE_MATCH)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void setVendorSignatures(
         ParsedPackage parsedPackage,
         AndroidPackage platformPackage,
-        Signature[] vendorPlatformSignatures,
+        Signature[][] vendorPlatformSignatures,
         Signature[] signatures
     ) {
         if (!signedWithVendorSignatures(vendorPlatformSignatures, signatures)

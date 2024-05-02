@@ -226,7 +226,7 @@ final class InstallPackageHelper {
     private final PackageManagerServiceInjector mInjector;
     private final UpdateOwnershipHelper mUpdateOwnershipHelper;
 
-    private Signature[] mVendorPlatformSignatures = new Signature[0];
+    private Signature[][] mVendorPlatformSignatures = new Signature[0][0];
 
     private static Signature[] createSignatures(String[] hexBytes) {
         Signature[] sigs = new Signature[hexBytes.length];
@@ -257,8 +257,12 @@ final class InstallPackageHelper {
         mPackageAbiHelper = pm.mInjector.getAbiHelper();
         mSharedLibraries = pm.mInjector.getSharedLibrariesImpl();
         mUpdateOwnershipHelper = pm.mInjector.getUpdateOwnershipHelper();
-        mVendorPlatformSignatures = createSignatures(mContext.getResources().getStringArray(
-                com.android.internal.R.array.config_vendorPlatformSignatures));
+        mVendorPlatformSignatures = new Signature[][] { 
+            createSignatures(mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_vendorPlatformSignatures)),
+            createSignatures(mContext.getResources().getStringArray(
+                com.android.internal.R.array.config_googlePlatformSignatures))
+        };
     }
 
     /**

@@ -79,4 +79,9 @@
     <string-array name="config_vendorPlatformSignatures">
     </string-array>
 
+    <!-- The list of Google platform package signatures
+         that should also be considered platform signatures. -->
+    <string-array name="config_googlePlatformSignatures">
+    </string-array>
+
 </resources>
