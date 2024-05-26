@@ -350,7 +350,8 @@ final class WiredAccessoryManager implements WiredAccessoryCallbacks {
                         FileReader file = new FileReader(uei.getSwitchStatePath());
                         int len = file.read(buffer, 0, 1024);
                         file.close();
-                        curState = Integer.parseInt((new String(buffer, 0, len)).trim());
+                        curState = Integer.parseInt(
+                                (new String(buffer, 0, len).replaceAll("\\D+","")).trim());
 
                         if (curState > 0) {
                             updateStateLocked(uei.getDevPath(), uei.getDevName(), curState);
