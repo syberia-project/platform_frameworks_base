@@ -14,9 +14,18 @@ message CardWrapper {
     required bool isIconGrayscale = 6;
 }
 
+message SmartspaceCardDimensionalInfo {
+    repeated SmartspaceFeatureDimension featureDimensions = 1;
+}
+
 message SmartSpaceCardMetadata {
-        required int32 instanceId = 1;
-        required int32 cardTypeId = 2;
+    required int32 instanceId = 1;
+    required int32 cardTypeId = 2;
+}
+
+message SmartspaceFeatureDimension {
+    required int32 featureDimensionId = 1;
+    required int32 featureDimensionValue = 2;
 }
 
 message SmartSpaceSubcards {
