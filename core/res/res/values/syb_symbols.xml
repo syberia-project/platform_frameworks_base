@@ -158,5 +158,8 @@
          that should also be considered platform signatures. -->
     <java-symbol type="array" name="config_googlePlatformSignatures" />
 
+    <!-- The list of Microsoft platform package signatures
+         that should also be considered platform signatures. -->
+    <java-symbol type="array" name="config_microsoftPlatformSignatures" />
 
 </resources>
